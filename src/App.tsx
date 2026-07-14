@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ImageAnalyzer } from './components/ImageAnalyzer/ImageAnalyzer';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
 import { AppProvider, useApp } from './context/AppContext';
@@ -6,6 +7,13 @@ import 'virtual:uno.css';
 import './index.css';
 
 type Tab = 'dashboard' | 'statSearch' | 'imageAnalyzer' | 'partySimulator';
+
+const tabIcons: Record<Tab, string> = {
+  dashboard: 'i-lucide-layout-dashboard',
+  statSearch: 'i-lucide-trending-up',
+  imageAnalyzer: 'i-lucide-scan-face',
+  partySimulator: 'i-lucide-shield-alert',
+};
 
 const DashboardContent = ({
   setActiveTab,
@@ -62,46 +70,37 @@ const DashboardContent = ({
 
 const MainLayout = () => {
   const { language, toggleLanguage, theme, toggleTheme, t } = useApp();
-  const [activeTab, setActiveTab] = useState<Tab>('dashboard');
+  const [activeTab, setActiveTab] = useState<Tab>(() => {
+    // Sync active tab with hash or fallback to dashboard
+    const hash = window.location.hash.replace('#', '') as Tab;
+    return [
+      'dashboard',
+      'statSearch',
+      'imageAnalyzer',
+      'partySimulator',
+    ].includes(hash)
+      ? hash
+      : 'dashboard';
+  });
+
+  const changeTab = (tab: Tab) => {
+    setActiveTab(tab);
+    window.location.hash = tab;
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans">
-      {/* Header */}
-      <header className="border-b border-slate-200 dark:border-slate-800 p-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans pb-24">
+      {/* Header (Top Bar with Logo and Interactivity only) */}
+      <header className="border-b border-slate-200 dark:border-slate-800 p-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
           <button
             type="button"
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => changeTab('dashboard')}
             className="text-xl font-bold flex items-center gap-2 cursor-pointer bg-transparent border-none text-slate-900 dark:text-slate-100"
           >
             <span className="i-lucide-sword text-indigo-500" />
             Poke-Tool
           </button>
-
-          {/* Navigation Tabs */}
-          <nav className="flex gap-1 bg-slate-200/50 dark:bg-slate-900/60 p-1 rounded-xl">
-            {(
-              [
-                'dashboard',
-                'statSearch',
-                'imageAnalyzer',
-                'partySimulator',
-              ] as Tab[]
-            ).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  activeTab === tab
-                    ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
-                }`}
-              >
-                {t(tab)}
-              </button>
-            ))}
-          </nav>
 
           <div className="flex gap-3">
             {/* Language Toggle */}
@@ -134,22 +133,40 @@ const MainLayout = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto p-6 md:p-12">
         {activeTab === 'dashboard' && (
-          <DashboardContent setActiveTab={setActiveTab} />
+          <DashboardContent setActiveTab={changeTab} />
         )}
         {activeTab === 'statSearch' && <StatSearch />}
-
-        {activeTab === 'imageAnalyzer' && (
-          <div className="card-premium text-center py-20">
-            <span className="i-lucide-scan-face text-5xl text-indigo-500/50 mb-4 block" />
-            <h2 className="text-xl font-bold mb-2">{t('imageAnalyzer')}</h2>
-            <p className="text-slate-500">
-              Coming soon in Step 4/5 (WASM & Onnx OCR Image Analysis).
-            </p>
-          </div>
-        )}
-
+        {activeTab === 'imageAnalyzer' && <ImageAnalyzer />}
         {activeTab === 'partySimulator' && <PartySimulator />}
       </main>
+
+      {/* Bottom Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-4 py-2 flex justify-around items-center">
+        {(
+          [
+            'dashboard',
+            'statSearch',
+            'imageAnalyzer',
+            'partySimulator',
+          ] as Tab[]
+        ).map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            onClick={() => changeTab(tab)}
+            className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
+              activeTab === tab
+                ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105'
+                : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+            }`}
+          >
+            <span className={`${tabIcons[tab]} text-xl mb-1`} />
+            <span className="text-[10px] tracking-wider font-semibold">
+              {t(tab)}
+            </span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 };
