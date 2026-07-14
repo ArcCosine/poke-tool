@@ -54,6 +54,16 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     weakness: '弱点',
     resistance: '耐性',
     immunity: '無効',
+    uploadPrompt:
+      '画像をドラッグ＆ドロップするか、クリックしてファイルを選択してください',
+    analyze: '画像を解析する',
+    importToParty: 'パーティにインポート',
+    analysisResult: '解析結果',
+    detectedPokemon: '検出されたポケモン',
+    radarChartStats: '努力値グラフ解析値',
+    importSuccess: 'パーティの空きスロットにインポートしました！',
+    noEmptySlot:
+      'パーティに空きスロットがありません（最大6匹）。先にスロットを空けてください。',
   },
   en: {
     dashboard: 'Dashboard',
@@ -94,6 +104,15 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     weakness: 'Weak',
     resistance: 'Resist',
     immunity: 'Immune',
+    uploadPrompt: 'Drag & drop game screenshot here, or click to upload',
+    analyze: 'Analyze Image',
+    importToParty: 'Import to Party',
+    analysisResult: 'Analysis Result',
+    detectedPokemon: 'Detected Pokémon',
+    radarChartStats: 'Radar Chart EVs',
+    importSuccess: 'Imported to the first available slot in your party!',
+    noEmptySlot:
+      'No empty slot available in your party. Please remove a Pokémon first.',
   },
 };
 

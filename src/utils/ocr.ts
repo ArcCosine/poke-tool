@@ -57,7 +57,7 @@ export async function parseRadarChart(
 
   // Pass pixel array directly to Rust WASM
   const results = wasm.analyze_radar_chart(
-    imgData.data,
+    new Uint8Array(imgData.data),
     canvas.width,
     canvas.height
   );
