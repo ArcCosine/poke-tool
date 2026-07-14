@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
 import { AppProvider, useApp } from './context/AppContext';
 import 'virtual:uno.css';
@@ -151,15 +152,7 @@ const MainLayout = () => {
           </div>
         )}
 
-        {activeTab === 'partySimulator' && (
-          <div className="card-premium text-center py-20">
-            <span className="i-lucide-shield-alert text-5xl text-indigo-500/50 mb-4 block" />
-            <h2 className="text-xl font-bold mb-2">{t('partySimulator')}</h2>
-            <p className="text-slate-500">
-              Coming soon in Step 3 (Party Weakness & Matchup Simulator).
-            </p>
-          </div>
-        )}
+        {activeTab === 'partySimulator' && <PartySimulator />}
       </main>
     </div>
   );
