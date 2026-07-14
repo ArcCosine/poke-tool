@@ -141,7 +141,7 @@ const MainLayout = () => {
       </main>
 
       {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] px-4 py-2 flex justify-around items-center">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 px-4 py-2.5 flex justify-around items-center">
         {(
           [
             'dashboard',
@@ -154,16 +154,14 @@ const MainLayout = () => {
             key={tab}
             type="button"
             onClick={() => changeTab(tab)}
-            className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-xl transition-all duration-200 cursor-pointer ${
+            className={`flex-1 flex flex-col items-center justify-center py-1 transition-colors duration-150 cursor-pointer ${
               activeTab === tab
-                ? 'text-indigo-600 dark:text-indigo-400 font-bold scale-105'
-                : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-200'
+                ? 'text-indigo-600 dark:text-indigo-400 font-bold'
+                : 'text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
             }`}
           >
             <span className={`${tabIcons[tab]} text-xl mb-1`} />
-            <span className="text-[10px] tracking-wider font-semibold">
-              {t(tab)}
-            </span>
+            <span className="text-[10px] tracking-tight">{t(tab)}</span>
           </button>
         ))}
       </nav>

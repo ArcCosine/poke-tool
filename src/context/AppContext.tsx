@@ -18,8 +18,8 @@ const uiTranslations: Record<Language, Record<string, string>> = {
   ja: {
     dashboard: 'ダッシュボード',
     imageAnalyzer: '画像分析',
-    statSearch: '火力・耐久検索',
-    partySimulator: 'パーティシミュレーター',
+    statSearch: '火力・耐久',
+    partySimulator: 'パーティ編成',
     searchType: '検索項目',
     damage: '最大火力',
     phyDef: '物理耐久',
@@ -87,9 +87,9 @@ const uiTranslations: Record<Language, Record<string, string>> = {
   },
   en: {
     dashboard: 'Dashboard',
-    imageAnalyzer: 'Image Analyzer',
+    imageAnalyzer: 'Image Scan',
     statSearch: 'Stat Search',
-    partySimulator: 'Party Simulator',
+    partySimulator: 'Party Sim',
     searchType: 'Search Target',
     damage: 'Max Damage',
     phyDef: 'Physical Durability',

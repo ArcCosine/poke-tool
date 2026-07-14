@@ -46,7 +46,7 @@ describe('Poke-Tool Integration', () => {
     ).toBeDefined();
 
     // Switch to Stat Search tab
-    const tabStatSearch = screen.getAllByText('火力・耐久検索')[0];
+    const tabStatSearch = screen.getAllByText('火力・耐久')[0];
     act(() => {
       tabStatSearch.click();
     });
@@ -55,7 +55,7 @@ describe('Poke-Tool Integration', () => {
     expect(await screen.findByText('検索項目')).toBeDefined();
 
     // Switch to Party Simulator tab
-    const tabParty = screen.getAllByText('パーティシミュレーター')[0];
+    const tabParty = screen.getAllByText('パーティ編成')[0];
     act(() => {
       tabParty.click();
     });
