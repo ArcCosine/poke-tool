@@ -14,14 +14,16 @@ const DashboardContent = ({
 }) => {
   const { t } = useApp();
   return (
-    <div className="card-premium">
-      <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-        <span className="i-lucide-layout-dashboard text-indigo-500" />
-        {t('dashboard')}
-      </h2>
-      <p className="text-slate-600 dark:text-slate-400 mb-6">
-        {t('dashboardDesc')}
-      </p>
+    <div className="space-y-8">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-5">
+        <h2 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent flex items-center gap-3">
+          <span className="i-lucide-layout-dashboard text-indigo-500" />
+          {t('dashboard')}
+        </h2>
+        <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+          {t('dashboardDesc')}
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <button
