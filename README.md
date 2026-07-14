@@ -1,22 +1,32 @@
-# ポケモンチャンピオンズ データ分析ツール (Poke-Tool)
+# React + TypeScript + Vite
 
-本プロジェクトは、ポケモンチャンピオンズのプレイをサポートするための、Webベースのデータ分析ツールです。
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## 主な機能
+Currently, two official plugins are available:
 
-1. **パーティ画像分析 (ローカルWASM)**
-   - パーティのスクリーンショット画像をアップロードし、ローカル環境（WebAssembly）で画像分析を行います。
-   - 分析結果として、ポケモンの名前、性格、技、努力値の割り振りなどをテキストデータとして抽出します。
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-2. **最大火力・最大耐久検索**
-   - ポケモンの最大火力および最大耐久を計算・比較する機能。
-   - Top 30までのランキング一覧表示。
-   - タイプごとのフィルタリング機能。
+## React Compiler
 
-3. **パーティシミュレーター**
-   - 登録されたパーティのタイプ相性、技の威力、耐久値を元に、苦手なタイプや対策が必要な相手を分析・可視化します。
-   - WASMを用いたローカル推論、またはテキストデータに基づくロジック分析で実装します。
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 技術スタック (予定)
-- **フロントエンド**: Webアプリ (HTML/CSS/JS または Vite / Next.js 等のフレームワーク)
-- **解析・推論**: WebAssembly (WASM) によるブラウザ側ローカル処理
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+```
+
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
