@@ -64,6 +64,25 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     importSuccess: 'パーティの空きスロットにインポートしました！',
     noEmptySlot:
       'パーティに空きスロットがありません（最大6匹）。先にスロットを空けてください。',
+    dashboardDesc:
+      'Poke-Toolへようこそ！このツールはポケモンチャンピオンズ向けのデータ分析とパーティシミュレーションをサポートします。',
+    imageAnalyzerDesc:
+      'スクリーンショット画像をローカルの ONNX OCR / WASM で解析し、ポケモンの努力値を読み込みます。',
+    statSearchDesc:
+      'レベル50固定時の物理耐久、特殊耐久、最大火力指数のランキングと詳細検索を行います。',
+    partySimulatorDesc:
+      'パーティの相性・弱点の一貫性、攻撃範囲のカバー率、レギュレーションの適合性を分析します。',
+    analyzing: '解析中...',
+    uploadInstruction:
+      '画像をアップロードし、解析を実行すると、認識されたポケモンのステータスが表示されます。',
+    partySaved: 'パーティを保存しました！',
+    defaultPartyName: 'マイチャンピオンズパーティ',
+    hp: 'HP',
+    attack: '攻撃',
+    defense: '防御',
+    sp_attack: '特攻',
+    sp_defense: '特防',
+    speed: '素早さ',
   },
   en: {
     dashboard: 'Dashboard',
@@ -113,6 +132,22 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     importSuccess: 'Imported to the first available slot in your party!',
     noEmptySlot:
       'No empty slot available in your party. Please remove a Pokémon first.',
+    dashboardDesc:
+      'Welcome to the Poke-Tool! This tool will support your Pokémon Champions data analysis.',
+    imageAnalyzerDesc: 'Analyze party images using Onnx OCR and WASM locally.',
+    statSearchDesc: 'Search maximum damage and durability rankings.',
+    partySimulatorDesc: 'Analyze party weaknesses and type balances.',
+    analyzing: 'Analyzing...',
+    uploadInstruction:
+      'Upload an image and run analysis to view the recognized Pokémon statistics.',
+    partySaved: 'Party saved successfully!',
+    defaultPartyName: 'My Champions Party',
+    hp: 'HP',
+    attack: 'Attack',
+    defense: 'Defense',
+    sp_attack: 'Sp. Attack',
+    sp_defense: 'Sp. Defense',
+    speed: 'Speed',
   },
 };
 

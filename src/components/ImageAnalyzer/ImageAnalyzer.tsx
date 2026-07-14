@@ -265,7 +265,7 @@ export const ImageAnalyzer: React.FC = () => {
               {analyzing ? (
                 <>
                   <span className="i-lucide-loader-2 animate-spin mr-1" />
-                  Analyzing...
+                  {t('analyzing')}
                 </>
               ) : (
                 <>
@@ -313,12 +313,12 @@ export const ImageAnalyzer: React.FC = () => {
                     {/* EVs [HP, Atk, Def, Spe, SpD, SpA] */}
                     <div className="grid grid-cols-2 gap-4">
                       {[
-                        { label: 'HP', val: parsedEvs[0] },
-                        { label: 'Attack', val: parsedEvs[1] },
-                        { label: 'Defense', val: parsedEvs[2] },
-                        { label: 'Speed', val: parsedEvs[3] },
-                        { label: 'Sp. Defense', val: parsedEvs[4] },
-                        { label: 'Sp. Attack', val: parsedEvs[5] },
+                        { label: t('hp'), val: parsedEvs[0] },
+                        { label: t('attack'), val: parsedEvs[1] },
+                        { label: t('defense'), val: parsedEvs[2] },
+                        { label: t('speed'), val: parsedEvs[3] },
+                        { label: t('sp_defense'), val: parsedEvs[4] },
+                        { label: t('sp_attack'), val: parsedEvs[5] },
                       ].map((item) => (
                         <div
                           key={item.label}
@@ -337,8 +337,7 @@ export const ImageAnalyzer: React.FC = () => {
                 </div>
               ) : (
                 <div className="text-center text-slate-400 py-16 text-sm">
-                  Upload an image and run analysis to view the recognized
-                  Pokémon statistics.
+                  {t('uploadInstruction')}
                 </div>
               )}
             </div>

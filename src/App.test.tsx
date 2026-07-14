@@ -41,7 +41,9 @@ describe('Poke-Tool Integration', () => {
     render(<App />);
 
     // Dashboard initial title
-    expect(screen.getByText(/Welcome to the Poke-Tool/i)).toBeDefined();
+    expect(
+      screen.getByText(/Poke-Toolへようこそ|Welcome to the Poke-Tool/i)
+    ).toBeDefined();
 
     // Switch to Stat Search tab
     const tabStatSearch = screen.getAllByText('火力・耐久検索')[0];

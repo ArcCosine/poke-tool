@@ -69,7 +69,7 @@ export const PartySimulator: React.FC = () => {
   const [movesData, setMovesData] = useState<MoveMaster[]>([]);
 
   // Party State
-  const [partyName, setPartyName] = useState('My Champions Party');
+  const [partyName, setPartyName] = useState('');
   const [selectedReg, setSelectedReg] = useState('M-A');
   const [party, setParty] = useState<PokemonInstance[]>([
     createEmptyInstance(),
@@ -171,7 +171,8 @@ export const PartySimulator: React.FC = () => {
   const regulationCheck = validatePartyRegulation(
     activeParty,
     pokemonData,
-    selectedReg
+    selectedReg,
+    language
   );
 
   // Generate warnings
@@ -185,7 +186,7 @@ export const PartySimulator: React.FC = () => {
       defenseWarnings.push(
         language === 'ja'
           ? `${typeLabel}タイプの攻撃が一貫しています（弱点持ちが${defenseAnalysis[type].weaknesses}匹）。`
-          : `Water type is highly effective: ${defenseAnalysis[type].weaknesses} members are weak to ${typeLabel}.`
+          : `${typeLabel} type is highly effective: ${defenseAnalysis[type].weaknesses} members are weak to it.`
       );
     }
 
@@ -212,6 +213,7 @@ export const PartySimulator: React.FC = () => {
               id="party-name-input"
               type="text"
               value={partyName}
+              placeholder={t('defaultPartyName')}
               onChange={(e) => setPartyName(e.target.value)}
               className="input-premium py-2 text-sm font-semibold"
             />
@@ -408,7 +410,8 @@ export const PartySimulator: React.FC = () => {
             {regulationCheck.valid ? (
               <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
                 <span className="i-lucide-check-circle2 text-lg" />
-                {t('regValid')}: {selectedReg} Pass
+                {t('regValid')}: {selectedReg}{' '}
+                {language === 'ja' ? '適合' : 'Pass'}
               </div>
             ) : (
               <div className="space-y-2">

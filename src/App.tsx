@@ -20,8 +20,7 @@ const DashboardContent = ({
         {t('dashboard')}
       </h2>
       <p className="text-slate-600 dark:text-slate-400 mb-6">
-        Welcome to the Poke-Tool! This tool will support your Pokémon Champions
-        data analysis.
+        {t('dashboardDesc')}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -32,9 +31,7 @@ const DashboardContent = ({
         >
           <span className="i-lucide-scan-face text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('imageAnalyzer')}</h3>
-          <p className="text-sm text-slate-500">
-            Analyze party images using Onnx OCR locally.
-          </p>
+          <p className="text-sm text-slate-500">{t('imageAnalyzerDesc')}</p>
         </button>
 
         <button
@@ -44,9 +41,7 @@ const DashboardContent = ({
         >
           <span className="i-lucide-trending-up text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('statSearch')}</h3>
-          <p className="text-sm text-slate-500">
-            Search maximum damage and durability rankings.
-          </p>
+          <p className="text-sm text-slate-500">{t('statSearchDesc')}</p>
         </button>
 
         <button
@@ -56,9 +51,7 @@ const DashboardContent = ({
         >
           <span className="i-lucide-shield-alert text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('partySimulator')}</h3>
-          <p className="text-sm text-slate-500">
-            Analyze party weaknesses and type balances.
-          </p>
+          <p className="text-sm text-slate-500">{t('partySimulatorDesc')}</p>
         </button>
       </div>
     </div>
