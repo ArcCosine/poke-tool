@@ -83,6 +83,7 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_attack: '特攻',
     sp_defense: '特防',
     speed: '素早さ',
+    uploadPreview: 'アップロードプレビュー',
   },
   en: {
     dashboard: 'Dashboard',
@@ -148,6 +149,7 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_attack: 'Sp. Attack',
     sp_defense: 'Sp. Defense',
     speed: 'Speed',
+    uploadPreview: 'Upload preview',
   },
 };
 

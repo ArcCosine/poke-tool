@@ -242,7 +242,7 @@ export const ImageAnalyzer: React.FC = () => {
             {imageSrc ? (
               <img
                 src={imageSrc}
-                alt="Upload preview"
+                alt={t('uploadPreview')}
                 className="max-h-64 rounded-lg object-contain shadow-md"
               />
             ) : (
