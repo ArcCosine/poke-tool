@@ -92,13 +92,28 @@ PokeAPI のデータを活用しつつ、先方サーバーへの負荷軽減と
 
 ---
 
-## 8. 結論と決定事項
+## 8. Linter と Formatter の選定
+
+コードの品質維持、バグの早期発見、およびコードスタイルの統一を自動化するため、React/TypeScriptにおける推奨標準構成を導入します。
+
+### 8.1 採用決定: ESLint + Prettier
+- **Linter**: **ESLint**
+  - TypeScriptの静的解析（`@typescript-eslint/eslint-plugin`）および React 専用ルール（`eslint-plugin-react-hooks` / `eslint-plugin-react-refresh`）を組み込み、安全なコーディングを強制します。
+- **Formatter**: **Prettier**
+  - コードのスタイル（インデント幅、セミコロンの有無、クォーテーションの統一など）を一元管理します。
+  - ESLintとの競合を防ぐため `eslint-config-prettier` を適用します。
+- **代替案（検討）**: Rust製の超高速Linter/Formatterである **Biome** も存在しますが、Viteの標準テンプレートでのサポートや、Reactエコシステムでの各種プラグイン（Trivially config）の成熟度・安定性を考慮し、今回は枯れた技術である **ESLint + Prettier** を採用します。
+
+---
+
+## 9. 結論と決定事項
 
 - **ホスティング**: **Cloudflare Pages**
 - **フレームワーク**: **Vite + React (TypeScript)**
 - **スタイリング / CSS**: **UnoCSS**
 - **OCR・推論エンジン**: **ONNX Runtime Web (WASM)**
 - **データソース**: **PokeAPI** (事前クローリングによる軽量 JSON ファイル化 + IndexedDB ローカルキャッシュ)
+- **Linter / Formatter**: **ESLint + Prettier**
 - **テストフレームワーク**: **Vitest** (フロントエンド) / **`cargo test` & `wasm-bindgen-test`** (Rust/WASM)
 
 ### 次のステップ

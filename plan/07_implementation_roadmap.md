@@ -13,6 +13,7 @@
   - `Vite + React + TypeScript` プロジェクトの作成。
   - UnoCSS（`unocss`、`@unocss/vite` 等）のインストールと設定（`uno.config.ts` の作成）。
   - UnoCSSのプリセット（Uno, Attributify, Icons）のセットアップ。
+  - **コード品質・整形の導入**: ESLint および Prettier、そして競合防止の `eslint-config-prettier` をインストールし、ルール設定ファイルを配置。
   - **テスト環境の構築**: `Vitest`、`@testing-library/react`、`happy-dom` などの単体テスト環境をインストール・セットアップ。
   - プレミアムなデザインのためのカスタム設定（共通HSLカラー、ガラスモフィズム用ショートカット定義、ベースCSSリセットなど）。
   - ナビゲーションおよびダッシュボード全体の骨組み（タブ切り替えなど）の実装。
