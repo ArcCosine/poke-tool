@@ -1,0 +1,1010 @@
+[
+  {
+    "id": 1,
+    "name": {
+      "ja": "フシギダネ",
+      "en": "Bulbasaur"
+    },
+    "types": ["grass", "poison"],
+    "base_stats": {
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "sp_attack": 65,
+      "sp_defense": 65,
+      "speed": 45
+    },
+    "abilities": [
+      {
+        "ja": "しんりょく",
+        "en": "Overgrow"
+      },
+      {
+        "ja": "ようりょくそ",
+        "en": "Chlorophyll"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      13, 14, 15, 20, 22, 29, 33, 34, 36, 38, 45, 70, 72, 73, 74
+    ]
+  },
+  {
+    "id": 3,
+    "name": {
+      "ja": "フシギバナ",
+      "en": "Venusaur"
+    },
+    "types": ["grass", "poison"],
+    "base_stats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 83,
+      "sp_attack": 100,
+      "sp_defense": 100,
+      "speed": 80
+    },
+    "abilities": [
+      {
+        "ja": "しんりょく",
+        "en": "Overgrow"
+      },
+      {
+        "ja": "ようりょくそ",
+        "en": "Chlorophyll"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      14, 15, 20, 22, 29, 33, 34, 36, 38, 45, 46, 63, 70, 72, 73
+    ]
+  },
+  {
+    "id": 4,
+    "name": {
+      "ja": "ヒトカゲ",
+      "en": "Charmander"
+    },
+    "types": ["fire"],
+    "base_stats": {
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "sp_attack": 60,
+      "sp_defense": 50,
+      "speed": 65
+    },
+    "abilities": [
+      {
+        "ja": "もうか",
+        "en": "Blaze"
+      },
+      {
+        "ja": "サンパワー",
+        "en": "Solar Power"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 9, 10, 14, 15, 17, 25, 29, 34, 36, 38, 43, 44, 45]
+  },
+  {
+    "id": 6,
+    "name": {
+      "ja": "リザードン",
+      "en": "Charizard"
+    },
+    "types": ["fire", "flying"],
+    "base_stats": {
+      "hp": 78,
+      "attack": 84,
+      "defense": 78,
+      "sp_attack": 109,
+      "sp_defense": 85,
+      "speed": 100
+    },
+    "abilities": [
+      {
+        "ja": "もうか",
+        "en": "Blaze"
+      },
+      {
+        "ja": "サンパワー",
+        "en": "Solar Power"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 9, 10, 14, 15, 17, 19, 25, 29, 34, 36, 38, 43, 44]
+  },
+  {
+    "id": 9,
+    "name": {
+      "ja": "カメックス",
+      "en": "Blastoise"
+    },
+    "types": ["water"],
+    "base_stats": {
+      "hp": 79,
+      "attack": 83,
+      "defense": 100,
+      "sp_attack": 85,
+      "sp_defense": 105,
+      "speed": 78
+    },
+    "abilities": [
+      {
+        "ja": "げきりゅう",
+        "en": "Torrent"
+      },
+      {
+        "ja": "あめうけざら",
+        "en": "Rain Dish"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      5, 8, 25, 29, 33, 34, 36, 38, 39, 44, 46, 54, 55, 56, 57
+    ]
+  },
+  {
+    "id": 25,
+    "name": {
+      "ja": "ピカチュウ",
+      "en": "Pikachu"
+    },
+    "types": ["electric"],
+    "base_stats": {
+      "hp": 35,
+      "attack": 55,
+      "defense": 40,
+      "sp_attack": 50,
+      "sp_defense": 50,
+      "speed": 90
+    },
+    "abilities": [
+      {
+        "ja": "せいでんき",
+        "en": "Static"
+      },
+      {
+        "ja": "ひらいしん",
+        "en": "Lightning Rod"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 6, 9, 21, 24, 25, 29, 34, 36, 38, 39, 45, 57, 66, 68]
+  },
+  {
+    "id": 130,
+    "name": {
+      "ja": "ギャラドス",
+      "en": "Gyarados"
+    },
+    "types": ["water", "flying"],
+    "base_stats": {
+      "hp": 95,
+      "attack": 125,
+      "defense": 79,
+      "sp_attack": 60,
+      "sp_defense": 100,
+      "speed": 81
+    },
+    "abilities": [
+      {
+        "ja": "いかく",
+        "en": "Intimidate"
+      },
+      {
+        "ja": "じしんかじょう",
+        "en": "Moxie"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      20, 29, 33, 34, 36, 37, 38, 43, 44, 46, 53, 55, 56, 57, 58
+    ]
+  },
+  {
+    "id": 143,
+    "name": {
+      "ja": "カビゴン",
+      "en": "Snorlax"
+    },
+    "types": ["normal"],
+    "base_stats": {
+      "hp": 160,
+      "attack": 110,
+      "defense": 65,
+      "sp_attack": 65,
+      "sp_defense": 110,
+      "speed": 30
+    },
+    "abilities": [
+      {
+        "ja": "めんえき",
+        "en": "Immunity"
+      },
+      {
+        "ja": "あついしぼう",
+        "en": "Thick Fat"
+      },
+      {
+        "ja": "くいしんぼう",
+        "en": "Gluttony"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 6, 7, 8, 9, 18, 25, 29, 33, 34, 36, 38, 44, 53, 55]
+  },
+  {
+    "id": 149,
+    "name": {
+      "ja": "カイリュー",
+      "en": "Dragonite"
+    },
+    "types": ["dragon", "flying"],
+    "base_stats": {
+      "hp": 91,
+      "attack": 134,
+      "defense": 95,
+      "sp_attack": 100,
+      "sp_defense": 100,
+      "speed": 80
+    },
+    "abilities": [
+      {
+        "ja": "せいしんりょく",
+        "en": "Inner Focus"
+      },
+      {
+        "ja": "マルチスケイル",
+        "en": "Multiscale"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 8, 9, 13, 15, 17, 18, 19, 20, 21, 25, 29, 32, 34]
+  },
+  {
+    "id": 150,
+    "name": {
+      "ja": "ミュウツー",
+      "en": "Mewtwo"
+    },
+    "types": ["psychic"],
+    "base_stats": {
+      "hp": 106,
+      "attack": 110,
+      "defense": 90,
+      "sp_attack": 154,
+      "sp_defense": 90,
+      "speed": 130
+    },
+    "abilities": [
+      {
+        "ja": "プレッシャー",
+        "en": "Pressure"
+      },
+      {
+        "ja": "きんちょうかん",
+        "en": "Unnerve"
+      }
+    ],
+    "regulations": ["M-B"],
+    "learnable_moves": [5, 6, 7, 8, 9, 25, 29, 34, 36, 38, 50, 53, 54, 55, 58]
+  },
+  {
+    "id": 197,
+    "name": {
+      "ja": "ブラッキー",
+      "en": "Umbreon"
+    },
+    "types": ["dark"],
+    "base_stats": {
+      "hp": 95,
+      "attack": 65,
+      "defense": 110,
+      "sp_attack": 60,
+      "sp_defense": 130,
+      "speed": 65
+    },
+    "abilities": [
+      {
+        "ja": "シンクロ",
+        "en": "Synchronize"
+      },
+      {
+        "ja": "せいしんりょく",
+        "en": "Inner Focus"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      6, 15, 28, 29, 33, 34, 36, 38, 39, 44, 45, 46, 63, 86, 91
+    ]
+  },
+  {
+    "id": 212,
+    "name": {
+      "ja": "ハッサム",
+      "en": "Scizor"
+    },
+    "types": ["bug", "steel"],
+    "base_stats": {
+      "hp": 70,
+      "attack": 130,
+      "defense": 100,
+      "sp_attack": 55,
+      "sp_defense": 80,
+      "speed": 65
+    },
+    "abilities": [
+      {
+        "ja": "むしのしらせ",
+        "en": "Swarm"
+      },
+      {
+        "ja": "テクニシャン",
+        "en": "Technician"
+      },
+      {
+        "ja": "ライトメタル",
+        "en": "Light Metal"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      13, 14, 15, 17, 29, 36, 38, 43, 63, 68, 70, 92, 97, 98, 102
+    ]
+  },
+  {
+    "id": 248,
+    "name": {
+      "ja": "バンギラス",
+      "en": "Tyranitar"
+    },
+    "types": ["rock", "dark"],
+    "base_stats": {
+      "hp": 100,
+      "attack": 134,
+      "defense": 110,
+      "sp_attack": 95,
+      "sp_defense": 100,
+      "speed": 61
+    },
+    "abilities": [
+      {
+        "ja": "すなおこし",
+        "en": "Sand Stream"
+      },
+      {
+        "ja": "きんちょうかん",
+        "en": "Unnerve"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 8, 9, 15, 25, 29, 33, 34, 36, 37, 38, 43, 44, 46]
+  },
+  {
+    "id": 257,
+    "name": {
+      "ja": "バシャーモ",
+      "en": "Blaziken"
+    },
+    "types": ["fire", "fighting"],
+    "base_stats": {
+      "hp": 80,
+      "attack": 120,
+      "defense": 70,
+      "sp_attack": 110,
+      "sp_defense": 70,
+      "speed": 80
+    },
+    "abilities": [
+      {
+        "ja": "もうか",
+        "en": "Blaze"
+      },
+      {
+        "ja": "かそく",
+        "en": "Speed Boost"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 9, 10, 14, 15, 24, 25, 28, 29, 34, 36, 38, 45, 46]
+  },
+  {
+    "id": 282,
+    "name": {
+      "ja": "サーナイト",
+      "en": "Gardevoir"
+    },
+    "types": ["psychic", "fairy"],
+    "base_stats": {
+      "hp": 68,
+      "attack": 65,
+      "defense": 65,
+      "sp_attack": 125,
+      "sp_defense": 115,
+      "speed": 80
+    },
+    "abilities": [
+      {
+        "ja": "シンクロ",
+        "en": "Synchronize"
+      },
+      {
+        "ja": "トレース",
+        "en": "Trace"
+      },
+      {
+        "ja": "テレパシー",
+        "en": "Telepathy"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 7, 8, 9, 25, 29, 34, 38, 45, 50, 60, 63, 85, 86, 92]
+  },
+  {
+    "id": 373,
+    "name": {
+      "ja": "ボーマンダ",
+      "en": "Salamence"
+    },
+    "types": ["dragon", "flying"],
+    "base_stats": {
+      "hp": 95,
+      "attack": 135,
+      "defense": 80,
+      "sp_attack": 110,
+      "sp_defense": 80,
+      "speed": 100
+    },
+    "abilities": [
+      {
+        "ja": "いかく",
+        "en": "Intimidate"
+      },
+      {
+        "ja": "じしんかじょう",
+        "en": "Moxie"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      15, 19, 29, 34, 36, 38, 43, 44, 46, 52, 53, 56, 63, 70, 83
+    ]
+  },
+  {
+    "id": 376,
+    "name": {
+      "ja": "メタグロス",
+      "en": "Metagross"
+    },
+    "types": ["steel", "psychic"],
+    "base_stats": {
+      "hp": 80,
+      "attack": 135,
+      "defense": 130,
+      "sp_attack": 95,
+      "sp_defense": 90,
+      "speed": 70
+    },
+    "abilities": [
+      {
+        "ja": "クリアボディ",
+        "en": "Clear Body"
+      },
+      {
+        "ja": "ライトメタル",
+        "en": "Light Metal"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      8, 9, 15, 29, 33, 34, 36, 38, 63, 70, 89, 92, 93, 94, 97
+    ]
+  },
+  {
+    "id": 382,
+    "name": {
+      "ja": "カイオーガ",
+      "en": "Kyogre"
+    },
+    "types": ["water"],
+    "base_stats": {
+      "hp": 100,
+      "attack": 100,
+      "defense": 90,
+      "sp_attack": 150,
+      "sp_defense": 140,
+      "speed": 90
+    },
+    "abilities": [
+      {
+        "ja": "あめふらし",
+        "en": "Drizzle"
+      }
+    ],
+    "regulations": ["M-B"],
+    "learnable_moves": [
+      29, 34, 36, 38, 46, 56, 57, 58, 59, 63, 70, 85, 86, 87, 89
+    ]
+  },
+  {
+    "id": 384,
+    "name": {
+      "ja": "レックウザ",
+      "en": "Rayquaza"
+    },
+    "types": ["dragon", "flying"],
+    "base_stats": {
+      "hp": 105,
+      "attack": 150,
+      "defense": 90,
+      "sp_attack": 150,
+      "sp_defense": 90,
+      "speed": 95
+    },
+    "abilities": [
+      {
+        "ja": "エアロック",
+        "en": "Air Lock"
+      }
+    ],
+    "regulations": ["M-B"],
+    "learnable_moves": [
+      14, 19, 20, 29, 34, 36, 38, 46, 53, 56, 57, 58, 59, 63, 70
+    ]
+  },
+  {
+    "id": 445,
+    "name": {
+      "ja": "ガブリアス",
+      "en": "Garchomp"
+    },
+    "types": ["dragon", "ground"],
+    "base_stats": {
+      "hp": 108,
+      "attack": 130,
+      "defense": 95,
+      "sp_attack": 80,
+      "sp_defense": 85,
+      "speed": 102
+    },
+    "abilities": [
+      {
+        "ja": "すながくれ",
+        "en": "Sand Veil"
+      },
+      {
+        "ja": "さめはだ",
+        "en": "Rough Skin"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      14, 15, 28, 29, 33, 34, 36, 37, 38, 44, 46, 53, 57, 63, 70
+    ]
+  },
+  {
+    "id": 448,
+    "name": {
+      "ja": "ルカリオ",
+      "en": "Lucario"
+    },
+    "types": ["fighting", "steel"],
+    "base_stats": {
+      "hp": 70,
+      "attack": 110,
+      "defense": 70,
+      "sp_attack": 115,
+      "sp_defense": 70,
+      "speed": 90
+    },
+    "abilities": [
+      {
+        "ja": "ふくつのこころ",
+        "en": "Steadfast"
+      },
+      {
+        "ja": "せいしんりょく",
+        "en": "Inner Focus"
+      },
+      {
+        "ja": "せいぎのこころ",
+        "en": "Justified"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [5, 8, 9, 14, 25, 29, 34, 36, 44, 46, 63, 67, 68, 70, 89]
+  },
+  {
+    "id": 479,
+    "name": {
+      "ja": "ロトム",
+      "en": "Rotom"
+    },
+    "types": ["electric", "ghost"],
+    "base_stats": {
+      "hp": 50,
+      "attack": 50,
+      "defense": 77,
+      "sp_attack": 95,
+      "sp_defense": 77,
+      "speed": 91
+    },
+    "abilities": [
+      {
+        "ja": "ふゆう",
+        "en": "Levitate"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      84, 85, 86, 87, 92, 101, 104, 109, 113, 115, 129, 138, 148, 156, 164
+    ]
+  },
+  {
+    "id": 483,
+    "name": {
+      "ja": "ディアルガ",
+      "en": "Dialga"
+    },
+    "types": ["steel", "dragon"],
+    "base_stats": {
+      "hp": 100,
+      "attack": 120,
+      "defense": 120,
+      "sp_attack": 150,
+      "sp_defense": 100,
+      "speed": 90
+    },
+    "abilities": [
+      {
+        "ja": "プレッシャー",
+        "en": "Pressure"
+      },
+      {
+        "ja": "テレパシー",
+        "en": "Telepathy"
+      }
+    ],
+    "regulations": ["M-B"],
+    "learnable_moves": [
+      15, 29, 34, 36, 46, 53, 58, 59, 63, 70, 85, 86, 87, 89, 92
+    ]
+  },
+  {
+    "id": 484,
+    "name": {
+      "ja": "パルキア",
+      "en": "Palkia"
+    },
+    "types": ["water", "dragon"],
+    "base_stats": {
+      "hp": 90,
+      "attack": 120,
+      "defense": 100,
+      "sp_attack": 150,
+      "sp_defense": 120,
+      "speed": 100
+    },
+    "abilities": [
+      {
+        "ja": "プレッシャー",
+        "en": "Pressure"
+      },
+      {
+        "ja": "テレパシー",
+        "en": "Telepathy"
+      }
+    ],
+    "regulations": ["M-B"],
+    "learnable_moves": [
+      15, 29, 34, 36, 46, 53, 56, 57, 58, 59, 63, 70, 85, 86, 87
+    ]
+  },
+  {
+    "id": 485,
+    "name": {
+      "ja": "ヒードラン",
+      "en": "Heatran"
+    },
+    "types": ["fire", "steel"],
+    "base_stats": {
+      "hp": 91,
+      "attack": 90,
+      "defense": 106,
+      "sp_attack": 130,
+      "sp_defense": 106,
+      "speed": 77
+    },
+    "abilities": [
+      {
+        "ja": "もらいび",
+        "en": "Flash Fire"
+      },
+      {
+        "ja": "ほのおのからだ",
+        "en": "Flame Body"
+      }
+    ],
+    "regulations": ["M-A", "M-B"],
+    "learnable_moves": [
+      29, 34, 36, 43, 46, 52, 53, 63, 70, 76, 83, 89, 91, 92, 104
+    ]
+  },
+  {
+    "id": 635,
+    "name": {
+      "ja": "サザンドラ",
+      "en": "Hydreigon"
+    },
+    "types": ["dark", "dragon"],
+    "base_stats": {
+      "hp": 92,
+      "attack": 105,
+      "defense": 90,
+      "sp_attack": 125,
+      "sp_defense": 90,
+      "speed": 98
+    },
+    "abilities": [
+      {
+        "ja": "ふゆう",
+        "en": "Levitate"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      19, 21, 29, 33, 34, 36, 44, 46, 53, 56, 57, 63, 70, 82, 83
+    ]
+  },
+  {
+    "id": 645,
+    "name": {
+      "ja": "ランドロス",
+      "en": "Landorus"
+    },
+    "types": ["ground", "flying"],
+    "base_stats": {
+      "hp": 89,
+      "attack": 125,
+      "defense": 90,
+      "sp_attack": 115,
+      "sp_defense": 80,
+      "speed": 101
+    },
+    "abilities": [
+      {
+        "ja": "すなのちから",
+        "en": "Sand Force"
+      },
+      {
+        "ja": "ちからずく",
+        "en": "Sheer Force"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      14, 19, 33, 34, 36, 43, 44, 63, 70, 88, 89, 90, 91, 92, 94
+    ]
+  },
+  {
+    "id": 700,
+    "name": {
+      "ja": "ニンフィア",
+      "en": "Sylveon"
+    },
+    "types": ["fairy"],
+    "base_stats": {
+      "hp": 95,
+      "attack": 65,
+      "defense": 65,
+      "sp_attack": 110,
+      "sp_defense": 130,
+      "speed": 60
+    },
+    "abilities": [
+      {
+        "ja": "メロメロボディ",
+        "en": "Cute Charm"
+      },
+      {
+        "ja": "フェアリースキン",
+        "en": "Pixilate"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      6, 15, 28, 33, 34, 36, 38, 39, 44, 45, 46, 63, 91, 92, 94
+    ]
+  },
+  {
+    "id": 778,
+    "name": {
+      "ja": "ミミッキュ",
+      "en": "Mimikyu"
+    },
+    "types": ["ghost", "fairy"],
+    "base_stats": {
+      "hp": 55,
+      "attack": 90,
+      "defense": 80,
+      "sp_attack": 50,
+      "sp_defense": 105,
+      "speed": 96
+    },
+    "abilities": [
+      {
+        "ja": "ばけのかわ",
+        "en": "Disguise"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      10, 14, 36, 63, 85, 86, 87, 92, 94, 101, 102, 103, 104, 109, 113
+    ]
+  },
+  {
+    "id": 887,
+    "name": {
+      "ja": "ドラパルト",
+      "en": "Dragapult"
+    },
+    "types": ["dragon", "ghost"],
+    "base_stats": {
+      "hp": 88,
+      "attack": 120,
+      "defense": 75,
+      "sp_attack": 100,
+      "sp_defense": 75,
+      "speed": 142
+    },
+    "abilities": [
+      {
+        "ja": "クリアボディ",
+        "en": "Clear Body"
+      },
+      {
+        "ja": "すりぬけ",
+        "en": "Infiltrator"
+      },
+      {
+        "ja": "のろわれボディ",
+        "en": "Cursed Body"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      19, 34, 36, 38, 44, 50, 53, 56, 57, 63, 76, 85, 86, 87, 97
+    ]
+  },
+  {
+    "id": 985,
+    "name": {
+      "ja": "サケブシッポ",
+      "en": "Scream Tail"
+    },
+    "types": ["fairy", "psychic"],
+    "base_stats": {
+      "hp": 115,
+      "attack": 65,
+      "defense": 99,
+      "sp_attack": 65,
+      "sp_defense": 115,
+      "speed": 111
+    },
+    "abilities": [
+      {
+        "ja": "こだいかっせい",
+        "en": "Protosynthesis"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [1, 7, 8, 9, 34, 36, 38, 44, 46, 47, 50, 53, 58, 59, 60]
+  },
+  {
+    "id": 987,
+    "name": {
+      "ja": "ハバタクカミ",
+      "en": "Flutter Mane"
+    },
+    "types": ["ghost", "fairy"],
+    "base_stats": {
+      "hp": 55,
+      "attack": 55,
+      "defense": 55,
+      "sp_attack": 135,
+      "sp_defense": 135,
+      "speed": 135
+    },
+    "abilities": [
+      {
+        "ja": "こだいかっせい",
+        "en": "Protosynthesis"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      60, 63, 85, 86, 87, 101, 109, 129, 156, 164, 180, 182, 195, 196, 203
+    ]
+  },
+  {
+    "id": 1004,
+    "name": {
+      "ja": "イーユイ",
+      "en": "Chi-Yu"
+    },
+    "types": ["dark", "fire"],
+    "base_stats": {
+      "hp": 55,
+      "attack": 80,
+      "defense": 80,
+      "sp_attack": 135,
+      "sp_defense": 120,
+      "speed": 100
+    },
+    "abilities": [
+      {
+        "ja": "わざわいのたま",
+        "en": "Beads of Ruin"
+      }
+    ],
+    "regulations": ["M-A"],
+    "learnable_moves": [
+      36, 52, 53, 63, 83, 94, 109, 113, 115, 126, 156, 164, 172, 180, 182
+    ]
+  },
+  {
+    "id": 1007,
+    "name": {
+      "ja": "コライドン",
+      "en": "Koraidon"
+    },
+    "types": ["fighting", "dragon"],
+    "base_stats": {
+      "hp": 100,
+      "attack": 135,
+      "defense": 115,
+      "sp_attack": 85,
+      "sp_defense": 100,
+      "speed": 135
+    },
+    "abilities": [
+      {
+        "ja": "ひひいろのこどう",
+        "en": "Orichalcum Pulse"
+      }
+    ],
+    "regulations": [],
+    "learnable_moves": [
+      14, 34, 36, 38, 46, 53, 63, 67, 68, 76, 83, 91, 97, 103, 126
+    ]
+  },
+  {
+    "id": 1008,
+    "name": {
+      "ja": "ミライドン",
+      "en": "Miraidon"
+    },
+    "types": ["electric", "dragon"],
+    "base_stats": {
+      "hp": 100,
+      "attack": 85,
+      "defense": 100,
+      "sp_attack": 135,
+      "sp_defense": 115,
+      "speed": 135
+    },
+    "abilities": [
+      {
+        "ja": "ハドロンエンジン",
+        "en": "Hadron Engine"
+      }
+    ],
+    "regulations": [],
+    "learnable_moves": [
+      14, 34, 36, 63, 76, 84, 85, 86, 87, 97, 109, 113, 115, 156, 164
+    ]
+  }
+]

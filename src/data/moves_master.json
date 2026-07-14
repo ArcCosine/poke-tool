@@ -1,0 +1,1022 @@
+[
+  {
+    "id": 13,
+    "name": {
+      "ja": "かまいたち",
+      "en": "Razor Wind"
+    },
+    "type": "normal",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 14,
+    "name": {
+      "ja": "つるぎのまい",
+      "en": "Swords Dance"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 15,
+    "name": {
+      "ja": "いあいぎり",
+      "en": "Cut"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 95,
+    "pp": 30
+  },
+  {
+    "id": 20,
+    "name": {
+      "ja": "しめつける",
+      "en": "Bind"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 20
+  },
+  {
+    "id": 22,
+    "name": {
+      "ja": "つるのムチ",
+      "en": "Vine Whip"
+    },
+    "type": "grass",
+    "category": "physical",
+    "power": 45,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 29,
+    "name": {
+      "ja": "ずつき",
+      "en": "Headbutt"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 33,
+    "name": {
+      "ja": "たいあたり",
+      "en": "Tackle"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  {
+    "id": 34,
+    "name": {
+      "ja": "のしかかり",
+      "en": "Body Slam"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 85,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 36,
+    "name": {
+      "ja": "とっしん",
+      "en": "Take Down"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 85,
+    "pp": 20
+  },
+  {
+    "id": 38,
+    "name": {
+      "ja": "すてみタックル",
+      "en": "Double-Edge"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 45,
+    "name": {
+      "ja": "なきごえ",
+      "en": "Growl"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 40
+  },
+  {
+    "id": 70,
+    "name": {
+      "ja": "かいりき",
+      "en": "Strength"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 72,
+    "name": {
+      "ja": "メガドレイン",
+      "en": "Mega Drain"
+    },
+    "type": "grass",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 73,
+    "name": {
+      "ja": "やどりぎのタネ",
+      "en": "Leech Seed"
+    },
+    "type": "grass",
+    "category": "status",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 10
+  },
+  {
+    "id": 74,
+    "name": {
+      "ja": "せいちょう",
+      "en": "Growth"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 46,
+    "name": {
+      "ja": "ほえる",
+      "en": "Roar"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 63,
+    "name": {
+      "ja": "はかいこうせん",
+      "en": "Hyper Beam"
+    },
+    "type": "normal",
+    "category": "special",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5
+  },
+  {
+    "id": 5,
+    "name": {
+      "ja": "メガトンパンチ",
+      "en": "Mega Punch"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 85,
+    "pp": 20
+  },
+  {
+    "id": 7,
+    "name": {
+      "ja": "ほのおのパンチ",
+      "en": "Fire Punch"
+    },
+    "type": "fire",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 9,
+    "name": {
+      "ja": "かみなりパンチ",
+      "en": "Thunder Punch"
+    },
+    "type": "electric",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 10,
+    "name": {
+      "ja": "ひっかく",
+      "en": "Scratch"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  {
+    "id": 17,
+    "name": {
+      "ja": "つばさでうつ",
+      "en": "Wing Attack"
+    },
+    "type": "flying",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 35
+  },
+  {
+    "id": 25,
+    "name": {
+      "ja": "メガトンキック",
+      "en": "Mega Kick"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 75,
+    "pp": 5
+  },
+  {
+    "id": 43,
+    "name": {
+      "ja": "にらみつける",
+      "en": "Leer"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 44,
+    "name": {
+      "ja": "かみつく",
+      "en": "Bite"
+    },
+    "type": "dark",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 19,
+    "name": {
+      "ja": "そらをとぶ",
+      "en": "Fly"
+    },
+    "type": "flying",
+    "category": "physical",
+    "power": 90,
+    "accuracy": 95,
+    "pp": 15
+  },
+  {
+    "id": 8,
+    "name": {
+      "ja": "れいとうパンチ",
+      "en": "Ice Punch"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 39,
+    "name": {
+      "ja": "しっぽをふる",
+      "en": "Tail Whip"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 54,
+    "name": {
+      "ja": "しろいきり",
+      "en": "Mist"
+    },
+    "type": "ice",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 55,
+    "name": {
+      "ja": "みずでっぽう",
+      "en": "Water Gun"
+    },
+    "type": "water",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 56,
+    "name": {
+      "ja": "ハイドロポンプ",
+      "en": "Hydro Pump"
+    },
+    "type": "water",
+    "category": "special",
+    "power": 110,
+    "accuracy": 80,
+    "pp": 5
+  },
+  {
+    "id": 57,
+    "name": {
+      "ja": "なみのり",
+      "en": "Surf"
+    },
+    "type": "water",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 6,
+    "name": {
+      "ja": "ネコにこばん",
+      "en": "Pay Day"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 21,
+    "name": {
+      "ja": "たたきつける",
+      "en": "Slam"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 75,
+    "pp": 20
+  },
+  {
+    "id": 24,
+    "name": {
+      "ja": "にどげり",
+      "en": "Double Kick"
+    },
+    "type": "fighting",
+    "category": "physical",
+    "power": 30,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 66,
+    "name": {
+      "ja": "じごくぐるま",
+      "en": "Submission"
+    },
+    "type": "fighting",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 80,
+    "pp": 20
+  },
+  {
+    "id": 68,
+    "name": {
+      "ja": "カウンター",
+      "en": "Counter"
+    },
+    "type": "fighting",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 37,
+    "name": {
+      "ja": "あばれる",
+      "en": "Thrash"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 53,
+    "name": {
+      "ja": "かえんほうしゃ",
+      "en": "Flamethrower"
+    },
+    "type": "fire",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 58,
+    "name": {
+      "ja": "れいとうビーム",
+      "en": "Ice Beam"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 18,
+    "name": {
+      "ja": "ふきとばし",
+      "en": "Whirlwind"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 32,
+    "name": {
+      "ja": "つのドリル",
+      "en": "Horn Drill"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  {
+    "id": 50,
+    "name": {
+      "ja": "かなしばり",
+      "en": "Disable"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 28,
+    "name": {
+      "ja": "すなかけ",
+      "en": "Sand Attack"
+    },
+    "type": "ground",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 86,
+    "name": {
+      "ja": "でんじは",
+      "en": "Thunder Wave"
+    },
+    "type": "electric",
+    "category": "status",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 20
+  },
+  {
+    "id": 91,
+    "name": {
+      "ja": "あなをほる",
+      "en": "Dig"
+    },
+    "type": "ground",
+    "category": "physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 92,
+    "name": {
+      "ja": "どくどく",
+      "en": "Toxic"
+    },
+    "type": "poison",
+    "category": "status",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 10
+  },
+  {
+    "id": 97,
+    "name": {
+      "ja": "こうそくいどう",
+      "en": "Agility"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 98,
+    "name": {
+      "ja": "でんこうせっか",
+      "en": "Quick Attack"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 102,
+    "name": {
+      "ja": "ものまね",
+      "en": "Mimic"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 60,
+    "name": {
+      "ja": "サイケこうせん",
+      "en": "Psybeam"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 85,
+    "name": {
+      "ja": "１０まんボルト",
+      "en": "Thunderbolt"
+    },
+    "type": "electric",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 52,
+    "name": {
+      "ja": "ひのこ",
+      "en": "Ember"
+    },
+    "type": "fire",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 83,
+    "name": {
+      "ja": "ほのおのうず",
+      "en": "Fire Spin"
+    },
+    "type": "fire",
+    "category": "special",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15
+  },
+  {
+    "id": 89,
+    "name": {
+      "ja": "じしん",
+      "en": "Earthquake"
+    },
+    "type": "ground",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 93,
+    "name": {
+      "ja": "ねんりき",
+      "en": "Confusion"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 94,
+    "name": {
+      "ja": "サイコキネシス",
+      "en": "Psychic"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 59,
+    "name": {
+      "ja": "ふぶき",
+      "en": "Blizzard"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 110,
+    "accuracy": 70,
+    "pp": 5
+  },
+  {
+    "id": 87,
+    "name": {
+      "ja": "かみなり",
+      "en": "Thunder"
+    },
+    "type": "electric",
+    "category": "special",
+    "power": 110,
+    "accuracy": 70,
+    "pp": 10
+  },
+  {
+    "id": 67,
+    "name": {
+      "ja": "けたぐり",
+      "en": "Low Kick"
+    },
+    "type": "fighting",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 84,
+    "name": {
+      "ja": "でんきショック",
+      "en": "Thunder Shock"
+    },
+    "type": "electric",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 101,
+    "name": {
+      "ja": "ナイトヘッド",
+      "en": "Night Shade"
+    },
+    "type": "ghost",
+    "category": "special",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 104,
+    "name": {
+      "ja": "かげぶんしん",
+      "en": "Double Team"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 109,
+    "name": {
+      "ja": "あやしいひかり",
+      "en": "Confuse Ray"
+    },
+    "type": "ghost",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 113,
+    "name": {
+      "ja": "ひかりのかべ",
+      "en": "Light Screen"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 115,
+    "name": {
+      "ja": "リフレクター",
+      "en": "Reflect"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 129,
+    "name": {
+      "ja": "スピードスター",
+      "en": "Swift"
+    },
+    "type": "normal",
+    "category": "special",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 138,
+    "name": {
+      "ja": "ゆめくい",
+      "en": "Dream Eater"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 148,
+    "name": {
+      "ja": "フラッシュ",
+      "en": "Flash"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 156,
+    "name": {
+      "ja": "ねむる",
+      "en": "Rest"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5
+  },
+  {
+    "id": 164,
+    "name": {
+      "ja": "みがわり",
+      "en": "Substitute"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 76,
+    "name": {
+      "ja": "ソーラービーム",
+      "en": "Solar Beam"
+    },
+    "type": "grass",
+    "category": "special",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 82,
+    "name": {
+      "ja": "りゅうのいかり",
+      "en": "Dragon Rage"
+    },
+    "type": "dragon",
+    "category": "special",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 88,
+    "name": {
+      "ja": "いわおとし",
+      "en": "Rock Throw"
+    },
+    "type": "rock",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 90,
+    "pp": 15
+  },
+  {
+    "id": 90,
+    "name": {
+      "ja": "じわれ",
+      "en": "Fissure"
+    },
+    "type": "ground",
+    "category": "physical",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  {
+    "id": 103,
+    "name": {
+      "ja": "いやなおと",
+      "en": "Screech"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 85,
+    "pp": 40
+  },
+  {
+    "id": 1,
+    "name": {
+      "ja": "はたく",
+      "en": "Pound"
+    },
+    "type": "normal",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  {
+    "id": 47,
+    "name": {
+      "ja": "うたう",
+      "en": "Sing"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 55,
+    "pp": 15
+  },
+  {
+    "id": 180,
+    "name": {
+      "ja": "うらみ",
+      "en": "Spite"
+    },
+    "type": "ghost",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 182,
+    "name": {
+      "ja": "まもる",
+      "en": "Protect"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 195,
+    "name": {
+      "ja": "ほろびのうた",
+      "en": "Perish Song"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5
+  },
+  {
+    "id": 196,
+    "name": {
+      "ja": "こごえるかぜ",
+      "en": "Icy Wind"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15
+  },
+  {
+    "id": 203,
+    "name": {
+      "ja": "こらえる",
+      "en": "Endure"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 126,
+    "name": {
+      "ja": "だいもんじ",
+      "en": "Fire Blast"
+    },
+    "type": "fire",
+    "category": "special",
+    "power": 110,
+    "accuracy": 85,
+    "pp": 5
+  },
+  {
+    "id": 172,
+    "name": {
+      "ja": "かえんぐるま",
+      "en": "Flame Wheel"
+    },
+    "type": "fire",
+    "category": "physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  }
+]

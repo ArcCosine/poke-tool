@@ -1,0 +1,17 @@
+{
+  "M-A": {
+    "description": "Regulation M-A: All Pokémon are allowed except major legendary Pokémon.",
+    "allow_all": true,
+    "except_ids": [
+      150, 249, 250, 382, 383, 384, 483, 484, 487, 493, 
+      643, 644, 646, 716, 717, 718, 789, 790, 791, 792, 
+      800, 888, 889, 890, 1007, 1008
+    ]
+  },
+  "M-B": {
+    "description": "Regulation M-B: Limited rule. Only Generation 1-4 Pokémon and select items.",
+    "allow_all": false,
+    "allow_ids": [],
+    "max_generation": 4
+  }
+}
