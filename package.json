@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build-wasm": "wasm-pack build src/wasm-analysis --target web --out-dir ../pkg",
+    "build": "npm run build-wasm && tsc -b && vite build",
     "lint": "biome check ./src",
     "update-data": "tsx scripts/fetch_pokeapi.ts",
     "preview": "vite preview"
   },
   "dependencies": {
+    "onnxruntime-web": "^1.27.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -25,10 +27,14 @@
     "@vitejs/plugin-react": "^6.0.3",
     "happy-dom": "^20.10.6",
     "oxlint": "^1.71.0",
+    "rollup": "^4.62.2",
     "tsx": "^4.23.1",
     "typescript": "~6.0.2",
     "unocss": "^66.7.5",
     "vite": "^8.1.1",
-    "vitest": "^4.1.10"
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.6.0",
+    "vitest": "^4.1.10",
+    "wasm-pack": "^0.15.0"
   }
 }
