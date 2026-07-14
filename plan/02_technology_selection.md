@@ -94,15 +94,14 @@ PokeAPI のデータを活用しつつ、先方サーバーへの負荷軽減と
 
 ## 8. Linter と Formatter の選定
 
-コードの品質維持、バグの早期発見、およびコードスタイルの統一を自動化するため、React/TypeScriptにおける推奨標準構成を導入します。
+コードの品質維持、バグの早期発見、およびコードスタイルの統一を極めて高速に実行するため、Rust製のオールインワンツールである **Biome** を採用します。
 
-### 8.1 採用決定: ESLint + Prettier
-- **Linter**: **ESLint**
-  - TypeScriptの静的解析（`@typescript-eslint/eslint-plugin`）および React 専用ルール（`eslint-plugin-react-hooks` / `eslint-plugin-react-refresh`）を組み込み、安全なコーディングを強制します。
-- **Formatter**: **Prettier**
-  - コードのスタイル（インデント幅、セミコロンの有無、クォーテーションの統一など）を一元管理します。
-  - ESLintとの競合を防ぐため `eslint-config-prettier` を適用します。
-- **代替案（検討）**: Rust製の超高速Linter/Formatterである **Biome** も存在しますが、Viteの標準テンプレートでのサポートや、Reactエコシステムでの各種プラグイン（Trivially config）の成熟度・安定性を考慮し、今回は枯れた技術である **ESLint + Prettier** を採用します。
+### 8.1 採用決定: Biome
+- **概要**: ESLint と Prettier の機能を兼ね備えた、Rust製の超高速オールインワン静的解析・成形ツール。
+- **採用理由**:
+  - **圧倒的な実行速度**: ESLint や Prettier に比べて数十倍〜数百倍高速に動作するため、ファイルの保存時やコミット前のチェックが瞬時に完了し、開発の快適性を最大化できます。
+  - **設定の簡素化と競合ゼロ**: 1つのツールが Lint と Format の両方を担当するため、「ESLintとPrettierのルール競合」が発生せず、設定ファイルも単一の `biome.json` だけで完結します。
+  - **React/TypeScript対応**: 標準でTypeScriptおよびReactの文法・フックルールなどを強力にサポートしています。
 
 ---
 
@@ -113,7 +112,7 @@ PokeAPI のデータを活用しつつ、先方サーバーへの負荷軽減と
 - **スタイリング / CSS**: **UnoCSS**
 - **OCR・推論エンジン**: **ONNX Runtime Web (WASM)**
 - **データソース**: **PokeAPI** (事前クローリングによる軽量 JSON ファイル化 + IndexedDB ローカルキャッシュ)
-- **Linter / Formatter**: **ESLint + Prettier**
+- **Linter / Formatter**: **Biome** (超高速 Rust 製 Lint & Format)
 - **テストフレームワーク**: **Vitest** (フロントエンド) / **`cargo test` & `wasm-bindgen-test`** (Rust/WASM)
 
 ### 次のステップ
