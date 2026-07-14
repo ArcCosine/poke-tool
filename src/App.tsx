@@ -141,7 +141,7 @@ const MainLayout = () => {
       </main>
 
       {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 px-4 py-2.5 flex justify-around items-center">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 flex justify-around items-center">
         {(
           [
             'dashboard',
@@ -154,7 +154,7 @@ const MainLayout = () => {
             key={tab}
             type="button"
             onClick={() => changeTab(tab)}
-            className={`flex-1 flex flex-col items-center justify-center py-1 transition-colors duration-150 cursor-pointer ${
+            className={`flex-1 flex flex-col items-center justify-center py-2 transition-colors duration-150 cursor-pointer border-0 bg-transparent outline-none ${
               activeTab === tab
                 ? 'text-indigo-600 dark:text-indigo-400 font-bold'
                 : 'text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
