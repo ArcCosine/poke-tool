@@ -35,18 +35,31 @@
 
 ---
 
-## 5. テストフレームワークの選定 (TDD用)
+## 5. OCR・推論エンジンの選定
+
+ローカル環境（ブラウザ上）で高速かつ高精度に文字認識（OCR）を行うため、**ONNX Runtime Web (WASM バックエンド)** を採用します。
+
+### 採用決定: ONNX Runtime Web (WASM) + Onnx OCR
+- **概要**: 訓練済みのONNXモデル（例: PaddleOCRなど）をブラウザ上で実行するためのMicrosoft製推論エンジン。WASM/WebGL/WebGPUをバックエンドとして使用可能。
+- **採用理由**:
+  - **高精度なOCR**: 従来の文字パターンマッチングやTesseractに比べ、ゲーム画面のフォントや背景ノイズに極めて強いディープラーニングベースの文字認識（検出＋認識モデル）がローカルで動作。
+  - **高速なローカル推論**: WebAssembly (WASM) バックエンドにより、CPUマルチスレッドを活かした高速推論が可能。
+  - **軽量モデルの活用**: モバイル・ウェブ向けに最適化された軽量なONNX OCRモデルを採用することで、アセットサイズを最小限に抑え、Cloudflare Pagesの高速ロードを維持します。
+
+---
+
+## 6. テストフレームワークの選定 (TDD用)
 
 エージェントガイドライン（`AGENTS.md`）で規定された **TDD (テスト駆動開発)** を実現するため、以下のテストフレームワークを採用します。
 
-### 5.1 フロントエンド（TypeScript / React）: Vitest
+### 6.1 フロントエンド（TypeScript / React）: Vitest
 - **概要**: Vite環境に特化した、超高速な単体・統合テストフレームワーク。
 - **採用理由**:
   - Viteの設定（エイリアスやプラグイン）をそのまま共有できるため、設定が容易。
   - Jest互換のAPIを持ち、かつ実行速度が圧倒的に高速。
   - React Testing Library と組み合わせることで、コンポーネントのテスト（Red-Greenサイクル）をスムーズに回せる。
 
-### 5.2 WebAssembly（Rust）: `cargo test` & `wasm-bindgen-test`
+### 6.2 WebAssembly（Rust）: `cargo test` & `wasm-bindgen-test`
 - **概要**: Rust標準のテストフレームワークおよびWASMブラウザ環境向けテストツール。
 - **採用理由**:
   - ロジック部分（画像解析コア、計算コア）は、`cargo test` を用いてローカル環境で高速に単体テストを実行可能。
@@ -54,11 +67,12 @@
 
 ---
 
-## 6. 結論と決定事項
+## 7. 結論と決定事項
 
 - **ホスティング**: **Cloudflare Pages**
 - **フレームワーク**: **Vite + React (TypeScript)**
 - **スタイリング / CSS**: **UnoCSS**
+- **OCR・推論エンジン**: **ONNX Runtime Web (WASM)**
 - **テストフレームワーク**: **Vitest** (フロントエンド) / **`cargo test` & `wasm-bindgen-test`** (Rust/WASM)
 
 ### 次のステップ
