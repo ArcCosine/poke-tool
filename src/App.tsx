@@ -122,6 +122,7 @@ const MainLayout = () => {
             {/* Theme Toggle */}
             <button
               type="button"
+              data-testid="theme-toggle"
               onClick={toggleTheme}
               className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-sm flex items-center cursor-pointer"
             >
