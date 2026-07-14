@@ -18,9 +18,9 @@ PokeAPI（無料のポケモン情報API）から直接本番環境へリクエ�
 - **実装場所**: `scripts/fetch_pokeapi.ts` (TypeScript / Node.js等で実行)
 - **処理**:
   1. PokeAPI の `/pokemon` および `/move` エンドポイントを巡回。
-  2. ポケモンのID、日本語名、タイプ、種族値、覚える技、特性のみを取得。
-  3. 技のID、日本語名、タイプ、分類（物理/特殊/変化）、威力、命中率を取得。
-  4. 日本語訳は `/pokemon-species` や `/move` から日本語ロケール (`ja`) のデータを紐づけ。
+  2. ポケモンのID、日本語名・英語名、タイプ、種族値、覚える技、特性のみを取得。
+  3. 技のID、日本語名・英語名、タイプ、分類（物理/特殊/変化）、威力、命中率を取得。
+  4. 翻訳テキストは `/pokemon-species` や `/move` から日本語ロケール (`ja`) および英語ロケール (`en`) のデータを紐づけ。
   5. **レギュレーションのマッピング**: `scripts/regulations_config.json` に基づき、各ポケモンがどのルールで使用可能であるかのフラグをマッピング。
   6. 最適化した JSON を `src/data/pokemon_master.json` および `src/data/moves_master.json` として出力。
 
@@ -53,8 +53,11 @@ PokeAPI（無料のポケモン情報API）から直接本番環境へリクエ�
 [
   {
     "id": 1,
-    "name": "フシギバナ",
-    "types": ["grass", "poison"],
+    "name": {
+      "ja": "フシギバナ",
+      "en": "Venusaur"
+    },
+    "types": ["grass", "poison"], // 内部処理は英語キーで一元化し、表示の際と言語切替時に辞書マッピング
     "base_stats": {
       "hp": 80,
       "attack": 82,
@@ -63,19 +66,25 @@ PokeAPI（無料のポケモン情報API）から直接本番環境へリクエ�
       "sp_defense": 100,
       "speed": 80
     },
-    "abilities": ["しんりょく", "ようりょくそ"],
+    "abilities": [
+      { "ja": "しんりょく", "en": "overgrow" },
+      { "ja": "ようりょくそ", "en": "chlorophyll" }
+    ],
     "regulations": ["M-A", "M-B"], // 適合するレギュレーションのリスト
     "learnable_moves": [1, 2, 5, 10] // 技IDのリスト
   }
 ]
 ```
 
-### 1.2 技データ (`moves_master.json`)
+### 2.2 技データ (`moves_master.json`)
 ```json
 [
   {
     "id": 1,
-    "name": "ハードプラント",
+    "name": {
+      "ja": "ハードプラント",
+      "en": "Frenzy Plant"
+    },
     "type": "grass",
     "category": "special", // physical, special, status
     "power": 150,
