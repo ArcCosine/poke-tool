@@ -111,7 +111,7 @@ describe('Poke-Tool Integration', () => {
     });
     expect(
       await screen.findByText(
-        /当ツールは、ユーザーのプライバシーの保護に最大限努めています。/
+        /当ツール（以下「本ツール」）は、ユーザーのプライバシー情報の保護に最大限努めています。/
       )
     ).toBeDefined();
 

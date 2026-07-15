@@ -88,12 +88,49 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     disclaimer: '免責事項',
     termsOfService: '利用規約',
     backToDashboard: 'ダッシュボードへ戻る',
-    privacyPolicyText:
-      '当ツールは、ユーザーのプライバシーの保護に最大限努めています。当ツールにおいて行われる画像の解析処理およびデータ計算は、すべてユーザーのブラウザ上（ローカル環境）で実行されます。ユーザーがアップロードしたスクリーンショット画像や、入力したデータが外部のサーバーに送信されることは一切ありません。',
-    disclaimerText:
-      '当ツールで提供される情報（火力、耐久指数、画像解析結果など）は、データ計算に基づく目安であり、その正確性やゲーム内での動作を保証するものではありません。当ツールを利用したことによって生じた一切の損害について、開発者は責任を負いません。また、当ツールは任天堂株式会社、株式会社ポケモン、その他の関係各社とは一切関係のない非公式ツールです。',
-    termsOfServiceText:
-      '当ツールは、ポケットモンスターのチャンピオンズリーグやランクマッチ等の対戦データ分析をサポートする目的で提供されています。商用目的での不正な利用、スクレイピング、または過度な負荷をかける行為を禁止します。当ツールを利用することで、本規約および免責事項に同意したものとみなします。',
+    privacyPolicyText: `【はじめに】
+当ツール（以下「本ツール」）は、ユーザーのプライバシー情報の保護に最大限努めています。
+
+【データのローカル処理と管理】
+本ツールにおいて行われる以下の処理およびデータ管理は、すべてユーザーのブラウザ上（ローカル環境）で完結して実行されます。
+1. アップロードされたゲームスクリーンショット画像の解析（努力値の読み取り等）
+2. ダメージ計算および火力・耐久指数の算出
+3. 作成されたパーティデータの保存（IndexedDBおよびlocalStorageへの保存）
+
+お客様の画像データや入力されたパラメータが外部のサーバーに送信、蓄積、または処理されることは一切ありません。本ツールは完全にローカルで動作する「ローカルファースト」の設計を採用しています。
+
+【外部へのデータ送信およびCookie】
+本ツールでは、利便性の向上やアクセス解析のためのCookieの利用、およびサードパーティの追跡ツールの導入は行っていません。また、いかなる個人情報も取得いたしません。
+
+【プライバシーポリシーの改定】
+本ツールは、機能の追加や法改正等に伴い、本プライバシーポリシーをいつでも改定できるものとします。改定後のポリシーは本ツール上に掲載された時点で効力を生じるものとします。`,
+    disclaimerText: `【公式関係者との関係】
+本ツールは、任天堂株式会社、株式会社クリーチャーズ、株式会社ゲームフリーク、株式会社ポケモン、およびその他の公式関係者とは一切関係がない、ファンによる非公式の対戦データ分析支援ツールです。
+
+【計算結果・情報の正確性】
+本ツールで算出される火力指数、耐久指数、ステータス実数値、および画像解析によって得られる数値は、データ計算に基づく予測値または推定値です。ゲーム内での実際の数値、ダメージ計算結果、および挙動と完全に一致することを保証するものではありません。特に努力値のOCR読み取りやグラフ解析は、画像の解像度や状態によって誤差が生じる可能性があります。
+
+【免責】
+本ツールの利用により生じた直接的、間接的、または偶発的な損害（対戦での敗北、データ消失、ハードウェアへの影響、その他一切の不利益）について、開発者は一切の責任を負いません。本ツールのご利用は、ユーザーご自身の責任において行ってください。
+
+【外部APIおよびリソース】
+本ツールはデータの取得にサードパーティのAPI（PokeAPI等）を利用しています。これらの外部サービスの中断や仕様変更により、本ツールの一部または全部が正常に動作しなくなる場合がありますが、これに対する補償は行いません。`,
+    termsOfServiceText: `【第1条（規約の適用）】
+本利用規約（以下「本規約」）は、本ツールの利用者（以下「ユーザー」）と開発者との間の利用条件を定めるものです。ユーザーは、本ツールを利用することにより、本規約および免責事項のすべてに同意したものとみなされます。
+
+【第2条（利用条件と禁止事項）】
+ユーザーは、本ツールを自己の個人的な対戦データ分析およびパーティ編成シミュレーションの目的にのみ利用することができます。
+ユーザーは、本ツールの利用にあたり、以下の行為を行ってはなりません。
+1. 本ツールのソースコード、アルゴリズムの改ざん、または不正なリバースエンジニアリング行為
+2. 商用目的での本ツールの再配布、販売、または類似サービスの構築
+3. 外部APIや本ツールの提供インフラストラクチャに対するスクレイピング、過度な負荷をかけるアクセス行為
+4. その他、開発者または開発元の第三者に不利益や損害を与える行為、または公序良俗に反する行為
+
+【第3条（サービスの提供と変更・終了）】
+本ツールは現状有姿で提供され、開発者は事前予告なしに本ツールの機能変更、提供の中断、一時停止、または完全な提供終了を行う権利を有します。
+
+【第4条（準拠法と管轄）】
+本規約の解釈および適用にあたっては、日本法を準拠法とします。本ツールに関する紛争については、日本の裁判所を第一審の専属的合意管轄裁判所とします。`,
   },
   en: {
     dashboard: 'Dashboard',
@@ -164,12 +201,49 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     disclaimer: 'Disclaimer',
     termsOfService: 'Terms of Service',
     backToDashboard: 'Back to Dashboard',
-    privacyPolicyText:
-      'We are committed to protecting your privacy. All image analysis and data calculations in this tool are executed entirely within your browser (local environment). Your uploaded screenshots and entered data are never sent to any external server.',
-    disclaimerText:
-      'The information provided by this tool (including damage, durability indexes, and image analysis values) is estimated based on calculations. We do not guarantee its absolute accuracy. The developer is not responsible for any damage or loss caused by using this tool. This is an unofficial tool and is not affiliated with Nintendo, The Pokémon Company, or any of their associates.',
-    termsOfServiceText:
-      'This tool is provided for analyzing competitive battle data for Pokémon Champions and rank matches. Commercial misuse, scraping, or activities causing excessive server load are strictly prohibited. By using this tool, you agree to these Terms of Service and the Disclaimer.',
+    privacyPolicyText: `[Introduction]
+This tool (hereinafter referred to as "the Tool") is highly committed to protecting the privacy of its users.
+
+[Local Processing and Data Management]
+The following operations and data storage performed within the Tool are executed entirely within your web browser (local environment):
+1. Analysis of uploaded game screenshots (reading Effort Values (EVs), etc.)
+2. Damage calculations and maximum durability/damage index computation
+3. Storage of edited party data (stored in IndexedDB and localStorage)
+
+Your images, processed data, and custom parameters are never uploaded, stored, or processed on any external servers. The Tool is designed as a fully local-first application.
+
+[Data Transmission and Cookies]
+We do not use cookies, tracking pixels, or third-party analytics tools. The Tool does not collect, track, or share any personally identifiable information.
+
+[Changes to this Policy]
+We reserve the right to modify this Privacy Policy at any time to reflect updates to the Tool or changes in legal regulations. The updated policy becomes effective immediately upon publication within the Tool.`,
+    disclaimerText: `[Affiliation]
+The Tool is an unofficial, fan-made helper tool. It is not affiliated with, endorsed by, or associated with Nintendo, Creatures Inc., GAME FREAK inc., The Pokémon Company, or any of their associates.
+
+[Accuracy of Information]
+The statistics, damage indexes, durability values, and image OCR analysis results calculated by the Tool are estimates based on numerical algorithms. We do not guarantee absolute accuracy or 100% agreement with actual in-game stats, damage outcomes, or mechanics. In particular, OCR effort value detection may carry errors depending on image quality, crop size, and compression.
+
+[Limitation of Liability]
+Under no circumstances shall the developer be liable for any direct, indirect, incidental, or consequential damages (including, but not limited to, loss of game progress, hardware issues, or any game-related disadvantage) arising from the use or inability to use the Tool. The use of this Tool is at your own risk.
+
+[External Resources]
+The Tool relies on third-party APIs (such as PokeAPI) to obtain game data. We are not responsible for any issues arising from service disruptions, performance issues, or specification changes of these external services.`,
+    termsOfServiceText: `[Article 1 - Applicability]
+These Terms of Service (hereinafter "Terms") govern the relationship between users (hereinafter "User" or "you") and the developer. By accessing or using the Tool, you agree to be fully bound by these Terms and the Disclaimer.
+
+[Article 2 - Permitted Use & Prohibitions]
+You may use the Tool solely for personal, non-commercial purposes, such as analyzing competitive stats and simulating team synergy.
+You shall not engage in any of the following activities:
+1. Modifying, tampering with, or reverse-engineering the Tool's source code or underlying algorithms.
+2. Redistributing, selling, or utilizing the Tool or its compiled components for commercial purposes.
+3. Performing data scraping or sending automated requests that cause excessive load on the Tool's components or external APIs.
+4. Any other activity that causes damage to the developer or third parties, or violates public order.
+
+[Article 3 - Service Modifications and Termination]
+The Tool is provided on an "as-is" and "as-available" basis. The developer reserves the right to modify, suspend, or terminate the Tool or its features at any time without prior notice.
+
+[Article 4 - Governing Law & Jurisdiction]
+These Terms shall be governed by and construed in accordance with the laws of Japan. Any disputes arising out of or in connection with the Tool shall be subject to the exclusive jurisdiction of the courts of Japan in the first instance.`,
   },
 };
 
