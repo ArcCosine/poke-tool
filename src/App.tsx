@@ -36,22 +36,22 @@ const DashboardContent = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <button
           type="button"
-          onClick={() => setActiveTab('imageAnalyzer')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-scan-face text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('imageAnalyzer')}</h3>
-          <p className="text-sm text-slate-500">{t('imageAnalyzerDesc')}</p>
-        </button>
-
-        <button
-          type="button"
           onClick={() => setActiveTab('statSearch')}
           className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
         >
           <span className="i-lucide-trending-up text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('statSearch')}</h3>
           <p className="text-sm text-slate-500">{t('statSearchDesc')}</p>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('imageAnalyzer')}
+          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
+        >
+          <span className="i-lucide-scan-face text-3xl text-indigo-500 mb-3 block" />
+          <h3 className="font-semibold mb-2">{t('imageAnalyzer')}</h3>
+          <p className="text-sm text-slate-500">{t('imageAnalyzerDesc')}</p>
         </button>
 
         <button
