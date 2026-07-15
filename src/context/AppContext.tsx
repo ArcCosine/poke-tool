@@ -84,6 +84,16 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_defense: '特防',
     speed: '素早さ',
     uploadPreview: 'アップロードプレビュー',
+    privacyPolicy: 'プライバシーポリシー',
+    disclaimer: '免責事項',
+    termsOfService: '利用規約',
+    backToDashboard: 'ダッシュボードへ戻る',
+    privacyPolicyText:
+      '当ツールは、ユーザーのプライバシーの保護に最大限努めています。当ツールにおいて行われる画像の解析処理およびデータ計算は、すべてユーザーのブラウザ上（ローカル環境）で実行されます。ユーザーがアップロードしたスクリーンショット画像や、入力したデータが外部のサーバーに送信されることは一切ありません。',
+    disclaimerText:
+      '当ツールで提供される情報（火力、耐久指数、画像解析結果など）は、データ計算に基づく目安であり、その正確性やゲーム内での動作を保証するものではありません。当ツールを利用したことによって生じた一切の損害について、開発者は責任を負いません。また、当ツールは任天堂株式会社、株式会社ポケモン、その他の関係各社とは一切関係のない非公式ツールです。',
+    termsOfServiceText:
+      '当ツールは、ポケットモンスターのチャンピオンズリーグやランクマッチ等の対戦データ分析をサポートする目的で提供されています。商用目的での不正な利用、スクレイピング、または過度な負荷をかける行為を禁止します。当ツールを利用することで、本規約および免責事項に同意したものとみなします。',
   },
   en: {
     dashboard: 'Dashboard',
@@ -150,6 +160,16 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_defense: 'Sp. Defense',
     speed: 'Speed',
     uploadPreview: 'Upload preview',
+    privacyPolicy: 'Privacy Policy',
+    disclaimer: 'Disclaimer',
+    termsOfService: 'Terms of Service',
+    backToDashboard: 'Back to Dashboard',
+    privacyPolicyText:
+      'We are committed to protecting your privacy. All image analysis and data calculations in this tool are executed entirely within your browser (local environment). Your uploaded screenshots and entered data are never sent to any external server.',
+    disclaimerText:
+      'The information provided by this tool (including damage, durability indexes, and image analysis values) is estimated based on calculations. We do not guarantee its absolute accuracy. The developer is not responsible for any damage or loss caused by using this tool. This is an unofficial tool and is not affiliated with Nintendo, The Pokémon Company, or any of their associates.',
+    termsOfServiceText:
+      'This tool is provided for analyzing competitive battle data for Pokémon Champions and rank matches. Commercial misuse, scraping, or activities causing excessive server load are strictly prohibited. By using this tool, you agree to these Terms of Service and the Disclaimer.',
   },
 };
 

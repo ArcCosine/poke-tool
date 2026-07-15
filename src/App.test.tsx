@@ -35,6 +35,7 @@ describe('Poke-Tool Integration', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.classList.remove('dark');
+    window.location.hash = '';
   });
 
   it('should render application dashboard and support tabs switching', async () => {
@@ -88,5 +89,41 @@ describe('Poke-Tool Integration', () => {
 
     // Now should be light
     expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
+
+  it('should render legal page links in dashboard and support navigation', async () => {
+    render(<App />);
+
+    // Dashboard should contain the three legal links
+    const privacyLink = screen.getByRole('button', {
+      name: 'プライバシーポリシー',
+    });
+    const disclaimerLink = screen.getByRole('button', { name: '免責事項' });
+    const termsLink = screen.getByRole('button', { name: '利用規約' });
+
+    expect(privacyLink).toBeDefined();
+    expect(disclaimerLink).toBeDefined();
+    expect(termsLink).toBeDefined();
+
+    // Click Privacy Policy
+    act(() => {
+      privacyLink.click();
+    });
+    expect(
+      await screen.findByText(
+        /当ツールは、ユーザーのプライバシーの保護に最大限努めています。/
+      )
+    ).toBeDefined();
+
+    // Click Back to Dashboard
+    const backBtn = screen.getByRole('button', {
+      name: 'ダッシュボードへ戻る',
+    });
+    act(() => {
+      backBtn.click();
+    });
+
+    // Check we are back
+    expect(screen.getByText(/Poke-Toolへようこそ/)).toBeDefined();
   });
 });

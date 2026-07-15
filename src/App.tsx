@@ -1,14 +1,27 @@
 import { useState } from 'react';
 import { ImageAnalyzer } from './components/ImageAnalyzer/ImageAnalyzer';
+import { Disclaimer } from './components/Legal/Disclaimer';
+import { PrivacyPolicy } from './components/Legal/PrivacyPolicy';
+import { TermsOfService } from './components/Legal/TermsOfService';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
 import { AppProvider, useApp } from './context/AppContext';
 import 'virtual:uno.css';
 import './index.css';
 
-type Tab = 'dashboard' | 'statSearch' | 'imageAnalyzer' | 'partySimulator';
+type Tab =
+  | 'dashboard'
+  | 'statSearch'
+  | 'imageAnalyzer'
+  | 'partySimulator'
+  | 'privacyPolicy'
+  | 'disclaimer'
+  | 'termsOfService';
 
-const tabIcons: Record<Tab, string> = {
+const tabIcons: Record<
+  Extract<Tab, 'dashboard' | 'statSearch' | 'imageAnalyzer' | 'partySimulator'>,
+  string
+> = {
   dashboard: 'i-lucide-layout-dashboard',
   statSearch: 'i-lucide-trending-up',
   imageAnalyzer: 'i-lucide-scan-face',
@@ -64,6 +77,32 @@ const DashboardContent = ({
           <p className="text-sm text-slate-500">{t('partySimulatorDesc')}</p>
         </button>
       </div>
+
+      <div className="pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-400 flex flex-wrap justify-center items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setActiveTab('privacyPolicy')}
+          className="hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer transition bg-transparent border-0 outline-none font-sans"
+        >
+          {t('privacyPolicy')}
+        </button>
+        <span className="text-slate-300 dark:text-slate-700">|</span>
+        <button
+          type="button"
+          onClick={() => setActiveTab('disclaimer')}
+          className="hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer transition bg-transparent border-0 outline-none font-sans"
+        >
+          {t('disclaimer')}
+        </button>
+        <span className="text-slate-300 dark:text-slate-700">|</span>
+        <button
+          type="button"
+          onClick={() => setActiveTab('termsOfService')}
+          className="hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer transition bg-transparent border-0 outline-none font-sans"
+        >
+          {t('termsOfService')}
+        </button>
+      </div>
     </div>
   );
 };
@@ -78,6 +117,9 @@ const MainLayout = () => {
       'statSearch',
       'imageAnalyzer',
       'partySimulator',
+      'privacyPolicy',
+      'disclaimer',
+      'termsOfService',
     ].includes(hash)
       ? hash
       : 'dashboard';
@@ -138,6 +180,15 @@ const MainLayout = () => {
         {activeTab === 'statSearch' && <StatSearch />}
         {activeTab === 'imageAnalyzer' && <ImageAnalyzer />}
         {activeTab === 'partySimulator' && <PartySimulator />}
+        {activeTab === 'privacyPolicy' && (
+          <PrivacyPolicy onBack={() => changeTab('dashboard')} />
+        )}
+        {activeTab === 'disclaimer' && (
+          <Disclaimer onBack={() => changeTab('dashboard')} />
+        )}
+        {activeTab === 'termsOfService' && (
+          <TermsOfService onBack={() => changeTab('dashboard')} />
+        )}
       </main>
 
       {/* Bottom Navigation Bar */}
@@ -148,7 +199,7 @@ const MainLayout = () => {
             'statSearch',
             'imageAnalyzer',
             'partySimulator',
-          ] as Tab[]
+          ] as const
         ).map((tab) => (
           <button
             key={tab}
