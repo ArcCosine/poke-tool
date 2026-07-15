@@ -91,39 +91,22 @@ describe('Poke-Tool Integration', () => {
     expect(document.documentElement.classList.contains('dark')).toBe(false);
   });
 
-  it('should render legal page links in dashboard and support navigation', async () => {
+  it('should render legal page links in dashboard with correct hrefs', () => {
     render(<App />);
 
     // Dashboard should contain the three legal links
-    const privacyLink = screen.getByRole('button', {
+    const privacyLink = screen.getByRole('link', {
       name: 'プライバシーポリシー',
     });
-    const disclaimerLink = screen.getByRole('button', { name: '免責事項' });
-    const termsLink = screen.getByRole('button', { name: '利用規約' });
+    const disclaimerLink = screen.getByRole('link', { name: '免責事項' });
+    const termsLink = screen.getByRole('link', { name: '利用規約' });
 
     expect(privacyLink).toBeDefined();
     expect(disclaimerLink).toBeDefined();
     expect(termsLink).toBeDefined();
 
-    // Click Privacy Policy
-    act(() => {
-      privacyLink.click();
-    });
-    expect(
-      await screen.findByText(
-        /当ツール（以下「本ツール」）は、ユーザーのプライバシー情報の保護に最大限努めています。/
-      )
-    ).toBeDefined();
-
-    // Click Back to Dashboard
-    const backBtn = screen.getByRole('button', {
-      name: 'ダッシュボードへ戻る',
-    });
-    act(() => {
-      backBtn.click();
-    });
-
-    // Check we are back
-    expect(screen.getByText(/Poke-Toolへようこそ/)).toBeDefined();
+    expect(privacyLink.getAttribute('href')).toBe('/privacy.html');
+    expect(disclaimerLink.getAttribute('href')).toBe('/disclaimer.html');
+    expect(termsLink.getAttribute('href')).toBe('/terms.html');
   });
 });
