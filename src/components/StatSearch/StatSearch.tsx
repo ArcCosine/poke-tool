@@ -6,6 +6,7 @@ import {
   calculateMaxDurability,
 } from '../../utils/calculator';
 import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
+import regulationsData from '../../data/regulations.json';
 
 const typeColors: Record<string, string> = {
   normal: 'bg-slate-400 text-slate-900',
@@ -221,8 +222,11 @@ export const StatSearch: React.FC = () => {
             className="input-premium py-2 cursor-pointer text-sm"
           >
             <option value="all">{t('allRegulations')}</option>
-            <option value="M-A">Regulation M-A</option>
-            <option value="M-B">Regulation M-B</option>
+            {regulationsData.map((reg) => (
+              <option key={reg.id} value={reg.id}>
+                {reg.name[language] || reg.name.ja}
+              </option>
+            ))}
           </select>
         </div>
       </div>

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "M-A",
+    "name": {
+      "ja": "レギュレーションM-A",
+      "en": "Regulation M-A"
+    }
+  },
+  {
+    "id": "M-B",
+    "name": {
+      "ja": "レギュレーションM-B",
+      "en": "Regulation M-B"
+    }
+  }
+]

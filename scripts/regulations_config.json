@@ -1,17 +1,17 @@
 {
-  "M-A": {
-    "description": "Regulation M-A: All Pokémon are allowed except major legendary Pokémon.",
-    "allow_all": true,
-    "except_ids": [
-      150, 249, 250, 382, 383, 384, 483, 484, 487, 493, 
-      643, 644, 646, 716, 717, 718, 789, 790, 791, 792, 
-      800, 888, 889, 890, 1007, 1008
-    ]
-  },
-  "M-B": {
-    "description": "Regulation M-B: Limited rule. Only Generation 1-4 Pokémon and select items.",
-    "allow_all": false,
-    "allow_ids": [],
-    "max_generation": 4
+  "except_ids": [
+    150, 249, 250, 382, 383, 384, 483, 484, 487, 493, 
+    643, 644, 646, 716, 717, 718, 789, 790, 791, 792, 
+    800, 888, 889, 890, 1007, 1008
+  ],
+  "regulations": {
+    "M-A": {
+      "description": "Regulation M-A: Initial pool. All allowed except major legendary Pokémon.",
+      "new_pokemon_ids": []
+    },
+    "M-B": {
+      "description": "Regulation M-B: M-A pool plus M-B added Pokémon.",
+      "new_pokemon_ids": [26, 45, 211, 254, 257, 260, 303, 373, 376, 398, 518, 545, 560, 604, 645, 668, 687, 689, 691, 861, 870, 904, 972, 979, 1000, 1004]
+    }
   }
 }

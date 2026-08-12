@@ -80,16 +80,29 @@ export async function loadMasterData(): Promise<{
   pokemon: PokemonMaster[];
   moves: MoveMaster[];
 }> {
-  // 1. Try loading from IndexedDB cache
+  // 1. Fetch current data version
+  let currentVersion = 0;
+  try {
+    const resVersion = await fetch('/src/data/version.json');
+    if (resVersion.ok) {
+      const versionData = await resVersion.json();
+      currentVersion = versionData.version || 0;
+    }
+  } catch (err) {
+    console.warn('Failed to fetch master data version:', err);
+  }
+
+  // 2. Try loading from IndexedDB cache and check version
+  const cachedVersion = await db.getCachedData<number>('master_version');
   const cachedPokemon =
     await db.getCachedData<PokemonMaster[]>('pokemon_master');
   const cachedMoves = await db.getCachedData<MoveMaster[]>('moves_master');
 
-  if (cachedPokemon && cachedMoves) {
+  if (cachedVersion && cachedVersion === currentVersion && cachedPokemon && cachedMoves) {
     return { pokemon: cachedPokemon, moves: cachedMoves };
   }
 
-  // 2. Fetch from static JSON files
+  // 3. Fetch from static JSON files
   // Using relative path to be resolved by Cloudflare Pages/Vite
   const resPokemon = await fetch('/src/data/pokemon_master.json');
   const resMoves = await fetch('/src/data/moves_master.json');
@@ -101,15 +114,17 @@ export async function loadMasterData(): Promise<{
   const pokemon = await resPokemon.json();
   const moves = await resMoves.json();
 
-  // 3. Cache to IndexedDB asynchronously
+  // 4. Cache to IndexedDB asynchronously
   if (pokemon.length > 0 && moves.length > 0) {
     // Fire and forget caching to not block main thread
     db.setCachedData('pokemon_master', pokemon).catch(console.error);
     db.setCachedData('moves_master', moves).catch(console.error);
+    db.setCachedData('master_version', currentVersion).catch(console.error);
   }
 
   return { pokemon, moves };
 }
+
 
 export const db = {
   initDB,
