@@ -256,16 +256,73 @@ async function main() {
           learnable_moves: learnableMoves,
         });
 
-        console.log(`Saved: ${jaName} (${enName}) [ID: ${pokemonId}]`);
+         console.log(`Saved: ${jaName} (${enName}) [ID: ${pokemonId}]`);
+       }
+     } catch (err) {
+       console.error(`Error processing Pokémon ID ${id}:`, err);
+     }
+   }
+
+  // Ensure required moves for screenshot analysis are fetched
+  const requiredMoveIds = [
+    587, // みずしゅりけん
+    399, // あくのはどう
+    58,  // れいとうビーム
+    482, // ヘドロウェーブ
+    864, // トリックフラワー
+    813, // トリプルアクセル
+    282, // はたきおとす
+    369, // とんぼがえり
+    136, // とびひざげり
+    394, // フレアドライブ
+    9,   // かみなりパンチ
+    14,  // つるぎのまい
+    89,  // じしん
+    303, // なまける
+    281, // あくび
+    18,  // ふきとばし
+    699, // うたかたのアリア
+    585, // ムーンフォース
+    182, // まもる
+    195, // ほろびのうた
+    418, // バレットパンチ
+    355, // はねやすめ
+    814, // ダブルウイング
+  ];
+
+  console.log(`Ensuring ${requiredMoveIds.length} required moves are fetched...`);
+  for (const moveId of requiredMoveIds) {
+    if (!movesMap.has(moveId)) {
+      const moveUrl = `https://pokeapi.co/api/v2/move/${moveId}/`;
+      try {
+        const moveDetails = await fetchWithCache(moveUrl, `move_${moveId}`);
+        if (moveDetails) {
+          const power = moveDetails.power || 0;
+          const accuracy = moveDetails.accuracy || 100;
+          const pp = moveDetails.pp || 0;
+          const jaMove = moveDetails.names.find((n: any) => n.language.name === 'ja')?.name || moveDetails.name;
+          const enMove = moveDetails.names.find((n: any) => n.language.name === 'en')?.name || moveDetails.name;
+
+          movesMap.set(moveId, {
+            id: moveId,
+            name: { ja: jaMove, en: enMove },
+            type: moveDetails.type.name,
+            category: moveDetails.damage_class.name,
+            power,
+            accuracy,
+            pp,
+          });
+        }
+      } catch (err) {
+        console.error(`Failed to fetch required move ${moveId}:`, err);
       }
-    } catch (err) {
-      console.error(`Error processing Pokémon ID ${id}:`, err);
     }
   }
 
   // 4. Save JSON database files
   const pokemonMasterPath = path.join(DATA_DIR, 'pokemon_master.json');
   const movesMasterPath = path.join(DATA_DIR, 'moves_master.json');
+
   const versionPath = path.join(DATA_DIR, 'version.json');
 
   fs.writeFileSync(pokemonMasterPath, JSON.stringify(pokemonList, null, 2), 'utf-8');
