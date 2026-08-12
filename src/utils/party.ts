@@ -224,38 +224,3 @@ export function analyzePartyOffense(
 
   return Array.from(coveredTypes);
 }
-
-// Validate party composition against selected regulation
-export function validatePartyRegulation(
-  party: PokemonInstance[],
-  pokemonMasterList: PokemonMaster[],
-  regulationName: string,
-  language: 'ja' | 'en' = 'ja'
-): { valid: boolean; errors: string[] } {
-  const errors: string[] = [];
-
-  for (const instance of party) {
-    const master = pokemonMasterList.find((p) => p.id === instance.masterId);
-    if (!master) {
-      errors.push(
-        language === 'ja'
-          ? `不明なポケモンID: ${instance.masterId}`
-          : `Unknown Pokémon ID: ${instance.masterId}`
-      );
-      continue;
-    }
-
-    if (!master.regulations.includes(regulationName)) {
-      errors.push(
-        language === 'ja'
-          ? `${master.name.ja} はレギュレーション ${regulationName} では使用制限されています。`
-          : `${master.name.en} is not allowed in Regulation ${regulationName}.`
-      );
-    }
-  }
-
-  return {
-    valid: errors.length === 0,
-    errors,
-  };
-}

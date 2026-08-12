@@ -7,7 +7,6 @@ import {
   analyzePartyOffense,
   type PokemonInstance,
   TYPES,
-  validatePartyRegulation,
 } from '../../utils/party';
 
 // Simple default blank PokemonInstance
@@ -70,7 +69,6 @@ export const PartySimulator: React.FC = () => {
 
   // Party State
   const [partyName, setPartyName] = useState('');
-  const [selectedReg, setSelectedReg] = useState('M-A');
   const [party, setParty] = useState<PokemonInstance[]>([
     createEmptyInstance(),
   ]);
@@ -88,7 +86,6 @@ export const PartySimulator: React.FC = () => {
           try {
             const parsed = JSON.parse(saved);
             if (parsed.name) setPartyName(parsed.name);
-            if (parsed.reg) setSelectedReg(parsed.reg);
             if (parsed.members) setParty(parsed.members);
           } catch (e) {
             console.error('Failed to parse saved party:', e);
@@ -102,7 +99,6 @@ export const PartySimulator: React.FC = () => {
   const saveParty = () => {
     const payload = {
       name: partyName,
-      reg: selectedReg,
       members: party,
     };
     localStorage.setItem('saved_party', JSON.stringify(payload));
@@ -168,12 +164,6 @@ export const PartySimulator: React.FC = () => {
   // Analyses
   const defenseAnalysis = analyzePartyDefense(activeParty, pokemonData);
   const offenseCoverage = analyzePartyOffense(activeParty, movesData);
-  const regulationCheck = validatePartyRegulation(
-    activeParty,
-    pokemonData,
-    selectedReg,
-    language
-  );
 
   // Generate warnings
   const defenseWarnings: string[] = [];
@@ -217,23 +207,6 @@ export const PartySimulator: React.FC = () => {
               onChange={(e) => setPartyName(e.target.value)}
               className="input-premium py-2 text-sm font-semibold"
             />
-          </div>
-          <div className="w-full sm:w-48">
-            <label
-              htmlFor="reg-select-input"
-              className="block text-xs font-semibold text-slate-500 mb-1"
-            >
-              {t('regulation')}
-            </label>
-            <select
-              id="reg-select-input"
-              value={selectedReg}
-              onChange={(e) => setSelectedReg(e.target.value)}
-              className="input-premium py-2 text-sm cursor-pointer"
-            >
-              <option value="M-A">Regulation M-A</option>
-              <option value="M-B">Regulation M-B</option>
-            </select>
           </div>
         </div>
 
@@ -402,31 +375,6 @@ export const PartySimulator: React.FC = () => {
 
         {/* Analysis Results (Right Column) */}
         <div className="lg:col-span-5 space-y-6">
-          {/* Regulation Valid Block */}
-          <div className="card-premium">
-            <h3 className="text-sm font-semibold text-slate-500 mb-3 uppercase tracking-wider">
-              {t('regValid')}
-            </h3>
-            {regulationCheck.valid ? (
-              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
-                <span className="i-lucide-check-circle2 text-lg" />
-                {t('regValid')}: {selectedReg}{' '}
-                {language === 'ja' ? '適合' : 'Pass'}
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-red-500 font-semibold text-sm">
-                  <span className="i-lucide-alert-triangle text-lg" />
-                  {t('regInvalid')}
-                </div>
-                <ul className="list-disc list-inside text-xs text-red-500/90 pl-1 space-y-1">
-                  {regulationCheck.errors.map((err) => (
-                    <li key={err}>{err}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
 
           {/* Warnings & Suggestions Panel */}
           <div className="card-premium">

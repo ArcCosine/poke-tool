@@ -5,7 +5,6 @@ import {
   analyzePartyOffense,
   getTypeMatchup,
   type PokemonInstance,
-  validatePartyRegulation,
 } from './party';
 
 describe('party simulation utilities', () => {
@@ -198,77 +197,6 @@ describe('party simulation utilities', () => {
       expect(coverage).toContain('grass');
       expect(coverage).toContain('dragon');
       expect(coverage).not.toContain('water'); // Ice/Water doesn't hit Water super-effectively
-    });
-  });
-
-  describe('validatePartyRegulation', () => {
-    it('should pass if all pokemons are allowed', () => {
-      const party: PokemonInstance[] = [
-        {
-          id: '1',
-          masterId: 6,
-          moves: [],
-          evs: {
-            hp: 0,
-            attack: 0,
-            defense: 0,
-            sp_attack: 0,
-            sp_defense: 0,
-            speed: 0,
-          },
-          nature: 'neutral',
-          ability: '',
-        },
-      ];
-      const validation = validatePartyRegulation(
-        party,
-        mockPokemonMaster,
-        'M-B'
-      );
-      expect(validation.valid).toBe(true);
-      expect(validation.errors.length).toBe(0);
-    });
-
-    it('should fail if any pokemon is banned in the regulation', () => {
-      const party: PokemonInstance[] = [
-        {
-          id: '1',
-          masterId: 9,
-          moves: [],
-          evs: {
-            hp: 0,
-            attack: 0,
-            defense: 0,
-            sp_attack: 0,
-            sp_defense: 0,
-            speed: 0,
-          },
-          nature: 'neutral',
-          ability: '',
-        }, // Blastoise (Not in M-B)
-        {
-          id: '2',
-          masterId: 150,
-          moves: [],
-          evs: {
-            hp: 0,
-            attack: 0,
-            defense: 0,
-            sp_attack: 0,
-            sp_defense: 0,
-            speed: 0,
-          },
-          nature: 'neutral',
-          ability: '',
-        }, // Mewtwo (Banned)
-      ];
-      const validation = validatePartyRegulation(
-        party,
-        mockPokemonMaster,
-        'M-B'
-      );
-      expect(validation.valid).toBe(false);
-      expect(validation.errors.length).toBeGreaterThan(0);
     });
   });
 });
