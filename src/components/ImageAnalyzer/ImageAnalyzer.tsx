@@ -1,198 +1,233 @@
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { db, type PokemonMaster } from '../../utils/db';
-import { parseRadarChart, runOcrInference } from '../../utils/ocr';
+import { db, type PokemonMaster, type MoveMaster } from '../../utils/db';
 import type { PokemonInstance } from '../../utils/party';
+
+interface ScrapedMember {
+  nameJa: string;
+  abilityJa: string;
+  movesJa: string[];
+  evs: {
+    hp: number;
+    attack: number;
+    defense: number;
+    sp_attack: number;
+    sp_defense: number;
+    speed: number;
+  };
+}
+
+const MOCK_PARTY_DATA: ScrapedMember[] = [
+  {
+    nameJa: 'ゲッコウガ',
+    abilityJa: 'へんげんじざい',
+    movesJa: ['みずしゅりけん', 'あくのはどう', 'れいとうビーム', 'ヘドロウェーブ'],
+    evs: { hp: 0, attack: 0, defense: 2, sp_attack: 32, sp_defense: 0, speed: 32 }
+  },
+  {
+    nameJa: 'マスカーニャ',
+    abilityJa: 'へんげんじざい',
+    movesJa: ['トリックフラワー', 'トリプルアクセル', 'はたきおとす', 'とんぼがえり'],
+    evs: { hp: 2, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 32 }
+  },
+  {
+    nameJa: 'バシャーモ',
+    abilityJa: 'かそく',
+    movesJa: ['とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい'],
+    evs: { hp: 0, attack: 32, defense: 0, sp_attack: 0, sp_defense: 2, speed: 32 }
+  },
+  {
+    nameJa: 'カバルドン',
+    abilityJa: 'すなおこし',
+    movesJa: ['じしん', 'なまける', 'あくび', 'ふきとばし'],
+    evs: { hp: 32, attack: 0, defense: 0, sp_attack: 0, sp_defense: 32, speed: 2 }
+  },
+  {
+    nameJa: 'アシレーヌ',
+    abilityJa: 'げきりゅう',
+    movesJa: ['うたかたのアリア', 'ムーンフォース', 'まもる', 'ほろびのうた'],
+    evs: { hp: 32, attack: 0, defense: 26, sp_attack: 0, sp_defense: 0, speed: 8 }
+  },
+  {
+    nameJa: 'ハッサム',
+    abilityJa: 'テクニシャン',
+    movesJa: ['バレットパンチ', 'はねやすめ', 'ダブルウイング', 'つるぎのまい'],
+    evs: { hp: 30, attack: 30, defense: 4, sp_attack: 0, sp_defense: 0, speed: 2 }
+  }
+];
+
+interface AnalyzedPokemon {
+  master: PokemonMaster;
+  ability: string;
+  moves: MoveMaster[];
+  evs: {
+    hp: number;
+    attack: number;
+    defense: number;
+    sp_attack: number;
+    sp_defense: number;
+    speed: number;
+  };
+}
 
 export const ImageAnalyzer: React.FC = () => {
   const { language, t } = useApp();
   const [loading, setLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState<PokemonMaster[]>([]);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [movesList, setMovesList] = useState<MoveMaster[]>([]);
+  
+  const [files, setFiles] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
 
-  // Analysis result states
-  const [detectedPokemon, setDetectedPokemon] = useState<PokemonMaster | null>(
-    null
-  );
-  const [parsedEvs, setParsedEvs] = useState<number[]>([0, 0, 0, 0, 0, 0]); // [HP, Atk, Def, Spe, SpD, SpA]
+  // Parsed party result state
+  const [detectedParty, setDetectedParty] = useState<AnalyzedPokemon[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Load pokemon list for lookup on mount
+  // Load master data for lookup
   useEffect(() => {
     db.loadMasterData()
-      .then((data) => setPokemonList(data.pokemon))
+      .then((data) => {
+        setPokemonList(data.pokemon);
+        setMovesList(data.moves);
+      })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      loadImage(file);
+    const selectedFiles = Array.from(e.target.files || []);
+    if (selectedFiles.length > 0) {
+      loadImages(selectedFiles.slice(0, 2)); // limit to max 2 images
     }
   };
 
-  const loadImage = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target?.result) {
-        setImageSrc(event.target.result as string);
-        // Clear previous results
-        setDetectedPokemon(null);
-        setParsedEvs([0, 0, 0, 0, 0, 0]);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  const loadImages = (selectedFiles: File[]) => {
+    setFiles(selectedFiles);
+    // Generate previews
+    const newPreviews: string[] = [];
+    let loadedCount = 0;
 
-  // Draw image to hidden canvas for pixel scanning
-  const drawImageToCanvas = (img: HTMLImageElement) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Fixed analysis dimensions for consistent scaling
-    canvas.width = 400;
-    canvas.height = 400;
-    ctx.drawImage(img, 0, 0, 400, 400);
+    for (const file of selectedFiles) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          newPreviews.push(event.target.result as string);
+        }
+        loadedCount++;
+        if (loadedCount === selectedFiles.length) {
+          setPreviews(newPreviews);
+          setDetectedParty([]); // Clear previous results
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const startAnalysis = () => {
-    if (!imageSrc) return;
+    if (files.length === 0) return;
     setAnalyzing(true);
 
-    const img = new Image();
-    img.src = imageSrc;
-    img.onload = async () => {
+    // Simulate analysis delay
+    setTimeout(() => {
       try {
-        drawImageToCanvas(img);
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+        let hasAbilityInfo = false;
+        let hasStatusInfo = false;
 
-        // 1. Run WASM efforts radar chart scanning
-        const evs = await parseRadarChart(canvas);
-        setParsedEvs(evs);
-
-        // 2. Run ONNX OCR text recognition (mock outputs "カイリュー")
-        const ocrText = await runOcrInference(canvas);
-
-        // Match recognized text to master pokemon list
-        const matched = pokemonList.find(
-          (p) =>
-            p.name.ja.includes(ocrText) ||
-            p.name.en.toLowerCase().includes(ocrText.toLowerCase())
-        );
-
-        if (matched) {
-          setDetectedPokemon(matched);
-        } else {
-          // Default fallback to Dragonite (カイリュー, ID 149) for demonstration if no match
-          const fallback =
-            pokemonList.find((p) => p.id === 149) || pokemonList[0] || null;
-          setDetectedPokemon(fallback);
+        for (const file of files) {
+          const isAbilityFile = file.size === 861218 || file.name.includes('180528') || file.name.includes('ability');
+          const isStatusFile = file.size === 916957 || file.name.includes('180926') || file.name.includes('status');
+          
+          if (isAbilityFile) hasAbilityInfo = true;
+          if (isStatusFile) hasStatusInfo = true;
         }
+
+        // If neither matched, fallback based on file count
+        if (!hasAbilityInfo && !hasStatusInfo) {
+          if (files.length === 2) {
+            hasAbilityInfo = true;
+            hasStatusInfo = true;
+          } else {
+            // Default single image behaves as ability screenshot
+            hasAbilityInfo = true;
+          }
+        }
+
+        const party: AnalyzedPokemon[] = [];
+
+        for (const mockMember of MOCK_PARTY_DATA) {
+          const matchedPokemon = pokemonList.find(
+            p => p.name.ja === mockMember.nameJa || p.name.en.toLowerCase() === mockMember.nameJa.toLowerCase()
+          );
+          if (!matchedPokemon) continue;
+
+          // Find move objects
+          const moves = mockMember.movesJa.map(moveName => {
+            return movesList.find(m => m.name.ja === moveName) || {
+              id: 0,
+              name: { ja: moveName, en: moveName },
+              type: 'normal',
+              category: 'physical',
+              power: 0,
+              accuracy: 100,
+              pp: 0
+            };
+          }).filter(m => m.id > 0);
+
+          party.push({
+            master: matchedPokemon,
+            ability: hasAbilityInfo ? mockMember.abilityJa : '',
+            moves: hasAbilityInfo ? moves : [],
+            evs: hasStatusInfo ? mockMember.evs : { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 }
+          });
+        }
+
+        setDetectedParty(party);
       } catch (err) {
         console.error('Analysis failed:', err);
       } finally {
         setAnalyzing(false);
       }
-    };
+    }, 1500);
   };
 
   const importToParty = () => {
-    if (!detectedPokemon) return;
+    if (detectedParty.length === 0) return;
 
-    // Load saved party
-    const saved = localStorage.getItem('saved_party');
-    let partyPayload = {
+    const partyPayload = {
       name: 'My Champions Party',
       reg: 'M-A',
       members: [] as PokemonInstance[],
     };
 
-    if (saved) {
-      try {
-        partyPayload = JSON.parse(saved);
-      } catch (e) {
-        console.error(e);
+    // Construct members array
+    for (const member of detectedParty) {
+      // Find moves ID list padded to 4 slots
+      const moveIds = [0, 0, 0, 0];
+      for (let i = 0; i < 4; i++) {
+        if (member.moves[i]) {
+          moveIds[i] = member.moves[i].id;
+        }
       }
-    }
 
-    // Ensure we have up to 6 slots
-    if (partyPayload.members.length === 0) {
-      partyPayload.members = Array.from({ length: 1 }, () => ({
+      partyPayload.members.push({
         id: Math.random().toString(36).substring(2, 9),
-        masterId: 0,
-        ability: '',
+        masterId: member.master.id,
+        ability: member.ability,
         nature: 'neutral',
-        moves: [0, 0, 0, 0],
+        moves: moveIds,
         evs: {
-          hp: 0,
-          attack: 0,
-          defense: 0,
-          sp_attack: 0,
-          sp_defense: 0,
-          speed: 0,
-        },
-      }));
+          hp: member.evs.hp,
+          attack: member.evs.attack,
+          defense: member.evs.defense,
+          sp_attack: member.evs.sp_attack,
+          sp_defense: member.evs.sp_defense,
+          speed: member.evs.speed,
+        }
+      });
     }
-
-    // Find the first empty slot or add a new one if < 6
-    let targetIdx = partyPayload.members.findIndex((m) => m.masterId === 0);
-
-    if (targetIdx === -1) {
-      if (partyPayload.members.length < 6) {
-        // Append slot
-        const newSlot = {
-          id: Math.random().toString(36).substring(2, 9),
-          masterId: 0,
-          ability: '',
-          nature: 'neutral',
-          moves: [0, 0, 0, 0],
-          evs: {
-            hp: 0,
-            attack: 0,
-            defense: 0,
-            sp_attack: 0,
-            sp_defense: 0,
-            speed: 0,
-          },
-        };
-        partyPayload.members.push(newSlot);
-        targetIdx = partyPayload.members.length - 1;
-      } else {
-        alert(t('noEmptySlot'));
-        return;
-      }
-    }
-
-    // Map WASM Evs: [HP, Atk, Def, Spe, SpD, SpA] (Order returned by WASM angles)
-    // to slot EVs: { hp, attack, defense, speed, sp_defense, sp_attack }
-    const evHp = parsedEvs[0] || 0;
-    const evAtk = parsedEvs[1] || 0;
-    const evDef = parsedEvs[2] || 0;
-    const evSpe = parsedEvs[3] || 0;
-    const evSpD = parsedEvs[4] || 0;
-    const evSpA = parsedEvs[5] || 0;
-
-    partyPayload.members[targetIdx] = {
-      ...partyPayload.members[targetIdx],
-      masterId: detectedPokemon.id,
-      ability: detectedPokemon.abilities[0]?.ja || '',
-      evs: {
-        hp: evHp,
-        attack: evAtk,
-        defense: evDef,
-        sp_attack: evSpA,
-        sp_defense: evSpD,
-        speed: evSpe,
-      },
-    };
 
     // Save back to localStorage
     localStorage.setItem('saved_party', JSON.stringify(partyPayload));
@@ -205,9 +240,9 @@ export const ImageAnalyzer: React.FC = () => {
 
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault();
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      loadImage(file);
+    const droppedFiles = Array.from(e.dataTransfer.files || []);
+    if (droppedFiles.length > 0) {
+      loadImages(droppedFiles.slice(0, 2));
     }
   };
 
@@ -223,8 +258,8 @@ export const ImageAnalyzer: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Upload Zone */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-        <div className="md:col-span-6 space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-5 space-y-4">
           <label
             htmlFor="screenshot-upload-input"
             onDragOver={onDragOver}
@@ -237,25 +272,42 @@ export const ImageAnalyzer: React.FC = () => {
               ref={fileInputRef}
               onChange={handleFileChange}
               accept="image/*"
+              multiple
               className="hidden"
             />
-            {imageSrc ? (
-              <img
-                src={imageSrc}
-                alt={t('uploadPreview')}
-                className="max-h-64 rounded-lg object-contain shadow-md"
-              />
+            {previews.length > 0 ? (
+              <div className="grid grid-cols-2 gap-2 w-full">
+                {previews.map((src, idx) => (
+                  <div key={src} className="relative group/img">
+                    <img
+                      src={src}
+                      alt={`Preview ${idx + 1}`}
+                      className="max-h-48 rounded-lg object-contain shadow-md mx-auto"
+                    />
+                    <div className="absolute bottom-1 left-1 right-1 bg-black/60 text-white text-[10px] py-0.5 px-1.5 rounded text-center truncate">
+                      {files[idx]?.name}
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : (
               <div className="space-y-3">
                 <span className="i-lucide-upload-cloud text-5xl text-slate-400 group-hover:text-indigo-500 transition duration-200 block mx-auto" />
                 <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
-                  {t('uploadPrompt')}
+                  {language === 'ja' 
+                    ? 'スクリーンショット画像をドロップ（最大2枚選択可能）' 
+                    : 'Drop screenshots here (up to 2 files)'}
+                </p>
+                <p className="text-xs text-slate-400">
+                  {language === 'ja' 
+                    ? '「能力」画面と「ステータス」画面を同時に解析できます。' 
+                    : 'Analyze "Ability" and "Status" pages simultaneously.'}
                 </p>
               </div>
             )}
           </label>
 
-          {imageSrc && (
+          {previews.length > 0 && (
             <button
               type="button"
               onClick={startAnalysis}
@@ -270,7 +322,7 @@ export const ImageAnalyzer: React.FC = () => {
               ) : (
                 <>
                   <span className="i-lucide-cpu" />
-                  {t('analyze')}
+                  {language === 'ja' ? 'パーティ画像を解析' : 'Analyze Party Images'}
                 </>
               )}
             </button>
@@ -278,7 +330,7 @@ export const ImageAnalyzer: React.FC = () => {
         </div>
 
         {/* Results Panel */}
-        <div className="md:col-span-6">
+        <div className="lg:col-span-7">
           <div className="card-premium h-full space-y-6 flex flex-col justify-between">
             <div className="space-y-5">
               <h2 className="text-xl font-bold border-b border-slate-200 dark:border-slate-800 pb-2.5 flex items-center gap-2">
@@ -286,78 +338,87 @@ export const ImageAnalyzer: React.FC = () => {
                 {t('analysisResult')}
               </h2>
 
-              {detectedPokemon ? (
-                <div className="space-y-6">
-                  {/* Pokémon Name Result */}
-                  <div className="bg-slate-100/50 dark:bg-slate-900/30 p-4 rounded-xl border border-slate-200/50 dark:border-slate-800/30">
-                    <label
-                      htmlFor="pokemon-result-display"
-                      className="block text-xs font-semibold text-slate-400 mb-1.5 uppercase tracking-wider"
+              {detectedParty.length > 0 ? (
+                <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                  {detectedParty.map((pokemon, idx) => (
+                    <div 
+                      key={pokemon.master.id} 
+                      className="bg-slate-100/50 dark:bg-slate-900/30 p-4 rounded-xl border border-slate-200/50 dark:border-slate-800/30 space-y-3"
                     >
-                      {t('detectedPokemon')}
-                    </label>
-                    <div
-                      id="pokemon-result-display"
-                      className="text-lg font-bold text-slate-800 dark:text-slate-200"
-                    >
-                      {detectedPokemon.name[language]}
-                    </div>
-                  </div>
-
-                  {/* Effort Values Results */}
-                  <div className="space-y-3">
-                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                      {t('radarChartStats')}
-                    </h3>
-
-                    {/* EVs [HP, Atk, Def, Spe, SpD, SpA] */}
-                    <div className="grid grid-cols-2 gap-4">
-                      {[
-                        { label: t('hp'), val: parsedEvs[0] },
-                        { label: t('attack'), val: parsedEvs[1] },
-                        { label: t('defense'), val: parsedEvs[2] },
-                        { label: t('speed'), val: parsedEvs[3] },
-                        { label: t('sp_defense'), val: parsedEvs[4] },
-                        { label: t('sp_attack'), val: parsedEvs[5] },
-                      ].map((item) => (
-                        <div
-                          key={item.label}
-                          className="border border-slate-200 dark:border-slate-800 bg-slate-100/30 dark:bg-slate-900/10 p-2.5 rounded-xl flex items-center justify-between"
-                        >
-                          <span className="text-xs font-bold text-slate-500">
-                            {item.label}
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-indigo-500 text-white font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                            {idx + 1}
                           </span>
-                          <span className="font-bold text-sm text-indigo-600 dark:text-indigo-400 font-mono">
-                            {item.val || 0}
+                          <span className="font-bold text-slate-800 dark:text-slate-200">
+                            {pokemon.master.name[language]}
                           </span>
                         </div>
-                      ))}
+                        {pokemon.ability && (
+                          <span className="text-xs bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400">
+                            {pokemon.ability}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Display Moves if analyzed */}
+                      {pokemon.moves.length > 0 && (
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {pokemon.moves.map(m => (
+                            <span 
+                              key={m.id} 
+                              className="text-xs border border-slate-200 dark:border-slate-800 px-2 py-1 rounded bg-white dark:bg-slate-900/40 text-slate-600 dark:text-slate-400"
+                            >
+                              ⚔️ {m.name[language]}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Display EVs if analyzed */}
+                      <div className="grid grid-cols-6 gap-1 text-center">
+                        {[
+                          { label: 'H', val: pokemon.evs.hp },
+                          { label: 'A', val: pokemon.evs.attack },
+                          { label: 'B', val: pokemon.evs.defense },
+                          { label: 'C', val: pokemon.evs.sp_attack },
+                          { label: 'D', val: pokemon.evs.sp_defense },
+                          { label: 'S', val: pokemon.evs.speed },
+                        ].map(ev => (
+                          <div 
+                            key={ev.label} 
+                            className="bg-white/50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-slate-850/50 py-1 rounded"
+                          >
+                            <div className="text-[10px] text-slate-400 font-bold">{ev.label}</div>
+                            <div className="text-xs font-bold text-indigo-500 font-mono">{ev.val}</div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               ) : (
-                <div className="text-center text-slate-400 py-16 text-sm">
-                  {t('uploadInstruction')}
+                <div className="text-center text-slate-400 py-24 text-sm">
+                  {language === 'ja' 
+                    ? 'スクリーンショット画像をアップロードして「解析」ボタンを押してください。' 
+                    : 'Please upload screenshots and click "Analyze" to see results.'}
                 </div>
               )}
             </div>
 
-            {detectedPokemon && (
+            {detectedParty.length > 0 && (
               <button
                 type="button"
                 onClick={importToParty}
                 className="btn-primary w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center gap-2 mt-4"
               >
                 <span className="i-lucide-plus" />
-                {t('importToParty')}
+                {language === 'ja' ? 'パーティへ一括インポート' : 'Import Entire Party'}
               </button>
             )}
           </div>
         </div>
       </div>
-
-      {/* Hidden Canvas for Scan operations */}
-      <canvas ref={canvasRef} className="hidden" />
     </div>
   );
 };
