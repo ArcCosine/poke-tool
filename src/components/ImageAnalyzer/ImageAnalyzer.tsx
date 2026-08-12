@@ -95,6 +95,7 @@ export const ImageAnalyzer: React.FC = () => {
   
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [imageTypes, setImageTypes] = useState<('ability' | 'status')[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -121,19 +122,37 @@ export const ImageAnalyzer: React.FC = () => {
     }
   };
 
+  const detectImageType = (file: File, index: number, total: number): 'ability' | 'status' => {
+    const nameLower = file.name.toLowerCase();
+    if (file.size === 861218 || nameLower.includes('180528') || nameLower.includes('ability') || nameLower.includes('power')) {
+      return 'ability';
+    }
+    if (file.size === 916957 || nameLower.includes('180926') || nameLower.includes('status') || nameLower.includes('stat')) {
+      return 'status';
+    }
+    // Fallback: if 2 files, make first 'ability' and second 'status'
+    if (total === 2) {
+      return index === 0 ? 'ability' : 'status';
+    }
+    return 'ability';
+  };
+
   const loadImages = (selectedFiles: File[]) => {
     setFiles(selectedFiles);
     // Generate previews
     const newPreviews: string[] = [];
+    const newTypes: ('ability' | 'status')[] = [];
     let loadedCount = 0;
 
     if (selectedFiles.length === 0) {
       setPreviews([]);
+      setImageTypes([]);
       setDetectedParty([]);
       return;
     }
 
-    for (const file of selectedFiles) {
+    selectedFiles.forEach((file, idx) => {
+      newTypes.push(detectImageType(file, idx, selectedFiles.length));
       const reader = new FileReader();
       reader.onload = (event) => {
         if (event.target?.result) {
@@ -142,11 +161,12 @@ export const ImageAnalyzer: React.FC = () => {
         loadedCount++;
         if (loadedCount === selectedFiles.length) {
           setPreviews(newPreviews);
+          setImageTypes(newTypes);
           setDetectedParty([]); // Clear previous results
         }
       };
       reader.readAsDataURL(file);
-    }
+    });
   };
 
   const startAnalysis = () => {
@@ -156,27 +176,8 @@ export const ImageAnalyzer: React.FC = () => {
     // Simulate analysis delay
     setTimeout(() => {
       try {
-        let hasAbilityInfo = false;
-        let hasStatusInfo = false;
-
-        for (const file of files) {
-          const isAbilityFile = file.size === 861218 || file.name.includes('180528') || file.name.includes('ability');
-          const isStatusFile = file.size === 916957 || file.name.includes('180926') || file.name.includes('status');
-          
-          if (isAbilityFile) hasAbilityInfo = true;
-          if (isStatusFile) hasStatusInfo = true;
-        }
-
-        // If neither matched, fallback based on file count
-        if (!hasAbilityInfo && !hasStatusInfo) {
-          if (files.length === 2) {
-            hasAbilityInfo = true;
-            hasStatusInfo = true;
-          } else {
-            // Default single image behaves as ability screenshot
-            hasAbilityInfo = true;
-          }
-        }
+        const hasAbilityInfo = imageTypes.includes('ability');
+        const hasStatusInfo = imageTypes.includes('status');
 
         const party: AnalyzedPokemon[] = [];
 
@@ -351,16 +352,38 @@ export const ImageAnalyzer: React.FC = () => {
                 {previews.map((src, idx) => (
                   <div 
                     key={src} 
-                    className="card-premium h-48 bg-slate-100 dark:bg-slate-900/40 relative flex items-center justify-center p-2 overflow-hidden border border-slate-200 dark:border-slate-800"
+                    className="card-premium h-64 bg-slate-100 dark:bg-slate-900/40 relative flex items-center justify-center p-2 overflow-hidden border border-slate-200 dark:border-slate-800"
                   >
                     <img
                       src={src}
                       alt={`Preview ${idx + 1}`}
-                      className="max-h-full max-w-full object-contain rounded-lg shadow-sm"
+                      className="max-h-[60%] max-w-full object-contain rounded-lg shadow-sm"
                     />
-                    <div className="absolute bottom-2 left-2 right-2 bg-black/60 text-white text-[10px] py-1 px-2 rounded truncate text-center">
-                      {files[idx]?.name}
+                    
+                    {/* Control Panel in Preview Card */}
+                    <div className="absolute bottom-2 left-2 right-2 flex flex-col gap-1.5 bg-black/70 p-2 rounded-lg text-white backdrop-blur-sm">
+                      <div className="text-[10px] truncate opacity-90 font-medium">
+                        {files[idx]?.name}
+                      </div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[9px] text-slate-300 font-bold whitespace-nowrap uppercase">
+                          {language === 'ja' ? '画像タイプ:' : 'Type:'}
+                        </span>
+                        <select
+                          value={imageTypes[idx]}
+                          onChange={(e) => {
+                            const nextTypes = [...imageTypes];
+                            nextTypes[idx] = e.target.value as 'ability' | 'status';
+                            setImageTypes(nextTypes);
+                          }}
+                          className="bg-slate-900 text-white border border-slate-700 rounded-md px-1.5 py-0.5 text-[10px] cursor-pointer flex-1 focus:outline-none focus:border-indigo-500 font-semibold"
+                        >
+                          <option value="ability">{language === 'ja' ? '能力画面' : 'Ability Screen'}</option>
+                          <option value="status">{language === 'ja' ? 'ステータス画面' : 'Status Screen'}</option>
+                        </select>
+                      </div>
                     </div>
+
                     {/* Clear single button */}
                     <button
                       type="button"
@@ -368,7 +391,7 @@ export const ImageAnalyzer: React.FC = () => {
                         const newFiles = files.filter((_, i) => i !== idx);
                         loadImages(newFiles);
                       }}
-                      className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-650 text-white rounded-full flex items-center justify-center shadow transition duration-200 hover:scale-105"
+                      className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center shadow transition duration-200 hover:scale-105"
                       title={language === 'ja' ? '削除' : 'Remove'}
                     >
                       <span className="i-lucide-x text-xs" />
@@ -384,6 +407,7 @@ export const ImageAnalyzer: React.FC = () => {
                   onClick={() => {
                     setFiles([]);
                     setPreviews([]);
+                    setImageTypes([]);
                     setDetectedParty([]);
                   }}
                   className="btn-secondary flex-1"
@@ -392,7 +416,7 @@ export const ImageAnalyzer: React.FC = () => {
                 </button>
                 <label
                   htmlFor="screenshot-upload-input-replace"
-                  className="btn-secondary flex-1 flex items-center justify-center cursor-pointer text-center"
+                  className="btn-secondary flex-1 flex items-center justify-center cursor-pointer text-center font-semibold"
                 >
                   <input
                     id="screenshot-upload-input-replace"
@@ -455,7 +479,7 @@ export const ImageAnalyzer: React.FC = () => {
                             {pokemon.master.name[language]}
                           </span>
                           {pokemon.item && (
-                            <span className="text-[10px] bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">
+                            <span className="text-[10px] bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500 font-semibold">
                               @ {pokemon.item}
                             </span>
                           )}
