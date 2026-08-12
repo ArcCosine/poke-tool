@@ -110,6 +110,12 @@ export const ImageAnalyzer: React.FC = () => {
     const newPreviews: string[] = [];
     let loadedCount = 0;
 
+    if (selectedFiles.length === 0) {
+      setPreviews([]);
+      setDetectedParty([]);
+      return;
+    }
+
     for (const file of selectedFiles) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -260,37 +266,22 @@ export const ImageAnalyzer: React.FC = () => {
       {/* Upload Zone */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-5 space-y-4">
-          <label
-            htmlFor="screenshot-upload-input"
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            className="card-premium border-2 border-dashed border-slate-300 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-600 min-h-64 flex flex-col items-center justify-center p-6 text-center cursor-pointer group transition duration-200 block"
-          >
-            <input
-              id="screenshot-upload-input"
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              accept="image/*"
-              multiple
-              className="hidden"
-            />
-            {previews.length > 0 ? (
-              <div className="grid grid-cols-2 gap-2 w-full">
-                {previews.map((src, idx) => (
-                  <div key={src} className="relative group/img">
-                    <img
-                      src={src}
-                      alt={`Preview ${idx + 1}`}
-                      className="max-h-48 rounded-lg object-contain shadow-md mx-auto"
-                    />
-                    <div className="absolute bottom-1 left-1 right-1 bg-black/60 text-white text-[10px] py-0.5 px-1.5 rounded text-center truncate">
-                      {files[idx]?.name}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
+          {previews.length === 0 ? (
+            <label
+              htmlFor="screenshot-upload-input"
+              onDragOver={onDragOver}
+              onDrop={onDrop}
+              className="card-premium border-2 border-dashed border-slate-300 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-600 h-64 flex flex-col items-center justify-center p-6 text-center cursor-pointer group transition duration-200"
+            >
+              <input
+                id="screenshot-upload-input"
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                multiple
+                className="hidden"
+              />
               <div className="space-y-3">
                 <span className="i-lucide-upload-cloud text-5xl text-slate-400 group-hover:text-indigo-500 transition duration-200 block mx-auto" />
                 <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
@@ -304,8 +295,70 @@ export const ImageAnalyzer: React.FC = () => {
                     : 'Analyze "Ability" and "Status" pages simultaneously.'}
                 </p>
               </div>
-            )}
-          </label>
+            </label>
+          ) : (
+            <div className="space-y-4">
+              {/* Grid of Preview Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {previews.map((src, idx) => (
+                  <div 
+                    key={src} 
+                    className="card-premium h-48 bg-slate-100 dark:bg-slate-900/40 relative flex items-center justify-center p-2 overflow-hidden border border-slate-200 dark:border-slate-800"
+                  >
+                    <img
+                      src={src}
+                      alt={`Preview ${idx + 1}`}
+                      className="max-h-full max-w-full object-contain rounded-lg shadow-sm"
+                    />
+                    <div className="absolute bottom-2 left-2 right-2 bg-black/60 text-white text-[10px] py-1 px-2 rounded truncate text-center">
+                      {files[idx]?.name}
+                    </div>
+                    {/* Clear single button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newFiles = files.filter((_, i) => i !== idx);
+                        loadImages(newFiles);
+                      }}
+                      className="absolute top-2 right-2 w-6 h-6 bg-red-500 hover:bg-red-650 text-white rounded-full flex items-center justify-center shadow transition duration-200 hover:scale-105"
+                      title={language === 'ja' ? '削除' : 'Remove'}
+                    >
+                      <span className="i-lucide-x text-xs" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFiles([]);
+                    setPreviews([]);
+                    setDetectedParty([]);
+                  }}
+                  className="btn-secondary flex-1"
+                >
+                  {language === 'ja' ? 'すべてクリア' : 'Clear All'}
+                </button>
+                <label
+                  htmlFor="screenshot-upload-input-replace"
+                  className="btn-secondary flex-1 flex items-center justify-center cursor-pointer text-center"
+                >
+                  <input
+                    id="screenshot-upload-input-replace"
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                  />
+                  {language === 'ja' ? '画像を追加・変更' : 'Change Images'}
+                </label>
+              </div>
+            </div>
+          )}
 
           {previews.length > 0 && (
             <button

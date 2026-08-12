@@ -52,11 +52,12 @@ describe('ImageAnalyzer component', () => {
   beforeEach(() => {
     localStorage.clear();
     vi.restoreAllMocks();
-    vi.spyOn(window, 'setTimeout').mockImplementation((fn: any) => {
-      fn();
-      return 0 as any;
+    const realSetTimeout = globalThis.setTimeout;
+    vi.spyOn(window, 'setTimeout').mockImplementation((fn: any, delay: any) => {
+      return realSetTimeout(fn, delay === 1500 ? 0 : delay);
     });
   });
+
 
   const createMockFile = (name: string, size: number): File => {
     const blob = new Blob(['a'.repeat(size)], { type: 'image/png' });
