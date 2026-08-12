@@ -3,94 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { db, type PokemonMaster, type MoveMaster, type ItemMaster } from '../../utils/db';
 import { generatePartyPokesolText, type PokemonInstance } from '../../utils/party';
-
-// Helper to binarize canvas pixels for font matching OCR
-const getBinaryPixels = (ctx: CanvasRenderingContext2D, w: number, h: number): Uint8Array => {
-  const imgData = ctx.getImageData(0, 0, w, h);
-  const data = imgData.data;
-  const binary = new Uint8Array(w * h);
-
-  for (let i = 0; i < data.length; i += 4) {
-    const r = data[i];
-    const g = data[i + 1];
-    const b = data[i + 2];
-    const v = 0.299 * r + 0.587 * g + 0.114 * b;
-    // Binarize: white text on dark background in game screenshots
-    binary[i / 4] = v > 150 ? 1 : 0;
-  }
-  return binary;
-};
-
-// Compare two binary patterns and return mismatch score
-const compareBinaryPatterns = (a: Uint8Array, b: Uint8Array): number => {
-  let diff = 0;
-  const len = Math.min(a.length, b.length);
-  for (let i = 0; i < len; i++) {
-    if (a[i] !== b[i]) diff++;
-  }
-  return diff;
-};
-
-// Dynamic OCR Matcher by rendering font options on fly
-const recognizeTextByFontMatching = (
-  sourceCanvas: HTMLCanvasElement,
-  cropX: number,
-  cropY: number,
-  cropW: number,
-  cropH: number,
-  candidates: string[]
-): string => {
-  if (candidates.length === 0) return '';
-
-  const targetCanvas = document.createElement('canvas');
-  targetCanvas.width = Math.floor(cropW);
-  targetCanvas.height = Math.floor(cropH);
-  const targetCtx = targetCanvas.getContext('2d');
-  if (!targetCtx) return candidates[0];
-
-  try {
-    targetCtx.drawImage(
-      sourceCanvas,
-      cropX, cropY, cropW, cropH,
-      0, 0, cropW, cropH
-    );
-  } catch (e) {
-    return candidates[0];
-  }
-
-  const targetBin = getBinaryPixels(targetCtx, targetCanvas.width, targetCanvas.height);
-
-  let bestMatch = candidates[0];
-  let minDiff = Infinity;
-
-  // Reference canvas for rendering candidates
-  const refCanvas = document.createElement('canvas');
-  refCanvas.width = targetCanvas.width;
-  refCanvas.height = targetCanvas.height;
-  const refCtx = refCanvas.getContext('2d');
-  if (!refCtx) return candidates[0];
-
-  for (const text of candidates) {
-    refCtx.fillStyle = '#000000'; // black background
-    refCtx.fillRect(0, 0, refCanvas.width, refCanvas.height);
-
-    refCtx.fillStyle = '#ffffff'; // white text
-    refCtx.font = 'bold 14px sans-serif';
-    refCtx.textBaseline = 'middle';
-    refCtx.textAlign = 'left';
-    refCtx.fillText(text, 5, refCanvas.height / 2);
-
-    const refBin = getBinaryPixels(refCtx, refCanvas.width, refCanvas.height);
-    const diff = compareBinaryPatterns(targetBin, refBin);
-
-    if (diff < minDiff) {
-      minDiff = diff;
-      bestMatch = text;
-    }
-  }
-
-  return bestMatch;
-};
+import * as ocr from '../../utils/ocr';
 
 interface AnalyzedPokemon {
   master: PokemonMaster;
@@ -199,86 +112,28 @@ export const ImageAnalyzer: React.FC = () => {
         const hasAbilityInfo = imageTypes.includes('ability');
         const hasStatusInfo = imageTypes.includes('status');
 
-        const isFixture1Analysis = files.some(
-          file => file.size === 861218 || file.name.includes('20260803')
-        );
-        const isFixture2Analysis = files.some(
-          file => file.size === 844510 || file.name.includes('20260812')
-        );
-
         const img = new Image();
         img.src = previews[0];
 
-        const isTestEnv = typeof window !== 'undefined' && (window as any).vi !== undefined;
-
-        if (!isTestEnv) {
-          await new Promise<void>((resolve) => {
-            img.onload = () => resolve();
-            img.onerror = () => resolve();
-          });
-        }
+        await new Promise<void>((resolve) => {
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+        });
 
         const canvas = document.createElement('canvas');
         canvas.width = img.naturalWidth || img.width || 2400;
         canvas.height = img.naturalHeight || img.height || 1080;
         const ctx = canvas.getContext('2d');
         
-        if (ctx && !isTestEnv) {
+        if (ctx) {
           try {
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           } catch (e) {
-            console.warn('Canvas drawImage failed, using fallback analysis:', e);
+            console.warn('Canvas drawImage failed:', e);
           }
         }
 
         const party: AnalyzedPokemon[] = [];
-
-        // Define expected mock order/values for testing environment compatibility
-        const fixture1Pokemons = ['ゲッコウガ', 'マスカーニャ', 'バシャーモ', 'カバルドン', 'アシレーヌ', 'ハッサム'];
-        const fixture2Pokemons = ['ガブリアス', 'ニンフィア', 'バシャーモ', 'ドドゲザン', 'サーフゴー', 'ギャラドス'];
-        
-        const fixture1Abilities = ['へんげんじざい', 'へんげんじざい', 'かそく', 'すなおこし', 'げきりゅう', 'テクニシャン'];
-        const fixture2Abilities = ['さめはだ', 'フェアリースキン', 'かそく', 'そうたいしょう', 'おうごんのからだ', 'いかく'];
-
-        const fixture1Items = ['きあいのタスキ', 'こだわりスカーフ', 'バシャーモナイト', 'オボンのみ', 'たべのこし', 'ハッサムナイト'];
-        const fixture2Items = ['カゴのみ', 'たべのこし', 'バシャーモナイト', 'くろいメガネ', 'こだわりスカーフ', 'こうかくレンズ'];
-
-        const fixture1Natures = ['modest', 'jolly', 'adamant', 'impish', 'bold', 'adamant'];
-        const fixture2Natures = ['impish', 'bold', 'adamant', 'adamant', 'timid', 'careful'];
-
-        const fixture1Moves = [
-          ['みずしゅりけん', 'あくのはどう', 'れいとうビーム', 'ヘドロウェーブ'],
-          ['トリックフラワー', 'トリプルアクセル', 'はたきおとす', 'とんぼがえり'],
-          ['とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい'],
-          ['じしん', 'なまける', 'あくび', 'ふきとばし'],
-          ['うたかたのアリア', 'ムーンフォース', 'まもる', 'ほろびのうた'],
-          ['バレットパンチ', 'はねやすめ', 'ダブルウイング', 'つるぎのまい']
-        ];
-        const fixture2Moves = [
-          ['じしん', 'ドラゴンテール', 'ステルスロック', 'ねむる'],
-          ['ハイパーボイス', 'あくび', 'まもる', 'ねがいごと'],
-          ['とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい'],
-          ['ドゲザン', 'ふいうち', 'アイアンヘッド', 'つるぎのまい'],
-          ['ゴールドラッシュ', 'シャドーボール', '10まんボルト', 'パワージェム'],
-          ['パワーウィップ', 'ゆきなだれ', 'でんじは', 'ストーンエッジ']
-        ];
-
-        const fixture1Evs = [
-          { hp: 0, attack: 0, defense: 2, sp_attack: 32, sp_defense: 0, speed: 32 },
-          { hp: 2, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 32 },
-          { hp: 0, attack: 32, defense: 0, sp_attack: 0, sp_defense: 2, speed: 32 },
-          { hp: 32, attack: 0, defense: 0, sp_attack: 0, sp_defense: 32, speed: 2 },
-          { hp: 32, attack: 0, defense: 26, sp_attack: 0, sp_defense: 0, speed: 8 },
-          { hp: 30, attack: 30, defense: 4, sp_attack: 0, sp_defense: 0, speed: 2 }
-        ];
-        const fixture2Evs = [
-          { hp: 32, attack: 0, defense: 16, sp_attack: 0, sp_defense: 17, speed: 1 },
-          { hp: 32, attack: 0, defense: 32, sp_attack: 0, sp_defense: 0, speed: 2 },
-          { hp: 0, attack: 32, defense: 0, sp_attack: 0, sp_defense: 2, speed: 32 },
-          { hp: 0, attack: 32, defense: 2, sp_attack: 0, sp_defense: 0, speed: 32 },
-          { hp: 0, attack: 0, defense: 4, sp_attack: 32, sp_defense: 0, speed: 30 },
-          { hp: 32, attack: 0, defense: 22, sp_attack: 0, sp_defense: 10, speed: 2 }
-        ];
 
         for (let idx = 0; idx < 6; idx++) {
           const W = canvas.width;
@@ -297,100 +152,78 @@ export const ImageAnalyzer: React.FC = () => {
 
           const slotH = H * 0.205;
 
-          let pokemonName = '';
-          let ability = '';
-          let item = '';
-          let nature = 'neutral';
-          let detectedMovesJa: string[] = [];
-
-          if (isTestEnv || isFixture1Analysis || isFixture2Analysis) {
-            // Apply fixture text map in tests
-            if (isFixture2Analysis) {
-              pokemonName = fixture2Pokemons[idx];
-              ability = fixture2Abilities[idx];
-              item = fixture2Items[idx];
-              nature = fixture2Natures[idx];
-              detectedMovesJa = fixture2Moves[idx];
-            } else {
-              pokemonName = fixture1Pokemons[idx];
-              ability = fixture1Abilities[idx];
-              item = fixture1Items[idx];
-              nature = fixture1Natures[idx];
-              detectedMovesJa = fixture1Moves[idx];
+          // Helper to crop sub-canvas and run OCR
+          const runOcrOnRegion = async (
+            rx: number, ry: number, rw: number, rh: number,
+            candidates: string[]
+          ): Promise<string> => {
+            const sub = document.createElement('canvas');
+            sub.width = Math.floor(rw);
+            sub.height = Math.floor(rh);
+            const subCtx = sub.getContext('2d');
+            if (subCtx && ctx) {
+              try {
+                subCtx.drawImage(canvas, rx, ry, rw, rh, 0, 0, rw, rh);
+              } catch (e) {
+                // ignore
+              }
             }
-          } else {
-            // GENERIC OCR text matching using font comparison
-            const allPokemonNames = pokemonList.map(p => p.name.ja);
-            pokemonName = recognizeTextByFontMatching(
-              canvas,
-              slotX + slotW * 0.12, slotY + slotH * 0.10, slotW * 0.28, slotH * 0.25,
-              allPokemonNames
-            );
+            return ocr.runOcrInference(sub, candidates);
+          };
 
-            const matchedMaster = pokemonList.find(p => p.name.ja === pokemonName);
-            if (matchedMaster) {
-              const abilityCandidates = matchedMaster.abilities.map(a => a.ja);
-              ability = recognizeTextByFontMatching(
-                canvas,
-                slotX + slotW * 0.12, slotY + slotH * 0.38, slotW * 0.28, slotH * 0.24,
-                abilityCandidates
-              );
-
-              const itemCandidates = itemsList.map(i => i.name.ja);
-              item = recognizeTextByFontMatching(
-                canvas,
-                slotX + slotW * 0.12, slotY + slotH * 0.65, slotW * 0.33, slotH * 0.25,
-                itemCandidates
-              );
-
-              const moveCandidates = movesList.filter(m => matchedMaster.learnable_moves.includes(m.id)).map(m => m.name.ja);
-              
-              // Cropping 4 moves vertically
-              const m1 = recognizeTextByFontMatching(canvas, slotX + slotW * 0.42, slotY + slotH * 0.10, slotW * 0.23, slotH * 0.20, moveCandidates);
-              const m2 = recognizeTextByFontMatching(canvas, slotX + slotW * 0.42, slotY + slotH * 0.30, slotW * 0.23, slotH * 0.20, moveCandidates);
-              const m3 = recognizeTextByFontMatching(canvas, slotX + slotW * 0.42, slotY + slotH * 0.50, slotW * 0.23, slotH * 0.20, moveCandidates);
-              const m4 = recognizeTextByFontMatching(canvas, slotX + slotW * 0.42, slotY + slotH * 0.70, slotW * 0.23, slotH * 0.20, moveCandidates);
-              detectedMovesJa = [m1, m2, m3, m4];
-            }
-          }
+          // 1. OCR Pokemon Name
+          const allPokemonNames = pokemonList.map(p => p.name.ja);
+          const pokemonName = await runOcrOnRegion(
+            slotX + slotW * 0.12, slotY + slotH * 0.10, slotW * 0.28, slotH * 0.25,
+            allPokemonNames
+          );
 
           const matchedPokemon = pokemonList.find(p => p.name.ja === pokemonName);
           if (!matchedPokemon) continue;
 
-          // 2. Call WASM module to analyze radar chart effort values
+          // 2. OCR Ability & Item & Moves
+          let ability = '';
+          let item = '';
+          let detectedMovesJa: string[] = [];
+
+          const abilityCandidates = matchedPokemon.abilities.map(a => a.ja);
+          ability = await runOcrOnRegion(
+            slotX + slotW * 0.12, slotY + slotH * 0.38, slotW * 0.28, slotH * 0.24,
+            abilityCandidates
+          );
+
+          const itemCandidates = itemsList.map(i => i.name.ja);
+          item = await runOcrOnRegion(
+            slotX + slotW * 0.12, slotY + slotH * 0.65, slotW * 0.33, slotH * 0.25,
+            itemCandidates
+          );
+
+          const moveCandidates = movesList.filter(m => matchedPokemon.learnable_moves.includes(m.id)).map(m => m.name.ja);
+          const m1 = await runOcrOnRegion(slotX + slotW * 0.42, slotY + slotH * 0.10, slotW * 0.23, slotH * 0.20, moveCandidates);
+          const m2 = await runOcrOnRegion(slotX + slotW * 0.42, slotY + slotH * 0.30, slotW * 0.23, slotH * 0.20, moveCandidates);
+          const m3 = await runOcrOnRegion(slotX + slotW * 0.42, slotY + slotH * 0.50, slotW * 0.23, slotH * 0.20, moveCandidates);
+          const m4 = await runOcrOnRegion(slotX + slotW * 0.42, slotY + slotH * 0.70, slotW * 0.23, slotH * 0.20, moveCandidates);
+          detectedMovesJa = [m1, m2, m3, m4];
+
+          // 3. WASM Radar Chart EVs
           const chartX = slotX + slotW * 0.65;
           const chartY = slotY + slotH * 0.05;
           const chartW = slotW * 0.32;
           const chartH = slotH * 0.90;
 
-          const subCanvas = document.createElement('canvas');
-          subCanvas.width = 120;
-          subCanvas.height = 120;
-          const subCtx = subCanvas.getContext('2d');
+          const chartCanvas = document.createElement('canvas');
+          chartCanvas.width = 120;
+          chartCanvas.height = 120;
+          const chartCtx = chartCanvas.getContext('2d');
           
           let evs = [0, 0, 0, 0, 0, 0];
-          if (subCtx && ctx && !isTestEnv) {
+          if (chartCtx && ctx) {
             try {
-              subCtx.drawImage(canvas, chartX, chartY, chartW, chartH, 0, 0, 120, 120);
-              const ocrMod = await import('../../utils/ocr');
-              evs = await ocrMod.parseRadarChart(subCanvas);
+              chartCtx.drawImage(canvas, chartX, chartY, chartW, chartH, 0, 0, 120, 120);
+              evs = await ocr.parseRadarChart(chartCanvas);
             } catch (err) {
               console.error('WASM radar chart analysis failed:', err);
             }
-          }
-
-          // Test environment or fixture override for EVs
-          const isAllZero = evs.every(v => v === 0);
-          if (isAllZero && (isTestEnv || isFixture1Analysis || isFixture2Analysis)) {
-            const mockEv = isFixture2Analysis ? fixture2Evs[idx] : fixture1Evs[idx];
-            evs = [
-              mockEv.hp,
-              mockEv.attack,
-              mockEv.defense,
-              mockEv.speed,
-              mockEv.sp_defense,
-              mockEv.sp_attack
-            ];
           }
 
           const evsMapped = {
@@ -402,7 +235,6 @@ export const ImageAnalyzer: React.FC = () => {
             sp_attack: evs[5] || 0
           };
 
-          // Find moves from movesList
           const moves = detectedMovesJa.map(moveName => {
             return movesList.find(m => m.name.ja === moveName) || {
               id: 0,
@@ -419,7 +251,7 @@ export const ImageAnalyzer: React.FC = () => {
             master: matchedPokemon,
             ability: hasAbilityInfo ? ability : '',
             item: item === 'なし' ? '' : item,
-            nature: nature,
+            nature: 'neutral', // default
             moves: hasAbilityInfo ? moves : [],
             evs: hasStatusInfo ? evsMapped : { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 }
           });
