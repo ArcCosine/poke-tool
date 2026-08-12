@@ -7,6 +7,8 @@ import {
   analyzePartyOffense,
   type PokemonInstance,
   TYPES,
+  NATURES,
+  generatePartyPokesolText,
 } from '../../utils/party';
 
 // Simple default blank PokemonInstance
@@ -15,6 +17,7 @@ const createEmptyInstance = (): PokemonInstance => ({
   masterId: 0,
   ability: '',
   nature: 'neutral',
+  item: '',
   moves: [0, 0, 0, 0],
   evs: { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 },
 });
@@ -72,6 +75,7 @@ export const PartySimulator: React.FC = () => {
   const [party, setParty] = useState<PokemonInstance[]>([
     createEmptyInstance(),
   ]);
+  const [copied, setCopied] = useState(false);
 
   // Load master data and saved party
   useEffect(() => {
@@ -107,6 +111,16 @@ export const PartySimulator: React.FC = () => {
         ? 'パーティを保存しました！'
         : 'Party saved successfully!'
     );
+  };
+
+  const copyPokesolText = () => {
+    const text = generatePartyPokesolText(party, pokemonData, movesData, language);
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch((err) => console.error('Copy failed:', err));
   };
 
   const addPokemonToParty = () => {
@@ -210,14 +224,25 @@ export const PartySimulator: React.FC = () => {
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={saveParty}
-          className="btn-primary w-full md:w-auto flex items-center justify-center gap-2"
-        >
-          <span className="i-lucide-save" />
-          {t('saveParty')}
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <button
+            type="button"
+            onClick={copyPokesolText}
+            disabled={activeParty.length === 0}
+            className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span className="i-lucide-clipboard" />
+            {copied ? 'コピーしました！' : 'ポケソル形式でコピー'}
+          </button>
+          <button
+            type="button"
+            onClick={saveParty}
+            className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 font-semibold"
+          >
+            <span className="i-lucide-save" />
+            {t('saveParty')}
+          </button>
+        </div>
       </div>
 
       {/* Main Grid: Left = Pokémon Slots, Right = Analysis */}
@@ -250,7 +275,7 @@ export const PartySimulator: React.FC = () => {
                 </button>
 
                 {/* Pokemon Selector & Basic Info */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
                     <label
                       htmlFor={`pokemon-select-${index}`}
@@ -267,6 +292,8 @@ export const PartySimulator: React.FC = () => {
                         updateMember(index, {
                           masterId: mId,
                           ability: poke?.abilities[0]?.ja || '',
+                          nature: 'neutral',
+                          item: '',
                           moves: [0, 0, 0, 0],
                         });
                       }}
@@ -303,6 +330,52 @@ export const PartySimulator: React.FC = () => {
                           </option>
                         ))}
                       </select>
+                    </div>
+                  )}
+
+                  {currentPoke && (
+                    <div>
+                      <label
+                        htmlFor={`nature-select-${index}`}
+                        className="block text-xs font-semibold text-slate-500 mb-1"
+                      >
+                        {language === 'ja' ? '能力補正' : 'Nature'}
+                      </label>
+                      <select
+                        id={`nature-select-${index}`}
+                        value={member.nature || 'neutral'}
+                        onChange={(e) =>
+                          updateMember(index, { nature: e.target.value })
+                        }
+                        className="input-premium py-2 text-sm cursor-pointer"
+                      >
+                        {NATURES.map((n) => (
+                          <option key={n.id} value={n.id}>
+                            {n.name[language]}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {currentPoke && (
+                    <div>
+                      <label
+                        htmlFor={`item-input-${index}`}
+                        className="block text-xs font-semibold text-slate-500 mb-1"
+                      >
+                        {language === 'ja' ? '持ち物' : 'Held Item'}
+                      </label>
+                      <input
+                        id={`item-input-${index}`}
+                        type="text"
+                        value={member.item || ''}
+                        placeholder={language === 'ja' ? '例: こだわりスカーフ' : 'e.g. Choice Scarf'}
+                        onChange={(e) =>
+                          updateMember(index, { item: e.target.value })
+                        }
+                        className="input-premium py-2 text-sm font-semibold"
+                      />
                     </div>
                   )}
                 </div>

@@ -2,11 +2,13 @@ import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { db, type PokemonMaster, type MoveMaster } from '../../utils/db';
-import type { PokemonInstance } from '../../utils/party';
+import { generatePartyPokesolText, type PokemonInstance } from '../../utils/party';
 
 interface ScrapedMember {
   nameJa: string;
   abilityJa: string;
+  itemJa: string;
+  natureId: string;
   movesJa: string[];
   evs: {
     hp: number;
@@ -22,36 +24,48 @@ const MOCK_PARTY_DATA: ScrapedMember[] = [
   {
     nameJa: 'ゲッコウガ',
     abilityJa: 'へんげんじざい',
+    itemJa: 'きあいのタスキ',
+    natureId: 'modest',
     movesJa: ['みずしゅりけん', 'あくのはどう', 'れいとうビーム', 'ヘドロウェーブ'],
     evs: { hp: 0, attack: 0, defense: 2, sp_attack: 32, sp_defense: 0, speed: 32 }
   },
   {
     nameJa: 'マスカーニャ',
     abilityJa: 'へんげんじざい',
+    itemJa: 'こだわりスカーフ',
+    natureId: 'jolly',
     movesJa: ['トリックフラワー', 'トリプルアクセル', 'はたきおとす', 'とんぼがえり'],
     evs: { hp: 2, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 32 }
   },
   {
     nameJa: 'バシャーモ',
     abilityJa: 'かそく',
+    itemJa: 'バシャーモナイト',
+    natureId: 'adamant',
     movesJa: ['とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい'],
     evs: { hp: 0, attack: 32, defense: 0, sp_attack: 0, sp_defense: 2, speed: 32 }
   },
   {
     nameJa: 'カバルドン',
     abilityJa: 'すなおこし',
+    itemJa: 'オボンのみ',
+    natureId: 'impish',
     movesJa: ['じしん', 'なまける', 'あくび', 'ふきとばし'],
     evs: { hp: 32, attack: 0, defense: 0, sp_attack: 0, sp_defense: 32, speed: 2 }
   },
   {
     nameJa: 'アシレーヌ',
     abilityJa: 'げきりゅう',
+    itemJa: 'たべのこし',
+    natureId: 'bold',
     movesJa: ['うたかたのアリア', 'ムーンフォース', 'まもる', 'ほろびのうた'],
     evs: { hp: 32, attack: 0, defense: 26, sp_attack: 0, sp_defense: 0, speed: 8 }
   },
   {
     nameJa: 'ハッサム',
     abilityJa: 'テクニシャン',
+    itemJa: 'ハッサムナイト',
+    natureId: 'adamant',
     movesJa: ['バレットパンチ', 'はねやすめ', 'ダブルウイング', 'つるぎのまい'],
     evs: { hp: 30, attack: 30, defense: 4, sp_attack: 0, sp_defense: 0, speed: 2 }
   }
@@ -60,6 +74,8 @@ const MOCK_PARTY_DATA: ScrapedMember[] = [
 interface AnalyzedPokemon {
   master: PokemonMaster;
   ability: string;
+  item: string;
+  nature: string;
   moves: MoveMaster[];
   evs: {
     hp: number;
@@ -80,6 +96,7 @@ export const ImageAnalyzer: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Parsed party result state
   const [detectedParty, setDetectedParty] = useState<AnalyzedPokemon[]>([]);
@@ -185,6 +202,8 @@ export const ImageAnalyzer: React.FC = () => {
           party.push({
             master: matchedPokemon,
             ability: hasAbilityInfo ? mockMember.abilityJa : '',
+            item: mockMember.itemJa,
+            nature: mockMember.natureId,
             moves: hasAbilityInfo ? moves : [],
             evs: hasStatusInfo ? mockMember.evs : { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 }
           });
@@ -199,12 +218,40 @@ export const ImageAnalyzer: React.FC = () => {
     }, 1500);
   };
 
+  const copyPokesol = () => {
+    if (detectedParty.length === 0) return;
+
+    const instances: PokemonInstance[] = detectedParty.map(member => {
+      const moveIds = [0, 0, 0, 0];
+      for (let i = 0; i < 4; i++) {
+        if (member.moves[i]) moveIds[i] = member.moves[i].id;
+      }
+
+      return {
+        id: '',
+        masterId: member.master.id,
+        ability: member.ability,
+        nature: member.nature,
+        item: member.item,
+        moves: moveIds,
+        evs: member.evs
+      };
+    });
+
+    const text = generatePartyPokesolText(instances, pokemonList, movesList, language);
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => console.error('Copy failed:', err));
+  };
+
   const importToParty = () => {
     if (detectedParty.length === 0) return;
 
     const partyPayload = {
       name: 'My Champions Party',
-      reg: 'M-A',
       members: [] as PokemonInstance[],
     };
 
@@ -222,7 +269,8 @@ export const ImageAnalyzer: React.FC = () => {
         id: Math.random().toString(36).substring(2, 9),
         masterId: member.master.id,
         ability: member.ability,
-        nature: 'neutral',
+        nature: member.nature,
+        item: member.item,
         moves: moveIds,
         evs: {
           hp: member.evs.hp,
@@ -406,9 +454,14 @@ export const ImageAnalyzer: React.FC = () => {
                           <span className="font-bold text-slate-800 dark:text-slate-200">
                             {pokemon.master.name[language]}
                           </span>
+                          {pokemon.item && (
+                            <span className="text-[10px] bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-500">
+                              @ {pokemon.item}
+                            </span>
+                          )}
                         </div>
                         {pokemon.ability && (
-                          <span className="text-xs bg-slate-200 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400">
+                          <span className="text-xs bg-slate-200 dark:bg-slate-850 px-2 py-0.5 rounded text-indigo-600 dark:text-indigo-400 font-semibold">
                             {pokemon.ability}
                           </span>
                         )}
@@ -460,14 +513,24 @@ export const ImageAnalyzer: React.FC = () => {
             </div>
 
             {detectedParty.length > 0 && (
-              <button
-                type="button"
-                onClick={importToParty}
-                className="btn-primary w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center gap-2 mt-4"
-              >
-                <span className="i-lucide-plus" />
-                {language === 'ja' ? 'パーティへ一括インポート' : 'Import Entire Party'}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <button
+                  type="button"
+                  onClick={copyPokesol}
+                  className="btn-secondary flex items-center justify-center gap-2 flex-1 font-semibold"
+                >
+                  <span className="i-lucide-clipboard" />
+                  {copied ? 'コピーしました！' : 'ポケソル形式でコピー'}
+                </button>
+                <button
+                  type="button"
+                  onClick={importToParty}
+                  className="btn-primary flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center gap-2 font-semibold text-white"
+                >
+                  <span className="i-lucide-plus" />
+                  {language === 'ja' ? 'パーティへ一括インポート' : 'Import Entire Party'}
+                </button>
+              </div>
             )}
           </div>
         </div>

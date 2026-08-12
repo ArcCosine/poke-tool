@@ -5,6 +5,7 @@ export interface PokemonInstance {
   masterId: number;
   ability: string;
   nature: string;
+  item?: string;
   moves: number[]; // Up to 4 moves
   evs: {
     hp: number;
@@ -224,3 +225,113 @@ export function analyzePartyOffense(
 
   return Array.from(coveredTypes);
 }
+
+export interface NatureDefinition {
+  id: string;
+  name: { ja: string; en: string };
+  plus?: 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed';
+  minus?: 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed';
+}
+
+export const NATURES: NatureDefinition[] = [
+  { id: 'adamant', name: { ja: 'いじっぱり', en: 'Adamant' }, plus: 'attack', minus: 'sp_attack' },
+  { id: 'jolly', name: { ja: 'ようき', en: 'Jolly' }, plus: 'speed', minus: 'sp_attack' },
+  { id: 'timid', name: { ja: 'おくびょう', en: 'Timid' }, plus: 'speed', minus: 'attack' },
+  { id: 'modest', name: { ja: 'ひかえめ', en: 'Modest' }, plus: 'sp_attack', minus: 'attack' },
+  { id: 'bold', name: { ja: 'ずぶとい', en: 'Bold' }, plus: 'defense', minus: 'attack' },
+  { id: 'impish', name: { ja: 'わんぱく', en: 'Impish' }, plus: 'defense', minus: 'sp_attack' },
+  { id: 'calm', name: { ja: 'おだやか', en: 'Calm' }, plus: 'sp_defense', minus: 'attack' },
+  { id: 'careful', name: { ja: 'しんちょう', en: 'Careful' }, plus: 'sp_defense', minus: 'sp_attack' },
+  { id: 'quiet', name: { ja: 'れいせい', en: 'Quiet' }, plus: 'sp_attack', minus: 'speed' },
+  { id: 'brave', name: { ja: 'ゆうかん', en: 'Brave' }, plus: 'attack', minus: 'speed' },
+  { id: 'relaxed', name: { ja: 'のんき', en: 'Relaxed' }, plus: 'defense', minus: 'speed' },
+  { id: 'sassy', name: { ja: 'なまいき', en: 'Sassy' }, plus: 'sp_defense', minus: 'speed' },
+  { id: 'neutral', name: { ja: 'まじめ', en: 'Serious' } },
+];
+
+export const getCalculatedStat = (
+  statName: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
+  base: number,
+  ev: number,
+  natureId: string
+): number => {
+  const level = 50;
+  const iv = 31;
+
+  if (statName === 'hp') {
+    const baseHp = Math.floor(((base * 2 + iv) * level) / 100) + level + 10;
+    return baseHp + ev;
+  }
+
+  const baseVal = Math.floor(((base * 2 + iv) * level) / 100) + 5;
+  const valWithEv = baseVal + ev;
+
+  let multiplier = 1.0;
+  const nat = NATURES.find(n => n.id === natureId);
+  if (nat) {
+    if (nat.plus === statName) multiplier = 1.1;
+    if (nat.minus === statName) multiplier = 0.9;
+  }
+
+  return Math.floor(valWithEv * multiplier);
+};
+
+export const generatePokesolText = (
+  member: PokemonInstance,
+  pokemonList: PokemonMaster[],
+  movesList: MoveMaster[],
+  language: 'ja' | 'en'
+): string => {
+  const master = pokemonList.find(p => p.id === member.masterId);
+  if (!master) return '';
+
+  const name = master.name[language];
+  const ability = member.ability || master.abilities[0]?.ja || '';
+  const item = member.item ? ` @ ${member.item}` : '';
+  
+  const nat = NATURES.find(n => n.id === member.nature) || NATURES.find(n => n.id === 'neutral')!;
+  const natureName = nat.name[language];
+
+  const formatStat = (
+    statKey: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
+    base: number,
+    ev: number
+  ) => {
+    const val = getCalculatedStat(statKey, base, ev, member.nature);
+    return ev > 0 ? `${val}(${ev})` : `${val}`;
+  };
+
+  const statString = [
+    formatStat('hp', master.base_stats.hp, member.evs.hp),
+    formatStat('attack', master.base_stats.attack, member.evs.attack),
+    formatStat('defense', master.base_stats.defense, member.evs.defense),
+    formatStat('sp_attack', master.base_stats.sp_attack, member.evs.sp_attack),
+    formatStat('sp_defense', master.base_stats.sp_defense, member.evs.sp_defense),
+    formatStat('speed', master.base_stats.speed, member.evs.speed),
+  ].join('-');
+
+  const moveNames = member.moves
+    .map(id => movesList.find(m => m.id === id)?.name[language])
+    .filter(Boolean);
+  
+  const movesString = moveNames.length > 0 ? moveNames.join(' / ') : '';
+
+  return `${name}${item}
+特性: ${ability}
+能力補正: ${natureName}
+${statString}
+${movesString}`;
+};
+
+export const generatePartyPokesolText = (
+  party: PokemonInstance[],
+  pokemonList: PokemonMaster[],
+  movesList: MoveMaster[],
+  language: 'ja' | 'en'
+): string => {
+  return party
+    .filter(m => m.masterId > 0)
+    .map(m => generatePokesolText(m, pokemonList, movesList, language))
+    .join('\n\n');
+};
+

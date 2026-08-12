@@ -6,12 +6,12 @@ import { AppProvider } from '../../context/AppContext';
 // Mock DB with the 6 target pokemons
 vi.mock('../../utils/db', () => {
   const mockPokemons = [
-    { id: 658, name: { ja: 'ゲッコウガ', en: 'Greninja' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [] },
-    { id: 908, name: { ja: 'マスカーニャ', en: 'Meowscarada' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [] },
-    { id: 257, name: { ja: 'バシャーモ', en: 'Blaziken' }, abilities: [{ ja: 'かそく', en: 'Speed Boost' }], regulations: ['M-B'], learnable_moves: [] },
-    { id: 450, name: { ja: 'カバルドン', en: 'Hippowdon' }, abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }], regulations: ['M-A', 'M-B'], learnable_moves: [] },
-    { id: 730, name: { ja: 'アシレーヌ', en: 'Primarina' }, abilities: [{ ja: 'げきりゅう', en: 'Torrent' }], regulations: ['M-A', 'M-B'], learnable_moves: [] },
-    { id: 212, name: { ja: 'ハッサム', en: 'Scizor' }, abilities: [{ ja: 'テクニシャン', en: 'Technician' }], regulations: ['M-A', 'M-B'], learnable_moves: [] },
+    { id: 658, name: { ja: 'ゲッコウガ', en: 'Greninja' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 72, attack: 95, defense: 67, sp_attack: 103, sp_defense: 71, speed: 122 } },
+    { id: 908, name: { ja: 'マスカーニャ', en: 'Meowscarada' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 76, attack: 110, defense: 70, sp_attack: 81, sp_defense: 70, speed: 123 } },
+    { id: 257, name: { ja: 'バシャーモ', en: 'Blaziken' }, abilities: [{ ja: 'かそく', en: 'Speed Boost' }], regulations: ['M-B'], learnable_moves: [], base_stats: { hp: 80, attack: 120, defense: 70, sp_attack: 110, sp_defense: 70, speed: 80 } },
+    { id: 450, name: { ja: 'カバルドン', en: 'Hippowdon' }, abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 108, attack: 112, defense: 118, sp_attack: 68, sp_defense: 72, speed: 47 } },
+    { id: 730, name: { ja: 'アシレーヌ', en: 'Primarina' }, abilities: [{ ja: 'げきりゅう', en: 'Torrent' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 80, attack: 74, defense: 74, sp_attack: 126, sp_defense: 116, speed: 60 } },
+    { id: 212, name: { ja: 'ハッサム', en: 'Scizor' }, abilities: [{ ja: 'テクニシャン', en: 'Technician' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 70, attack: 130, defense: 100, sp_attack: 55, sp_defense: 80, speed: 65 } },
   ];
   const mockMoves = [
     { id: 1, name: { ja: 'みずしゅりけん', en: 'Water Shuriken' } },
@@ -175,8 +175,29 @@ describe('ImageAnalyzer component', () => {
     expect(savedParty.members.length).toBe(6);
     expect(savedParty.members[0].masterId).toBe(658); // Greninja
     expect(savedParty.members[0].ability).toBe('へんげんじざい');
+    expect(savedParty.members[0].nature).toBe('modest');
+    expect(savedParty.members[0].item).toBe('きあいのタスキ');
     expect(savedParty.members[0].evs.sp_attack).toBe(32);
     expect(savedParty.members[0].evs.speed).toBe(32);
+
+    // Mock clipboard API
+    const writeTextMock = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal('navigator', {
+      clipboard: {
+        writeText: writeTextMock,
+      },
+    });
+
+    // Copy pokesol text
+    const copyBtn = screen.getByRole('button', { name: /ポケソル形式でコピー/i });
+    fireEvent.click(copyBtn);
+    expect(writeTextMock).toHaveBeenCalled();
+    const copiedText = writeTextMock.mock.calls[0][0];
+    expect(copiedText).toContain('ゲッコウガ @ きあいのタスキ');
+    expect(copiedText).toContain('特性: へんげんじざい');
+    expect(copiedText).toContain('能力補正: ひかえめ');
+    expect(copiedText).toContain('147-103-89(2)-170(32)-91-174(32)');
+    expect(copiedText).toContain('みずしゅりけん / あくのはどう / れいとうビーム / ヘドロウェーブ');
   });
 });
 
