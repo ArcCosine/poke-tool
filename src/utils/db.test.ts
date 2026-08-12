@@ -11,6 +11,9 @@ describe('db caching utilities', () => {
     const mockMoves = [
       { id: 1, name: { ja: 'ハードプラント', en: 'Frenzy Plant' } },
     ];
+    const mockItems = [
+      { id: 1, name: { ja: 'オボンのみ', en: 'Sitrus Berry' } },
+    ];
 
     // Mock fetch API
     const fetchMock = vi.fn().mockImplementation((url: string) => {
@@ -22,10 +25,11 @@ describe('db caching utilities', () => {
       }
       return Promise.resolve({
         ok: true,
-        json: () =>
-          Promise.resolve(
-            url.includes('pokemon_master') ? mockPokemon : mockMoves
-          ),
+        json: () => {
+          if (url.includes('pokemon_master')) return Promise.resolve(mockPokemon);
+          if (url.includes('moves_master')) return Promise.resolve(mockMoves);
+          return Promise.resolve(mockItems);
+        }
       });
     });
     vi.stubGlobal('fetch', fetchMock);
@@ -38,17 +42,21 @@ describe('db caching utilities', () => {
 
     const result = await db.loadMasterData();
 
-    expect(getCachedSpy).toHaveBeenCalledTimes(3); // master_version, pokemon_master, moves_master
-    expect(fetchMock).toHaveBeenCalledTimes(3); // version.json, pokemon_master.json, moves_master.json
+    expect(getCachedSpy).toHaveBeenCalledTimes(4); // master_version, pokemon_master, moves_master, items_master
+    expect(fetchMock).toHaveBeenCalledTimes(4); // version.json, pokemon_master.json, moves_master.json, items_master.json
     expect(result.pokemon).toEqual(mockPokemon);
     expect(result.moves).toEqual(mockMoves);
-    expect(setCachedSpy).toHaveBeenCalledTimes(3); // pokemon_master, moves_master, master_version
+    expect(result.items).toEqual(mockItems);
+    expect(setCachedSpy).toHaveBeenCalledTimes(4); // pokemon_master, moves_master, items_master, master_version
   });
 
   it('should load data from IndexedDB cache when available without fetching other than version', async () => {
     const mockPokemon = [{ id: 3, name: { ja: 'フシギバナ', en: 'Venusaur' } }];
     const mockMoves = [
       { id: 5, name: { ja: 'メガドレイン', en: 'Mega Drain' } },
+    ];
+    const mockItems = [
+      { id: 1, name: { ja: 'オボンのみ', en: 'Sitrus Berry' } },
     ];
 
     // Mock version.json fetch
@@ -67,15 +75,16 @@ describe('db caching utilities', () => {
         if (key === 'master_version') return Promise.resolve(123);
         if (key === 'pokemon_master') return Promise.resolve(mockPokemon);
         if (key === 'moves_master') return Promise.resolve(mockMoves);
+        if (key === 'items_master') return Promise.resolve(mockItems);
         return Promise.resolve(null);
       });
 
     const result = await db.loadMasterData();
 
-    expect(getCachedSpy).toHaveBeenCalledTimes(3);
+    expect(getCachedSpy).toHaveBeenCalledTimes(4);
     expect(fetchMock).toHaveBeenCalledTimes(1); // Only version.json should be fetched
     expect(result.pokemon).toEqual(mockPokemon);
     expect(result.moves).toEqual(mockMoves);
+    expect(result.items).toEqual(mockItems);
   });
 });
-

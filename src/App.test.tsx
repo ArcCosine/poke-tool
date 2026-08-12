@@ -26,6 +26,7 @@ vi.mock('./utils/db', () => {
           },
         ],
         moves: [],
+        items: [],
       }),
     },
   };

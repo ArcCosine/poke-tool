@@ -59,11 +59,23 @@ vi.mock('../../utils/db', () => {
     { id: 38, name: { ja: 'でんじは', en: 'Thunder Wave' } },
     { id: 39, name: { ja: 'ストーンエッジ', en: 'Stone Edge' } },
   ];
+  const mockItems = [
+    { id: 1, name: { ja: 'きあいのタスキ', en: 'Focus Sash' } },
+    { id: 2, name: { ja: 'こだわりスカーフ', en: 'Choice Scarf' } },
+    { id: 3, name: { ja: 'バシャーモナイト', en: 'Blazikenite' } },
+    { id: 4, name: { ja: 'オボンのみ', en: 'Sitrus Berry' } },
+    { id: 5, name: { ja: 'たべのこし', en: 'Leftovers' } },
+    { id: 6, name: { ja: 'ハッサムナイト', en: 'Scizorite' } },
+    { id: 7, name: { ja: 'カゴのみ', en: 'Chesto Berry' } },
+    { id: 8, name: { ja: 'くろいメガネ', en: 'Black Glasses' } },
+    { id: 9, name: { ja: 'こうかくレンズ', en: 'Wide Lens' } },
+  ];
   return {
     db: {
       loadMasterData: vi.fn().mockResolvedValue({
         pokemon: mockPokemons,
         moves: mockMoves,
+        items: mockItems,
       }),
     },
   };

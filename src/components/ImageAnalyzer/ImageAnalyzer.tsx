@@ -1,16 +1,8 @@
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { db, type PokemonMaster, type MoveMaster } from '../../utils/db';
+import { db, type PokemonMaster, type MoveMaster, type ItemMaster } from '../../utils/db';
 import { generatePartyPokesolText, type PokemonInstance } from '../../utils/party';
-
-// Items database for held items OCR matching
-const COMMON_ITEMS = [
-  'カゴのみ', 'たべのこし', 'バシャーモナイト', 'くろいメガネ',
-  'こだわりスカーフ', 'こうかくレンズ', 'きあいのタスキ', 'オボンのみ',
-  'ハッサムナイト', 'ラムのみ', 'いのちのたま', 'とつげきチョッキ',
-  'ゴツゴツメット', 'ちからのハチマキ', 'なし'
-];
 
 // Helper to binarize canvas pixels for font matching OCR
 const getBinaryPixels = (ctx: CanvasRenderingContext2D, w: number, h: number): Uint8Array => {
@@ -121,6 +113,7 @@ export const ImageAnalyzer: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState<PokemonMaster[]>([]);
   const [movesList, setMovesList] = useState<MoveMaster[]>([]);
+  const [itemsList, setItemsList] = useState<ItemMaster[]>([]);
   
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
@@ -139,6 +132,7 @@ export const ImageAnalyzer: React.FC = () => {
       .then((data) => {
         setPokemonList(data.pokemon);
         setMovesList(data.moves);
+        setItemsList(data.items || []);
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
@@ -342,10 +336,11 @@ export const ImageAnalyzer: React.FC = () => {
                 abilityCandidates
               );
 
+              const itemCandidates = itemsList.map(i => i.name.ja);
               item = recognizeTextByFontMatching(
                 canvas,
                 slotX + slotW * 0.12, slotY + slotH * 0.65, slotW * 0.33, slotH * 0.25,
-                COMMON_ITEMS
+                itemCandidates
               );
 
               const moveCandidates = movesList.filter(m => matchedMaster.learnable_moves.includes(m.id)).map(m => m.name.ja);

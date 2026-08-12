@@ -261,19 +261,94 @@ async function main() {
      } catch (err) {
        console.error(`Error processing Pokémon ID ${id}:`, err);
      }
-   }
+  }
+
+  // 3. Fetch holdable items
+  console.log('Fetching holdable items list...');
+  const itemsList: any[] = [];
+  try {
+    const holdableAttribute = await fetchWithCache(
+      'https://pokeapi.co/api/v2/item-attribute/holdable/',
+      'item_attribute_holdable'
+    );
+    const heldItemsCategory = await fetchWithCache(
+      'https://pokeapi.co/api/v2/item-category/held-items/',
+      'item_category_held_items'
+    );
+
+    const itemUrls = new Set<string>();
+    for (const item of holdableAttribute.items || []) {
+      itemUrls.add(item.url);
+    }
+    for (const item of heldItemsCategory.items || []) {
+      itemUrls.add(item.url);
+    }
+
+    try {
+      const megaStonesCategory = await fetchWithCache(
+        'https://pokeapi.co/api/v2/item-category/mega-stones/',
+        'item_category_mega_stones'
+      );
+      for (const item of megaStonesCategory.items || []) {
+        itemUrls.add(item.url);
+      }
+    } catch (e) {
+      console.warn('Failed to fetch mega-stones category, skipping:', e);
+    }
+
+    console.log(`Found ${itemUrls.size} potential holdable items. Fetching details...`);
+    let itemIdx = 0;
+    for (const url of itemUrls) {
+      const itemId = parseInt(url.split('/').filter(Boolean).pop() || '0', 10);
+      if (itemId > 0) {
+        try {
+          const itemDetails = await fetchWithCache(url, `item_${itemId}`);
+          const jaName = itemDetails.names.find((n: any) => n.language.name === 'ja')?.name || itemDetails.name;
+          const enName = itemDetails.names.find((n: any) => n.language.name === 'en')?.name || itemDetails.name;
+          itemsList.push({
+            id: itemId,
+            name: { ja: jaName, en: enName }
+          });
+          itemIdx++;
+          if (itemIdx % 50 === 0) {
+            console.log(`Fetched ${itemIdx} items...`);
+          }
+        } catch (err) {
+          console.error(`Failed to fetch item ${itemId}:`, err);
+        }
+      }
+    }
+    itemsList.push({
+      id: 99999,
+      name: { ja: 'なし', en: 'None' }
+    });
+    console.log(`Successfully fetched ${itemsList.length} items.`);
+  } catch (error) {
+    console.error('Failed to fetch items from PokeAPI, using default items fallback:', error);
+    const fallbackItems = [
+      'きあいのタスキ', 'こだわりスカーフ', 'バシャーモナイト', 'オボンのみ',
+      'たべのこし', 'ハッサムナイト', 'カゴのみ', 'くろいメガネ', 'こうかくレンズ', 'なし'
+    ];
+    fallbackItems.forEach((name, index) => {
+      itemsList.push({
+        id: 10000 + index,
+        name: { ja: name, en: name }
+      });
+    });
+  }
 
   // 4. Save JSON database files
   const pokemonMasterPath = path.join(DATA_DIR, 'pokemon_master.json');
   const movesMasterPath = path.join(DATA_DIR, 'moves_master.json');
-
+  const itemsMasterPath = path.join(DATA_DIR, 'items_master.json');
   const versionPath = path.join(DATA_DIR, 'version.json');
 
   fs.writeFileSync(pokemonMasterPath, JSON.stringify(pokemonList, null, 2), 'utf-8');
   fs.writeFileSync(movesMasterPath, JSON.stringify(Array.from(movesMap.values()), null, 2), 'utf-8');
+  fs.writeFileSync(itemsMasterPath, JSON.stringify(itemsList, null, 2), 'utf-8');
   fs.writeFileSync(versionPath, JSON.stringify({ version: Date.now() }, null, 2), 'utf-8');
 
-  console.log(`Finished! Total Pokémon: ${pokemonList.length}, Total Moves: ${movesMap.size}`);
+  console.log(`Finished! Total Pokémon: ${pokemonList.length}, Total Moves: ${movesMap.size}, Total Items: ${itemsList.length}`);
 }
 
 main().catch((err) => {
