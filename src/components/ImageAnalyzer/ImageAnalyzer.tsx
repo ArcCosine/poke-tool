@@ -1241,7 +1241,7 @@ export const ImageAnalyzer: React.FC = () => {
                 <button
                   type="button"
                   onClick={importToParty}
-                  className="btn-primary flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 flex items-center justify-center gap-2 font-semibold text-white"
+                  className="btn-primary flex-1 bg-emerald-600 dark:bg-emerald-600 hover:bg-emerald-500 dark:hover:bg-emerald-500 flex items-center justify-center gap-2 font-semibold text-white"
                 >
                   <span className="i-lucide-plus" />
                   {language === 'ja'

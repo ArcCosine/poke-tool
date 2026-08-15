@@ -56,6 +56,8 @@ interface RankingItem {
   value: number;
   moveName?: { ja: string; en: string };
   category?: string;
+  moveType?: string;
+  abilityName?: { ja: string; en: string };
 }
 
 export const StatSearch: React.FC = () => {
@@ -69,8 +71,10 @@ export const StatSearch: React.FC = () => {
     'damage' | 'physical' | 'special'
   >('damage');
   const [selectedType, setSelectedType] = useState<string>('all');
+  const [selectedMoveType, setSelectedMoveType] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedReg, setSelectedReg] = useState<string>('all');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   // Load master data on mount
   useEffect(() => {
@@ -92,44 +96,75 @@ export const StatSearch: React.FC = () => {
     );
   }
 
-  // Pre-calculate stats and rank them
-  const rankingList: RankingItem[] = pokemonData
-    .map((poke) => {
-      if (searchTarget === 'damage') {
-        const dmgInfo = calculateMaxDamage(poke, movesData);
-        return {
-          pokemon: poke,
-          value: dmgInfo.value,
-          moveName: dmgInfo.moveName,
-          category: dmgInfo.category,
-        };
-      }
+  // 1. Calculate and flatten all pokemon and moves
+  const flatList: Omit<RankingItem, 'rank'>[] = [];
 
+  pokemonData.forEach((poke) => {
+    if (searchTarget === 'damage') {
+      const dmgMoves = calculateMaxDamage(poke, movesData);
+      if (dmgMoves.length > 0) {
+        dmgMoves.forEach((move) => {
+          flatList.push({
+            pokemon: poke,
+            value: move.value,
+            moveName: move.moveName,
+            category: move.category,
+            moveType: move.moveType,
+            abilityName: move.abilityName,
+          });
+        });
+      } else {
+        // Fallback for mock test data that has no learnable moves defined
+        flatList.push({
+          pokemon: poke,
+          value: 0,
+          moveName: { ja: 'なし', en: 'None' },
+          category: 'status',
+          moveType: 'normal',
+          abilityName: { ja: 'なし', en: 'None' },
+        });
+      }
+    } else {
       const durInfo = calculateMaxDurability(poke);
-      return {
+      flatList.push({
         pokemon: poke,
         value: searchTarget === 'physical' ? durInfo.physical : durInfo.special,
-      };
-    })
-    // 1. Filter by regulation
+        abilityName:
+          searchTarget === 'physical'
+            ? durInfo.physicalAbility
+            : durInfo.specialAbility,
+      });
+    }
+  });
+
+  // 2. Filter, sort, and slice to top 300
+  const rankingList: RankingItem[] = flatList
+    // (A) Filter by regulation
     .filter(
       (item) =>
         selectedReg === 'all' || item.pokemon.regulations.includes(selectedReg)
     )
-    // 2. Filter by type
+    // (B) Filter by pokemon type
     .filter(
       (item) =>
         selectedType === 'all' || item.pokemon.types.includes(selectedType)
     )
-    // 3. Filter by category (for damage search)
+    // (C) Filter by move type (for damage search)
+    .filter((item) => {
+      if (searchTarget !== 'damage' || selectedMoveType === 'all') return true;
+      return item.moveType === selectedMoveType;
+    })
+    // (D) Filter by category (for damage search)
     .filter((item) => {
       if (searchTarget !== 'damage' || selectedCategory === 'all') return true;
       return item.category === selectedCategory;
     })
-    // 4. Sort descending
-    .sort((a, b) => b.value - a.value)
-    // 5. Slice Top 30 and map rank
-    .slice(0, 30)
+    // (E) Sort depending on sortOrder
+    .sort((a, b) =>
+      sortOrder === 'desc' ? b.value - a.value : a.value - b.value
+    )
+    // (F) Slice Top 300 and map rank
+    .slice(0, 300)
     .map((item, index) => ({
       rank: index + 1,
       ...item,
@@ -138,7 +173,7 @@ export const StatSearch: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Filters Card */}
-      <div className="card-premium grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
+      <div className="card-premium grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 p-5">
         {/* Search Target */}
         <div>
           <label
@@ -178,6 +213,30 @@ export const StatSearch: React.FC = () => {
             className="input-premium py-2 cursor-pointer text-sm"
           >
             <option value="all">{t('allTypes')}</option>
+            {Object.keys(typeTranslations).map((tKey) => (
+              <option key={tKey} value={tKey}>
+                {typeTranslations[tKey][language]}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Move Type Filter */}
+        <div>
+          <label
+            htmlFor="move-type-filter"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
+          >
+            {t('moveType')}
+          </label>
+          <select
+            id="move-type-filter"
+            value={selectedMoveType}
+            disabled={searchTarget !== 'damage'}
+            onChange={(e) => setSelectedMoveType(e.target.value)}
+            className="input-premium py-2 cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <option value="all">{t('allMoveTypes')}</option>
             {Object.keys(typeTranslations).map((tKey) => (
               <option key={tKey} value={tKey}>
                 {typeTranslations[tKey][language]}
@@ -239,17 +298,36 @@ export const StatSearch: React.FC = () => {
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 text-slate-500 text-xs font-bold uppercase tracking-wider">
                 <th className="py-4 px-6 w-16 text-center">{t('rank')}</th>
                 <th className="py-4 px-6">{t('pokemon')}</th>
+                <th className="py-4 px-6">{t('ability')}</th>
                 <th className="py-4 px-6">{t('type')}</th>
                 {searchTarget === 'damage' && (
                   <th className="py-4 px-6">{t('move')}</th>
                 )}
-                <th className="py-4 px-6 text-right pr-8">{t('value')}</th>
+                <th className="py-4 px-6 text-right pr-8">
+                  <button
+                    onClick={() =>
+                      setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+                    }
+                    className="appearance-none bg-transparent border-none p-0 focus:outline-none focus:ring-0 focus-visible:outline-none select-none text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider ml-auto inline-flex items-center gap-1 cursor-default"
+                  >
+                    {t('value')}
+                    {sortOrder === 'desc' ? (
+                      <span className="i-lucide-arrow-down text-slate-400/60 dark:text-slate-500/60 text-sm w-4 h-4" />
+                    ) : (
+                      <span className="i-lucide-arrow-up text-slate-400/60 dark:text-slate-500/60 text-sm w-4 h-4" />
+                    )}
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 text-sm">
               {rankingList.map((item) => (
                 <tr
-                  key={item.pokemon.id}
+                  key={
+                    searchTarget === 'damage'
+                      ? `${item.pokemon.id}-${item.moveName?.en || ''}`
+                      : `${item.pokemon.id}`
+                  }
                   className="hover:bg-slate-100/30 dark:hover:bg-slate-900/20 transition-colors duration-150"
                 >
                   {/* Rank */}
@@ -282,6 +360,11 @@ export const StatSearch: React.FC = () => {
                     </div>
                   </td>
 
+                  {/* Pokémon Ability */}
+                  <td className="py-4 px-6 text-slate-600 dark:text-slate-400 font-medium">
+                    {item.abilityName ? item.abilityName[language] : '-'}
+                  </td>
+
                   {/* Pokémon Types */}
                   <td className="py-4 px-6">
                     <div className="flex gap-1.5">
@@ -312,6 +395,9 @@ export const StatSearch: React.FC = () => {
                           />
                           <span className="font-medium text-slate-700 dark:text-slate-300">
                             {item.moveName[language]}
+                            <span className="text-xs text-slate-400 ml-1">
+                              ({item.category === 'physical' ? t('physical') : t('special')})
+                            </span>
                           </span>
                         </div>
                       ) : (
@@ -330,7 +416,7 @@ export const StatSearch: React.FC = () => {
               {rankingList.length === 0 && (
                 <tr>
                   <td
-                    colSpan={searchTarget === 'damage' ? 5 : 4}
+                    colSpan={searchTarget === 'damage' ? 6 : 5}
                     className="py-12 text-center text-slate-500"
                   >
                     No Pokémon match the current filters.

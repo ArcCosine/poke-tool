@@ -294,6 +294,28 @@ pub fn get_16_9_bounds_robust(raw_pixels: &[u8], w: u32, h: u32) -> Vec<u32> {
     vec![final_x, final_y, final_w, final_h]
 }
 
+#[wasm_bindgen]
+pub fn get_binary_pixels(raw_pixels: &[u8], w: u32, h: u32) -> Vec<u8> {
+    let mut result = Vec::with_capacity((w * h) as usize);
+    for i in 0..(w * h) as usize {
+        let idx = i * 4;
+        if idx + 2 < raw_pixels.len() {
+            let r = raw_pixels[idx] as f32;
+            let g = raw_pixels[idx + 1] as f32;
+            let b = raw_pixels[idx + 2] as f32;
+            let y = 0.299 * r + 0.587 * g + 0.114 * b;
+            if y >= 100.0 {
+                result.push(1);
+            } else {
+                result.push(0);
+            }
+        } else {
+            result.push(0);
+        }
+    }
+    result
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -331,5 +353,12 @@ mod tests {
         // min_y=1, max_y=1 -> ry_min = 10, ry_max = 20.
         // Expanded by unclip.
         assert!(boxes.len() >= 4);
+    }
+
+    #[test]
+    fn test_get_binary_pixels() {
+        let pixels = vec![255, 255, 255, 255, 0, 0, 0, 255];
+        let bin = get_binary_pixels(&pixels, 2, 1);
+        assert_eq!(bin, vec![1, 0]);
     }
 }

@@ -86,10 +86,339 @@ describe('calculator utilities', () => {
 
       const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
       // Sp.Atk max is 150 (neutral 137 * 1.1).
-      // Hydro Pump power 110, STAB: true -> 150 * 110 * 1.5 = 24750
-      // Ice Beam power 90, STAB: false -> 150 * 90 * 1.0 = 13500
-      expect(maxDmg.value).toBe(24750);
-      expect(maxDmg.moveName.ja).toBe('ハイドロポンプ');
+      // Hydro Pump power 110, Torrent -> 110 * 1.5 = 165. STAB: true -> 165 * 1.5 = 247.5. Damage: 150 * 247.5 = 37125
+      expect(maxDmg[0].value).toBe(37125);
+      expect(maxDmg[0].moveName.ja).toBe('ハイドロポンプ');
+      expect(maxDmg[0].abilityName.ja).toBe('げきりゅう');
+    });
+
+    it('should apply Technician correctly for moves with power <= 60', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 212,
+        name: { ja: 'ハッサム', en: 'Scizor' },
+        types: ['bug', 'steel'],
+        base_stats: {
+          hp: 70,
+          attack: 130,
+          defense: 100,
+          sp_attack: 55,
+          sp_defense: 80,
+          speed: 65,
+        },
+        abilities: [{ ja: 'テクニシャン', en: 'Technician' }],
+        regulations: ['M-A'],
+        learnable_moves: [1, 2],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'バレットパンチ', en: 'Bullet Punch' },
+          type: 'steel',
+          category: 'physical',
+          power: 40,
+          accuracy: 100,
+          pp: 30,
+        },
+        {
+          id: 2,
+          name: { ja: 'アイアンヘッド', en: 'Iron Head' },
+          type: 'steel',
+          category: 'physical',
+          power: 80,
+          accuracy: 100,
+          pp: 15,
+        },
+      ];
+
+      // Attack max is 200 (base 130: neutral 182 * 1.1 = 200.2 -> 200).
+      // Bullet Punch: power 40 <= 60 -> Technician -> 40 * 1.5 = 60. STAB -> 60 * 1.5 = 90. Damage index = 200 * 90 = 18000.
+      // Iron Head: power 80 > 60 -> No Technician -> 80 * 1.5 = 120. Damage index = 200 * 120 = 24000.
+      // Iron Head is stronger.
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(24000);
+      expect(maxDmg[0].abilityName.ja).toBe('テクニシャン');
+    });
+
+    it('should make Bullet Punch stronger with Technician if other moves are weaker', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 212,
+        name: { ja: 'ハッサム', en: 'Scizor' },
+        types: ['bug', 'steel'],
+        base_stats: {
+          hp: 70,
+          attack: 130,
+          defense: 100,
+          sp_attack: 55,
+          sp_defense: 80,
+          speed: 65,
+        },
+        abilities: [{ ja: 'テクニシャン', en: 'Technician' }],
+        regulations: ['M-A'],
+        learnable_moves: [1, 3],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'バレットパンチ', en: 'Bullet Punch' },
+          type: 'steel',
+          category: 'physical',
+          power: 40,
+          accuracy: 100,
+          pp: 30,
+        },
+        {
+          id: 3,
+          name: { ja: 'メタルクロー', en: 'Metal Claw' },
+          type: 'steel',
+          category: 'physical',
+          power: 50,
+          accuracy: 95,
+          pp: 35,
+        },
+      ];
+
+      // Bullet Punch: 40 * 1.5 * 1.5 * 200 = 18000
+      // Metal Claw: 50 * 1.5 * 1.5 * 200 = 22500
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(22500);
+      expect(maxDmg[0].moveName.ja).toBe('メタルクロー');
+      expect(maxDmg[0].abilityName.ja).toBe('テクニシャン');
+    });
+
+    it('should apply Huge Power correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 184,
+        name: { ja: 'マリルリ', en: 'Azumarill' },
+        types: ['water', 'fairy'],
+        base_stats: {
+          hp: 100,
+          attack: 50,
+          defense: 80,
+          sp_attack: 60,
+          sp_defense: 80,
+          speed: 50,
+        },
+        abilities: [{ ja: 'ちからもち', en: 'Huge Power' }],
+        regulations: ['M-A'],
+        learnable_moves: [1],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'じゃれつく', en: 'Play Rough' },
+          type: 'fairy',
+          category: 'physical',
+          power: 90,
+          accuracy: 90,
+          pp: 10,
+        },
+      ];
+
+      // Attack base 50 max: neutral 102 * 1.1 = 112
+      // Huge Power: Attack stat is doubled -> 112 * 2 = 224
+      // Play Rough: power 90. STAB -> 90 * 1.5 = 135
+      // Index = 224 * 135 = 30240
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(30240);
+      expect(maxDmg[0].abilityName.ja).toBe('ちからもち');
+    });
+
+    it('should apply Sand Force correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 526,
+        name: { ja: 'ギガイアス', en: 'Gigalith' },
+        types: ['rock'],
+        base_stats: {
+          hp: 85,
+          attack: 135,
+          defense: 130,
+          sp_attack: 60,
+          sp_defense: 80,
+          speed: 25,
+        },
+        abilities: [{ ja: 'すなのちから', en: 'Sand Force' }],
+        regulations: ['M-A'],
+        learnable_moves: [1],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'いわなだれ', en: 'Rock Slide' },
+          type: 'rock',
+          category: 'physical',
+          power: 75,
+          accuracy: 90,
+          pp: 10,
+        },
+      ];
+
+      // Attack base 135 max: neutral 187 * 1.1 = 205
+      // Rock Slide: power 75 * 1.3 (Sand Force) = 97.5. STAB -> 97.5 * 1.5 = 146.25
+      // 205 * 146.25 = 29981.25 -> 29981
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(29981);
+      expect(maxDmg[0].abilityName.ja).toBe('すなのちから');
+    });
+
+    it('should apply Adaptability correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 691,
+        name: { ja: 'ドラミドロ', en: 'Dragalge' },
+        types: ['poison', 'dragon'],
+        base_stats: {
+          hp: 65,
+          attack: 75,
+          defense: 90,
+          sp_attack: 97,
+          sp_defense: 123,
+          speed: 44,
+        },
+        abilities: [{ ja: 'てきおうりょく', en: 'Adaptability' }],
+        regulations: ['M-A'],
+        learnable_moves: [1],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'りゅうせいぐん', en: 'Draco Meteor' },
+          type: 'dragon',
+          category: 'special',
+          power: 130,
+          accuracy: 90,
+          pp: 5,
+        },
+      ];
+
+      // Sp.Atk base 97 max: neutral 149 * 1.1 = 163
+      // Draco Meteor: power 130. Adaptability STAB -> 130 * 2.0 = 260
+      // 163 * 260 = 42380
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(42380);
+      expect(maxDmg[0].abilityName.ja).toBe('てきおうりょく');
+    });
+
+    it('should choose the highest damage among multiple abilities', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 184,
+        name: { ja: 'マリルリ', en: 'Azumarill' },
+        types: ['water', 'fairy'],
+        base_stats: {
+          hp: 100,
+          attack: 50,
+          defense: 80,
+          sp_attack: 60,
+          sp_defense: 80,
+          speed: 50,
+        },
+        abilities: [
+          { ja: 'あついしぼう', en: 'Thick Fat' },
+          { ja: 'ち力もち', en: 'Huge Power' }, // wait, earlier we had 'ちからもち', en: 'Huge Power' in our implementation, let's keep it 'ちからもち'
+          { ja: 'そうしょく', en: 'Sap Sipper' },
+        ],
+        regulations: ['M-A'],
+        learnable_moves: [1],
+      };
+      // Note: let's fix the typo 'ち力もち' back to 'ちからもち' since that was the mock data from the previous replace tool output
+      mockPokemon.abilities[1].ja = 'ちからもち';
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'じゃれつく', en: 'Play Rough' },
+          type: 'fairy',
+          category: 'physical',
+          power: 90,
+          accuracy: 90,
+          pp: 10,
+        },
+      ];
+
+      // Thick Fat / Sap Sipper: Attack 112 * 90 * 1.5 = 15120
+      // Huge Power: Attack 224 * 90 * 1.5 = 30240
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(30240);
+    });
+
+    it('should apply Swarm correctly for Bug type moves', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 212,
+        name: { ja: 'ハッサム', en: 'Scizor' },
+        types: ['bug', 'steel'],
+        base_stats: {
+          hp: 70,
+          attack: 130,
+          defense: 100,
+          sp_attack: 55,
+          sp_defense: 80,
+          speed: 65,
+        },
+        abilities: [{ ja: 'むしのしらせ', en: 'Swarm' }],
+        regulations: ['M-A'],
+        learnable_moves: [1, 2],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 1,
+          name: { ja: 'シザークロス', en: 'X-Scissor' },
+          type: 'bug',
+          category: 'physical',
+          power: 80,
+          accuracy: 100,
+          pp: 15,
+        },
+        {
+          id: 2,
+          name: { ja: 'ギガインパクト', en: 'Giga Impact' },
+          type: 'normal',
+          category: 'physical',
+          power: 150,
+          accuracy: 90,
+          pp: 5,
+        },
+      ];
+
+      // Attack max is 200.
+      // X-Scissor: power 80. Swarm -> 80 * 1.5 = 120. STAB -> 120 * 1.5 = 180. index = 200 * 180 = 36000.
+      // Giga Impact: power 150. No Swarm (normal type). No STAB -> index = 200 * 150 = 30000.
+      // X-Scissor should be chosen because Swarm makes it stronger than Giga Impact.
+      const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(maxDmg[0].value).toBe(36000);
+      expect(maxDmg[0].moveName.ja).toBe('シザークロス');
+      expect(maxDmg[0].abilityName.ja).toBe('むしのしらせ');
+    });
+
+    it('should return all moves sorted by damage descending', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 1,
+        name: { ja: 'テスト', en: 'Test' },
+        types: ['normal'],
+        base_stats: { hp: 100, attack: 100, defense: 100, sp_attack: 100, sp_defense: 100, speed: 100 },
+        abilities: [],
+        regulations: ['M-A'],
+        learnable_moves: [1, 2, 3, 4, 5, 6, 7],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        { id: 1, name: { ja: '技1', en: 'Move1' }, type: 'normal', category: 'physical', power: 10, accuracy: 100, pp: 10 },
+        { id: 2, name: { ja: '技2', en: 'Move2' }, type: 'normal', category: 'physical', power: 20, accuracy: 100, pp: 10 },
+        { id: 3, name: { ja: '技3', en: 'Move3' }, type: 'normal', category: 'physical', power: 30, accuracy: 100, pp: 10 },
+        { id: 4, name: { ja: '技4', en: 'Move4' }, type: 'normal', category: 'physical', power: 40, accuracy: 100, pp: 10 },
+        { id: 5, name: { ja: '技5', en: 'Move5' }, type: 'normal', category: 'physical', power: 50, accuracy: 100, pp: 10 },
+        { id: 6, name: { ja: '技6', en: 'Move6' }, type: 'normal', category: 'physical', power: 60, accuracy: 100, pp: 10 },
+        { id: 7, name: { ja: '技7', en: 'Move7' }, type: 'normal', category: 'physical', power: 70, accuracy: 100, pp: 10 },
+      ];
+
+      const res = calculateMaxDamage(mockPokemon, mockMoves);
+      expect(res.length).toBe(7);
+      expect(res[0].moveName.ja).toBe('技7');
+      expect(res[6].moveName.ja).toBe('技1');
+      expect(res[0].value).toBeGreaterThan(res[1].value);
     });
   });
 
@@ -120,7 +449,85 @@ describe('calculator utilities', () => {
       // For special durability:
       // Max SpDef: base 105 -> neutral 125, positive 125 * 1.1 = 172. Special = 186 * 172 = 31992
       expect(durability.physical).toBe(31062);
+      expect(durability.physicalAbility.ja).toBe('なし');
       expect(durability.special).toBe(31992);
+      expect(durability.specialAbility.ja).toBe('なし');
+    });
+
+    it('should apply Fur Coat to physical durability correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 100,
+        name: { ja: 'ペルシアン', en: 'Persian' },
+        types: ['normal'],
+        base_stats: { hp: 65, attack: 60, defense: 60, sp_attack: 75, sp_defense: 65, speed: 115 },
+        abilities: [{ ja: 'ファーコート', en: 'Fur Coat' }],
+        regulations: [],
+        learnable_moves: [],
+      };
+
+      const durability = calculateMaxDurability(mockPokemon);
+      // HP max: 172. Defense max 특화: 123 * 2 (Fur Coat) = 246.
+      // Physical: 172 * 246 = 42312
+      expect(durability.physical).toBe(42312);
+      expect(durability.physicalAbility.ja).toBe('ファーコート');
+    });
+
+    it('should apply Ice Scales to special durability correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 200,
+        name: { ja: 'モスノウ', en: 'Frosmoth' },
+        types: ['bug', 'ice'],
+        base_stats: { hp: 70, attack: 65, defense: 60, sp_attack: 125, sp_defense: 90, speed: 65 },
+        abilities: [{ ja: 'こおりのりんぷん', en: 'Ice Scales' }],
+        regulations: [],
+        learnable_moves: [],
+      };
+
+      const durability = calculateMaxDurability(mockPokemon);
+      // HP max: 177. SpDef max 특화: 156 * 2 (Ice Scales) = 312.
+      // Special: 177 * 312 = 55224
+      expect(durability.special).toBe(55224);
+      expect(durability.specialAbility.ja).toBe('こおりのりんぷん');
+    });
+
+    it('should apply Multiscale to both physical and special durability correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 300,
+        name: { ja: 'ルギア', en: 'Lugia' },
+        types: ['psychic', 'flying'],
+        base_stats: { hp: 106, attack: 90, defense: 130, sp_attack: 90, sp_defense: 154, speed: 110 },
+        abilities: [{ ja: 'マルチスケイル', en: 'Multiscale' }],
+        regulations: [],
+        learnable_moves: [],
+      };
+
+      const durability = calculateMaxDurability(mockPokemon);
+      // HP max: 213.
+      // Defense max 특화: 200 * 2.0 (Multiscale) = 400. Physical: 213 * 400 = 85200
+      // SpDef max 특화: 226 * 2.0 (Multiscale) = 452. Special: 213 * 452 = 96276
+      expect(durability.physical).toBe(85200);
+      expect(durability.physicalAbility.ja).toBe('マルチスケイル');
+      expect(durability.special).toBe(96276);
+      expect(durability.specialAbility.ja).toBe('マルチスケイル');
+    });
+
+    it('should apply Sand Stream to special durability for Rock types correctly', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 400,
+        name: { ja: 'バンギラス', en: 'Tyranitar' },
+        types: ['rock', 'dark'],
+        base_stats: { hp: 100, attack: 134, defense: 110, sp_attack: 95, sp_defense: 100, speed: 61 },
+        abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }],
+        regulations: [],
+        learnable_moves: [],
+      };
+
+      const durability = calculateMaxDurability(mockPokemon);
+      // HP max: 207.
+      // SpDef max 특화: 167 * 1.5 (Sand Stream + Rock type) = 250.
+      // Special: 207 * 250 = 51750
+      expect(durability.special).toBe(51750);
+      expect(durability.specialAbility.ja).toBe('すなおこし');
     });
   });
 });
