@@ -64,6 +64,12 @@ const typeTranslations: Record<string, { ja: string; en: string }> = {
   fairy: { ja: 'フェアリー', en: 'Fairy' },
 };
 
+const normalizeText = (text: string): string => {
+  return text.toLowerCase().replace(/[\u3041-\u3096]/g, (match) => {
+    return String.fromCharCode(match.charCodeAt(0) + 0x60);
+  });
+};
+
 export const PartySimulator: React.FC = () => {
   const { language, t } = useApp();
   const [loading, setLoading] = useState(true);
@@ -76,6 +82,7 @@ export const PartySimulator: React.FC = () => {
     createEmptyInstance(),
   ]);
   const [copied, setCopied] = useState(false);
+  const [filters, setFilters] = useState<Record<string, string>>({});
 
   // Load master data and saved party
   useEffect(() => {
@@ -265,6 +272,19 @@ export const PartySimulator: React.FC = () => {
                 )
               : [];
 
+            const filterText = filters[member.id] || '';
+            const normalizedFilter = normalizeText(filterText);
+            const filteredPokemonData = pokemonData.filter((p) => {
+              if (p.id === member.masterId) return true;
+              if (!normalizedFilter) return true;
+              const jaName = normalizeText(p.name.ja);
+              const enName = p.name.en.toLowerCase();
+              return (
+                jaName.includes(normalizedFilter) ||
+                enName.includes(normalizedFilter)
+              );
+            });
+
             return (
               <div
                 key={member.id}
@@ -289,6 +309,28 @@ export const PartySimulator: React.FC = () => {
                     >
                       {t('pokemon')} #{index + 1}
                     </label>
+                    <input
+                      id={`pokemon-filter-${index}`}
+                      type="text"
+                      value={filters[member.id] || ''}
+                      placeholder={
+                        language === 'ja'
+                          ? '名前で絞り込み...'
+                          : 'Filter by name...'
+                      }
+                      onChange={(e) => {
+                        setFilters({
+                          ...filters,
+                          [member.id]: e.target.value,
+                        });
+                      }}
+                      className="input-premium py-1.5 text-xs mb-1.5 w-full font-medium"
+                      aria-label={
+                        language === 'ja'
+                          ? `ポケモン #${index + 1} 絞り込み`
+                          : `Pokemon #${index + 1} Filter`
+                      }
+                    />
                     <select
                       id={`pokemon-select-${index}`}
                       value={member.masterId}
@@ -306,7 +348,7 @@ export const PartySimulator: React.FC = () => {
                       className="input-premium py-2 text-sm cursor-pointer"
                     >
                       <option value={0}>-- {t('selectPokemon')} --</option>
-                      {pokemonData.map((p) => (
+                      {filteredPokemonData.map((p) => (
                         <option key={p.id} value={p.id}>
                           {p.name[language]}
                         </option>
