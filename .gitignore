@@ -31,3 +31,6 @@ scripts/cache/
 
 # Rust build artifacts
 src/wasm-analysis/target/
+
+# Package lock files
+package-lock.json
