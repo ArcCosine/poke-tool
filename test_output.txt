@@ -1,0 +1,9 @@
+
+ RUN  v4.1.10 /home/arccosine/poke-tool
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:06:50
+   Duration  1.81s (transform 342ms, setup 158ms, import 359ms, tests 849ms, environment 283ms)
+

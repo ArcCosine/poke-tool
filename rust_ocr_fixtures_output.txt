@@ -1,0 +1,249 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running unittests src/lib.rs (target/debug/deps/wasm_analysis-3044a1b94dead97f)
+
+running 11 tests
+Analyzing radar chart pixels in Rust...
+Analyzing radar chart pixels in Rust...
+Analyzing radar chart pixels in Rust...
+Radar chart not detected or insufficient cyan pixels. Returning empty EVs.
+Radar chart not detected or insufficient cyan pixels. Returning empty EVs.
+test tests::test_compare_binary_patterns_with_shift ... ok
+test tests::test_analyze_radar_chart_all_zero ... ok
+test tests::test_analyze_radar_chart_insufficient_pixels ... ok
+test tests::test_analyze_radar_chart_hp_speed_filled ... ok
+test tests::test_get_binary_pixels ... ok
+test tests::test_rgb_to_hsv ... ok
+test tests::test_is_cyan_effort_color ... ok
+test tests::test_fixture_tab_detection ... ok
+FIXTURE Screenshot_20260803-180528.png dimensions: 2432x1080
+Slot 1 Name Crop (223x44): active pixels = 1155
+--- ASCII Art: Slot 1 Name ---
+#                                                                                                                                                                                                                              
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+############                                                                                                                                                                                                                   
+##########                      #####################             #####################                                         ###########                                                                                    
+###                             #####################             #####################                                         ######################                                                                         
+                                                #####           #####              ####                                                    ###########                                                                         
+                                                ####           #####              ####                                                                                                                                         
+#####     ##                                   ####          #####                ####                                                                                                                                         
+        ######                                ####          ####  #########      ####         ##########################         ###############           ##########################                                          
+ #           ###                            #####           ##     #################          ##########################         ####################      ##########################                                          
+###                                        #######                           #######                                                                                                                                           
+####                                     ##########                          #####                                                                                                                                             
+ ####                                 ######    #####                      ######                                                                                                                                              
+ ####                              #######        #####                ########                                               #############                                                                                    
+######                         ########             #####        ###########                                                  #########################                                                                        
+  #####                        ####                   ####      #######                                                                      ##########                                                                        
+    ###                                                                                                                                                                                                                        
+     ###                                                                                                                                                                                                                       
+       #                                                                                                                                                                                                                       
+                                                                                                                                                                                                                               
+Slot 1 Ability Crop (223x39): active pixels = 702
+--- ASCII Art: Slot 1 Ability ---
+##############                       ###############    #############                                                                                                       ###           #########         ####               
+#############                        ####       ####   ############                                                                                                         ###                 ####       ####                
+############                         ####       ####    ###                                                                                                                 ###        ###      ####       ###                 
+##########                           ####       ####   ####                                                                                                                 ###       ######  ######      ####                 
+#######                              ####       ####   ####                                                                                                                 ###         ##########        ####                 
+#####                                                                                                                                                                                                                          
+###                                                                                                                                                                                                                            
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+#                                                                                                                                                                                                                              
+#           ##                                                                                       #                                                                                                                         
+##      #####                                               #############         ###          ########          ###                       ####                            ####          #########       ########              
+### #######                            ################     ##############        ###          ########  ###################             ########                        ######        #####   ####    #####  #####            
+Slot 1 Item Crop (262x35): active pixels = 834
+--- ASCII Art: Slot 1 Item ---
+##      ####                            ################     ###########          ###   ######             ###############             ###      ###                         ###          #########       ########                                                     
+#           ##                                                                          ##                    ###########                                                                                                                                             
+#                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+##################                                                                                                                                                                                                                                                    
+##################                                                                                                                                                                                                                                                    
+##################                                                                                 ## ##                                                                                                                                                              
+ #################                     ### ################     ###########                  ###   #####                                                                    ###           #######       ###########                                                   
+ ######  #########                     ###  ###############     ##############       ###################          ##                                                     ######         ####  ####      ###                                                           
+  #    ###########                     ###         ####                              ##############              ####                                                    ######        ####     ###     ###                                                           
+     #############                     ### ###############   ##################      ###################         ##########                                                 ###        ###      ####    ##########                                                    
+Slot 1 Move 1 Crop (183x30): active pixels = 1021
+--- ASCII Art: Slot 1 Move 1 ---
+                                                                                                                                                       ################################
+                                                                                                                                                       ################################
+                                                                                                                                                       ################################
+                                                                          #                                         ##                                 ################################
+                                                                          ##                                      ######                               ################################
+                                                                         ###                                 ####### #######                           ################################
+                                                                        #####                              #######     #######                                    #####################
+                                                                       #######                             ####            ###                             # ##########################
+                                                                      ##########                            ###           ###                            ##############################
+                                                                     ############                           ###           ###                                                          
+                                                                    #############                          ####            ###                                    #####################
+                                                                    ## ######## #                           #######    #######                               ##########################
+                                                                     ##        #                                 ########                                                              
+                                                                       ########                                   #####                                                 ##        #####
+                                                                                                                                                             ##########################
+Slot 1 Move 2 Crop (183x30): active pixels = 1130
+Slot 1 Move 3 Crop (183x30): active pixels = 1296
+Slot 1 Move 4 Crop (183x30): active pixels = 838
+Slot 2 Name Crop (223x44): active pixels = 1280
+Slot 2 Ability Crop (223x39): active pixels = 539
+Slot 2 Item Crop (262x35): active pixels = 694
+Slot 2 Move 1 Crop (183x30): active pixels = 1579
+Slot 2 Move 2 Crop (183x30): active pixels = 1390
+Slot 2 Move 3 Crop (183x30): active pixels = 1541
+Slot 2 Move 4 Crop (183x30): active pixels = 1198
+Slot 3 Name Crop (223x44): active pixels = 1131
+--- ASCII Art: Slot 3 Name ---
+#                                                               ##########################        ####         ### ##         ###########################                                           ######        ####         
+                                                                ####                 #####        ####                                   ####                                                                    #####         
+                ###            ##########################       ####                  ####        ########                        ###    ####    ###                                                             ####          
+               ##              ##########################       ####                 ####         ################                ###    ####    ####          ###########################                      #####          
+                ###                                 #####       ####                 ####         ####    #############          ####    ####    ####                                                          #####           
+  #####                                            #####                            ####          ####           #######         ####    ####     ####                                                        #####            
+##       ###                                      #####                            ####           ####                          ####     ####     ####                                                      #####              
+         ###                                    #####                            #####            ####                         ####      ####      ####                                                  ######                
+   #   ## # ##                              #######                           ######              ####                        ####       ####       #####                                         ###########                  
+ #       ####                       ############                        ##########                ####                       ####        ####         ###                                    ############                      
+#                                   #######                            #######                    ####                                   ####                                                ####                              
+ #                                                                                                                                        ##                                                                                   
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+   #######                                                                                                                                                                                  ##                                 
+Slot 3 Ability Crop (223x39): active pixels = 1220
+--- ASCII Art: Slot 3 Ability ---
+#                                                                                                                                                                                                                              
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+                                                                                                                                                                                                                               
+#                                                                                                                                                                                                                              
+#            ##                                                                                                                                                                                                                
+##       ####                                                                     ###          ########          ###                   ###      ###                                       #######       ###########            
+##   ######                            ################     ##############        ###          ########   ##################         #######  #######                                  ############     ###########            
+##########                             ################                           ###  ###############   ###################         ###  ######  ###                                  ###      ####    ###                    
+########                                                  ################        ###  ###############             #### # #           ####  ## ####                                    ####    ####     #########              
+################                        ####             #########    ######      ###          ###       ###################          ######  ######                                    ##########      ###########            
+################                      ####                               ####     ###          ###            ###### ####            ##  ######## ###                                  #############    ###      ###           
+########                              ###                                ####     ###         ####         ###############            ###  ####  ###                                  ####       ###             ###           
+##########                           ####                              #####      ###        ####         ###          ###              ###    ###                                    ####       ###   ####      ###           
+##   ######                           ##################         #########        ###      #####          ####                            ######                                       ############     ###########            
+Slot 3 Item Crop (262x35): active pixels = 1523
+--- ASCII Art: Slot 3 Item ---
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                      
+##################                                                                                                                                                                                                                                                    
+##################                                                                                 ## ##                                                                                                                                                              
+ #################                     ###  ###############                                  ###   #####                                                                    ###         ###########        #######                                                    
+ ####### #########                     ### ################     ##############       ###################          ##                                                      #####         ##########       ###########                                                  
+ ###    ##########                     ###         ###                               ###################         ###                                                     ######        ####             ###      ####                                                 
+      ############                     ### ###############    ################           #    #########          ##########                                                 ###        ##########                ###                                                  
+          ########                     ###         ####      #######       #####     ###################          ##                                                        ###        ############            #####                                                  
+          ########                     ###         ####                      ####         ###### ###             ###                                                        ###        ###      ####       #######                                                    
+      ############                     ###  ###########                      ####     ###############     ############                                                      ###                  ###      ####                                                        
+ ###    ##########                     ### ###     #######                 #####     ####          #     ###     #########                                                  ###        ###      ####    ####                                                          
+ ####### #########                     ### ###     ###  ##           #########        ###                ###     ###    ###                                                 ###        ############     ############                                                  
+ #################                     ###  #########           ##########             ###############    #########                                                         ###          ########      ##############                                                 
+##############                                                                                                                                                                                                                                                        
+Slot 3 Move 1 Crop (183x30): active pixels = 770
+--- ASCII Art: Slot 3 Move 1 ---
+                               ###        ###                          #####  #                               ###  ###   ###                                         ##                
+                                ###      ###                         ####### ##                               #### #### ####                            #  ############################
+                                 ##########                         ##  #########                         #####################                             ###########################
+                                    ####                           ###    ########                        ######################                                                       
+                                ############                        #       ######                           #  ##########  #                                ##########################
+                                     ##                             ##       #####                               ########                                               ###############
+                                     ##                               #      ###                                   ###                                                                 
+                                                                                                                                                             ##########################
+                                                                                                                                                                                       
+                                                                                                                                                                                       
+                                                                                                                                                              #########################
+                                                                                                                                                                                       
+                                                                                                                                                                                       
+                                                                                                                                                                                       
+                                                                                                                                                                                       
+Slot 3 Move 2 Crop (183x30): active pixels = 791
+Slot 3 Move 3 Crop (183x30): active pixels = 846
+Slot 3 Move 4 Crop (183x30): active pixels = 729
+Slot 4 Name Crop (223x44): active pixels = 785
+Slot 4 Ability Crop (223x39): active pixels = 1027
+Slot 4 Item Crop (262x35): active pixels = 1558
+Slot 4 Move 1 Crop (183x30): active pixels = 589
+Slot 4 Move 2 Crop (183x30): active pixels = 988
+Slot 4 Move 3 Crop (183x30): active pixels = 994
+Slot 4 Move 4 Crop (183x30): active pixels = 940
+Slot 5 Name Crop (223x44): active pixels = 1072
+Slot 5 Ability Crop (223x39): active pixels = 1334
+Slot 5 Item Crop (262x35): active pixels = 1689
+Slot 5 Move 1 Crop (183x30): active pixels = 405
+Slot 5 Move 2 Crop (183x30): active pixels = 542
+Slot 5 Move 3 Crop (183x30): active pixels = 495
+Slot 5 Move 4 Crop (183x30): active pixels = 2161
+Slot 6 Name Crop (223x44): active pixels = 843
+Slot 6 Ability Crop (223x39): active pixels = 1168
+Slot 6 Item Crop (262x35): active pixels = 1258
+Slot 6 Move 1 Crop (183x30): active pixels = 343
+Slot 6 Move 2 Crop (183x30): active pixels = 552
+Slot 6 Move 3 Crop (183x30): active pixels = 576
+Slot 6 Move 4 Crop (183x30): active pixels = 1906
+test tests::test_fixture_ocr_crops ... ok
+Detected 163 text regions
+  Region 0: x=304, y=112, w=120, h=32
+  Region 1: x=656, y=112, w=312, h=32
+  Region 2: x=1408, y=112, w=128, h=32
+  Region 3: x=544, y=288, w=16, h=24
+  Region 4: x=584, y=288, w=24, h=24
+test tests::test_detect_text_regions ... ok
+FIXTURE Screenshot_20260803-180926.png dimensions: 2432x1080
+FIXTURE Screenshot_20260812-191227.png dimensions: 2432x1080
+FIXTURE Screenshot_20260812-191236.png dimensions: 2432x1080
+FIXTURE d63c7969-02ff-4dec-b10b-0c697d67ec19.jpg dimensions: 1920x1080
+FIXTURE d7974668-b1e4-4417-9293-cc524495f26c.jpg dimensions: 1920x1080
+FIXTURE 2.jpg dimensions: 1920x1080
+FIXTURE 20260805170752.jpg dimensions: 1200x675
+FIXTURE 20260805171011.jpg dimensions: 1200x675
+FIXTURE 20260805214619.jpg dimensions: 1200x554
+FIXTURE 20260805214632.jpg dimensions: 1200x554
+FIXTURE 20260808125014.png dimensions: 1200x675
+FIXTURE 20260808132849.png dimensions: 1200x675
+FIXTURE 3.jpg dimensions: 1920x1080
+test tests::test_fixture_dimensions ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.23s
+
+   Doc-tests wasm_analysis
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

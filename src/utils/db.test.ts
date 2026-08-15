@@ -26,10 +26,11 @@ describe('db caching utilities', () => {
       return Promise.resolve({
         ok: true,
         json: () => {
-          if (url.includes('pokemon_master')) return Promise.resolve(mockPokemon);
+          if (url.includes('pokemon_master'))
+            return Promise.resolve(mockPokemon);
           if (url.includes('moves_master')) return Promise.resolve(mockMoves);
           return Promise.resolve(mockItems);
-        }
+        },
       });
     });
     vi.stubGlobal('fetch', fetchMock);

@@ -5,10 +5,10 @@ import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
 import {
   analyzePartyDefense,
   analyzePartyOffense,
+  generatePartyPokesolText,
+  NATURES,
   type PokemonInstance,
   TYPES,
-  NATURES,
-  generatePartyPokesolText,
 } from '../../utils/party';
 
 // Simple default blank PokemonInstance
@@ -114,8 +114,14 @@ export const PartySimulator: React.FC = () => {
   };
 
   const copyPokesolText = () => {
-    const text = generatePartyPokesolText(party, pokemonData, movesData, language);
-    navigator.clipboard.writeText(text)
+    const text = generatePartyPokesolText(
+      party,
+      pokemonData,
+      movesData,
+      language
+    );
+    navigator.clipboard
+      .writeText(text)
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -370,7 +376,11 @@ export const PartySimulator: React.FC = () => {
                         id={`item-input-${index}`}
                         type="text"
                         value={member.item || ''}
-                        placeholder={language === 'ja' ? '例: こだわりスカーフ' : 'e.g. Choice Scarf'}
+                        placeholder={
+                          language === 'ja'
+                            ? '例: こだわりスカーフ'
+                            : 'e.g. Choice Scarf'
+                        }
                         onChange={(e) =>
                           updateMember(index, { item: e.target.value })
                         }
@@ -448,7 +458,6 @@ export const PartySimulator: React.FC = () => {
 
         {/* Analysis Results (Right Column) */}
         <div className="lg:col-span-5 space-y-6">
-
           {/* Warnings & Suggestions Panel */}
           <div className="card-premium">
             <h3 className="text-sm font-semibold text-slate-500 mb-3 uppercase tracking-wider flex items-center gap-1.5">

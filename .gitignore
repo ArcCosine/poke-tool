@@ -25,3 +25,9 @@ dist-ssr
 
 # PokeAPI cache
 scripts/cache/
+
+# Python virtual environment
+.venv/
+
+# Rust build artifacts
+src/wasm-analysis/target/

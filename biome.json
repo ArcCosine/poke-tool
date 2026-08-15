@@ -27,7 +27,7 @@
   },
   "overrides": [
     {
-      "includes": ["src/pkg/**"],
+      "includes": ["src/pkg/**", "src/wasm-analysis/target/**"],
       "linter": {
         "enabled": false
       },

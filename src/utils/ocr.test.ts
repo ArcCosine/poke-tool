@@ -5,6 +5,7 @@ import { initOcrModel, parseRadarChart, runOcrInference } from './ocr';
 // Mock the automatically compiled Rust WASM bindings for test environments
 vi.mock('../pkg/wasm_analysis', () => {
   return {
+    default: vi.fn(),
     init_logger: vi.fn(),
     analyze_radar_chart: vi
       .fn()

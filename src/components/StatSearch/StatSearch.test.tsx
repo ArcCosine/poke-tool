@@ -1,7 +1,7 @@
 import { act, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { StatSearch } from './StatSearch';
 import { AppProvider } from '../../context/AppContext';
+import { StatSearch } from './StatSearch';
 
 // Mock DB because tests run in Node/happy-dom without IndexedDB
 vi.mock('../../utils/db', () => {
@@ -13,7 +13,14 @@ vi.mock('../../utils/db', () => {
             id: 1,
             name: { ja: 'フシギダネ', en: 'Bulbasaur' },
             types: ['grass', 'poison'],
-            base_stats: { hp: 45, attack: 49, defense: 49, sp_attack: 65, sp_defense: 65, speed: 45 },
+            base_stats: {
+              hp: 45,
+              attack: 49,
+              defense: 49,
+              sp_attack: 65,
+              sp_defense: 65,
+              speed: 45,
+            },
             abilities: [{ ja: 'しんりょく', en: 'Overgrow' }],
             regulations: ['M-A', 'M-B'],
             learnable_moves: [],
@@ -22,7 +29,14 @@ vi.mock('../../utils/db', () => {
             id: 150,
             name: { ja: 'ミュウツー', en: 'Mewtwo' },
             types: ['psychic'],
-            base_stats: { hp: 106, attack: 110, defense: 90, sp_attack: 154, sp_defense: 90, speed: 130 },
+            base_stats: {
+              hp: 106,
+              attack: 110,
+              defense: 90,
+              sp_attack: 154,
+              sp_defense: 90,
+              speed: 130,
+            },
             abilities: [{ ja: 'プレッシャー', en: 'Pressure' }],
             regulations: ['M-C'], // M-C (今後のレギュレーション) でのみ解禁される想定のテストデータ
             learnable_moves: [],
@@ -31,11 +45,18 @@ vi.mock('../../utils/db', () => {
             id: 979,
             name: { ja: 'コノヨザル', en: 'Annihilape' },
             types: ['fighting', 'ghost'],
-            base_stats: { hp: 110, attack: 115, defense: 80, sp_attack: 50, sp_defense: 90, speed: 90 },
+            base_stats: {
+              hp: 110,
+              attack: 115,
+              defense: 80,
+              sp_attack: 50,
+              sp_defense: 90,
+              speed: 90,
+            },
             abilities: [{ ja: 'やるき', en: 'Vital Spirit' }],
             regulations: ['M-B'], // M-Bで追加されたポケモンの想定
             learnable_moves: [],
-          }
+          },
         ],
         moves: [],
         items: [],
@@ -50,8 +71,8 @@ vi.mock('../../data/regulations.json', () => {
     default: [
       { id: 'M-A', name: { ja: 'レギュレーションM-A', en: 'Regulation M-A' } },
       { id: 'M-B', name: { ja: 'レギュレーションM-B', en: 'Regulation M-B' } },
-      { id: 'M-C', name: { ja: 'レギュレーションM-C', en: 'Regulation M-C' } }
-    ]
+      { id: 'M-C', name: { ja: 'レギュレーションM-C', en: 'Regulation M-C' } },
+    ],
   };
 });
 
@@ -75,8 +96,8 @@ describe('StatSearch Regulation Filtering', () => {
 
     // Verify mock options exist
     const options = regSelect.querySelectorAll('option');
-    const optionValues = Array.from(options).map(o => o.value);
-    
+    const optionValues = Array.from(options).map((o) => o.value);
+
     expect(optionValues).toContain('all');
     expect(optionValues).toContain('M-A');
     expect(optionValues).toContain('M-B');
@@ -101,8 +122,6 @@ describe('StatSearch Regulation Filtering', () => {
 
     // 2. Filter to M-A: Should show Bulbasaur, but not Annihilape or Mewtwo
     act(() => {
-      // Simulate change event
-      const event = { target: { value: 'M-A' } };
       // biome-ignore lint/suspicious/noExplicitAny: simple trigger
       (regSelect as any).value = 'M-A';
       regSelect.dispatchEvent(new Event('change', { bubbles: true }));

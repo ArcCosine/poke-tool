@@ -1,12 +1,12 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import regulationsData from '../../data/regulations.json';
 import {
   calculateMaxDamage,
   calculateMaxDurability,
 } from '../../utils/calculator';
 import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
-import regulationsData from '../../data/regulations.json';
 
 const typeColors: Record<string, string> = {
   normal: 'bg-slate-400 text-slate-900',

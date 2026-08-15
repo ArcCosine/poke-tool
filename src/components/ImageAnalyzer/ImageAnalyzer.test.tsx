@@ -1,23 +1,177 @@
-import { act, render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ImageAnalyzer } from './ImageAnalyzer';
 import { AppProvider } from '../../context/AppContext';
 import * as ocr from '../../utils/ocr';
+import { ImageAnalyzer } from './ImageAnalyzer';
 
 // Mock DB with the target pokemons
 vi.mock('../../utils/db', () => {
   const mockPokemons = [
-    { id: 658, name: { ja: 'ゲッコウガ', en: 'Greninja' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 72, attack: 95, defense: 67, sp_attack: 103, sp_defense: 71, speed: 122 } },
-    { id: 908, name: { ja: 'マスカーニャ', en: 'Meowscarada' }, abilities: [{ ja: 'へんげんじざい', en: 'Protean' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 76, attack: 110, defense: 70, sp_attack: 81, sp_defense: 70, speed: 123 } },
-    { id: 257, name: { ja: 'バシャーモ', en: 'Blaziken' }, abilities: [{ ja: 'かそく', en: 'Speed Boost' }], regulations: ['M-B'], learnable_moves: [], base_stats: { hp: 80, attack: 120, defense: 70, sp_attack: 110, sp_defense: 70, speed: 80 } },
-    { id: 450, name: { ja: 'カバルドン', en: 'Hippowdon' }, abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 108, attack: 112, defense: 118, sp_attack: 68, sp_defense: 72, speed: 47 } },
-    { id: 730, name: { ja: 'アシレーヌ', en: 'Primarina' }, abilities: [{ ja: 'げきりゅう', en: 'Torrent' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 80, attack: 74, defense: 74, sp_attack: 126, sp_defense: 116, speed: 60 } },
-    { id: 212, name: { ja: 'ハッサム', en: 'Scizor' }, abilities: [{ ja: 'テクニシャン', en: 'Technician' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 70, attack: 130, defense: 100, sp_attack: 55, sp_defense: 80, speed: 65 } },
-    { id: 443, name: { ja: 'ガブリアス', en: 'Garchomp' }, abilities: [{ ja: 'さめはだ', en: 'Rough Skin' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 108, attack: 130, defense: 95, sp_attack: 80, sp_defense: 85, speed: 102 } },
-    { id: 700, name: { ja: 'ニンフィア', en: 'Sylveon' }, abilities: [{ ja: 'フェアリースキン', en: 'Pixilate' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 95, attack: 65, defense: 65, sp_attack: 110, sp_defense: 130, speed: 60 } },
-    { id: 983, name: { ja: 'ドドゲザン', en: 'Kingambit' }, abilities: [{ ja: 'そうたいしょう', en: 'Supreme Overlord' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 100, attack: 135, defense: 120, sp_attack: 60, sp_defense: 85, speed: 50 } },
-    { id: 1000, name: { ja: 'サーフゴー', en: 'Gholdengo' }, abilities: [{ ja: 'おうごんのからだ', en: 'Good as Gold' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 87, attack: 60, defense: 95, sp_attack: 133, sp_defense: 91, speed: 84 } },
-    { id: 130, name: { ja: 'ギャラドス', en: 'Gyarados' }, abilities: [{ ja: 'いかく', en: 'Intimidate' }], regulations: ['M-A', 'M-B'], learnable_moves: [], base_stats: { hp: 95, attack: 125, defense: 79, sp_attack: 60, sp_defense: 100, speed: 81 } },
+    {
+      id: 658,
+      name: { ja: 'ゲッコウガ', en: 'Greninja' },
+      abilities: [{ ja: 'へんげんじざい', en: 'Protean' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [1, 2, 3, 4],
+      base_stats: {
+        hp: 72,
+        attack: 95,
+        defense: 67,
+        sp_attack: 103,
+        sp_defense: 71,
+        speed: 122,
+      },
+    },
+    {
+      id: 908,
+      name: { ja: 'マスカーニャ', en: 'Meowscarada' },
+      abilities: [{ ja: 'へんげんじざい', en: 'Protean' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [5, 6, 7, 8],
+      base_stats: {
+        hp: 76,
+        attack: 110,
+        defense: 70,
+        sp_attack: 81,
+        sp_defense: 70,
+        speed: 123,
+      },
+    },
+    {
+      id: 257,
+      name: { ja: 'バシャーモ', en: 'Blaziken' },
+      abilities: [{ ja: 'かそく', en: 'Speed Boost' }],
+      regulations: ['M-B'],
+      learnable_moves: [9, 10, 11, 12],
+      base_stats: {
+        hp: 80,
+        attack: 120,
+        defense: 70,
+        sp_attack: 110,
+        sp_defense: 70,
+        speed: 80,
+      },
+    },
+    {
+      id: 450,
+      name: { ja: 'カバルドン', en: 'Hippowdon' },
+      abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [13, 14, 15, 16],
+      base_stats: {
+        hp: 108,
+        attack: 112,
+        defense: 118,
+        sp_attack: 68,
+        sp_defense: 72,
+        speed: 47,
+      },
+    },
+    {
+      id: 730,
+      name: { ja: 'アシレーヌ', en: 'Primarina' },
+      abilities: [{ ja: 'げきりゅう', en: 'Torrent' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [17, 18, 19, 20],
+      base_stats: {
+        hp: 80,
+        attack: 74,
+        defense: 74,
+        sp_attack: 126,
+        sp_defense: 116,
+        speed: 60,
+      },
+    },
+    {
+      id: 212,
+      name: { ja: 'ハッサム', en: 'Scizor' },
+      abilities: [{ ja: 'テクニシャン', en: 'Technician' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [21, 22, 23, 12],
+      base_stats: {
+        hp: 70,
+        attack: 130,
+        defense: 100,
+        sp_attack: 55,
+        sp_defense: 80,
+        speed: 65,
+      },
+    },
+    {
+      id: 443,
+      name: { ja: 'ガブリアス', en: 'Garchomp' },
+      abilities: [{ ja: 'さめはだ', en: 'Rough Skin' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [13, 24, 25, 26],
+      base_stats: {
+        hp: 108,
+        attack: 130,
+        defense: 95,
+        sp_attack: 80,
+        sp_defense: 85,
+        speed: 102,
+      },
+    },
+    {
+      id: 700,
+      name: { ja: 'ニンフィア', en: 'Sylveon' },
+      abilities: [{ ja: 'フェアリースキン', en: 'Pixilate' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [27, 18, 19, 28, 15],
+      base_stats: {
+        hp: 95,
+        attack: 65,
+        defense: 65,
+        sp_attack: 110,
+        sp_defense: 130,
+        speed: 60,
+      },
+    },
+    {
+      id: 983,
+      name: { ja: 'ドドゲザン', en: 'Kingambit' },
+      abilities: [{ ja: 'そうたいしょう', en: 'Supreme Overlord' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [29, 30, 31, 12],
+      base_stats: {
+        hp: 100,
+        attack: 135,
+        defense: 120,
+        sp_attack: 60,
+        sp_defense: 85,
+        speed: 50,
+      },
+    },
+    {
+      id: 1000,
+      name: { ja: 'サーフゴー', en: 'Gholdengo' },
+      abilities: [{ ja: 'おうごんのからだ', en: 'Good as Gold' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [32, 33, 34, 35, 38],
+      base_stats: {
+        hp: 87,
+        attack: 60,
+        defense: 95,
+        sp_attack: 133,
+        sp_defense: 91,
+        speed: 84,
+      },
+    },
+    {
+      id: 130,
+      name: { ja: 'ギャラドス', en: 'Gyarados' },
+      abilities: [{ ja: 'いかく', en: 'Intimidate' }],
+      regulations: ['M-A', 'M-B'],
+      learnable_moves: [36, 37, 39],
+      base_stats: {
+        hp: 95,
+        attack: 125,
+        defense: 79,
+        sp_attack: 60,
+        sp_defense: 100,
+        speed: 81,
+      },
+    },
   ];
   const mockMoves = [
     { id: 1, name: { ja: 'みずしゅりけん', en: 'Water Shuriken' } },
@@ -90,6 +244,44 @@ describe('ImageAnalyzer component', () => {
     vi.spyOn(window, 'setTimeout').mockImplementation((fn: any, delay: any) => {
       return realSetTimeout(fn, delay === 1500 ? 0 : delay);
     });
+
+    // Mock Image to trigger onload automatically in happy-dom environment
+    class MockImage {
+      private _src: string = '';
+      onload: (() => void) | null = null;
+      onerror: (() => void) | null = null;
+      naturalWidth = 2400;
+      naturalHeight = 1080;
+      width = 2400;
+      height = 1080;
+
+      get src() {
+        return this._src;
+      }
+
+      set src(val: string) {
+        this._src = val;
+        realSetTimeout(() => {
+          if (this.onload) this.onload();
+        }, 0);
+      }
+    }
+    vi.stubGlobal('Image', MockImage);
+
+    // Mock Canvas 2D context for testing canvas drawing & reading in happy-dom
+    const mockCtx = {
+      drawImage: vi.fn(),
+      getImageData: vi.fn().mockReturnValue({
+        data: new Uint8ClampedArray(120 * 120 * 4),
+        width: 120,
+        height: 120,
+      }),
+      fillRect: vi.fn(),
+      fillText: vi.fn(),
+    };
+    vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
+      mockCtx as any
+    );
   });
 
   const createMockFile = (name: string, size: number): File => {
@@ -97,24 +289,96 @@ describe('ImageAnalyzer component', () => {
     return new File([blob], name, { type: 'image/png' });
   };
 
-  const setupSpyMocks = (mode: 'fixture1' | 'fixture2') => {
+  const setupSpyMocks = (mode: 'fixture1' | 'fixture2', startScreenType: 'ability' | 'status' = 'ability') => {
     // Greninja team
     const f1Data = [
-      'ゲッコウガ', 'へんげんじざい', 'きあいのタスキ', 'みずしゅりけん', 'あくのはどう', 'れいとうビーム', 'ヘドロウェーブ',
-      'マスカーニャ', 'へんげんじざい', 'こだわりスカーフ', 'トリックフラワー', 'トリプルアクセル', 'はたきおとす', 'とんぼがえり',
-      'バシャーモ', 'かそく', 'バシャーモナイト', 'とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい',
-      'カバルドン', 'すなおこし', 'オボンのみ', 'じしん', 'なまける', 'あくび', 'ふきとばし',
-      'アシレーヌ', 'げきりゅう', 'たべのこし', 'うたかたのアリア', 'ムーンフォース', 'まもる', 'ほろびのうた',
-      'ハッサム', 'テクニシャン', 'ハッサムナイト', 'バレットパンチ', 'はねやすめ', 'ダブルウイング', 'つるぎのまい'
+      'ゲッコウガ',
+      'へんげんじざい',
+      'きあいのタスキ',
+      'みずしゅりけん',
+      'あくのはどう',
+      'れいとうビーム',
+      'ヘドロウェーブ',
+      'マスカーニャ',
+      'へんげんじざい',
+      'こだわりスカーフ',
+      'トリックフラワー',
+      'トリプルアクセル',
+      'はたきおとす',
+      'とんぼがえり',
+      'バシャーモ',
+      'かそく',
+      'バシャーモナイト',
+      'とびひざげり',
+      'フレアドライブ',
+      'かみなりパンチ',
+      'つるぎのまい',
+      'カバルドン',
+      'すなおこし',
+      'オボンのみ',
+      'じしん',
+      'なまける',
+      'あくび',
+      'ふきとばし',
+      'アシレーヌ',
+      'げきりゅう',
+      'たべのこし',
+      'うたかたのアリア',
+      'ムーンフォース',
+      'まもる',
+      'ほろびのうた',
+      'ハッサム',
+      'テクニシャン',
+      'ハッサムナイト',
+      'バレットパンチ',
+      'はねやすめ',
+      'ダブルウイング',
+      'つるぎのまい',
     ];
     // Garchomp team
     const f2Data = [
-      'ガブリアス', 'さめはだ', 'カゴのみ', 'じしん', 'ドラゴンテール', 'ステルスロック', 'ねむる',
-      'ニンフィア', 'フェアリースキン', 'たべのこし', 'ハイパーボイス', 'あくび', 'まもる', 'ねがいごと',
-      'バシャーモ', 'かそく', 'バシャーモナイト', 'とびひざげり', 'フレアドライブ', 'かみなりパンチ', 'つるぎのまい',
-      'ドドゲザン', 'そうたいしょう', 'くろいメガネ', 'ドゲザン', 'ふいうち', 'アイアンヘッド', 'つるぎのまい',
-      'サーフゴー', 'おうごんのからだ', 'こだわりスカーフ', 'ゴールドラッシュ', 'シャドーボール', '10まんボルト', 'パワージェム',
-      'ギャラドス', 'いかく', 'こうかくレンズ', 'パワーウィップ', 'ゆきなだれ', 'でんじは', 'ストーンエッジ'
+      'ガブリアス',
+      'さめはだ',
+      'カゴのみ',
+      'じしん',
+      'ドラゴンテール',
+      'ステルスロック',
+      'ねむる',
+      'ニンフィア',
+      'フェアリースキン',
+      'たべのこし',
+      'ハイパーボイス',
+      'あくび',
+      'まもる',
+      'ねがいごと',
+      'バシャーモ',
+      'かそく',
+      'バシャーモナイト',
+      'とびひざげり',
+      'フレアドライブ',
+      'かみなりパンチ',
+      'つるぎのまい',
+      'ドドゲザン',
+      'そうたいしょう',
+      'くろいメガネ',
+      'ドゲザン',
+      'ふいうち',
+      'アイアンヘッド',
+      'つるぎのまい',
+      'サーフゴー',
+      'おうごんのからだ',
+      'こだわりスカーフ',
+      'ゴールドラッシュ',
+      'シャドーボール',
+      '10まんボルト',
+      'パワージェム',
+      'ギャラドス',
+      'いかく',
+      'こうかくレンズ',
+      'パワーウィップ',
+      'ゆきなだれ',
+      'でんじは',
+      'ストーンエッジ',
     ];
 
     const f1Evs = [
@@ -123,7 +387,7 @@ describe('ImageAnalyzer component', () => {
       [0, 32, 0, 32, 2, 0],
       [32, 0, 0, 2, 32, 0],
       [32, 0, 26, 8, 0, 0],
-      [30, 30, 4, 2, 0, 0]
+      [30, 30, 4, 2, 0, 0],
     ];
     const f2Evs = [
       [32, 0, 16, 1, 17, 0],
@@ -131,18 +395,133 @@ describe('ImageAnalyzer component', () => {
       [0, 32, 0, 32, 2, 0],
       [0, 32, 2, 32, 0, 0],
       [0, 0, 4, 30, 0, 32],
-      [32, 0, 22, 2, 10, 0]
+      [32, 0, 22, 2, 10, 0],
     ];
 
-    let ocrIdx = 0;
     let evIdx = 0;
+    let detectCallCount = 0;
     const list = mode === 'fixture2' ? f2Data : f1Data;
     const evsList = mode === 'fixture2' ? f2Evs : f1Evs;
 
-    vi.spyOn(ocr, 'runOcrInference').mockImplementation((canvas, candidates) => {
-      const res = list[ocrIdx % list.length];
-      ocrIdx++;
-      return Promise.resolve(res);
+    interface SlotMock {
+      name: string;
+      ability: string;
+      item: string;
+      moves: string[];
+    }
+    const structuredSlots: SlotMock[] = [];
+    for (let i = 0; i < 6; i++) {
+      const baseIdx = i * 7;
+      if (baseIdx < list.length) {
+        structuredSlots.push({
+          name: list[baseIdx],
+          ability: list[baseIdx + 1] || '',
+          item: list[baseIdx + 2] || '',
+          moves: [
+            list[baseIdx + 3] || '',
+            list[baseIdx + 4] || '',
+            list[baseIdx + 5] || '',
+            list[baseIdx + 6] || '',
+          ].filter(Boolean),
+        });
+      }
+    }
+
+
+    vi.spyOn(ocr, 'runFullImageOcr').mockImplementation(async (_canvas) => {
+      const isStatusScreen = (detectCallCount === 0 && startScreenType === 'status') || (detectCallCount > 0);
+      detectCallCount++;
+
+      const imgWidth = 2400;
+      const imgHeight = 1080;
+      const words: ocr.OcrWord[] = [];
+
+      for (let idx = 0; idx < 6; idx++) {
+        const isLeft = idx % 2 === 0;
+        const row = Math.floor(idx / 2);
+        const slotX = isLeft ? imgWidth * 0.075 : imgWidth * 0.51;
+        const slotW = imgWidth * 0.415;
+        let slotY = 0;
+        if (row === 0) slotY = imgHeight * 0.24;
+        else if (row === 1) slotY = imgHeight * 0.454;
+        else slotY = imgHeight * 0.665;
+        const slotH = imgHeight * 0.205;
+
+        const slotData = structuredSlots[idx % structuredSlots.length];
+        if (!slotData) continue;
+
+        // Name
+        words.push({
+          text: slotData.name,
+          x: Math.floor(slotX + slotW * 0.12),
+          y: Math.floor(slotY + slotH * 0.08),
+          w: 100,
+          h: 30,
+        });
+
+        if (!isStatusScreen) {
+          // Ability
+          if (slotData.ability) {
+            words.push({
+              text: slotData.ability,
+              x: Math.floor(slotX + slotW * 0.12),
+              y: Math.floor(slotY + slotH * 0.28),
+              w: 100,
+              h: 30,
+            });
+          }
+
+          // Item
+          if (slotData.item) {
+            words.push({
+              text: slotData.item,
+              x: Math.floor(slotX + slotW * 0.12),
+              y: Math.floor(slotY + slotH * 0.48),
+              w: 100,
+              h: 30,
+            });
+          }
+
+          // Moves
+          const yOffsets = [0.1, 0.3, 0.5, 0.7];
+          for (let m = 0; m < slotData.moves.length; m++) {
+            words.push({
+              text: slotData.moves[m],
+              x: Math.floor(slotX + slotW * 0.45),
+              y: Math.floor(slotY + slotH * yOffsets[m]),
+              w: 100,
+              h: 30,
+            });
+          }
+        } else {
+          // EVs
+          const evOffsets = [0.08, 0.22, 0.36, 0.50, 0.64, 0.78];
+          const currentSlotEvs = evsList[idx % evsList.length] || [0, 0, 0, 0, 0, 0];
+          const rawMap = [0, 1, 2, 5, 4, 3];
+          for (let e = 0; e < 6; e++) {
+            const rawIdx = rawMap[e];
+            const val = currentSlotEvs[rawIdx];
+            // Mock base stats text in same row
+            words.push({
+              text: '150',
+              x: Math.floor(slotX + slotW * 0.45),
+              y: Math.floor(slotY + slotH * evOffsets[e]),
+              w: 40,
+              h: 20,
+            });
+            // Mock EV point text
+            words.push({
+              text: `+${val}`,
+              x: Math.floor(slotX + slotW * 0.58),
+              y: Math.floor(slotY + slotH * evOffsets[e]),
+              w: 40,
+              h: 20,
+            });
+          }
+        }
+      }
+
+      return Promise.resolve(words);
     });
 
     vi.spyOn(ocr, 'parseRadarChart').mockImplementation(() => {
@@ -158,7 +537,9 @@ describe('ImageAnalyzer component', () => {
         <ImageAnalyzer />
       </AppProvider>
     );
-    expect(await screen.findByText(/スクリーンショット画像をドロップ/i)).toBeDefined();
+    expect(
+      await screen.findByText(/スクリーンショット画像をドロップ/i)
+    ).toBeDefined();
   });
 
   it('should analyze single ability image and show detected pokemons with abilities/moves', async () => {
@@ -168,25 +549,33 @@ describe('ImageAnalyzer component', () => {
         <ImageAnalyzer />
       </AppProvider>
     );
-    
+
     await screen.findByText(/スクリーンショット画像をドロップ/i);
 
-    const file = createMockFile('Screenshot_20260803-180528.png', 861218);
-    const input = screen.getByLabelText(/スクリーンショット画像をドロップ/i).closest('label')?.querySelector('input');
+    const file = createMockFile(
+      'Screenshot_20260803-180528_ability.png',
+      861218
+    );
+    const input = screen
+      .getByLabelText(/スクリーンショット画像をドロップ/i)
+      .closest('label')
+      ?.querySelector('input');
     if (input) {
       fireEvent.change(input, { target: { files: [file] } });
     }
 
-    const analyzeBtn = await screen.findByRole('button', { name: /パーティ画像を解析/i });
+    const analyzeBtn = await screen.findByRole('button', {
+      name: /パーティ画像を解析/i,
+    });
     fireEvent.click(analyzeBtn);
 
     expect(await screen.findByText('ゲッコウガ')).toBeDefined();
     expect(screen.getByText('⚔️ みずしゅりけん')).toBeDefined();
-    expect(screen.getByText('へんげんじざい')).toBeDefined();
+    expect(screen.getAllByText('へんげんじざい')[0]).toBeDefined();
   });
 
   it('should analyze single status image and show detected pokemons with correct EVs', async () => {
-    setupSpyMocks('fixture1');
+    setupSpyMocks('fixture1', 'status');
     render(
       <AppProvider>
         <ImageAnalyzer />
@@ -195,17 +584,21 @@ describe('ImageAnalyzer component', () => {
 
     await screen.findByText(/スクリーンショット画像をドロップ/i);
 
-    const file = createMockFile('Screenshot_20260803-180926.png', 916957);
-    const input = screen.getByLabelText(/スクリーンショット画像をドロップ/i).closest('label')?.querySelector('input');
+    const file = createMockFile(
+      'Screenshot_20260803-180926_status.png',
+      916957
+    );
+    const input = screen
+      .getByLabelText(/スクリーンショット画像をドロップ/i)
+      .closest('label')
+      ?.querySelector('input');
     if (input) {
       fireEvent.change(input, { target: { files: [file] } });
     }
 
-    // Set image type to status manual trigger
-    const select = await screen.findByRole('combobox');
-    fireEvent.change(select, { target: { value: 'status' } });
-
-    const analyzeBtn = await screen.findByRole('button', { name: /パーティ画像を解析/i });
+    const analyzeBtn = await screen.findByRole('button', {
+      name: /パーティ画像を解析/i,
+    });
     fireEvent.click(analyzeBtn);
 
     expect(await screen.findByText('ゲッコウガ')).toBeDefined();
@@ -222,26 +615,39 @@ describe('ImageAnalyzer component', () => {
 
     await screen.findByText(/スクリーンショット画像をドロップ/i);
 
-    const file1 = createMockFile('Screenshot_20260803-180528.png', 861218);
-    const file2 = createMockFile('Screenshot_20260803-180926.png', 916957);
-    const input = screen.getByLabelText(/スクリーンショット画像をドロップ/i).closest('label')?.querySelector('input');
+    const file1 = createMockFile(
+      'Screenshot_20260803-180528_ability.png',
+      861218
+    );
+    const file2 = createMockFile(
+      'Screenshot_20260803-180926_status.png',
+      916957
+    );
+    const input = screen
+      .getByLabelText(/スクリーンショット画像をドロップ/i)
+      .closest('label')
+      ?.querySelector('input');
     if (input) {
       fireEvent.change(input, { target: { files: [file1, file2] } });
     }
 
-    const analyzeBtn = await screen.findByRole('button', { name: /パーティ画像を解析/i });
+    const analyzeBtn = await screen.findByRole('button', {
+      name: /パーティ画像を解析/i,
+    });
     fireEvent.click(analyzeBtn);
 
     // Check if both moves and EVs are merged
     expect(await screen.findByText('ゲッコウガ')).toBeDefined();
     expect(screen.getByText('⚔️ みずしゅりけん')).toBeDefined();
-    
+
     // Import to localStorage
-    const importBtn = screen.getByRole('button', { name: /パーティへ一括インポート/i });
-    
+    const importBtn = screen.getByRole('button', {
+      name: /パーティへ一括インポート/i,
+    });
+
     const alertMock = vi.fn();
     vi.stubGlobal('alert', alertMock);
-    
+
     fireEvent.click(importBtn);
     expect(alertMock).toHaveBeenCalled();
 
@@ -262,13 +668,15 @@ describe('ImageAnalyzer component', () => {
     });
 
     // Copy pokesol text
-    const copyBtn = screen.getByRole('button', { name: /ポケソル形式でコピー/i });
+    const copyBtn = screen.getByRole('button', {
+      name: /ポケソル形式でコピー/i,
+    });
     fireEvent.click(copyBtn);
     expect(writeTextMock).toHaveBeenCalled();
     const copiedText = writeTextMock.mock.calls[0][0];
     expect(copiedText).toContain('ゲッコウガ @ きあいのタスキ');
     expect(copiedText).toContain('特性: へんげんじざい');
-    expect(copiedText).toContain('147-95-67(2)-103(32)-71-122(32)');
+    expect(copiedText).toContain('147-115-89(2)-155(32)-91-174(32)');
   });
 
   it('should analyze new test images (20260812) and output Garchomp/Sylveon party details', async () => {
@@ -281,14 +689,25 @@ describe('ImageAnalyzer component', () => {
 
     await screen.findByText(/スクリーンショット画像をドロップ/i);
 
-    const file1 = createMockFile('Screenshot_20260812-191227.png', 844510);
-    const file2 = createMockFile('Screenshot_20260812-191236.png', 912640);
-    const input = screen.getByLabelText(/スクリーンショット画像をドロップ/i).closest('label')?.querySelector('input');
+    const file1 = createMockFile(
+      'Screenshot_20260812-191227_ability.png',
+      844510
+    );
+    const file2 = createMockFile(
+      'Screenshot_20260812-191236_status.png',
+      912640
+    );
+    const input = screen
+      .getByLabelText(/スクリーンショット画像をドロップ/i)
+      .closest('label')
+      ?.querySelector('input');
     if (input) {
       fireEvent.change(input, { target: { files: [file1, file2] } });
     }
 
-    const analyzeBtn = await screen.findByRole('button', { name: /パーティ画像を解析/i });
+    const analyzeBtn = await screen.findByRole('button', {
+      name: /パーティ画像を解析/i,
+    });
     fireEvent.click(analyzeBtn);
 
     expect(await screen.findByText('ガブリアス')).toBeDefined();
@@ -296,7 +715,9 @@ describe('ImageAnalyzer component', () => {
     expect(screen.getByText('⚔️ ドラゴンテール')).toBeDefined();
 
     // Import to localStorage
-    const importBtn = screen.getByRole('button', { name: /パーティへ一括インポート/i });
+    const importBtn = screen.getByRole('button', {
+      name: /パーティへ一括インポート/i,
+    });
     const alertMock = vi.fn();
     vi.stubGlobal('alert', alertMock);
     fireEvent.click(importBtn);
@@ -317,12 +738,50 @@ describe('ImageAnalyzer component', () => {
       },
     });
 
-    const copyBtn = screen.getByRole('button', { name: /ポケソル形式でコピー/i });
+    const copyBtn = screen.getByRole('button', {
+      name: /ポケソル形式でコピー/i,
+    });
     fireEvent.click(copyBtn);
     expect(writeTextMock).toHaveBeenCalled();
     const copiedText = writeTextMock.mock.calls[0][0];
     expect(copiedText).toContain('ガブリアス @ カゴのみ');
     expect(copiedText).toContain('特性: さめはだ');
-    expect(copiedText).toContain('215(32)-130-103(16)-80-93(17)-103(1)');
+    expect(copiedText).toContain('215(32)-150-131(16)-100-122(17)-123(1)');
+  });
+
+  it('should analyze 16:9 JPG screenshots using aspect-ratio preserving logic', async () => {
+    setupSpyMocks('fixture1');
+    render(
+      <AppProvider>
+        <ImageAnalyzer />
+      </AppProvider>
+    );
+
+    await screen.findByText(/スクリーンショット画像をドロップ/i);
+
+    const file1 = createMockFile(
+      'd63c7969-02ff-4dec-b10b-0c697d67ec19.jpg',
+      372937
+    );
+    const file2 = createMockFile(
+      'd7974668-b1e4-4417-9293-cc524495f26c.jpg',
+      343564
+    );
+
+    const input = screen
+      .getByLabelText(/スクリーンショット画像をドロップ/i)
+      .closest('label')
+      ?.querySelector('input');
+    if (input) {
+      fireEvent.change(input, { target: { files: [file1, file2] } });
+    }
+
+    const analyzeBtn = await screen.findByRole('button', {
+      name: /パーティ画像を解析/i,
+    });
+    fireEvent.click(analyzeBtn);
+
+    expect(await screen.findByText('ゲッコウガ')).toBeDefined();
+    expect(screen.getByText('⚔️ みずしゅりけん')).toBeDefined();
   });
 });

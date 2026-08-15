@@ -105,7 +105,13 @@ export async function loadMasterData(): Promise<{
   const cachedMoves = await db.getCachedData<MoveMaster[]>('moves_master');
   const cachedItems = await db.getCachedData<ItemMaster[]>('items_master');
 
-  if (cachedVersion && cachedVersion === currentVersion && cachedPokemon && cachedMoves && cachedItems) {
+  if (
+    cachedVersion &&
+    cachedVersion === currentVersion &&
+    cachedPokemon &&
+    cachedMoves &&
+    cachedItems
+  ) {
     return { pokemon: cachedPokemon, moves: cachedMoves, items: cachedItems };
   }
 
@@ -132,7 +138,6 @@ export async function loadMasterData(): Promise<{
 
   return { pokemon, moves, items };
 }
-
 
 export const db = {
   initDB,
