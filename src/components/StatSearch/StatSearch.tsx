@@ -367,29 +367,44 @@ export const StatSearch: React.FC = () => {
 
                   {/* Pokémon Name */}
                   <td className="py-3 px-2 sm:py-4 sm:px-6 font-semibold text-slate-900 dark:text-slate-100">
-                    <div className="min-w-0">
-                      {/* Line 1: Pokemon Name */}
-                      <div className="truncate text-xs sm:text-sm">{item.pokemon.name[language]}</div>
-                      
-                      {/* Pokemon Types (Shown on all screens, directly under name) */}
-                      <div className="flex gap-1 mt-1">
-                        {item.pokemon.types.map((typeKey) => (
-                          <span
-                            key={typeKey}
-                            className={`px-1.5 py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide ${
-                              typeColors[typeKey] || 'bg-slate-500 text-white'
-                            }`}
-                          >
-                            {typeTranslations[typeKey]?.[language] || typeKey}
-                          </span>
-                        ))}
+                    <div className="flex items-center sm:items-start gap-1.5 sm:gap-2.5">
+                      {/* Pokémon Sprite Image */}
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded bg-slate-100/50 dark:bg-slate-900/30 flex items-center justify-center border border-slate-200/10 dark:border-slate-850/10 shrink-0 overflow-hidden">
+                        <img
+                          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.pokemon.id}.png`}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                          alt=""
+                          className="w-full h-full object-contain select-none"
+                          loading="lazy"
+                        />
                       </div>
 
-                      {/* Mobile & Tablet-only details: Ability (hidden on desktop md:hidden) */}
-                      <div className="flex md:hidden mt-1">
-                        <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
-                          {item.abilityName ? item.abilityName[language] : '-'}
-                        </span>
+                      <div className="min-w-0">
+                        {/* Line 1: Pokemon Name */}
+                        <div className="truncate text-xs sm:text-sm">{item.pokemon.name[language]}</div>
+                        
+                        {/* Pokemon Types (Shown on all screens, directly under name) */}
+                        <div className="flex gap-1 mt-0.5 sm:mt-1">
+                          {item.pokemon.types.map((typeKey) => (
+                            <span
+                              key={typeKey}
+                              className={`px-1.5 py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide ${
+                                typeColors[typeKey] || 'bg-slate-500 text-white'
+                              }`}
+                            >
+                              {typeTranslations[typeKey]?.[language] || typeKey}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Mobile & Tablet-only details: Ability (hidden on desktop md:hidden) */}
+                        <div className="flex md:hidden mt-0.5 sm:mt-1">
+                          <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
+                            {item.abilityName ? item.abilityName[language] : '-'}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -462,6 +477,13 @@ export const StatSearch: React.FC = () => {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Disclaimer under the Rankings List */}
+      <div className="text-center text-[10px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed max-w-2xl mx-auto px-4 select-none">
+        {language === 'ja'
+          ? '本ツールはファンによる非公式の対戦データ分析支援ツールです。使用されているポケモンの画像（ドット絵）の著作権は、任天堂株式会社、株式会社ゲームフリーク、株式会社クリーチャーズ、および株式会社ポケモンに帰属します。画像データは PokeAPI より動的に取得しています。'
+          : 'This tool is an unofficial fan-made battle data analysis helper. All Pokémon images (sprites) used are copyright of Nintendo, Game Freak, Creatures, and The Pokémon Company. Image assets are retrieved dynamically from PokeAPI.'}
       </div>
     </div>
   );
