@@ -8,25 +8,36 @@ import {
 } from '../../utils/calculator';
 import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
 
-const typeColors: Record<string, string> = {
-  normal: 'bg-slate-400 text-slate-900',
-  fire: 'bg-red-500 text-white',
-  water: 'bg-blue-500 text-white',
-  grass: 'bg-green-500 text-white',
-  electric: 'bg-yellow-400 text-slate-900',
-  ice: 'bg-cyan-400 text-slate-900',
-  fighting: 'bg-amber-700 text-white',
-  poison: 'bg-purple-500 text-white',
-  ground: 'bg-amber-600 text-white',
-  flying: 'bg-indigo-300 text-slate-900',
-  psychic: 'bg-pink-500 text-white',
-  bug: 'bg-lime-500 text-slate-900',
-  rock: 'bg-yellow-600 text-white',
-  ghost: 'bg-violet-700 text-white',
-  dragon: 'bg-indigo-600 text-white',
-  dark: 'bg-slate-800 text-white',
-  steel: 'bg-zinc-500 text-white',
-  fairy: 'bg-rose-400 text-slate-900',
+const MoveCategoryIcon = ({ category }: { category: string }) => {
+  if (category === 'physical') {
+    return (
+      <span className="inline-flex items-center shrink-0 select-none" title="物理 / Physical">
+        <img
+          src="/assets/categories/physical.jpg"
+          alt="物理"
+          className="w-7 h-4.5 object-contain rounded"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+      </span>
+    );
+  }
+  if (category === 'special') {
+    return (
+      <span className="inline-flex items-center shrink-0 select-none" title="特殊 / Special">
+        <img
+          src="/assets/categories/special.jpg"
+          alt="特殊"
+          className="w-7 h-4.5 object-contain rounded"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
+        />
+      </span>
+    );
+  }
+  return null;
 };
 
 const typeTranslations: Record<string, { ja: string; en: string }> = {
@@ -388,14 +399,23 @@ export const StatSearch: React.FC = () => {
                         {/* Pokemon Types (Shown on all screens, directly under name) */}
                         <div className="flex gap-1 mt-0.5 sm:mt-1">
                           {item.pokemon.types.map((typeKey) => (
-                            <span
-                              key={typeKey}
-                              className={`px-1.5 py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide ${
-                                typeColors[typeKey] || 'bg-slate-500 text-white'
-                              }`}
-                            >
-                              {typeTranslations[typeKey]?.[language] || typeKey}
-                            </span>
+                             <span
+                               key={typeKey}
+                               className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide select-none"
+                             >
+                               <img
+                                 src={`/assets/type-icons/${typeKey}.svg`}
+                                 onError={(e) => {
+                                   (e.target as HTMLImageElement).style.display = 'none';
+                                 }}
+                                 alt=""
+                                 className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0"
+                                 loading="lazy"
+                               />
+                               <span className="hidden sm:inline">
+                                 {typeTranslations[typeKey]?.[language] || typeKey}
+                               </span>
+                             </span>
                           ))}
                         </div>
 
@@ -430,25 +450,32 @@ export const StatSearch: React.FC = () => {
                               ))}
                             </span>
 
-                            {/* Move Type */}
-                            {item.moveType && (
-                              <span
-                                className={`px-1.5 py-0.5 sm:px-2 sm:py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide w-fit ${
-                                  typeColors[item.moveType] || 'bg-slate-500 text-white'
-                                }`}
-                              >
-                                {typeTranslations[item.moveType]?.[language] || item.moveType}
-                              </span>
-                            )}
+                            {/* Move Type & Classification (horizontal group on mobile, flat on desktop) */}
+                            <div className="flex items-center gap-1.5 sm:contents">
+                              {/* Move Type */}
+                              {item.moveType && (
+                                <span
+                                  className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide select-none"
+                                >
+                                  <img
+                                    src={`/assets/type-icons/${item.moveType}.svg`}
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).style.display = 'none';
+                                    }}
+                                    alt=""
+                                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0"
+                                    loading="lazy"
+                                  />
+                                </span>
+                              )}
 
-                            {/* Classification */}
-                            <span className="text-[10px] sm:text-xs text-slate-400">
-                              (
-                              {item.category === 'physical'
-                                ? t('physical')
-                                : t('special')}
-                              )
-                            </span>
+                              {/* Classification */}
+                              {item.category && (
+                                <span className="inline-flex items-center gap-1 text-slate-400">
+                                  <MoveCategoryIcon category={item.category} />
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ) : (
