@@ -47,8 +47,8 @@ export function calculateMaxDamage(
   pokemon: PokemonMaster,
   moves: MoveMaster[]
 ): MaxDamageMoveInfo[] {
-  // Keep track of the best damage setup for each move ID
-  const bestMovesMap = new Map<number, MaxDamageMoveInfo>();
+  // Keep track of the best damage setup for each move
+  const bestMovesMap = new Map<string, MaxDamageMoveInfo>();
 
   // Level 50, IV 31, EV 252, Nature 1.1 for maximizing offense
   const maxAttack = calculateStat(
@@ -69,9 +69,68 @@ export function calculateMaxDamage(
   );
 
   // Filter moves that this pokemon can learn
-  const learnableMoves = moves.filter((m) =>
+  const baseLearnableMoves = moves.filter((m) =>
     pokemon.learnable_moves.includes(m.id)
   );
+
+  // Expand special moves (Last Respects and Rage Fist) into their variations
+  const learnableMoves: MoveMaster[] = [];
+  for (const m of baseLearnableMoves) {
+    if (m.id === 854) {
+      // おはかまいり
+      learnableMoves.push({
+        ...m,
+        name: {
+          ja: `${m.name.ja}\n(味方0落ち)`,
+          en: `${m.name.en}\n(0 fainted)`,
+        },
+        power: 50,
+      });
+      learnableMoves.push({
+        ...m,
+        name: {
+          ja: `${m.name.ja}\n(味方1落ち)`,
+          en: `${m.name.en}\n(1 fainted)`,
+        },
+        power: 100,
+      });
+      learnableMoves.push({
+        ...m,
+        name: {
+          ja: `${m.name.ja}\n(味方2落ち/最大火力)`,
+          en: `${m.name.en}\n(2 fainted/Max Power)`,
+        },
+        power: 150,
+      });
+    } else if (m.id === 889) {
+      // ふんどのこぶし
+      learnableMoves.push({
+        ...m,
+        name: { ja: `${m.name.ja}\n(被弾0回)`, en: `${m.name.en}\n(0 hits)` },
+        power: 50,
+      });
+      learnableMoves.push({
+        ...m,
+        name: { ja: `${m.name.ja}\n(被弾1回)`, en: `${m.name.en}\n(1 hit)` },
+        power: 100,
+      });
+      learnableMoves.push({
+        ...m,
+        name: { ja: `${m.name.ja}\n(被弾2回)`, en: `${m.name.en}\n(2 hits)` },
+        power: 150,
+      });
+      learnableMoves.push({
+        ...m,
+        name: {
+          ja: `${m.name.ja}\n(被弾3回/最大火力)`,
+          en: `${m.name.en}\n(3 hits/Max Power)`,
+        },
+        power: 200,
+      });
+    } else {
+      learnableMoves.push(m);
+    }
+  }
 
   const abilities =
     pokemon.abilities && pokemon.abilities.length > 0
@@ -102,17 +161,11 @@ export function calculateMaxDamage(
           abilityNameEn === 'Gorilla Tactics'
         ) {
           offenseStat = Math.floor(offenseStat * 1.5);
-        } else if (
-          abilityNameJa === 'こんじょう' ||
-          abilityNameEn === 'Guts'
-        ) {
+        } else if (abilityNameJa === 'こんじょう' || abilityNameEn === 'Guts') {
           offenseStat = Math.floor(offenseStat * 1.5);
         }
       } else {
-        if (
-          abilityNameJa === 'サンパワー' ||
-          abilityNameEn === 'Solar Power'
-        ) {
+        if (abilityNameJa === 'サンパワー' || abilityNameEn === 'Solar Power') {
           offenseStat = Math.floor(offenseStat * 1.5);
         }
       }
@@ -151,20 +204,14 @@ export function calculateMaxDamage(
       }
 
       // Technician (boosts moves with base power <= 60 by 1.5x)
-      if (
-        abilityNameJa === 'テクニシャン' ||
-        abilityNameEn === 'Technician'
-      ) {
+      if (abilityNameJa === 'テクニシャン' || abilityNameEn === 'Technician') {
         if (m.power <= 60) {
           basePower = basePower * 1.5;
         }
       }
 
       // Sand Force (boosts Rock, Ground, Steel moves by 1.3x)
-      if (
-        abilityNameJa === 'すなのちから' ||
-        abilityNameEn === 'Sand Force'
-      ) {
+      if (abilityNameJa === 'すなのちから' || abilityNameEn === 'Sand Force') {
         if (
           moveType === 'rock' ||
           moveType === 'ground' ||
@@ -175,10 +222,7 @@ export function calculateMaxDamage(
       }
 
       // Transistor (boosts Electric moves by 1.3x)
-      if (
-        abilityNameJa === 'トランジスタ' ||
-        abilityNameEn === 'Transistor'
-      ) {
+      if (abilityNameJa === 'トランジスタ' || abilityNameEn === 'Transistor') {
         if (moveType === 'electric') {
           basePower = basePower * 1.3;
         }
@@ -234,9 +278,10 @@ export function calculateMaxDamage(
       // Calculate simple damage index
       const dmgIndex = Math.floor(offenseStat * basePower * stabMultiplier);
 
-      const existing = bestMovesMap.get(m.id);
+      const moveKey = `${m.id}-${m.name.ja}`;
+      const existing = bestMovesMap.get(moveKey);
       if (!existing || dmgIndex > existing.value) {
-        bestMovesMap.set(m.id, {
+        bestMovesMap.set(moveKey, {
           value: dmgIndex,
           moveName: m.name,
           category: m.category,
@@ -263,7 +308,9 @@ export interface MaxDurabilityInfo {
 }
 
 // Calculate maximum physical and special durability indices, factoring in defensive abilities
-export function calculateMaxDurability(pokemon: PokemonMaster): MaxDurabilityInfo {
+export function calculateMaxDurability(
+  pokemon: PokemonMaster
+): MaxDurabilityInfo {
   // Max HP configuration (EV 252)
   const maxHp = calculateStat('hp', pokemon.base_stats.hp, 31, 252, 50);
 

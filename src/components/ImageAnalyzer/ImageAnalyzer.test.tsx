@@ -289,7 +289,10 @@ describe('ImageAnalyzer component', () => {
     return new File([blob], name, { type: 'image/png' });
   };
 
-  const setupSpyMocks = (mode: 'fixture1' | 'fixture2', startScreenType: 'ability' | 'status' = 'ability') => {
+  const setupSpyMocks = (
+    mode: 'fixture1' | 'fixture2',
+    startScreenType: 'ability' | 'status' = 'ability'
+  ) => {
     // Greninja team
     const f1Data = [
       'ゲッコウガ',
@@ -427,9 +430,10 @@ describe('ImageAnalyzer component', () => {
       }
     }
 
-
     vi.spyOn(ocr, 'runFullImageOcr').mockImplementation(async (_canvas) => {
-      const isStatusScreen = (detectCallCount === 0 && startScreenType === 'status') || (detectCallCount > 0);
+      const isStatusScreen =
+        (detectCallCount === 0 && startScreenType === 'status') ||
+        detectCallCount > 0;
       detectCallCount++;
 
       const imgWidth = 2400;
@@ -495,8 +499,10 @@ describe('ImageAnalyzer component', () => {
           }
         } else {
           // EVs
-          const evOffsets = [0.08, 0.22, 0.36, 0.50, 0.64, 0.78];
-          const currentSlotEvs = evsList[idx % evsList.length] || [0, 0, 0, 0, 0, 0];
+          const evOffsets = [0.08, 0.22, 0.36, 0.5, 0.64, 0.78];
+          const currentSlotEvs = evsList[idx % evsList.length] || [
+            0, 0, 0, 0, 0, 0,
+          ];
           const rawMap = [0, 1, 2, 5, 4, 3];
           for (let e = 0; e < 6; e++) {
             const rawIdx = rawMap[e];

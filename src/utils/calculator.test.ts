@@ -398,20 +398,83 @@ describe('calculator utilities', () => {
         id: 1,
         name: { ja: 'テスト', en: 'Test' },
         types: ['normal'],
-        base_stats: { hp: 100, attack: 100, defense: 100, sp_attack: 100, sp_defense: 100, speed: 100 },
+        base_stats: {
+          hp: 100,
+          attack: 100,
+          defense: 100,
+          sp_attack: 100,
+          sp_defense: 100,
+          speed: 100,
+        },
         abilities: [],
         regulations: ['M-A'],
         learnable_moves: [1, 2, 3, 4, 5, 6, 7],
       };
 
       const mockMoves: MoveMaster[] = [
-        { id: 1, name: { ja: '技1', en: 'Move1' }, type: 'normal', category: 'physical', power: 10, accuracy: 100, pp: 10 },
-        { id: 2, name: { ja: '技2', en: 'Move2' }, type: 'normal', category: 'physical', power: 20, accuracy: 100, pp: 10 },
-        { id: 3, name: { ja: '技3', en: 'Move3' }, type: 'normal', category: 'physical', power: 30, accuracy: 100, pp: 10 },
-        { id: 4, name: { ja: '技4', en: 'Move4' }, type: 'normal', category: 'physical', power: 40, accuracy: 100, pp: 10 },
-        { id: 5, name: { ja: '技5', en: 'Move5' }, type: 'normal', category: 'physical', power: 50, accuracy: 100, pp: 10 },
-        { id: 6, name: { ja: '技6', en: 'Move6' }, type: 'normal', category: 'physical', power: 60, accuracy: 100, pp: 10 },
-        { id: 7, name: { ja: '技7', en: 'Move7' }, type: 'normal', category: 'physical', power: 70, accuracy: 100, pp: 10 },
+        {
+          id: 1,
+          name: { ja: '技1', en: 'Move1' },
+          type: 'normal',
+          category: 'physical',
+          power: 10,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 2,
+          name: { ja: '技2', en: 'Move2' },
+          type: 'normal',
+          category: 'physical',
+          power: 20,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 3,
+          name: { ja: '技3', en: 'Move3' },
+          type: 'normal',
+          category: 'physical',
+          power: 30,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 4,
+          name: { ja: '技4', en: 'Move4' },
+          type: 'normal',
+          category: 'physical',
+          power: 40,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 5,
+          name: { ja: '技5', en: 'Move5' },
+          type: 'normal',
+          category: 'physical',
+          power: 50,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 6,
+          name: { ja: '技6', en: 'Move6' },
+          type: 'normal',
+          category: 'physical',
+          power: 60,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 7,
+          name: { ja: '技7', en: 'Move7' },
+          type: 'normal',
+          category: 'physical',
+          power: 70,
+          accuracy: 100,
+          pp: 10,
+        },
       ];
 
       const res = calculateMaxDamage(mockPokemon, mockMoves);
@@ -419,6 +482,86 @@ describe('calculator utilities', () => {
       expect(res[0].moveName.ja).toBe('技7');
       expect(res[6].moveName.ja).toBe('技1');
       expect(res[0].value).toBeGreaterThan(res[1].value);
+    });
+
+    it('should expand Last Respects and Rage Fist into multiple variations', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 999,
+        name: { ja: 'テストポケモン', en: 'Test Pokemon' },
+        types: ['ghost'],
+        base_stats: {
+          hp: 100,
+          attack: 100, // max physical attack at L50: base 100 -> neutral 120 -> positive 132 (EV 252, Nature 1.1)
+          defense: 100,
+          sp_attack: 100,
+          sp_defense: 100,
+          speed: 100,
+        },
+        abilities: [{ ja: 'なし', en: 'None' }],
+        regulations: ['M-A'],
+        learnable_moves: [854, 889],
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 854,
+          name: { ja: 'おはかまいり', en: 'Last Respects' },
+          type: 'ghost',
+          category: 'physical',
+          power: 50,
+          accuracy: 100,
+          pp: 10,
+        },
+        {
+          id: 889,
+          name: { ja: 'ふんどのこぶし', en: 'Rage Fist' },
+          type: 'ghost',
+          category: 'physical',
+          power: 50,
+          accuracy: 100,
+          pp: 10,
+        },
+      ];
+
+      const res = calculateMaxDamage(mockPokemon, mockMoves);
+
+      expect(res.length).toBe(7);
+
+      expect(res[0].moveName.ja).toBe('ふんどのこぶし\n(被弾3回/最大火力)');
+      expect(res[0].value).toBe(50100);
+
+      const lr2 = res.find((m) =>
+        m.moveName.ja.includes('おはかまいり\n(味方2落ち/最大火力)')
+      );
+      const rf2 = res.find((m) =>
+        m.moveName.ja.includes('ふんどのこぶし\n(被弾2回)')
+      );
+      expect(lr2).toBeDefined();
+      expect(lr2?.value).toBe(37575);
+      expect(rf2).toBeDefined();
+      expect(rf2?.value).toBe(37575);
+
+      const lr1 = res.find((m) =>
+        m.moveName.ja.includes('おはかまいり\n(味方1落ち)')
+      );
+      const rf1 = res.find((m) =>
+        m.moveName.ja.includes('ふんどのこぶし\n(被弾1回)')
+      );
+      expect(lr1).toBeDefined();
+      expect(lr1?.value).toBe(25050);
+      expect(rf1).toBeDefined();
+      expect(rf1?.value).toBe(25050);
+
+      const lr0 = res.find((m) =>
+        m.moveName.ja.includes('おはかまいり\n(味方0落ち)')
+      );
+      const rf0 = res.find((m) =>
+        m.moveName.ja.includes('ふんどのこぶし\n(被弾0回)')
+      );
+      expect(lr0).toBeDefined();
+      expect(lr0?.value).toBe(12525);
+      expect(rf0).toBeDefined();
+      expect(rf0?.value).toBe(12525);
     });
   });
 
@@ -459,7 +602,14 @@ describe('calculator utilities', () => {
         id: 100,
         name: { ja: 'ペルシアン', en: 'Persian' },
         types: ['normal'],
-        base_stats: { hp: 65, attack: 60, defense: 60, sp_attack: 75, sp_defense: 65, speed: 115 },
+        base_stats: {
+          hp: 65,
+          attack: 60,
+          defense: 60,
+          sp_attack: 75,
+          sp_defense: 65,
+          speed: 115,
+        },
         abilities: [{ ja: 'ファーコート', en: 'Fur Coat' }],
         regulations: [],
         learnable_moves: [],
@@ -477,7 +627,14 @@ describe('calculator utilities', () => {
         id: 200,
         name: { ja: 'モスノウ', en: 'Frosmoth' },
         types: ['bug', 'ice'],
-        base_stats: { hp: 70, attack: 65, defense: 60, sp_attack: 125, sp_defense: 90, speed: 65 },
+        base_stats: {
+          hp: 70,
+          attack: 65,
+          defense: 60,
+          sp_attack: 125,
+          sp_defense: 90,
+          speed: 65,
+        },
         abilities: [{ ja: 'こおりのりんぷん', en: 'Ice Scales' }],
         regulations: [],
         learnable_moves: [],
@@ -495,7 +652,14 @@ describe('calculator utilities', () => {
         id: 300,
         name: { ja: 'ルギア', en: 'Lugia' },
         types: ['psychic', 'flying'],
-        base_stats: { hp: 106, attack: 90, defense: 130, sp_attack: 90, sp_defense: 154, speed: 110 },
+        base_stats: {
+          hp: 106,
+          attack: 90,
+          defense: 130,
+          sp_attack: 90,
+          sp_defense: 154,
+          speed: 110,
+        },
         abilities: [{ ja: 'マルチスケイル', en: 'Multiscale' }],
         regulations: [],
         learnable_moves: [],
@@ -516,7 +680,14 @@ describe('calculator utilities', () => {
         id: 400,
         name: { ja: 'バンギラス', en: 'Tyranitar' },
         types: ['rock', 'dark'],
-        base_stats: { hp: 100, attack: 134, defense: 110, sp_attack: 95, sp_defense: 100, speed: 61 },
+        base_stats: {
+          hp: 100,
+          attack: 134,
+          defense: 110,
+          sp_attack: 95,
+          sp_defense: 100,
+          speed: 61,
+        },
         abilities: [{ ja: 'すなおこし', en: 'Sand Stream' }],
         regulations: [],
         learnable_moves: [],

@@ -29,8 +29,6 @@ interface AnalyzedPokemon {
   };
 }
 
-
-
 function getEditDistance(a: string, b: string): number {
   const matrix = Array.from({ length: a.length + 1 }, () =>
     new Array(b.length + 1).fill(0)
@@ -233,20 +231,26 @@ export const ImageAnalyzer: React.FC = () => {
             console.warn('Canvas drawImage failed:', e);
           }
 
-
           // 1. Run Full Image OCR using Tesseract.js (essential for unit test mocks)
           const words = await ocr.runFullImageOcr(canvas);
           currentGroup.words = words.map((w) => w.text);
 
           // Candidate Name Lists for dynamic OCR matches
-          const allPokemonNames = pokemonList.flatMap((p) => [p.name.ja, p.name.en].filter(Boolean));
-          const allItemNames = itemsList.flatMap((i) => [i.name.ja, i.name.en].filter(Boolean));
+          const allPokemonNames = pokemonList.flatMap((p) =>
+            [p.name.ja, p.name.en].filter(Boolean)
+          );
+          const allItemNames = itemsList.flatMap((i) =>
+            [i.name.ja, i.name.en].filter(Boolean)
+          );
 
           // If in test env, use JSDOM-safe Tesseract-only parsing (to avoid WASM loading errors in node tests)
           if (isTestEnv) {
             let detectedScreenType: 'ability' | 'status' = 'ability';
             const currentFile = files[imgIdx];
-            if (currentFile && currentFile.name.toLowerCase().includes('status')) {
+            if (
+              currentFile &&
+              currentFile.name.toLowerCase().includes('status')
+            ) {
               detectedScreenType = 'status';
             } else if (previews.length === 2) {
               detectedScreenType = imgIdx === 0 ? 'ability' : 'status';
@@ -269,7 +273,10 @@ export const ImageAnalyzer: React.FC = () => {
               };
             }[] = [];
 
-            const slotWords: ocr.OcrWord[][] = Array.from({ length: 6 }, () => []);
+            const slotWords: ocr.OcrWord[][] = Array.from(
+              { length: 6 },
+              () => []
+            );
             for (const word of words) {
               const cx = word.x + word.w / 2;
               const cy = word.y + word.h / 2;
@@ -285,14 +292,19 @@ export const ImageAnalyzer: React.FC = () => {
             for (let slotIdx = 0; slotIdx < 6; slotIdx++) {
               const sWords = slotWords[slotIdx];
               const slotLabel = `Slot ${slotIdx + 1}`;
-              
+
               let matchedPokemon: PokemonMaster | null = null;
               let nameWord: ocr.OcrWord | null = null;
               for (const word of sWords) {
-                const bestMatchName = findBestMatch(word.text, allPokemonNames, 2);
+                const bestMatchName = findBestMatch(
+                  word.text,
+                  allPokemonNames,
+                  2
+                );
                 if (bestMatchName) {
                   const p = pokemonList.find(
-                    (p) => p.name.ja === bestMatchName || p.name.en === bestMatchName
+                    (p) =>
+                      p.name.ja === bestMatchName || p.name.en === bestMatchName
                   );
                   if (p && word.text.length >= 2) {
                     matchedPokemon = p;
@@ -305,8 +317,11 @@ export const ImageAnalyzer: React.FC = () => {
               if (!matchedPokemon || !nameWord) {
                 currentGroup.rects.push({
                   label: `${slotLabel}: ポケモン名`,
-                  xPct: 0, yPct: 0, wPct: 0, hPct: 0,
-                  result: '検出失敗'
+                  xPct: 0,
+                  yPct: 0,
+                  wPct: 0,
+                  hPct: 0,
+                  result: '検出失敗',
                 });
                 continue;
               }
@@ -317,17 +332,26 @@ export const ImageAnalyzer: React.FC = () => {
                 yPct: (nameWord.y / imgHeight) * 100,
                 wPct: (nameWord.w / imgWidth) * 100,
                 hPct: (nameWord.h / imgHeight) * 100,
-                result: `検出: "${nameWord.text}" ➔ 補正後: "${matchedPokemon.name[language]}"`
+                result: `検出: "${nameWord.text}" ➔ 補正後: "${matchedPokemon.name[language]}"`,
               });
 
               let ability = '';
               let item = '';
               const moves: MoveMaster[] = [];
-              const evsMapped = { hp: 0, attack: 0, defense: 0, speed: 0, sp_defense: 0, sp_attack: 0 };
+              const evsMapped = {
+                hp: 0,
+                attack: 0,
+                defense: 0,
+                speed: 0,
+                sp_defense: 0,
+                sp_attack: 0,
+              };
               const otherWords = sWords.filter((w) => w !== nameWord);
 
               if (detectedScreenType === 'ability') {
-                const abilityCandidates = matchedPokemon.abilities.flatMap((a) => [a.ja, a.en].filter(Boolean));
+                const abilityCandidates = matchedPokemon.abilities.flatMap(
+                  (a) => [a.ja, a.en].filter(Boolean)
+                );
                 let foundAbilityWord: ocr.OcrWord | null = null;
                 for (const word of otherWords) {
                   const bestAb = findBestMatch(word.text, abilityCandidates, 2);
@@ -345,11 +369,21 @@ export const ImageAnalyzer: React.FC = () => {
 
                 currentGroup.rects.push({
                   label: `${slotLabel}: 特性`,
-                  xPct: foundAbilityWord ? (foundAbilityWord.x / imgWidth) * 100 : 0,
-                  yPct: foundAbilityWord ? (foundAbilityWord.y / imgHeight) * 100 : 0,
-                  wPct: foundAbilityWord ? (foundAbilityWord.w / imgWidth) * 100 : 0,
-                  hPct: foundAbilityWord ? (foundAbilityWord.h / imgHeight) * 100 : 0,
-                  result: foundAbilityWord ? `検出: "${foundAbilityWord.text}" ➔ 補正後: "${ability}"` : '未検出'
+                  xPct: foundAbilityWord
+                    ? (foundAbilityWord.x / imgWidth) * 100
+                    : 0,
+                  yPct: foundAbilityWord
+                    ? (foundAbilityWord.y / imgHeight) * 100
+                    : 0,
+                  wPct: foundAbilityWord
+                    ? (foundAbilityWord.w / imgWidth) * 100
+                    : 0,
+                  hPct: foundAbilityWord
+                    ? (foundAbilityWord.h / imgHeight) * 100
+                    : 0,
+                  result: foundAbilityWord
+                    ? `検出: "${foundAbilityWord.text}" ➔ 補正後: "${ability}"`
+                    : '未検出',
                 });
 
                 let foundItemWord: ocr.OcrWord | null = null;
@@ -373,7 +407,9 @@ export const ImageAnalyzer: React.FC = () => {
                   yPct: foundItemWord ? (foundItemWord.y / imgHeight) * 100 : 0,
                   wPct: foundItemWord ? (foundItemWord.w / imgWidth) * 100 : 0,
                   hPct: foundItemWord ? (foundItemWord.h / imgHeight) * 100 : 0,
-                  result: foundItemWord ? `検出: "${foundItemWord.text}" ➔ 補正後: "${item}"` : '未検出'
+                  result: foundItemWord
+                    ? `検出: "${foundItemWord.text}" ➔ 補正後: "${item}"`
+                    : '未検出',
                 });
 
                 const learnableMoveNames = movesList
@@ -382,12 +418,19 @@ export const ImageAnalyzer: React.FC = () => {
 
                 let moveCount = 0;
                 for (const word of otherWords) {
-                  const bestMove = findBestMatch(word.text, learnableMoveNames, 2);
+                  const bestMove = findBestMatch(
+                    word.text,
+                    learnableMoveNames,
+                    2
+                  );
                   if (bestMove) {
                     const matchedMoveObj = movesList.find(
                       (m) => m.name.ja === bestMove || m.name.en === bestMove
                     );
-                    if (matchedMoveObj && !moves.some((m) => m.id === matchedMoveObj.id)) {
+                    if (
+                      matchedMoveObj &&
+                      !moves.some((m) => m.id === matchedMoveObj.id)
+                    ) {
                       moves.push(matchedMoveObj);
                       moveCount++;
                       currentGroup.rects.push({
@@ -396,14 +439,26 @@ export const ImageAnalyzer: React.FC = () => {
                         yPct: (word.y / imgHeight) * 100,
                         wPct: (word.w / imgWidth) * 100,
                         hPct: (word.h / imgHeight) * 100,
-                        result: `検出: "${word.text}" ➔ 補正後: "${matchedMoveObj.name[language]}"`
+                        result: `検出: "${word.text}" ➔ 補正後: "${matchedMoveObj.name[language]}"`,
                       });
                     }
                   }
                 }
               } else {
-                const evKeys: ('hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed')[] = [
-                  'hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed'
+                const evKeys: (
+                  | 'hp'
+                  | 'attack'
+                  | 'defense'
+                  | 'sp_attack'
+                  | 'sp_defense'
+                  | 'speed'
+                )[] = [
+                  'hp',
+                  'attack',
+                  'defense',
+                  'sp_attack',
+                  'sp_defense',
+                  'speed',
                 ];
                 const evWords = sWords
                   .filter((w) => w.text.includes('+'))
@@ -422,7 +477,7 @@ export const ImageAnalyzer: React.FC = () => {
                     yPct: evWords[i] ? (evWords[i].y / imgHeight) * 100 : 0,
                     wPct: evWords[i] ? (evWords[i].w / imgWidth) * 100 : 0,
                     hPct: evWords[i] ? (evWords[i].h / imgHeight) * 100 : 0,
-                    result: `努力値: ${evVal} (テストモック)`
+                    result: `努力値: ${evVal} (テストモック)`,
                   });
                 }
               }
@@ -432,7 +487,7 @@ export const ImageAnalyzer: React.FC = () => {
                 ability,
                 item,
                 moves,
-                evsMapped
+                evsMapped,
               });
             }
 
@@ -451,7 +506,14 @@ export const ImageAnalyzer: React.FC = () => {
                 moves: hasAbilityInfo ? raw.moves : [],
                 evs: hasStatusInfo
                   ? raw.evsMapped
-                  : { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 }
+                  : {
+                      hp: 0,
+                      attack: 0,
+                      defense: 0,
+                      sp_attack: 0,
+                      sp_defense: 0,
+                      speed: 0,
+                    },
               });
             }
             analyzedList.push(party);
@@ -462,7 +524,11 @@ export const ImageAnalyzer: React.FC = () => {
           const wasm = await ocr.initWasm();
           const imgData = ctx.getImageData(0, 0, imgWidth, imgHeight);
           const rawPixels = new Uint8Array(imgData.data.buffer);
-          const bounds = wasm.get_16_9_bounds_robust(rawPixels, imgWidth, imgHeight);
+          const bounds = wasm.get_16_9_bounds_robust(
+            rawPixels,
+            imgWidth,
+            imgHeight
+          );
           const xOffset = bounds[0];
           const yOffset = bounds[1];
           const displayW = bounds[2];
@@ -516,7 +582,10 @@ export const ImageAnalyzer: React.FC = () => {
           // Candidate Name Lists for dynamic OCR matches
 
           // 4. Partition full image OCR words into 6 grid slots based on layout coordinates (for unit test mock matching)
-          const slotWords: ocr.OcrWord[][] = Array.from({ length: 6 }, () => []);
+          const slotWords: ocr.OcrWord[][] = Array.from(
+            { length: 6 },
+            () => []
+          );
           for (const word of words) {
             const cx = word.x + word.w / 2;
             const cy = word.y + word.h / 2;
@@ -582,10 +651,15 @@ export const ImageAnalyzer: React.FC = () => {
 
             // Try Tesseract sWords first (essential for test environment)
             for (const word of sWords) {
-              const bestMatchName = findBestMatch(word.text, allPokemonNames, 2);
+              const bestMatchName = findBestMatch(
+                word.text,
+                allPokemonNames,
+                2
+              );
               if (bestMatchName) {
                 const p = pokemonList.find(
-                  (p) => p.name.ja === bestMatchName || p.name.en === bestMatchName
+                  (p) =>
+                    p.name.ja === bestMatchName || p.name.en === bestMatchName
                 );
                 if (p && word.text.length >= 2) {
                   matchedPokemon = p;
@@ -598,10 +672,16 @@ export const ImageAnalyzer: React.FC = () => {
 
             // Fallback to Wasm Crop Box OCR
             if (!matchedPokemon && !isTestEnv) {
-              const resolvedName = await ocr.resolveSlotOcr(canvas, slotIdx, 'name', allPokemonNames);
+              const resolvedName = await ocr.resolveSlotOcr(
+                canvas,
+                slotIdx,
+                'name',
+                allPokemonNames
+              );
               if (resolvedName) {
                 const p = pokemonList.find(
-                  (p) => p.name.ja === resolvedName || p.name.en === resolvedName
+                  (p) =>
+                    p.name.ja === resolvedName || p.name.en === resolvedName
                 );
                 if (p) {
                   matchedPokemon = p;
@@ -618,9 +698,9 @@ export const ImageAnalyzer: React.FC = () => {
               yPct: (nameY / imgHeight) * 100,
               wPct: (nameW / imgWidth) * 100,
               hPct: (nameH / imgHeight) * 100,
-              result: matchedPokemon 
+              result: matchedPokemon
                 ? `検出: "${nameRawText}" [${nameSource}] ➔ 補正後: "${matchedPokemon.name[language]}"`
-                : '検出失敗 / Detection failed'
+                : '検出失敗 / Detection failed',
             });
 
             if (!matchedPokemon) {
@@ -649,7 +729,9 @@ export const ImageAnalyzer: React.FC = () => {
               const abH = Math.round(slotH * 0.23);
 
               // 5-2. Resolve Ability
-              const abilityCandidates = matchedPokemon.abilities.flatMap((a) => [a.ja, a.en].filter(Boolean));
+              const abilityCandidates = matchedPokemon.abilities.flatMap((a) =>
+                [a.ja, a.en].filter(Boolean)
+              );
               let foundAbility = false;
               let abilitySource = '';
               let abilityRawText = '';
@@ -673,7 +755,12 @@ export const ImageAnalyzer: React.FC = () => {
 
               // Fallback to Wasm Crop Box OCR
               if (!foundAbility && !isTestEnv) {
-                const resolvedAbility = await ocr.resolveSlotOcr(canvas, slotIdx, 'ability', abilityCandidates);
+                const resolvedAbility = await ocr.resolveSlotOcr(
+                  canvas,
+                  slotIdx,
+                  'ability',
+                  abilityCandidates
+                );
                 if (resolvedAbility) {
                   const matchedAbilityObj = matchedPokemon.abilities.find(
                     (a) => a.ja === resolvedAbility || a.en === resolvedAbility
@@ -694,9 +781,9 @@ export const ImageAnalyzer: React.FC = () => {
                 yPct: (abY / imgHeight) * 100,
                 wPct: (abW / imgWidth) * 100,
                 hPct: (abH / imgHeight) * 100,
-                result: foundAbility 
+                result: foundAbility
                   ? `検出: "${abilityRawText}" [${abilitySource}] ➔ 補正後: "${ability}"`
-                  : '未検出 / Not detected'
+                  : '未検出 / Not detected',
               });
 
               // Item Crop Coordinates
@@ -729,10 +816,16 @@ export const ImageAnalyzer: React.FC = () => {
 
               // Fallback to Wasm Crop Box OCR
               if (!foundItem && !isTestEnv) {
-                const resolvedItem = await ocr.resolveSlotOcr(canvas, slotIdx, 'item', allItemNames);
+                const resolvedItem = await ocr.resolveSlotOcr(
+                  canvas,
+                  slotIdx,
+                  'item',
+                  allItemNames
+                );
                 if (resolvedItem) {
                   const matchedItemObj = itemsList.find(
-                    (i) => i.name.ja === resolvedItem || i.name.en === resolvedItem
+                    (i) =>
+                      i.name.ja === resolvedItem || i.name.en === resolvedItem
                   );
                   if (matchedItemObj) {
                     item = matchedItemObj.name.ja;
@@ -750,9 +843,9 @@ export const ImageAnalyzer: React.FC = () => {
                 yPct: (itY / imgHeight) * 100,
                 wPct: (itW / imgWidth) * 100,
                 hPct: (itH / imgHeight) * 100,
-                result: foundItem 
+                result: foundItem
                   ? `検出: "${itemRawText}" [${itemSource}] ➔ 補正後: "${item}"`
-                  : '未検出 / Not detected'
+                  : '未検出 / Not detected',
               });
 
               // Resolve learnable moves (for unit test compatibility)
@@ -762,12 +855,19 @@ export const ImageAnalyzer: React.FC = () => {
 
               let moveCount = 0;
               for (const word of otherWords) {
-                const bestMove = findBestMatch(word.text, learnableMoveNames, 2);
+                const bestMove = findBestMatch(
+                  word.text,
+                  learnableMoveNames,
+                  2
+                );
                 if (bestMove) {
                   const matchedMoveObj = movesList.find(
                     (m) => m.name.ja === bestMove || m.name.en === bestMove
                   );
-                  if (matchedMoveObj && !moves.some((m) => m.id === matchedMoveObj.id)) {
+                  if (
+                    matchedMoveObj &&
+                    !moves.some((m) => m.id === matchedMoveObj.id)
+                  ) {
                     moves.push(matchedMoveObj);
                     moveCount++;
                     currentGroup.rects.push({
@@ -776,7 +876,7 @@ export const ImageAnalyzer: React.FC = () => {
                       yPct: (word.y / imgHeight) * 100,
                       wPct: (word.w / imgWidth) * 100,
                       hPct: (word.h / imgHeight) * 100,
-                      result: `検出: "${word.text}" ➔ 補正後: "${matchedMoveObj.name[language]}"`
+                      result: `検出: "${word.text}" ➔ 補正後: "${matchedMoveObj.name[language]}"`,
                     });
                   }
                 }
@@ -784,8 +884,22 @@ export const ImageAnalyzer: React.FC = () => {
             } else {
               // Detailed stats EVs extraction for status screens
               const evYPercentages = [0.31, 0.375, 0.44, 0.505, 0.57, 0.635];
-              const statNames = ["HP", "Attack", "Defense", "Sp.Atk", "Sp.Def", "Speed"];
-              const evKeys: ('hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed')[] = [
+              const statNames = [
+                'HP',
+                'Attack',
+                'Defense',
+                'Sp.Atk',
+                'Sp.Def',
+                'Speed',
+              ];
+              const evKeys: (
+                | 'hp'
+                | 'attack'
+                | 'defense'
+                | 'sp_attack'
+                | 'sp_defense'
+                | 'speed'
+              )[] = [
                 'hp',
                 'attack',
                 'defense',
@@ -829,7 +943,7 @@ export const ImageAnalyzer: React.FC = () => {
                   yPct: (evY / imgHeight) * 100,
                   wPct: (evW / imgWidth) * 100,
                   hPct: (evH / imgHeight) * 100,
-                  result: `アクティブ密度: ${evVal === 252 ? '極振り (252)' : evVal === 0 ? '無振り (0)' : '調整あり (>0)'} (Normalized: ${evVal})`
+                  result: `アクティブ密度: ${evVal === 252 ? '極振り (252)' : evVal === 0 ? '無振り (0)' : '調整あり (>0)'} (Normalized: ${evVal})`,
                 });
               }
             }
@@ -845,8 +959,9 @@ export const ImageAnalyzer: React.FC = () => {
 
           tempDebugGroups.push(currentGroup);
 
-          let finalType: 'ability' | 'status' =
-            detectedScreenType as 'ability' | 'status';
+          let finalType: 'ability' | 'status' = detectedScreenType as
+            | 'ability'
+            | 'status';
 
           if (isTestEnv) {
             if (previews.length === 2) {
@@ -1272,7 +1387,7 @@ export const ImageAnalyzer: React.FC = () => {
           <p className="text-xs text-slate-500">
             ※アップロードされたスクリーンショット全体と、WASMおよびフロントエンドによって自動的に座標計算され、ピンポイントで読み取り用Crop枠として使用された箇所（赤枠）をオーバーレイ表示しています。
           </p>
- 
+
           <div className="space-y-8">
             {ocrDebugGroups.map((group, gIdx) => (
               <div
@@ -1281,10 +1396,11 @@ export const ImageAnalyzer: React.FC = () => {
                 className="space-y-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800"
               >
                 <div className="text-sm font-bold text-slate-700 dark:text-slate-200">
-                  📷 解析画像 {gIdx + 1} ({group.imgWidth}x{group.imgHeight}) - 判定タイプ: 【
-                  {group.detectedType?.toUpperCase() || 'ABILITY'} 画面】
+                  📷 解析画像 {gIdx + 1} ({group.imgWidth}x{group.imgHeight}) -
+                  判定タイプ: 【{group.detectedType?.toUpperCase() || 'ABILITY'}{' '}
+                  画面】
                 </div>
- 
+
                 {/* Responsive Image Container */}
                 <div className="relative inline-block border border-slate-300 dark:border-slate-700 rounded-lg overflow-hidden max-w-full">
                   {/* The Original Image */}
@@ -1294,56 +1410,71 @@ export const ImageAnalyzer: React.FC = () => {
                     className="block w-full h-auto max-h-[800px] object-contain"
                   />
                   {/* Absolute Red Bounding Boxes (hidden in tests to avoid duplicate DOM text matches) */}
-                  {!isTestEnv && group.rects.map((rect, rIdx) => {
-                    if (rect.wPct === 0 || rect.hPct === 0) return null;
-                    const cleanLabel = rect.label.replace(/^Slot \d+:\s*/, '');
-                    
-                    // Parse result text to extract the concise name or EV value to show in floating badge
-                    let displayResult = rect.result;
-                    const nameMatch = rect.result.match(/➔ 補正後:\s*["'「]([^"'」]+)["'」]/);
-                    if (nameMatch) {
-                      displayResult = nameMatch[1];
-                    } else if (rect.result.includes('努力値:')) {
-                      const evMatch = rect.result.match(/努力値:\s*(\d+)/);
-                      displayResult = evMatch ? `EV: ${evMatch[1]}` : 'EV: 0';
-                    } else if (rect.result.includes('極振り') || rect.result.includes('調整あり') || rect.result.includes('無振り')) {
-                      const densityMatch = rect.result.match(/\((\d+)\)/);
-                      if (densityMatch) {
-                        displayResult = `EV: ${densityMatch[1]}`;
-                      } else if (rect.result.includes('極振り')) {
-                        displayResult = 'EV: 252';
-                      } else if (rect.result.includes('無振り')) {
-                        displayResult = 'EV: 0';
-                      } else {
-                        displayResult = 'EV: >0';
+                  {!isTestEnv &&
+                    group.rects.map((rect, rIdx) => {
+                      if (rect.wPct === 0 || rect.hPct === 0) return null;
+                      const cleanLabel = rect.label.replace(
+                        /^Slot \d+:\s*/,
+                        ''
+                      );
+
+                      // Parse result text to extract the concise name or EV value to show in floating badge
+                      let displayResult = rect.result;
+                      const nameMatch = rect.result.match(
+                        /➔ 補正後:\s*["'「]([^"'」]+)["'」]/
+                      );
+                      if (nameMatch) {
+                        displayResult = nameMatch[1];
+                      } else if (rect.result.includes('努力値:')) {
+                        const evMatch = rect.result.match(/努力値:\s*(\d+)/);
+                        displayResult = evMatch ? `EV: ${evMatch[1]}` : 'EV: 0';
+                      } else if (
+                        rect.result.includes('極振り') ||
+                        rect.result.includes('調整あり') ||
+                        rect.result.includes('無振り')
+                      ) {
+                        const densityMatch = rect.result.match(/\((\d+)\)/);
+                        if (densityMatch) {
+                          displayResult = `EV: ${densityMatch[1]}`;
+                        } else if (rect.result.includes('極振り')) {
+                          displayResult = 'EV: 252';
+                        } else if (rect.result.includes('無振り')) {
+                          displayResult = 'EV: 0';
+                        } else {
+                          displayResult = 'EV: >0';
+                        }
                       }
-                    }
 
-                    // Normalize label for compact display
-                    const isLeft = rect.label.includes('Slot 1') || rect.label.includes('Slot 3') || rect.label.includes('Slot 5');
-                    const badgeSideClass = isLeft ? 'left-0' : 'right-0';
+                      // Normalize label for compact display
+                      const isLeft =
+                        rect.label.includes('Slot 1') ||
+                        rect.label.includes('Slot 3') ||
+                        rect.label.includes('Slot 5');
+                      const badgeSideClass = isLeft ? 'left-0' : 'right-0';
 
-                    return (
-                      <div
-                        key={`box-${rIdx}`}
-                        className="absolute border-2 border-rose-500 bg-rose-500/15 pointer-events-none overflow-visible"
-                        style={{
-                          left: `${rect.xPct}%`,
-                          top: `${rect.yPct}%`,
-                          width: `${rect.wPct}%`,
-                          height: `${rect.hPct}%`,
-                        }}
-                      >
-                        {/* Floating visual badge just above the bounding box */}
-                        <div 
-                          className={`absolute -top-5 ${badgeSideClass} bg-slate-900/95 text-white font-bold text-[9px] px-1 py-0.5 rounded shadow border border-rose-400/40 leading-none whitespace-nowrap flex gap-1 z-10`}
+                      return (
+                        <div
+                          key={`box-${rIdx}`}
+                          className="absolute border-2 border-rose-500 bg-rose-500/15 pointer-events-none overflow-visible"
+                          style={{
+                            left: `${rect.xPct}%`,
+                            top: `${rect.yPct}%`,
+                            width: `${rect.wPct}%`,
+                            height: `${rect.hPct}%`,
+                          }}
                         >
-                          <span className="text-rose-400">{cleanLabel}:</span>
-                          <span className="text-rose-200">{displayResult}</span>
+                          {/* Floating visual badge just above the bounding box */}
+                          <div
+                            className={`absolute -top-5 ${badgeSideClass} bg-slate-900/95 text-white font-bold text-[9px] px-1 py-0.5 rounded shadow border border-rose-400/40 leading-none whitespace-nowrap flex gap-1 z-10`}
+                          >
+                            <span className="text-rose-400">{cleanLabel}:</span>
+                            <span className="text-rose-200">
+                              {displayResult}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
 
                 {/* Detected Tokens List */}
@@ -1385,7 +1516,10 @@ export const ImageAnalyzer: React.FC = () => {
                         </thead>
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                           {group.rects.map((rect, rIdx) => (
-                            <tr key={`rect-${rIdx}`} className="hover:bg-slate-100/50 dark:hover:bg-slate-850/30">
+                            <tr
+                              key={`rect-${rIdx}`}
+                              className="hover:bg-slate-100/50 dark:hover:bg-slate-850/30"
+                            >
                               <td className="px-3 py-1.5 font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">
                                 {rect.label}
                               </td>

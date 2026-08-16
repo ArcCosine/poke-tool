@@ -74,6 +74,7 @@ export const StatSearch: React.FC = () => {
   const [selectedMoveType, setSelectedMoveType] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedReg, setSelectedReg] = useState<string>('all');
+  const [excludeMega, setExcludeMega] = useState(false);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   // Load master data on mount
@@ -148,6 +149,11 @@ export const StatSearch: React.FC = () => {
     .filter(
       (item) =>
         selectedType === 'all' || item.pokemon.types.includes(selectedType)
+    )
+    // (B-2) Filter Mega Pokémon
+    .filter(
+      (item) =>
+        !excludeMega || !item.pokemon.name.en.startsWith('Mega ')
     )
     // (C) Filter by move type (for damage search)
     .filter((item) => {
@@ -288,22 +294,37 @@ export const StatSearch: React.FC = () => {
             ))}
           </select>
         </div>
+        {/* Exclude Mega Checkbox */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-5 flex items-center gap-2 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1 text-slate-700 dark:text-slate-300">
+          <input
+            id="exclude-mega"
+            type="checkbox"
+            checked={excludeMega}
+            onChange={(e) => setExcludeMega(e.target.checked)}
+            className="w-4 h-4 text-indigo-650 bg-slate-900 border-slate-700 rounded focus:ring-indigo-500 cursor-pointer"
+          />
+          <label
+            htmlFor="exclude-mega"
+            className="text-sm font-semibold select-none cursor-pointer"
+          >
+            {t('excludeMega')}
+          </label>
+        </div>
       </div>
 
       {/* Rankings List */}
-      <div className="card-premium overflow-hidden p-0 border-slate-200 dark:border-slate-800">
+      <div className="card-premium overflow-hidden p-0 border-x-0 sm:border border-slate-200 dark:border-slate-800 -mx-6 sm:mx-0 rounded-none sm:rounded-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                <th className="py-4 px-6 w-16 text-center">{t('rank')}</th>
-                <th className="py-4 px-6">{t('pokemon')}</th>
-                <th className="py-4 px-6">{t('ability')}</th>
-                <th className="py-4 px-6">{t('type')}</th>
+                <th className="py-3 px-1 sm:py-4 sm:px-6 w-8 sm:w-16 text-center">{t('rank')}</th>
+                <th className="py-3 px-2 sm:py-4 sm:px-6">{t('pokemon')}</th>
+                <th className="py-3 px-2 sm:py-4 sm:px-6 hidden md:table-cell">{t('ability')}</th>
                 {searchTarget === 'damage' && (
-                  <th className="py-4 px-6">{t('move')}</th>
+                  <th className="py-3 px-2 sm:py-4 sm:px-6">{t('move')}</th>
                 )}
-                <th className="py-4 px-6 text-right pr-8">
+                <th className="py-3 px-2 sm:py-4 sm:px-6 text-right pr-4 sm:pr-8">
                   <button
                     onClick={() =>
                       setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
@@ -331,74 +352,89 @@ export const StatSearch: React.FC = () => {
                   className="hover:bg-slate-100/30 dark:hover:bg-slate-900/20 transition-colors duration-150"
                 >
                   {/* Rank */}
-                  <td className="py-4 px-6 text-center font-bold text-slate-600 dark:text-slate-400">
+                  <td className="py-3 px-1 sm:py-4 sm:px-6 text-center font-bold text-slate-600 dark:text-slate-400 text-xs sm:text-sm">
                     {item.rank === 1 && (
-                      <span className="i-lucide-trophy text-yellow-500 text-lg" />
+                      <span className="i-lucide-trophy text-yellow-500 text-base sm:text-lg" />
                     )}
                     {item.rank === 2 && (
-                      <span className="i-lucide-trophy text-slate-400 text-lg" />
+                      <span className="i-lucide-trophy text-slate-400 text-base sm:text-lg" />
                     )}
                     {item.rank === 3 && (
-                      <span className="i-lucide-trophy text-amber-600 text-lg" />
+                      <span className="i-lucide-trophy text-amber-600 text-base sm:text-lg" />
                     )}
                     {item.rank > 3 && item.rank}
                   </td>
 
                   {/* Pokémon Name */}
-                  <td className="py-4 px-6 font-semibold text-slate-900 dark:text-slate-100">
-                    <div className="flex items-center gap-2.5">
-                      {/* Placeholder icon box */}
-                      <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
-                        <span className="i-lucide-swords text-xs text-indigo-500" />
+                  <td className="py-3 px-2 sm:py-4 sm:px-6 font-semibold text-slate-900 dark:text-slate-100">
+                    <div className="min-w-0">
+                      {/* Line 1: Pokemon Name */}
+                      <div className="truncate text-xs sm:text-sm">{item.pokemon.name[language]}</div>
+                      
+                      {/* Pokemon Types (Shown on all screens, directly under name) */}
+                      <div className="flex gap-1 mt-1">
+                        {item.pokemon.types.map((typeKey) => (
+                          <span
+                            key={typeKey}
+                            className={`px-1.5 py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide ${
+                              typeColors[typeKey] || 'bg-slate-500 text-white'
+                            }`}
+                          >
+                            {typeTranslations[typeKey]?.[language] || typeKey}
+                          </span>
+                        ))}
                       </div>
-                      <div>
-                        <div>{item.pokemon.name[language]}</div>
-                        <div className="text-[10px] text-slate-400 font-mono">
-                          #{item.pokemon.id.toString().padStart(4, '0')}
-                        </div>
+
+                      {/* Mobile & Tablet-only details: Ability (hidden on desktop md:hidden) */}
+                      <div className="flex md:hidden mt-1">
+                        <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
+                          {item.abilityName ? item.abilityName[language] : '-'}
+                        </span>
                       </div>
                     </div>
                   </td>
 
                   {/* Pokémon Ability */}
-                  <td className="py-4 px-6 text-slate-600 dark:text-slate-400 font-medium">
+                  <td className="py-3 px-2 sm:py-4 sm:px-6 text-slate-600 dark:text-slate-400 font-medium hidden md:table-cell">
                     {item.abilityName ? item.abilityName[language] : '-'}
-                  </td>
-
-                  {/* Pokémon Types */}
-                  <td className="py-4 px-6">
-                    <div className="flex gap-1.5">
-                      {item.pokemon.types.map((typeKey) => (
-                        <span
-                          key={typeKey}
-                          className={`px-2 py-0.5 text-xs rounded-md font-medium tracking-wide ${
-                            typeColors[typeKey] || 'bg-slate-500 text-white'
-                          }`}
-                        >
-                          {typeTranslations[typeKey]?.[language] || typeKey}
-                        </span>
-                      ))}
-                    </div>
                   </td>
 
                   {/* Best Move (Only for Max Damage) */}
                   {searchTarget === 'damage' && (
-                    <td className="py-4 px-6">
+                    <td className="py-3 px-2 sm:py-4 sm:px-6">
                       {item.moveName ? (
-                        <div className="flex items-center gap-1.5">
-                          <span
-                            className={`w-2 h-2 rounded-full ${
-                              item.category === 'physical'
-                                ? 'bg-orange-500'
-                                : 'bg-purple-500'
-                            }`}
-                          />
-                          <span className="font-medium text-slate-700 dark:text-slate-300">
-                            {item.moveName[language]}
-                            <span className="text-xs text-slate-400 ml-1">
-                              ({item.category === 'physical' ? t('physical') : t('special')})
+                        <div className="flex items-start sm:items-center gap-1.5">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
+                            {/* Move Name */}
+                            <span className="font-medium text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
+                              {item.moveName[language].split('\n').map((line, i) => (
+                                <span key={i}>
+                                  {i > 0 && <br />}
+                                  {line}
+                                </span>
+                              ))}
                             </span>
-                          </span>
+
+                            {/* Move Type */}
+                            {item.moveType && (
+                              <span
+                                className={`px-1.5 py-0.5 sm:px-2 sm:py-0.5 text-[8px] sm:text-xs rounded-md font-medium tracking-wide w-fit ${
+                                  typeColors[item.moveType] || 'bg-slate-500 text-white'
+                                }`}
+                              >
+                                {typeTranslations[item.moveType]?.[language] || item.moveType}
+                              </span>
+                            )}
+
+                            {/* Classification */}
+                            <span className="text-[10px] sm:text-xs text-slate-400">
+                              (
+                              {item.category === 'physical'
+                                ? t('physical')
+                                : t('special')}
+                              )
+                            </span>
+                          </div>
                         </div>
                       ) : (
                         <span className="text-slate-400">-</span>
@@ -407,7 +443,7 @@ export const StatSearch: React.FC = () => {
                   )}
 
                   {/* Value */}
-                  <td className="py-4 px-6 text-right pr-8 font-bold text-lg text-indigo-600 dark:text-indigo-400 font-mono">
+                  <td className="py-3 px-2 sm:py-4 sm:px-6 text-right pr-4 sm:pr-8 font-bold text-sm sm:text-base md:text-lg text-indigo-600 dark:text-indigo-400 font-mono">
                     {item.value.toLocaleString()}
                   </td>
                 </tr>

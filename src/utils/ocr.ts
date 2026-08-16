@@ -114,7 +114,17 @@ function imageToTensorRec(
     // Draw cropped region maintaining aspect ratio
     const aspect = canvas.width / canvas.height;
     const scaledW = Math.min(targetW, Math.round(targetH * aspect));
-    tempCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, scaledW, targetH);
+    tempCtx.drawImage(
+      canvas,
+      0,
+      0,
+      canvas.width,
+      canvas.height,
+      0,
+      0,
+      scaledW,
+      targetH
+    );
   }
 
   const imgData = tempCtx!.getImageData(0, 0, targetW, targetH);
@@ -197,20 +207,20 @@ export async function runFullImageOcr(
 
     // 2. Detection Inference
     const detTensor = imageToTensorDet(detCtx!, detW, detH);
-    const detResult = await detSession!.run({ 'x': detTensor });
+    const detResult = await detSession!.run({ x: detTensor });
     // detResult output shape is [1, 1, H, W]
     const probMap = detResult[Object.keys(detResult)[0]].data as Float32Array;
 
     // 3. Post-Process via WASM Rust
     const boxes = wasm.dbnet_postprocess(
-        probMap,
-        detW,
-        detH,
-        origW,
-        origH,
-        0.3, // thresh
-        0.6, // box_thresh
-        1.5  // unclip_ratio
+      probMap,
+      detW,
+      detH,
+      origW,
+      origH,
+      0.3, // thresh
+      0.6, // box_thresh
+      1.5 // unclip_ratio
     );
 
     const numBoxes = boxes.length / 4;
@@ -240,9 +250,10 @@ export async function runFullImageOcr(
 
       // Recognition Inference
       const recTensor = imageToTensorRec(cropCanvas);
-      const recResult = await sessionRec.run({ 'x': recTensor });
+      const recResult = await sessionRec.run({ x: recTensor });
       // SVTR output shape [1, 40, ClassNum] or similar
-      const recPreds = recResult[Object.keys(recResult)[0]].data as Float32Array;
+      const recPreds = recResult[Object.keys(recResult)[0]]
+        .data as Float32Array;
       const shape = recResult[Object.keys(recResult)[0]].dims; // [1, 40, ClassNum]
       const timesteps = shape[1];
       const numClasses = shape[2];
@@ -256,7 +267,7 @@ export async function runFullImageOcr(
           x: rxMin,
           y: ryMin,
           w: rw,
-          h: rh
+          h: rh,
         });
       }
     }
@@ -269,7 +280,9 @@ export async function runFullImageOcr(
 }
 
 // Maintain backwards compatibility signatures with dummy values to prevent compile issues
-export async function initOcrModel(modelPath = '/models/ocr_model.onnx'): Promise<ort.InferenceSession> {
+export async function initOcrModel(
+  modelPath = '/models/ocr_model.onnx'
+): Promise<ort.InferenceSession> {
   if (modelPath !== '/models/ocr_model.onnx') {
     // Return mock session directly in tests
     return await ort.InferenceSession.create(modelPath, {
