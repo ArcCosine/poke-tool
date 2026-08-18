@@ -1,16 +1,26 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { db, type MoveMaster, type PokemonMaster, type ItemMaster } from '../../utils/db';
-import { PokemonSearchModal } from './PokemonSearchModal';
+import {
+  db,
+  type ItemMaster,
+  type MoveMaster,
+  type PokemonMaster,
+} from '../../utils/db';
 import {
   analyzePartyDefense,
   analyzePartyOffense,
   generatePartyPokesolText,
   NATURES,
   type PokemonInstance,
-  TYPES,
 } from '../../utils/party';
+import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
+import { Autocomplete } from '../common/Autocomplete';
+import { Button } from '../common/Button';
+import { Input } from '../common/Input';
+import { Select } from '../common/Select';
+import { TypeBadge } from '../common/TypeBadge';
+import { PokemonSearchModal } from './PokemonSearchModal';
 
 // Simple default blank PokemonInstance
 const createEmptyInstance = (): PokemonInstance => ({
@@ -22,95 +32,6 @@ const createEmptyInstance = (): PokemonInstance => ({
   moves: [0, 0, 0, 0],
   evs: { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 },
 });
-
-const typeColors: Record<string, string> = {
-  normal: 'bg-slate-400 text-slate-900',
-  fire: 'bg-red-500 text-white',
-  water: 'bg-blue-500 text-white',
-  grass: 'bg-green-500 text-white',
-  electric: 'bg-yellow-400 text-slate-900',
-  ice: 'bg-cyan-400 text-slate-900',
-  fighting: 'bg-amber-700 text-white',
-  poison: 'bg-purple-500 text-white',
-  ground: 'bg-amber-600 text-white',
-  flying: 'bg-indigo-300 text-slate-900',
-  psychic: 'bg-pink-500 text-white',
-  bug: 'bg-lime-500 text-slate-900',
-  rock: 'bg-yellow-600 text-white',
-  ghost: 'bg-violet-700 text-white',
-  dragon: 'bg-indigo-600 text-white',
-  dark: 'bg-slate-800 text-white',
-  steel: 'bg-zinc-500 text-white',
-  fairy: 'bg-rose-400 text-slate-900',
-};
-
-const typeTranslations: Record<string, { ja: string; en: string }> = {
-  normal: { ja: 'ノーマル', en: 'Normal' },
-  fire: { ja: 'ほのお', en: 'Fire' },
-  water: { ja: 'みず', en: 'Water' },
-  grass: { ja: 'くさ', en: 'Grass' },
-  electric: { ja: 'でんき', en: 'Electric' },
-  ice: { ja: 'こおり', en: 'Ice' },
-  fighting: { ja: 'かくとう', en: 'Fighting' },
-  poison: { ja: 'どく', en: 'Poison' },
-  ground: { ja: 'じめん', en: 'Ground' },
-  flying: { ja: 'ひこう', en: 'Flying' },
-  psychic: { ja: 'エスパー', en: 'Psychic' },
-  bug: { ja: 'むし', en: 'Bug' },
-  rock: { ja: 'いわ', en: 'Rock' },
-  ghost: { ja: 'ゴースト', en: 'Ghost' },
-  dragon: { ja: 'ドラゴン', en: 'Dragon' },
-  dark: { ja: 'あく', en: 'Dark' },
-  steel: { ja: 'はがね', en: 'Steel' },
-  fairy: { ja: 'フェアリー', en: 'Fairy' },
-};
-
-const megaStoneMap: Record<string, { ja: string; en: string }> = {
-  'メガフシギバナ': { ja: 'フシギバナイト', en: 'Venusaurite' },
-  'メガリザードンX': { ja: 'リザードナイトX', en: 'Charizardite X' },
-  'メガリザードンY': { ja: 'リザードナイトY', en: 'Charizardite Y' },
-  'メガカメックス': { ja: 'カメックスナイト', en: 'Blastoisinite' },
-  'メガスピアー': { ja: 'スピアーナイト', en: 'Beedrillite' },
-  'メガピジョット': { ja: 'ピジョットナイト', en: 'Pidgeotite' },
-  'メガフーディン': { ja: 'フーディナイト', en: 'Alakazite' },
-  'メガヤドラン': { ja: 'ヤドランナイト', en: 'Slowbronite' },
-  'メガゲンガー': { ja: 'ゲンガナイト', en: 'Gengarite' },
-  'メガガルーラ': { ja: 'ガルーラナイト', en: 'Kangaskhanite' },
-  'メガカイロス': { ja: 'カイロスナイト', en: 'Pinsirite' },
-  'メガギャラドス': { ja: 'ギャラドスナイト', en: 'Gyaradosite' },
-  'メガプテラ': { ja: 'プテラナイト', en: 'Aerodactylite' },
-  'メガデンリュウ': { ja: 'デンリュウナイト', en: 'Ampharosite' },
-  'メガハッサム': { ja: 'ハッサムナイト', en: 'Scizorite' },
-  'メガヘラクロス': { ja: 'ヘラクロスナイト', en: 'Heracronite' },
-  'メガヘルガー': { ja: 'ヘルガナイト', en: 'Houndoominite' },
-  'メガバンギラス': { ja: 'バンギラスナイト', en: 'Tyranitarite' },
-  'メガジュカイン': { ja: 'ジュカインナイト', en: 'Sceptilite' },
-  'メガバシャーモ': { ja: 'バシャーモナイト', en: 'Blazikenite' },
-  'メガラグラージ': { ja: 'ラグラージナイト', en: 'Swampertite' },
-  'メガサーナイト': { ja: 'サーナイトナイト', en: 'Gardevoirite' },
-  'メガヤミラミ': { ja: 'ヤミラミナイト', en: 'Sablenite' },
-  'メガクチート': { ja: 'クチートナイト', en: 'Mawilite' },
-  'メガボスゴドラ': { ja: 'ボスゴドラナイト', en: 'Aggronite' },
-  'メガチャーレム': { ja: 'チャーレムナイト', en: 'Medichamite' },
-  'メガライボルト': { ja: 'ライボルトナイト', en: 'Manectrite' },
-  'メガサメハダー': { ja: 'サメハダナイト', en: 'Sharpedonite' },
-  'メガバクーダ': { ja: 'バクーダナイト', en: 'Cameruptite' },
-  'メガチルタリス': { ja: 'チルタリスナイト', en: 'Altarianite' },
-  'メガジュペッタ': { ja: 'ジュペッタナイト', en: 'Banettite' },
-  'メガアブソル': { ja: 'アブソルナイト', en: 'Absolite' },
-  'メガオニゴーリ': { ja: 'オニゴーリナイト', en: 'Glalitite' },
-  'メガボーマンダ': { ja: 'ボーマンダナイト', en: 'Salamencite' },
-  'メガメタグロス': { ja: 'メタグロスナイト', en: 'Metagrossite' },
-  'メガレックウザ': { ja: 'なし (画竜点睛が必要)', en: 'None (Dragon Ascent required)' },
-  'メガラティアス': { ja: 'ラティアスナイト', en: 'Latiasite' },
-  'メガラティオス': { ja: 'ラティオスナイト', en: 'Latiosite' },
-  'メガディアンシー': { ja: 'ディアンシナイト', en: 'Diancite' },
-  'メガエルレイド': { ja: 'エルレイドナイト', en: 'Galladite' },
-  'メガタブンネ': { ja: 'タブンネナイト', en: 'Audinite' },
-  'メガミミロップ': { ja: 'ミミロップナイト', en: 'Lopunnite' },
-  'メガハガネール': { ja: 'ハガネールナイト', en: 'Steelixite' },
-  'メガユキノオー': { ja: 'ユキノオナイト', en: 'Abomasnowite' },
-};
 
 export const PartySimulator: React.FC = () => {
   const { language, t } = useApp();
@@ -137,12 +58,12 @@ export const PartySimulator: React.FC = () => {
 
     // Auto-fill Mega Stone if it's a mega pokemon (excluding Mega Rayquaza)
     let initialItem = '';
-    if (poke && poke.name.ja.startsWith('メガ') && poke.name.ja !== 'メガレックウザ') {
+    if (poke?.name.ja.startsWith('メガ') && poke.name.ja !== 'メガレックウザ') {
       const mapped = megaStoneMap[poke.name.ja];
       if (mapped) {
         initialItem = language === 'ja' ? mapped.ja : mapped.en;
       } else {
-        initialItem = poke.name.ja.replace('メガ', '') + 'ナイト';
+        initialItem = `${poke.name.ja.replace('メガ', '')}ナイト`;
       }
     }
 
@@ -295,8 +216,7 @@ export const PartySimulator: React.FC = () => {
 
     // 2. Offense coverage advice: no moves hit this type super-effectively
     if (!offenseCoverage.includes(type)) {
-      const typeLabel = typeTranslations[type]?.[language] || type;
-      coverageWarnings.push(typeLabel);
+      coverageWarnings.push(type);
     }
   }
 
@@ -306,41 +226,36 @@ export const PartySimulator: React.FC = () => {
       <div className="card-premium flex flex-col md:flex-row gap-4 items-center justify-between p-5">
         <div className="flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
           <div className="w-full sm:w-64">
-            <label
-              htmlFor="party-name-input"
-              className="block text-xs font-semibold text-slate-500 mb-1"
-            >
-              {t('partyName')}
-            </label>
-            <input
+            <Input
               id="party-name-input"
+              label={t('partyName')}
               type="text"
               value={partyName}
               placeholder={t('defaultPartyName')}
               onChange={(e) => setPartyName(e.target.value)}
-              className="input-premium py-2 text-sm font-semibold"
+              className="py-2 text-sm font-semibold"
             />
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-          <button
-            type="button"
+          <Button
             onClick={copyPokesolText}
             disabled={activeParty.length === 0}
-            className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="secondary"
+            icon="i-lucide-clipboard"
+            className="w-full sm:w-auto"
           >
-            <span className="i-lucide-clipboard" />
             {copied ? 'コピーしました！' : 'クリップボードにコピー'}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
             onClick={saveParty}
-            className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 font-semibold"
+            variant="primary"
+            icon="i-lucide-save"
+            className="w-full sm:w-auto"
           >
-            <span className="i-lucide-save" />
             {t('saveParty')}
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -361,16 +276,17 @@ export const PartySimulator: React.FC = () => {
               <div
                 key={member.id}
                 className="card-premium relative border-l-4 border-l-indigo-500 dark:border-l-indigo-600 p-5 space-y-4"
+                style={{ zIndex: 10 - index }}
               >
                 {/* Remove button */}
-                <button
-                  type="button"
+                <Button
                   onClick={() => removePokemonFromParty(index)}
-                  className="absolute top-4 right-4 p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500 transition cursor-pointer text-xs flex items-center gap-1"
+                  variant="danger"
+                  icon="i-lucide-trash-2"
+                  className="absolute top-4 right-4 cursor-pointer"
                 >
-                  <span className="i-lucide-trash-2" />
                   {t('remove')}
-                </button>
+                </Button>
 
                 {/* Pokemon Selector & Basic Info */}
                 <div className="flex flex-col gap-4">
@@ -381,9 +297,10 @@ export const PartySimulator: React.FC = () => {
                       <div className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
                         {currentPoke ? (
                           <img
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${currentPoke.id}.png`}
+                            src={`/assets/pokemon-sprites/${currentPoke.id}.png`}
                             onError={(e) => {
-                              (e.target as HTMLImageElement).style.display = 'none';
+                              (e.target as HTMLImageElement).style.display =
+                                'none';
                             }}
                             alt={currentPoke.name[language]}
                             className="w-12 h-12 object-contain"
@@ -398,23 +315,7 @@ export const PartySimulator: React.FC = () => {
                       {currentPoke && (
                         <div className="flex flex-col gap-1.5 shrink-0">
                           {currentPoke.types.map((typeKey) => (
-                            <span
-                              key={typeKey}
-                              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 select-none"
-                            >
-                              <img
-                                src={`/assets/type-icons/${typeKey}.svg`}
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = 'none';
-                                }}
-                                alt={typeTranslations[typeKey]?.[language] || typeKey}
-                                className="w-4 h-4 object-contain shrink-0"
-                                loading="lazy"
-                              />
-                              <span>
-                                {typeTranslations[typeKey]?.[language] || typeKey}
-                              </span>
-                            </span>
+                            <TypeBadge key={typeKey} typeKey={typeKey} />
                           ))}
                         </div>
                       )}
@@ -426,7 +327,9 @@ export const PartySimulator: React.FC = () => {
                         htmlFor={`pokemon-select-trigger-${index}`}
                         className="block text-xs font-semibold text-slate-500 mb-1"
                       >
-                        {language === 'ja' ? `ポケモン名 #${index + 1}` : `Pokémon Name #${index + 1}`}
+                        {language === 'ja'
+                          ? `ポケモン名 #${index + 1}`
+                          : `Pokémon Name #${index + 1}`}
                       </label>
                       <button
                         id={`pokemon-select-trigger-${index}`}
@@ -440,12 +343,14 @@ export const PartySimulator: React.FC = () => {
                         }
                       >
                         {currentPoke ? (
-                          <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
+                          <span className="text-sm font-semibold text-slate-200 truncate">
                             {currentPoke.name[language]}
                           </span>
                         ) : (
                           <span className="text-sm text-slate-400 dark:text-slate-500 truncate">
-                            {language === 'ja' ? 'ポケモン名を選択' : 'Select Pokémon'}
+                            {language === 'ja'
+                              ? 'ポケモン名を選択'
+                              : 'Select Pokémon'}
                           </span>
                         )}
                         <span className="i-lucide-chevron-down text-slate-400 text-base shrink-0" />
@@ -456,82 +361,61 @@ export const PartySimulator: React.FC = () => {
                   {currentPoke && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {/* 特性選択 */}
-                      <div>
-                        <label
-                          htmlFor={`ability-select-${index}`}
-                          className="block text-xs font-semibold text-slate-500 mb-1"
-                        >
-                          {t('selectAbility')}
-                        </label>
-                        <select
-                          id={`ability-select-${index}`}
-                          value={member.ability}
-                          onChange={(e) =>
-                            updateMember(index, { ability: e.target.value })
-                          }
-                          className="input-premium py-2 text-sm cursor-pointer w-full box-border"
-                        >
-                          {currentPoke.abilities.map((a) => (
-                            <option key={a.ja} value={a.ja}>
-                              {a[language]}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      <Select
+                        id={`ability-select-${index}`}
+                        label={t('selectAbility')}
+                        value={member.ability}
+                        onChange={(e) =>
+                          updateMember(index, { ability: e.target.value })
+                        }
+                        className="py-2 text-sm w-full box-border"
+                      >
+                        {currentPoke.abilities.map((a) => (
+                          <option key={a.ja} value={a.ja}>
+                            {a[language]}
+                          </option>
+                        ))}
+                      </Select>
 
                       {/* 能力補正 */}
-                      <div>
-                        <label
-                          htmlFor={`nature-select-${index}`}
-                          className="block text-xs font-semibold text-slate-500 mb-1"
-                        >
-                          {language === 'ja' ? '能力補正' : 'Nature'}
-                        </label>
-                        <select
-                          id={`nature-select-${index}`}
-                          value={member.nature || 'neutral'}
-                          onChange={(e) =>
-                            updateMember(index, { nature: e.target.value })
-                          }
-                          className="input-premium py-2 text-sm cursor-pointer w-full box-border"
-                        >
-                          {NATURES.map((n) => (
-                            <option key={n.id} value={n.id}>
-                              {n.name[language]}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                      <Select
+                        id={`nature-select-${index}`}
+                        label={language === 'ja' ? '能力補正' : 'Nature'}
+                        value={member.nature || 'neutral'}
+                        onChange={(e) =>
+                          updateMember(index, { nature: e.target.value })
+                        }
+                        className="py-2 text-sm w-full box-border"
+                      >
+                        {NATURES.map((n) => (
+                          <option key={n.id} value={n.id}>
+                            {n.name[language]}
+                          </option>
+                        ))}
+                      </Select>
 
                       {/* 持ち物 */}
-                      <div>
-                        <label
-                          htmlFor={`item-select-${index}`}
-                          className="block text-xs font-semibold text-slate-500 mb-1"
-                        >
-                          {language === 'ja' ? '持ち物' : 'Held Item'}
-                        </label>
-                        <select
-                          id={`item-select-${index}`}
-                          value={member.item || ''}
-                          disabled={currentPoke.name.ja.startsWith('メガ') && currentPoke.name.ja !== 'メガレックウザ'}
-                          onChange={(e) =>
-                            updateMember(index, { item: e.target.value })
-                          }
-                          className="input-premium py-2 text-sm cursor-pointer w-full box-border disabled:opacity-60 disabled:cursor-not-allowed"
-                        >
-                          <option value="">{language === 'ja' ? '-- 持ち物なし --' : '-- No Item --'}</option>
-                          {currentPoke.name.ja.startsWith('メガ') && currentPoke.name.ja !== 'メガレックウザ' ? (
-                            <option value={member.item}>{member.item}</option>
-                          ) : (
-                            itemsData.map((item) => (
-                              <option key={item.id} value={language === 'ja' ? item.name.ja : item.name.en}>
-                                {language === 'ja' ? item.name.ja : item.name.en}
-                              </option>
-                            ))
-                          )}
-                        </select>
-                      </div>
+                      <Autocomplete
+                        id={`item-select-${index}`}
+                        label={language === 'ja' ? '持ち物' : 'Held Item'}
+                        value={member.item || ''}
+                        disabled={
+                          currentPoke.name.ja.startsWith('メガ') &&
+                          currentPoke.name.ja !== 'メガレックウザ'
+                        }
+                        suggestions={itemsData.map((item) =>
+                          language === 'ja' ? item.name.ja : item.name.en
+                        )}
+                        onChange={(val) => {
+                          updateMember(index, { item: val });
+                        }}
+                        placeholder={
+                          language === 'ja'
+                            ? '持ち物を検索・入力...'
+                            : 'Search held item...'
+                        }
+                        className="py-2 text-sm w-full box-border disabled:opacity-60 disabled:cursor-not-allowed"
+                      />
                     </div>
                   )}
                 </div>
@@ -539,51 +423,66 @@ export const PartySimulator: React.FC = () => {
                 {/* Move Selectors */}
                 {currentPoke && (
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    {[0, 1, 2, 3].map((mIdx) => (
-                      <div key={mIdx}>
-                        <label
-                          htmlFor={`move-select-${index}-${mIdx}`}
-                          className="block text-[10px] font-semibold text-slate-400 mb-1"
-                        >
-                          {t('selectMove')} {mIdx + 1}
-                        </label>
-                        <select
+                    {[0, 1, 2, 3].map((mIdx) => {
+                      const moveId = member.moves[mIdx] || 0;
+                      const currentMove = learnableMoves.find(
+                        (x) => x.id === moveId
+                      );
+                      const currentMoveText = currentMove
+                        ? `${currentMove.name[language]} (${
+                            typeTranslations[currentMove.type]?.[language] ||
+                            currentMove.type
+                          })`
+                        : '';
+
+                      return (
+                        <Autocomplete
+                          key={mIdx}
                           id={`move-select-${index}-${mIdx}`}
-                          value={member.moves[mIdx] || 0}
-                          onChange={(e) =>
-                            updateMove(
-                              index,
-                              mIdx,
-                              parseInt(e.target.value, 10)
-                            )
-                          }
-                          className="input-premium py-1.5 text-xs cursor-pointer"
-                        >
-                          <option value={0}>-</option>
-                          {learnableMoves.map((m) => (
-                            <option key={m.id} value={m.id}>
-                              {m.name[language]} (
-                              {typeTranslations[m.type]?.[language] || m.type})
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    ))}
+                          label={`${t('selectMove')} ${mIdx + 1}`}
+                          value={currentMoveText}
+                          suggestions={learnableMoves.map((m) => {
+                            const nameOnly = m.name[language];
+                            const typeName =
+                              typeTranslations[m.type]?.[language] || m.type;
+                            return `${nameOnly} (${typeName})`;
+                          })}
+                          onChange={(val) => {
+                            if (val === '') {
+                              updateMove(index, mIdx, 0);
+                            } else {
+                              const found = learnableMoves.find((m) => {
+                                const nameOnly = m.name[language];
+                                const typeName =
+                                  typeTranslations[m.type]?.[language] ||
+                                  m.type;
+                                const nameWithType = `${nameOnly} (${typeName})`;
+                                return nameOnly === val || nameWithType === val;
+                              });
+                              if (found) {
+                                updateMove(index, mIdx, found.id);
+                              }
+                            }
+                          }}
+                          placeholder={t('selectMove')}
+                          className="py-1.5 text-xs w-full box-border"
+                        />
+                      );
+                    })}
                   </div>
                 )}
               </div>
             );
           })}
 
-          <button
-            type="button"
+          <Button
             onClick={addPokemonToParty}
             disabled={party.length >= 6}
-            className="w-full py-4 border-2 border-dashed border-slate-300 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-600 rounded-2xl flex items-center justify-center gap-2 text-slate-500 hover:text-indigo-500 transition duration-200 cursor-pointer font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            variant="dashed"
+            icon="i-lucide-plus-circle text-lg"
           >
-            <span className="i-lucide-plus-circle text-lg" />
             {t('addPokemon')}
-          </button>
+          </Button>
         </div>
 
         {/* Analysis Results (Right Column) */}
@@ -630,14 +529,7 @@ export const PartySimulator: React.FC = () => {
                     </p>
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {coverageWarnings.map((typeKey) => (
-                        <span
-                          key={typeKey}
-                          className={`px-1.5 py-0.5 text-[10px] rounded font-semibold ${
-                            typeColors[typeKey] || 'bg-slate-500 text-white'
-                          }`}
-                        >
-                          {typeTranslations[typeKey]?.[language] || typeKey}
-                        </span>
+                        <TypeBadge key={typeKey} typeKey={typeKey} />
                       ))}
                     </div>
                   </div>
@@ -663,22 +555,10 @@ export const PartySimulator: React.FC = () => {
                     key={type}
                     className="border border-slate-200 dark:border-slate-800 bg-slate-100/30 dark:bg-slate-900/10 p-2.5 rounded-xl flex flex-col justify-between"
                   >
-                    <span
-                      className="inline-flex items-center justify-center gap-1.5 px-1.5 py-0.5 text-xs font-semibold text-slate-700 dark:text-slate-300 select-none w-full mb-2"
-                    >
-                      <img
-                        src={`/assets/type-icons/${type}.svg`}
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).style.display = 'none';
-                        }}
-                        alt={typeTranslations[type]?.[language] || type}
-                        className="w-4 h-4 object-contain shrink-0"
-                        loading="lazy"
-                      />
-                      <span>
-                        {typeTranslations[type]?.[language] || type}
-                      </span>
-                    </span>
+                    <TypeBadge
+                      typeKey={type}
+                      className="justify-center w-full mb-2"
+                    />
 
                     <div className="flex justify-around text-center text-[10px] font-mono">
                       <div>
@@ -717,16 +597,16 @@ export const PartySimulator: React.FC = () => {
               })}
             </div>
           </div>
+        </div>
+        <PokemonSearchModal
+          isOpen={activeSlotIndex !== null}
+          onClose={() => setActiveSlotIndex(null)}
+          onSelect={handleSelectPokemon}
+          pokemonData={pokemonData}
+          autoAdvance={autoAdvance}
+          onToggleAutoAdvance={handleToggleAutoAdvance}
+        />
       </div>
-      <PokemonSearchModal
-        isOpen={activeSlotIndex !== null}
-        onClose={() => setActiveSlotIndex(null)}
-        onSelect={handleSelectPokemon}
-        pokemonData={pokemonData}
-        autoAdvance={autoAdvance}
-        onToggleAutoAdvance={handleToggleAutoAdvance}
-      />
     </div>
-  </div>
-);
+  );
 };

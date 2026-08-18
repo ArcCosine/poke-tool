@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from './components/common/Button';
 import { ImageAnalyzer } from './components/ImageAnalyzer/ImageAnalyzer';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
@@ -116,39 +117,43 @@ const MainLayout = () => {
       {/* Header (Top Bar with Logo and Interactivity only) */}
       <header className="border-b border-slate-200 dark:border-slate-800 p-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <button
-            type="button"
-            onClick={() => changeTab('dashboard')}
-            className="text-xl font-bold flex items-center gap-2 cursor-pointer bg-transparent border-none text-slate-900 dark:text-slate-100"
+          {/* biome-ignore lint/a11y/useValidAnchor: user requested anchor link instead of button */}
+          <a
+            href="#dashboard"
+            onClick={(e) => {
+              e.preventDefault();
+              changeTab('dashboard');
+            }}
+            className="text-xl font-bold flex items-center gap-2 cursor-pointer no-underline text-slate-900 dark:text-slate-100"
           >
             <span className="i-lucide-sword text-indigo-500" />
             Poke-Tool
-          </button>
+          </a>
 
           <div className="flex gap-3">
             {/* Language Toggle */}
-            <button
-              type="button"
+            <Button
               onClick={toggleLanguage}
-              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 text-sm cursor-pointer"
+              variant="secondary"
+              icon="i-lucide-languages text-slate-500"
+              className="px-3 py-1.5 text-sm"
             >
-              <span className="i-lucide-languages text-slate-500" />
               {language === 'ja' ? 'English' : '日本語'}
-            </button>
+            </Button>
 
             {/* Theme Toggle */}
-            <button
-              type="button"
+            <Button
               data-testid="theme-toggle"
               onClick={toggleTheme}
-              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-sm flex items-center cursor-pointer"
+              variant="secondary"
+              className="p-2 text-sm"
             >
               {theme === 'dark' ? (
                 <span className="i-lucide-sun text-yellow-500" />
               ) : (
                 <span className="i-lucide-moon text-indigo-500" />
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </header>

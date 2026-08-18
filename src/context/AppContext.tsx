@@ -118,7 +118,11 @@ const uiTranslations: Record<Language, Record<string, string>> = {
 本ツールの利用により生じた直接的、間接的、または偶発的な損害（対戦での敗北、データ消失、ハードウェアへの影響、その他一切の不利益）について、開発者は一切の責任を負いません。本ツールのご利用は、ユーザーご自身の責任において行ってください。
 
 【外部APIおよびリソース】
-本ツールはデータの取得にサードパーティのAPI（PokeAPI等）を利用しています。これらの外部サービスの中断や仕様変更により、本ツールの一部または全部が正常に動作しなくなる場合がありますが、これに対する補償は行いません。`,
+本ツールはデータの取得にサードパーティのAPI（PokeAPI等）を利用しています。これらの外部サービスの中断や仕様変更により、本ツールの一部または全部が正常に動作しなくなる場合がありますが、これに対する補償は行いません。
+
+【著作権および知的財産権について】
+本ツール内で使用されているポケモンの名称、ゲーム内のデータ、および画像（ドット絵スプライト）等の著作権、商標権、その他一切の知的財産権は、任天堂株式会社、株式会社クリーチャーズ、株式会社ゲームフリーク、株式会社ポケモン、および各権利所有者に帰属します。
+本ツールは、ファン個人による非営利目的の研究および対戦シミュレーションのための二次創作ツールであり、権利を侵害する意図は一切ありません。なお、使用している画像データは、オープンソースデータプロジェクトである「PokeAPI」が提供する公開ライセンス、あるいはフェアユースの範囲に基づいて、紹介・シミュレーションの目的で非営利的に引用・利用されているものです。権利者様からの要請や指摘があった場合は、速やかに掲載の中止または削除等の適切な対応を行います。`,
     termsOfServiceText: `【第1条（規約の適用）】
 本利用規約（以下「本規約」）は、本ツールの利用者（以下「ユーザー」）と開発者との間の利用条件を定めるものです。ユーザーは、本ツールを利用することにより、本規約および免責事項のすべてに同意したものとみなされます。
 
@@ -235,7 +239,11 @@ The statistics, damage indexes, durability values, and image OCR analysis result
 Under no circumstances shall the developer be liable for any direct, indirect, incidental, or consequential damages (including, but not limited to, loss of game progress, hardware issues, or any game-related disadvantage) arising from the use or inability to use the Tool. The use of this Tool is at your own risk.
 
 [External Resources]
-The Tool relies on third-party APIs (such as PokeAPI) to obtain game data. We are not responsible for any issues arising from service disruptions, performance issues, or specification changes of these external services.`,
+The Tool relies on third-party APIs (such as PokeAPI) to obtain game data. We are not responsible for any issues arising from service disruptions, performance issues, or specification changes of these external services.
+
+[Copyright and Intellectual Property]
+All Pokémon names, statistics, and sprite images displayed or used within the Tool are intellectual properties (including copyrights and trademarks) owned by Nintendo, Creatures Inc., GAME FREAK inc., The Pokémon Company, and their respective owners.
+This Tool is a non-commercial, fan-made application created solely for personal research and battle simulation purposes, and there is no intention of copyright infringement. The sprite images utilized are sourced from the open-source project "PokeAPI" under fair use guidelines or public domains for non-commercial and educational purposes. If the copyright holders request the removal or modification of any asset, we will respond promptly and act in accordance with their guidelines.`,
     termsOfServiceText: `[Article 1 - Applicability]
 These Terms of Service (hereinafter "Terms") govern the relationship between users (hereinafter "User" or "you") and the developer. By accessing or using the Tool, you agree to be fully bound by these Terms and the Disclaimer.
 

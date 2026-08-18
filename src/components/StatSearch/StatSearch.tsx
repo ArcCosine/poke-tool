@@ -7,11 +7,19 @@ import {
   calculateMaxDurability,
 } from '../../utils/calculator';
 import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
+import { typeTranslations } from '../../utils/pokemon';
+import { Button } from '../common/Button';
+import { Checkbox } from '../common/Checkbox';
+import { Select } from '../common/Select';
+import { TypeBadge } from '../common/TypeBadge';
 
 const MoveCategoryIcon = ({ category }: { category: string }) => {
   if (category === 'physical') {
     return (
-      <span className="inline-flex items-center shrink-0 select-none" title="物理 / Physical">
+      <span
+        className="inline-flex items-center shrink-0 select-none"
+        title="物理 / Physical"
+      >
         <img
           src="/assets/categories/physical.jpg"
           alt="物理"
@@ -25,7 +33,10 @@ const MoveCategoryIcon = ({ category }: { category: string }) => {
   }
   if (category === 'special') {
     return (
-      <span className="inline-flex items-center shrink-0 select-none" title="特殊 / Special">
+      <span
+        className="inline-flex items-center shrink-0 select-none"
+        title="特殊 / Special"
+      >
         <img
           src="/assets/categories/special.jpg"
           alt="特殊"
@@ -38,27 +49,6 @@ const MoveCategoryIcon = ({ category }: { category: string }) => {
     );
   }
   return null;
-};
-
-const typeTranslations: Record<string, { ja: string; en: string }> = {
-  normal: { ja: 'ノーマル', en: 'Normal' },
-  fire: { ja: 'ほのお', en: 'Fire' },
-  water: { ja: 'みず', en: 'Water' },
-  grass: { ja: 'くさ', en: 'Grass' },
-  electric: { ja: 'でんき', en: 'Electric' },
-  ice: { ja: 'こおり', en: 'Ice' },
-  fighting: { ja: 'かくとう', en: 'Fighting' },
-  poison: { ja: 'どく', en: 'Poison' },
-  ground: { ja: 'じめん', en: 'Ground' },
-  flying: { ja: 'ひこう', en: 'Flying' },
-  psychic: { ja: 'エスパー', en: 'Psychic' },
-  bug: { ja: 'むし', en: 'Bug' },
-  rock: { ja: 'いわ', en: 'Rock' },
-  ghost: { ja: 'ゴースト', en: 'Ghost' },
-  dragon: { ja: 'ドラゴン', en: 'Dragon' },
-  dark: { ja: 'あく', en: 'Dark' },
-  steel: { ja: 'はがね', en: 'Steel' },
-  fairy: { ja: 'フェアリー', en: 'Fairy' },
 };
 
 interface RankingItem {
@@ -162,10 +152,7 @@ export const StatSearch: React.FC = () => {
         selectedType === 'all' || item.pokemon.types.includes(selectedType)
     )
     // (B-2) Filter Mega Pokémon
-    .filter(
-      (item) =>
-        !excludeMega || !item.pokemon.name.en.startsWith('Mega ')
-    )
+    .filter((item) => !excludeMega || !item.pokemon.name.en.startsWith('Mega '))
     // (C) Filter by move type (for damage search)
     .filter((item) => {
       if (searchTarget !== 'damage' || selectedMoveType === 'all') return true;
@@ -192,135 +179,91 @@ export const StatSearch: React.FC = () => {
       {/* Filters Card */}
       <div className="card-premium grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 p-5">
         {/* Search Target */}
-        <div>
-          <label
-            htmlFor="search-target"
-            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
-          >
-            {t('searchType')}
-          </label>
-          <select
-            id="search-target"
-            value={searchTarget}
-            onChange={(e) =>
-              setSearchTarget(
-                e.target.value as 'damage' | 'physical' | 'special'
-              )
-            }
-            className="input-premium py-2 cursor-pointer text-sm"
-          >
-            <option value="damage">{t('damage')}</option>
-            <option value="physical">{t('phyDef')}</option>
-            <option value="special">{t('speDef')}</option>
-          </select>
-        </div>
+        <Select
+          id="search-target"
+          label={t('searchType')}
+          value={searchTarget}
+          onChange={(e) =>
+            setSearchTarget(e.target.value as 'damage' | 'physical' | 'special')
+          }
+          className="py-2 text-sm"
+        >
+          <option value="damage">{t('damage')}</option>
+          <option value="physical">{t('phyDef')}</option>
+          <option value="special">{t('speDef')}</option>
+        </Select>
 
         {/* Type Filter */}
-        <div>
-          <label
-            htmlFor="type-filter"
-            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
-          >
-            {t('type')}
-          </label>
-          <select
-            id="type-filter"
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="input-premium py-2 cursor-pointer text-sm"
-          >
-            <option value="all">{t('allTypes')}</option>
-            {Object.keys(typeTranslations).map((tKey) => (
-              <option key={tKey} value={tKey}>
-                {typeTranslations[tKey][language]}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          id="type-filter"
+          label={t('type')}
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="py-2 text-sm"
+        >
+          <option value="all">{t('allTypes')}</option>
+          {Object.keys(typeTranslations).map((tKey) => (
+            <option key={tKey} value={tKey}>
+              {typeTranslations[tKey][language]}
+            </option>
+          ))}
+        </Select>
 
         {/* Move Type Filter */}
-        <div>
-          <label
-            htmlFor="move-type-filter"
-            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
-          >
-            {t('moveType')}
-          </label>
-          <select
-            id="move-type-filter"
-            value={selectedMoveType}
-            disabled={searchTarget !== 'damage'}
-            onChange={(e) => setSelectedMoveType(e.target.value)}
-            className="input-premium py-2 cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <option value="all">{t('allMoveTypes')}</option>
-            {Object.keys(typeTranslations).map((tKey) => (
-              <option key={tKey} value={tKey}>
-                {typeTranslations[tKey][language]}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          id="move-type-filter"
+          label={t('moveType')}
+          value={selectedMoveType}
+          disabled={searchTarget !== 'damage'}
+          onChange={(e) => setSelectedMoveType(e.target.value)}
+          className="py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <option value="all">{t('allMoveTypes')}</option>
+          {Object.keys(typeTranslations).map((tKey) => (
+            <option key={tKey} value={tKey}>
+              {typeTranslations[tKey][language]}
+            </option>
+          ))}
+        </Select>
 
         {/* Category Filter (Disabled for durability) */}
-        <div>
-          <label
-            htmlFor="category-filter"
-            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
-          >
-            {t('category')}
-          </label>
-          <select
-            id="category-filter"
-            value={selectedCategory}
-            disabled={searchTarget !== 'damage'}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="input-premium py-2 cursor-pointer text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <option value="all">{t('allCategories')}</option>
-            <option value="physical">{t('physical')}</option>
-            <option value="special">{t('special')}</option>
-          </select>
-        </div>
+        <Select
+          id="category-filter"
+          label={t('category')}
+          value={selectedCategory}
+          disabled={searchTarget !== 'damage'}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="py-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <option value="all">{t('allCategories')}</option>
+          <option value="physical">{t('physical')}</option>
+          <option value="special">{t('special')}</option>
+        </Select>
 
         {/* Regulation Filter */}
-        <div>
-          <label
-            htmlFor="reg-filter"
-            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider"
-          >
-            {t('regulation')}
-          </label>
-          <select
-            id="reg-filter"
-            value={selectedReg}
-            onChange={(e) => setSelectedReg(e.target.value)}
-            className="input-premium py-2 cursor-pointer text-sm"
-          >
-            <option value="all">{t('allRegulations')}</option>
-            {regulationsData.map((reg) => (
-              <option key={reg.id} value={reg.id}>
-                {reg.name[language] || reg.name.ja}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          id="reg-filter"
+          label={t('regulation')}
+          value={selectedReg}
+          onChange={(e) => setSelectedReg(e.target.value)}
+          className="py-2 text-sm"
+        >
+          <option value="all">{t('allRegulations')}</option>
+          {regulationsData.map((reg) => (
+            <option key={reg.id} value={reg.id}>
+              {reg.name[language] || reg.name.ja}
+            </option>
+          ))}
+        </Select>
+
         {/* Exclude Mega Checkbox */}
-        <div className="col-span-1 sm:col-span-2 lg:col-span-5 flex items-center gap-2 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1 text-slate-700 dark:text-slate-300">
-          <input
-            id="exclude-mega"
-            type="checkbox"
-            checked={excludeMega}
-            onChange={(e) => setExcludeMega(e.target.checked)}
-            className="w-4 h-4 text-indigo-650 bg-slate-900 border-slate-700 rounded focus:ring-indigo-500 cursor-pointer"
-          />
-          <label
-            htmlFor="exclude-mega"
-            className="text-sm font-semibold select-none cursor-pointer"
-          >
-            {t('excludeMega')}
-          </label>
-        </div>
+        <Checkbox
+          id="exclude-mega"
+          label={t('excludeMega')}
+          checked={excludeMega}
+          onChange={(e) => setExcludeMega(e.target.checked)}
+          className="col-span-1 sm:col-span-2 lg:col-span-5 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1"
+        />
       </div>
 
       {/* Rankings List */}
@@ -329,18 +272,22 @@ export const StatSearch: React.FC = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                <th className="py-3 px-1 sm:py-4 sm:px-6 w-8 sm:w-16 text-center">{t('rank')}</th>
+                <th className="py-3 px-1 sm:py-4 sm:px-6 w-8 sm:w-16 text-center">
+                  {t('rank')}
+                </th>
                 <th className="py-3 px-2 sm:py-4 sm:px-6">{t('pokemon')}</th>
-                <th className="py-3 px-2 sm:py-4 sm:px-6 hidden md:table-cell">{t('ability')}</th>
+                <th className="py-3 px-2 sm:py-4 sm:px-6 hidden md:table-cell">
+                  {t('ability')}
+                </th>
                 {searchTarget === 'damage' && (
                   <th className="py-3 px-2 sm:py-4 sm:px-6">{t('move')}</th>
                 )}
                 <th className="py-3 px-2 sm:py-4 sm:px-6 text-right pr-4 sm:pr-8">
-                  <button
+                  <Button
                     onClick={() =>
                       setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
                     }
-                    className="appearance-none bg-transparent border-none p-0 focus:outline-none focus:ring-0 focus-visible:outline-none select-none text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider ml-auto inline-flex items-center gap-1 cursor-default"
+                    variant="ghost"
                   >
                     {t('value')}
                     {sortOrder === 'desc' ? (
@@ -348,7 +295,7 @@ export const StatSearch: React.FC = () => {
                     ) : (
                       <span className="i-lucide-arrow-up text-slate-400/60 dark:text-slate-500/60 text-sm w-4 h-4" />
                     )}
-                  </button>
+                  </Button>
                 </th>
               </tr>
             </thead>
@@ -382,9 +329,10 @@ export const StatSearch: React.FC = () => {
                       {/* Pokémon Sprite Image */}
                       <div className="w-8 h-8 sm:w-10 sm:h-10 rounded bg-slate-100/50 dark:bg-slate-900/30 flex items-center justify-center border border-slate-200/10 dark:border-slate-850/10 shrink-0 overflow-hidden">
                         <img
-                          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.pokemon.id}.png`}
+                          src={`/assets/pokemon-sprites/${item.pokemon.id}.png`}
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).style.display =
+                              'none';
                           }}
                           alt=""
                           className="w-full h-full object-contain select-none"
@@ -394,35 +342,29 @@ export const StatSearch: React.FC = () => {
 
                       <div className="min-w-0">
                         {/* Line 1: Pokemon Name */}
-                        <div className="truncate text-xs sm:text-sm">{item.pokemon.name[language]}</div>
-                        
+                        <div className="truncate text-xs sm:text-sm">
+                          {item.pokemon.name[language]}
+                        </div>
+
                         {/* Pokemon Types (Shown on all screens, directly under name) */}
                         <div className="flex gap-1 mt-0.5 sm:mt-1">
                           {item.pokemon.types.map((typeKey) => (
-                             <span
-                               key={typeKey}
-                               className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide select-none"
-                             >
-                               <img
-                                 src={`/assets/type-icons/${typeKey}.svg`}
-                                 onError={(e) => {
-                                   (e.target as HTMLImageElement).style.display = 'none';
-                                 }}
-                                 alt=""
-                                 className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0"
-                                 loading="lazy"
-                               />
-                               <span className="hidden sm:inline">
-                                 {typeTranslations[typeKey]?.[language] || typeKey}
-                               </span>
-                             </span>
+                            <TypeBadge
+                              key={typeKey}
+                              typeKey={typeKey}
+                              responsiveText
+                              className="gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide"
+                              imgClassName="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                            />
                           ))}
                         </div>
 
                         {/* Mobile & Tablet-only details: Ability (hidden on desktop md:hidden) */}
                         <div className="flex md:hidden mt-0.5 sm:mt-1">
                           <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
-                            {item.abilityName ? item.abilityName[language] : '-'}
+                            {item.abilityName
+                              ? item.abilityName[language]
+                              : '-'}
                           </span>
                         </div>
                       </div>
@@ -442,31 +384,26 @@ export const StatSearch: React.FC = () => {
                           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
                             {/* Move Name */}
                             <span className="font-medium text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
-                              {item.moveName[language].split('\n').map((line, i) => (
-                                <span key={i}>
-                                  {i > 0 && <br />}
-                                  {line}
-                                </span>
-                              ))}
+                              {item.moveName[language]
+                                .split('\n')
+                                .map((line, i) => (
+                                  <span key={i}>
+                                    {i > 0 && <br />}
+                                    {line}
+                                  </span>
+                                ))}
                             </span>
 
                             {/* Move Type & Classification (horizontal group on mobile, flat on desktop) */}
                             <div className="flex items-center gap-1.5 sm:contents">
                               {/* Move Type */}
                               {item.moveType && (
-                                <span
-                                  className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide select-none"
-                                >
-                                  <img
-                                    src={`/assets/type-icons/${item.moveType}.svg`}
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).style.display = 'none';
-                                    }}
-                                    alt=""
-                                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0"
-                                    loading="lazy"
-                                  />
-                                </span>
+                                <TypeBadge
+                                  typeKey={item.moveType}
+                                  showText={false}
+                                  className="gap-1 text-[10px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 tracking-wide"
+                                  imgClassName="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                                />
                               )}
 
                               {/* Classification */}

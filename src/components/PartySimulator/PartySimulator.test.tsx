@@ -101,14 +101,17 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(await screen.findByText('パーティ名')).toBeDefined();
 
     // 1. Initial state: Trigger button shows placeholder
-    const triggerBtn = screen.getByRole('button', { name: /ポケモン名 #1を選択/i });
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
     expect(triggerBtn).toBeDefined();
 
     // 2. Click trigger to open search modal
     fireEvent.click(triggerBtn);
 
     // Search input should appear and be focused
-    const searchInput = screen.getByPlaceholderText(/名前、ひらがな、カタカナ、ローマ字/i);
+    const searchInput =
+      screen.getByPlaceholderText(/名前、ひらがな、カタカナ、ローマ字/i);
     expect(searchInput).toBeDefined();
     // In happy-dom, document.activeElement might not be fully simulated, but we'll test the input presence
 
@@ -120,7 +123,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
     // Check search list has pokemon images
     const searchImages = screen.getAllByRole('img') as HTMLImageElement[];
     const pikachuSearchImg = searchImages.find((img) =>
-      img.src.includes('sprites/pokemon/25.png')
+      img.src.includes('assets/pokemon-sprites/25.png')
     );
     expect(pikachuSearchImg).toBeDefined();
 
@@ -140,15 +143,19 @@ describe('PartySimulator Pokémon Search Modal', () => {
     fireEvent.click(pikachuRow);
 
     // Modal should be closed (search input gone)
-    expect(screen.queryByPlaceholderText(/名前、ひらがな、カタカナ、ローマ字/i)).toBeNull();
+    expect(
+      screen.queryByPlaceholderText(/名前、ひらがな、カタカナ、ローマ字/i)
+    ).toBeNull();
 
     // Pikachu should now be selected and trigger button displays its name, and sprite icon is displayed
-    const updatedTriggerBtn = screen.getByRole('button', { name: /ピカチュウ/i });
+    const updatedTriggerBtn = screen.getByRole('button', {
+      name: /ピカチュウ/i,
+    });
     expect(updatedTriggerBtn).toBeDefined();
 
     const triggerImages = screen.getAllByRole('img') as HTMLImageElement[];
     const pikachuTriggerImg = triggerImages.find((img) =>
-      img.src.includes('sprites/pokemon/25.png')
+      img.src.includes('assets/pokemon-sprites/25.png')
     );
     expect(pikachuTriggerImg).toBeDefined();
 
@@ -161,7 +168,9 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(await screen.findByText(/せいでんき/)).toBeDefined();
 
     // Check copy button has new text
-    const copyBtn = screen.getByRole('button', { name: /クリップボードにコピー/i });
+    const copyBtn = screen.getByRole('button', {
+      name: /クリップボードにコピー/i,
+    });
     expect(copyBtn).toBeDefined();
   });
 
@@ -175,11 +184,15 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(await screen.findByText('パーティ名')).toBeDefined();
 
     // Click trigger
-    const triggerBtn = screen.getByRole('button', { name: /ポケモン名 #1を選択/i });
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
     fireEvent.click(triggerBtn);
 
     // Enable auto-advance checkbox
-    const autoAdvanceCheckbox = screen.getByLabelText(/連続入力/i) as HTMLInputElement;
+    const autoAdvanceCheckbox = screen.getByLabelText(
+      /連続入力/i
+    ) as HTMLInputElement;
     fireEvent.click(autoAdvanceCheckbox);
     expect(autoAdvanceCheckbox.checked).toBe(true);
 
@@ -222,17 +235,22 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(await screen.findByText('パーティ名')).toBeDefined();
 
     // Click trigger to open modal
-    const triggerBtn = screen.getByRole('button', { name: /ポケモン名 #1を選択/i });
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
     fireEvent.click(triggerBtn);
 
     // Select Mega Venusaur (メガフシギバナ)
-    const megaVenusaurRow = screen.getByRole('button', { name: /メガフシギバナ/i });
+    const megaVenusaurRow = screen.getByRole('button', {
+      name: /メガフシギバナ/i,
+    });
     fireEvent.click(megaVenusaurRow);
 
     // The item input should be auto-filled with "フシギバナイト" and be disabled
-    const itemInput = screen.getByRole('combobox', { name: /持ち物/i }) as HTMLSelectElement;
+    const itemInput = screen.getByRole('textbox', {
+      name: /持ち物/i,
+    }) as HTMLInputElement;
     expect(itemInput.value).toBe('フシギバナイト');
     expect(itemInput.disabled).toBe(true);
   });
 });
-

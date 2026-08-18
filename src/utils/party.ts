@@ -1,4 +1,5 @@
 import type { MoveMaster, PokemonMaster } from './db';
+import { TYPES } from './pokemon';
 
 export interface PokemonInstance {
   id: string;
@@ -16,27 +17,6 @@ export interface PokemonInstance {
     speed: number;
   };
 }
-
-export const TYPES = [
-  'normal',
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'ice',
-  'fighting',
-  'poison',
-  'ground',
-  'flying',
-  'psychic',
-  'bug',
-  'rock',
-  'ghost',
-  'dragon',
-  'dark',
-  'steel',
-  'fairy',
-];
 
 const typeMatchups: Record<
   string,

@@ -1,8 +1,9 @@
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { normalizeSearchText } from '../../utils/string';
 import type { PokemonMaster } from '../../utils/db';
+import { normalizeSearchText } from '../../utils/string';
+import { TypeBadge } from '../common/TypeBadge';
 
 interface PokemonSearchModalProps {
   isOpen: boolean;
@@ -60,48 +61,6 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
 
     return false;
   });
-
-  const typeColors: Record<string, string> = {
-    normal: 'bg-slate-400 text-slate-900',
-    fire: 'bg-red-500 text-white',
-    water: 'bg-blue-500 text-white',
-    grass: 'bg-green-500 text-white',
-    electric: 'bg-yellow-400 text-slate-900',
-    ice: 'bg-cyan-400 text-slate-900',
-    fighting: 'bg-amber-700 text-white',
-    poison: 'bg-purple-500 text-white',
-    ground: 'bg-amber-600 text-white',
-    flying: 'bg-indigo-300 text-slate-900',
-    psychic: 'bg-pink-500 text-white',
-    bug: 'bg-lime-500 text-slate-900',
-    rock: 'bg-yellow-600 text-white',
-    ghost: 'bg-violet-700 text-white',
-    dragon: 'bg-indigo-600 text-white',
-    dark: 'bg-slate-800 text-white',
-    steel: 'bg-zinc-500 text-white',
-    fairy: 'bg-rose-400 text-slate-900',
-  };
-
-  const typeTranslations: Record<string, { ja: string; en: string }> = {
-    normal: { ja: 'ノーマル', en: 'Normal' },
-    fire: { ja: 'ほのお', en: 'Fire' },
-    water: { ja: 'みず', en: 'Water' },
-    grass: { ja: 'くさ', en: 'Grass' },
-    electric: { ja: 'でんき', en: 'Electric' },
-    ice: { ja: 'こおり', en: 'Ice' },
-    fighting: { ja: 'かくとう', en: 'Fighting' },
-    poison: { ja: 'どく', en: 'Poison' },
-    ground: { ja: 'じめん', en: 'Ground' },
-    flying: { ja: 'ひこう', en: 'Flying' },
-    psychic: { ja: 'エスパー', en: 'Psychic' },
-    bug: { ja: 'むし', en: 'Bug' },
-    rock: { ja: 'いわ', en: 'Rock' },
-    ghost: { ja: 'ゴースト', en: 'Ghost' },
-    dragon: { ja: 'ドラゴン', en: 'Dragon' },
-    dark: { ja: 'あく', en: 'Dark' },
-    steel: { ja: 'はがね', en: 'Steel' },
-    fairy: { ja: 'フェアリー', en: 'Fairy' },
-  };
 
   return (
     <div
@@ -167,7 +126,9 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
         <div className="overflow-y-auto flex-1 pr-1 space-y-1 divide-y divide-slate-100 dark:divide-slate-800/50">
           {filteredPokemon.length === 0 ? (
             <div className="py-8 text-center text-xs text-slate-400 font-medium">
-              {language === 'ja' ? 'ポケモンが見つかりません。' : 'No Pokémon found.'}
+              {language === 'ja'
+                ? 'ポケモンが見つかりません。'
+                : 'No Pokémon found.'}
             </div>
           ) : (
             filteredPokemon.map((poke) => (
@@ -179,7 +140,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
               >
                 <div className="flex items-center gap-3">
                   <img
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`}
+                    src={`/assets/pokemon-sprites/${poke.id}.png`}
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
@@ -199,14 +160,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
 
                 <div className="flex gap-1.5">
                   {poke.types.map((typeKey) => (
-                    <span
-                      key={typeKey}
-                      className={`px-2 py-0.5 text-[9px] rounded font-semibold tracking-wider ${
-                        typeColors[typeKey] || 'bg-slate-500 text-white'
-                      }`}
-                    >
-                      {typeTranslations[typeKey]?.[language] || typeKey}
-                    </span>
+                    <TypeBadge key={typeKey} typeKey={typeKey} />
                   ))}
                 </div>
               </button>

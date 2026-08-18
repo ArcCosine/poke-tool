@@ -1,5 +1,9 @@
-import { describe, it, expect } from 'vitest';
-import { romajiToKatakana, normalizeSearchText } from './string';
+import { describe, expect, it } from 'vitest';
+import {
+  katakanaToHiragana,
+  normalizeSearchText,
+  romajiToKatakana,
+} from './string';
 
 describe('romajiToKatakana', () => {
   it('should convert basic romaji to katakana', () => {
@@ -41,3 +45,13 @@ describe('normalizeSearchText', () => {
   });
 });
 
+describe('katakanaToHiragana', () => {
+  it('should convert basic katakana to hiragana', () => {
+    expect(katakanaToHiragana('ピカチュウ')).toBe('ぴかちゅう');
+    expect(katakanaToHiragana('こだわりハチマキ')).toBe('こだわりはちまき');
+  });
+
+  it('should leave kanji and hiragana unchanged', () => {
+    expect(katakanaToHiragana('くろい鉄球')).toBe('くろい鉄球');
+  });
+});
