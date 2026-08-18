@@ -321,11 +321,143 @@ export async function detectTextRegions(
   return [];
 }
 
+function getEditDistance(a: string, b: string): number {
+  const matrix = Array.from({ length: a.length + 1 }, () =>
+    new Array(b.length + 1).fill(0)
+  );
+
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1, // deletion
+          matrix[i][j - 1] + 1, // insertion
+          matrix[i - 1][j - 1] + 1 // substitution
+        );
+      }
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+function findBestMatch(
+  text: string,
+  candidates: string[],
+  maxDistanceThreshold = 2
+): string | null {
+  if (!text) return null;
+  if (candidates.includes(text)) {
+    return text;
+  }
+
+  let bestMatch: string | null = null;
+  let minDistance = Infinity;
+
+  for (const candidate of candidates) {
+    const dist = getEditDistance(text, candidate);
+    if (dist < minDistance && dist <= maxDistanceThreshold) {
+      minDistance = dist;
+      bestMatch = candidate;
+    }
+  }
+
+  return bestMatch;
+}
+
 export async function resolveSlotOcr(
-  _canvas: HTMLCanvasElement,
-  _slotIdx: number,
-  _field: 'name' | 'ability' | 'item',
-  _candidates: string[]
+  canvas: HTMLCanvasElement,
+  slotIdx: number,
+  field: 'name' | 'ability' | 'item',
+  candidates: string[],
+  lang?: 'ja' | 'ko'
 ): Promise<string | null> {
-  return null;
+  try {
+    const wasm = await initWasm();
+    await initOcrSessions();
+    await initDicts();
+
+    const origW = canvas.width;
+    const origH = canvas.height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    const imgData = ctx.getImageData(0, 0, origW, origH);
+    const rawPixels = new Uint8Array(imgData.data.buffer);
+    const bounds = wasm.get_16_9_bounds_robust(
+      rawPixels,
+      origW,
+      origH
+    );
+    const xOffset = bounds[0];
+    const yOffset = bounds[1];
+    const displayW = bounds[2];
+    const displayH = bounds[3];
+
+    const isLeft = slotIdx % 2 === 0;
+    const row = Math.floor(slotIdx / 2);
+
+    const slotXRatio = isLeft ? 0.075 : 0.51;
+    const slotWRatio = 0.415;
+    const slotYRatio = row === 0 ? 0.24 : row === 1 ? 0.454 : 0.665;
+    const slotHRatio = 0.205;
+
+    const slotX = Math.round(xOffset + displayW * slotXRatio);
+    const slotY = Math.round(yOffset + displayH * slotYRatio);
+    const slotW = Math.round(displayW * slotWRatio);
+    const slotH = Math.round(displayH * slotHRatio);
+
+    let cropX = 0;
+    let cropY = 0;
+    let cropW = 0;
+    let cropH = 0;
+
+    if (field === 'name') {
+      cropX = Math.round(slotX + slotW * 0.12);
+      cropY = Math.round(slotY + slotH * 0.05);
+      cropW = Math.round(slotW * 0.28);
+      cropH = Math.round(slotH * 0.25);
+    } else if (field === 'ability') {
+      cropX = Math.round(slotX + slotW * 0.12);
+      cropY = Math.round(slotY + slotH * 0.33);
+      cropW = Math.round(slotW * 0.28);
+      cropH = Math.round(slotH * 0.23);
+    } else {
+      cropX = Math.round(slotX + slotW * 0.12);
+      cropY = Math.round(slotY + slotH * 0.58);
+      cropW = Math.round(slotW * 0.33);
+      cropH = Math.round(slotH * 0.22);
+    }
+
+    if (cropW <= 0 || cropH <= 0) return null;
+
+    const cropCanvas = document.createElement('canvas');
+    cropCanvas.width = cropW;
+    cropCanvas.height = cropH;
+    const cropCtx = cropCanvas.getContext('2d');
+    cropCtx?.drawImage(canvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+
+    const sessionRec = lang === 'ko' ? recKoSession! : recSession!;
+    const dictStr = lang === 'ko' ? dictKorean : dictDefault;
+
+    const recTensor = imageToTensorRec(cropCanvas);
+    const recResult = await sessionRec.run({ x: recTensor });
+    const recPreds = recResult[Object.keys(recResult)[0]].data as Float32Array;
+    const shape = recResult[Object.keys(recResult)[0]].dims;
+    const timesteps = shape[1];
+    const numClasses = shape[2];
+
+    const text = wasm.ctc_decode(recPreds, timesteps, numClasses, dictStr);
+    const cleanedText = text.trim();
+    if (cleanedText.length === 0) return null;
+
+    return findBestMatch(cleanedText, candidates, 2);
+  } catch (err) {
+    console.error('resolveSlotOcr failed:', err);
+    return null;
+  }
 }

@@ -110,6 +110,7 @@ export const ImageAnalyzer: React.FC = () => {
   const [imageTypes, setImageTypes] = useState<('ability' | 'status')[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [jsonCopied, setJsonCopied] = useState(false);
 
   // Parsed party result state
   const [detectedParty, setDetectedParty] = useState<AnalyzedPokemon[]>([]);
@@ -231,8 +232,18 @@ export const ImageAnalyzer: React.FC = () => {
             console.warn('Canvas drawImage failed:', e);
           }
 
-          // 1. Run Full Image OCR using Tesseract.js (essential for unit test mocks)
-          const words = await ocr.runFullImageOcr(canvas);
+          // 1. Run Full Image OCR and Auto-Detect Language (ja/en or ko)
+          let detectedLang: 'ja' | 'ko' = 'ja';
+          let words = await ocr.runFullImageOcr(canvas, 'ja');
+
+          const hasKorean = words.some((w) =>
+            /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]/.test(w.text)
+          );
+          if (hasKorean) {
+            detectedLang = 'ko';
+            words = await ocr.runFullImageOcr(canvas, 'ko');
+          }
+
           currentGroup.words = words.map((w) => w.text);
 
           // Candidate Name Lists for dynamic OCR matches
@@ -676,7 +687,8 @@ export const ImageAnalyzer: React.FC = () => {
                 canvas,
                 slotIdx,
                 'name',
-                allPokemonNames
+                allPokemonNames,
+                detectedLang
               );
               if (resolvedName) {
                 const p = pokemonList.find(
@@ -759,7 +771,8 @@ export const ImageAnalyzer: React.FC = () => {
                   canvas,
                   slotIdx,
                   'ability',
-                  abilityCandidates
+                  abilityCandidates,
+                  detectedLang
                 );
                 if (resolvedAbility) {
                   const matchedAbilityObj = matchedPokemon.abilities.find(
@@ -820,7 +833,8 @@ export const ImageAnalyzer: React.FC = () => {
                   canvas,
                   slotIdx,
                   'item',
-                  allItemNames
+                  allItemNames,
+                  detectedLang
                 );
                 if (resolvedItem) {
                   const matchedItemObj = itemsList.find(
@@ -1076,6 +1090,26 @@ export const ImageAnalyzer: React.FC = () => {
         setTimeout(() => setCopied(false), 2000);
       })
       .catch((err) => console.error('Copy failed:', err));
+  };
+
+  const copyJson = () => {
+    if (detectedParty.length === 0) return;
+
+    const formatted = detectedParty.map((p) => ({
+      pokemon_name: p.master.name[language] || p.master.name.ja,
+      ability_name: p.ability,
+      held_item: p.item,
+      moves: p.moves.map((m) => m.name[language] || m.name.ja),
+      evs: p.evs,
+    }));
+
+    navigator.clipboard
+      .writeText(JSON.stringify(formatted, null, 2))
+      .then(() => {
+        setJsonCopied(true);
+        setTimeout(() => setJsonCopied(false), 2000);
+      })
+      .catch((err) => console.error('Failed to copy JSON:', err));
   };
 
   const importToParty = () => {
@@ -1352,6 +1386,14 @@ export const ImageAnalyzer: React.FC = () => {
                 >
                   <span className="i-lucide-clipboard" />
                   {copied ? 'コピーしました！' : 'ポケソル形式でコピー'}
+                </button>
+                <button
+                  type="button"
+                  onClick={copyJson}
+                  className="btn-secondary flex items-center justify-center gap-2 flex-1 font-semibold"
+                >
+                  <span className="i-lucide-braces" />
+                  {jsonCopied ? 'JSONをコピーしました！' : 'JSON形式でコピー'}
                 </button>
                 <button
                   type="button"
