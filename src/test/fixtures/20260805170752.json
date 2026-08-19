@@ -1,0 +1,35 @@
+{
+  "ability": {
+    "ability_name": null,
+    "held_item": null,
+    "moves": [],
+    "pokemon_name": null
+  },
+  "screen_type": "unknown",
+  "stats": {
+    "attack": {
+      "points": null,
+      "value": null
+    },
+    "defense": {
+      "points": null,
+      "value": null
+    },
+    "hp": {
+      "points": null,
+      "value": null
+    },
+    "sp_attack": {
+      "points": null,
+      "value": null
+    },
+    "sp_defense": {
+      "points": null,
+      "value": null
+    },
+    "speed": {
+      "points": null,
+      "value": null
+    }
+  }
+}

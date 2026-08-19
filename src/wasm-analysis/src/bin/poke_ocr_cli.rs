@@ -174,7 +174,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         println!("Scanning fixtures directory: {:?}", fixtures_dir);
         let mut list = Vec::new();
-        let verify_targets = ["2.jpg", "20260805170752.jpg", "20260808132849.png"];
+        let verify_targets = ["2.jpg", "20260805170752.jpg", "20260808132849.png", "party_scraped.jpg"];
         for entry in fs::read_dir(fixtures_dir)? {
             let entry = entry?;
             let path = entry.path();

@@ -132,14 +132,28 @@ function imageToTensorRec(
   const floatData = new Float32Array(3 * targetW * targetH);
 
   for (let i = 0; i < targetW * targetH; i++) {
-    const r = data[i * 4] / 255.0;
-    const g = data[i * 4 + 1] / 255.0;
-    const b = data[i * 4 + 2] / 255.0;
+    const r = data[i * 4];
+    const g = data[i * 4 + 1];
+    const b = data[i * 4 + 2];
+
+    // Grayscale luminance
+    let y = 0.299 * r + 0.587 * g + 0.114 * b;
+
+    // Contrast stretching: boost differences to remove background noise (80-180 stretched to 0-255)
+    if (y < 80) {
+      y = 0;
+    } else if (y > 180) {
+      y = 255;
+    } else {
+      y = ((y - 80) / 100) * 255;
+    }
+
+    const norm = y / 255.0;
 
     // Normalization: (x - 0.5) / 0.5
-    floatData[i] = (r - 0.5) / 0.5;
-    floatData[targetW * targetH + i] = (g - 0.5) / 0.5;
-    floatData[2 * targetW * targetH + i] = (b - 0.5) / 0.5;
+    floatData[i] = (norm - 0.5) / 0.5;
+    floatData[targetW * targetH + i] = (norm - 0.5) / 0.5;
+    floatData[2 * targetW * targetH + i] = (norm - 0.5) / 0.5;
   }
 
   return new ort.Tensor('float32', floatData, [1, 3, targetH, targetW]);
@@ -321,6 +335,16 @@ export async function detectTextRegions(
   return [];
 }
 
+function normalizeTextForMatch(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[\u3041-\u3096]/g, (match) => String.fromCharCode(match.charCodeAt(0) + 0x60)) // Hiragana to Katakana
+    .normalize('NFD') // Separate base characters from diacritics
+    .replace(/[\u3099\u309A\u309B\u309C]/g, '') // Remove kana voice marks
+    .replace(/[\u0300-\u036f]/g, '') // Remove Latin combining diacritics
+    .replace(/[^a-z0-9\u30A0-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF]/g, ''); // Keep alphanumeric, Katakana, Kanji, Hangul
+}
+
 function getEditDistance(a: string, b: string): number {
   const matrix = Array.from({ length: a.length + 1 }, () =>
     new Array(b.length + 1).fill(0)
@@ -345,21 +369,35 @@ function getEditDistance(a: string, b: string): number {
   return matrix[a.length][b.length];
 }
 
-function findBestMatch(
+export function findBestMatch(
   text: string,
   candidates: string[],
   maxDistanceThreshold = 2
 ): string | null {
   if (!text) return null;
+
+  const normText = normalizeTextForMatch(text);
+  if (normText.length === 0) return null;
+
+  // 1. Direct match check
   if (candidates.includes(text)) {
     return text;
+  }
+
+  // 2. Normalized direct match check
+  for (const candidate of candidates) {
+    if (normalizeTextForMatch(candidate) === normText) {
+      return candidate;
+    }
   }
 
   let bestMatch: string | null = null;
   let minDistance = Infinity;
 
+  // 3. Edit distance check on normalized strings
   for (const candidate of candidates) {
-    const dist = getEditDistance(text, candidate);
+    const normCand = normalizeTextForMatch(candidate);
+    const dist = getEditDistance(normText, normCand);
     if (dist < minDistance && dist <= maxDistanceThreshold) {
       minDistance = dist;
       bestMatch = candidate;
@@ -435,11 +473,19 @@ export async function resolveSlotOcr(
 
     if (cropW <= 0 || cropH <= 0) return null;
 
+    // Add padding (approx 5% of width and 8% of height) to avoid text clipping on boundaries
+    const padX = Math.round(cropW * 0.05);
+    const padY = Math.round(cropH * 0.08);
+    const finalX = Math.max(0, cropX - padX);
+    const finalY = Math.max(0, cropY - padY);
+    const finalW = Math.min(origW - finalX, cropW + padX * 2);
+    const finalH = Math.min(origH - finalY, cropH + padY * 2);
+
     const cropCanvas = document.createElement('canvas');
-    cropCanvas.width = cropW;
-    cropCanvas.height = cropH;
+    cropCanvas.width = finalW;
+    cropCanvas.height = finalH;
     const cropCtx = cropCanvas.getContext('2d');
-    cropCtx?.drawImage(canvas, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
+    cropCtx?.drawImage(canvas, finalX, finalY, finalW, finalH, 0, 0, finalW, finalH);
 
     const sessionRec = lang === 'ko' ? recKoSession! : recSession!;
     const dictStr = lang === 'ko' ? dictKorean : dictDefault;

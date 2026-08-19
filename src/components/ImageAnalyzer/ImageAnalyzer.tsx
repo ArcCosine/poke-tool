@@ -29,53 +29,7 @@ interface AnalyzedPokemon {
   };
 }
 
-function getEditDistance(a: string, b: string): number {
-  const matrix = Array.from({ length: a.length + 1 }, () =>
-    new Array(b.length + 1).fill(0)
-  );
 
-  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
-  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      if (a[i - 1] === b[j - 1]) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j] + 1, // deletion
-          matrix[i][j - 1] + 1, // insertion
-          matrix[i - 1][j - 1] + 1 // substitution
-        );
-      }
-    }
-  }
-  return matrix[a.length][b.length];
-}
-
-function findBestMatch(
-  text: string,
-  candidates: string[],
-  maxDistanceThreshold = 2
-): string | null {
-  if (!text) return null;
-  if (candidates.includes(text)) {
-    return text;
-  }
-
-  let bestMatch: string | null = null;
-  let minDistance = Infinity;
-
-  for (const candidate of candidates) {
-    const dist = getEditDistance(text, candidate);
-    if (dist < minDistance && dist <= maxDistanceThreshold) {
-      minDistance = dist;
-      bestMatch = candidate;
-    }
-  }
-
-  return bestMatch;
-}
 
 interface DebugRect {
   label: string;
@@ -307,7 +261,7 @@ export const ImageAnalyzer: React.FC = () => {
               let matchedPokemon: PokemonMaster | null = null;
               let nameWord: ocr.OcrWord | null = null;
               for (const word of sWords) {
-                const bestMatchName = findBestMatch(
+                const bestMatchName = ocr.findBestMatch(
                   word.text,
                   allPokemonNames,
                   2
@@ -365,7 +319,7 @@ export const ImageAnalyzer: React.FC = () => {
                 );
                 let foundAbilityWord: ocr.OcrWord | null = null;
                 for (const word of otherWords) {
-                  const bestAb = findBestMatch(word.text, abilityCandidates, 2);
+                  const bestAb = ocr.findBestMatch(word.text, abilityCandidates, 2);
                   if (bestAb) {
                     const matchedAbilityObj = matchedPokemon.abilities.find(
                       (a) => a.ja === bestAb || a.en === bestAb
@@ -399,7 +353,7 @@ export const ImageAnalyzer: React.FC = () => {
 
                 let foundItemWord: ocr.OcrWord | null = null;
                 for (const word of otherWords) {
-                  const bestItem = findBestMatch(word.text, allItemNames, 2);
+                  const bestItem = ocr.findBestMatch(word.text, allItemNames, 2);
                   if (bestItem) {
                     const matchedItemObj = itemsList.find(
                       (i) => i.name.ja === bestItem || i.name.en === bestItem
@@ -429,7 +383,7 @@ export const ImageAnalyzer: React.FC = () => {
 
                 let moveCount = 0;
                 for (const word of otherWords) {
-                  const bestMove = findBestMatch(
+                  const bestMove = ocr.findBestMatch(
                     word.text,
                     learnableMoveNames,
                     2
@@ -662,7 +616,7 @@ export const ImageAnalyzer: React.FC = () => {
 
             // Try Tesseract sWords first (essential for test environment)
             for (const word of sWords) {
-              const bestMatchName = findBestMatch(
+              const bestMatchName = ocr.findBestMatch(
                 word.text,
                 allPokemonNames,
                 2
@@ -750,7 +704,7 @@ export const ImageAnalyzer: React.FC = () => {
 
               // Try Tesseract sWords first
               for (const word of otherWords) {
-                const bestAb = findBestMatch(word.text, abilityCandidates, 2);
+                const bestAb = ocr.findBestMatch(word.text, abilityCandidates, 2);
                 if (bestAb) {
                   const matchedAbilityObj = matchedPokemon.abilities.find(
                     (a) => a.ja === bestAb || a.en === bestAb
@@ -812,7 +766,7 @@ export const ImageAnalyzer: React.FC = () => {
 
               // Try Tesseract sWords first
               for (const word of otherWords) {
-                const bestItem = findBestMatch(word.text, allItemNames, 2);
+                const bestItem = ocr.findBestMatch(word.text, allItemNames, 2);
                 if (bestItem) {
                   const matchedItemObj = itemsList.find(
                     (i) => i.name.ja === bestItem || i.name.en === bestItem
@@ -869,7 +823,7 @@ export const ImageAnalyzer: React.FC = () => {
 
               let moveCount = 0;
               for (const word of otherWords) {
-                const bestMove = findBestMatch(
+                const bestMove = ocr.findBestMatch(
                   word.text,
                   learnableMoveNames,
                   2
