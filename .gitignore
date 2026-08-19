@@ -34,3 +34,6 @@ src/wasm-analysis/target/
 
 # Package lock files
 package-lock.json
+
+# Pure ONNX OCR
+pure-onnx-ocr/
