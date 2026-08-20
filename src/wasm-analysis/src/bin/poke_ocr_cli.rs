@@ -416,6 +416,7 @@ Provide ONLY the valid JSON without any markdown formatting wrappers or explanat
                         let status = resp.status();
                         if status.is_success() {
                             response_opt = Some(resp);
+                            tokio::time::sleep(std::time::Duration::from_secs(5)).await; // rate limit throttle
                             break;
                         } else if status.as_u16() == 429 || status.as_u16() == 503 || status.is_server_error() {
                             println!("Warning: API returned status {}. Retrying in {} seconds...", status, (retries + 1) * 10);

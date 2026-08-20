@@ -29,8 +29,6 @@ interface AnalyzedPokemon {
   };
 }
 
-
-
 interface DebugRect {
   label: string;
   xPct: number;
@@ -64,7 +62,6 @@ export const ImageAnalyzer: React.FC = () => {
   const [imageTypes, setImageTypes] = useState<('ability' | 'status')[]>([]);
   const [analyzing, setAnalyzing] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [jsonCopied, setJsonCopied] = useState(false);
 
   // Parsed party result state
   const [detectedParty, setDetectedParty] = useState<AnalyzedPokemon[]>([]);
@@ -319,7 +316,11 @@ export const ImageAnalyzer: React.FC = () => {
                 );
                 let foundAbilityWord: ocr.OcrWord | null = null;
                 for (const word of otherWords) {
-                  const bestAb = ocr.findBestMatch(word.text, abilityCandidates, 2);
+                  const bestAb = ocr.findBestMatch(
+                    word.text,
+                    abilityCandidates,
+                    2
+                  );
                   if (bestAb) {
                     const matchedAbilityObj = matchedPokemon.abilities.find(
                       (a) => a.ja === bestAb || a.en === bestAb
@@ -353,7 +354,11 @@ export const ImageAnalyzer: React.FC = () => {
 
                 let foundItemWord: ocr.OcrWord | null = null;
                 for (const word of otherWords) {
-                  const bestItem = ocr.findBestMatch(word.text, allItemNames, 2);
+                  const bestItem = ocr.findBestMatch(
+                    word.text,
+                    allItemNames,
+                    2
+                  );
                   if (bestItem) {
                     const matchedItemObj = itemsList.find(
                       (i) => i.name.ja === bestItem || i.name.en === bestItem
@@ -500,47 +505,42 @@ export const ImageAnalyzer: React.FC = () => {
           const displayH = bounds[3];
 
           // 3. Identify the Screen Type using header tab color comparison
-          let detectedScreenType: 'ability' | 'status' = 'ability';
-          let abGreen = 0;
-          let stGreen = 0;
-          const yStart = Math.floor(yOffset + displayH * 0.04);
-          const yEnd = Math.floor(yOffset + displayH * 0.12);
-          const abXStart = Math.floor(xOffset + displayW * 0.15);
-          const abXEnd = Math.floor(xOffset + displayW * 0.35);
-          const stXStart = Math.floor(xOffset + displayW * 0.35);
-          const stXEnd = Math.floor(xOffset + displayW * 0.55);
-
-          const headerData = imgData.data;
-          for (let y = yStart; y < yEnd; y++) {
-            for (let x = abXStart; x < abXEnd; x++) {
-              const pIdx = (y * imgWidth + x) * 4;
-              if (pIdx + 3 < headerData.length) {
-                const r = headerData[pIdx];
-                const g = headerData[pIdx + 1];
-                const b = headerData[pIdx + 2];
-                if (g > 80 && g > b && r > 60 && g >= r) abGreen++;
-              }
-            }
-            for (let x = stXStart; x < stXEnd; x++) {
-              const pIdx = (y * imgWidth + x) * 4;
-              if (pIdx + 3 < headerData.length) {
-                const r = headerData[pIdx];
-                const g = headerData[pIdx + 1];
-                const b = headerData[pIdx + 2];
-                if (g > 80 && g > b && r > 60 && g >= r) stGreen++;
-              }
-            }
-          }
-
-          if (abGreen > 10 || stGreen > 10) {
-            detectedScreenType = abGreen > stGreen ? 'ability' : 'status';
-          }
+          let detectedScreenType = ocr.detectScreenType(
+            canvas,
+            xOffset,
+            yOffset,
+            displayW,
+            displayH
+          );
 
           if (isTestEnv) {
             if (previews.length === 2) {
               detectedScreenType = imgIdx === 0 ? 'ability' : 'status';
             }
           }
+
+          // Register Ability / Status screen tab bounding boxes in debug viewer
+          currentGroup.rects.push({
+            label: 'ABILITY タブ判定枠',
+            xPct: ((xOffset + displayW * 0.3) / imgWidth) * 100,
+            yPct: ((yOffset + displayH * 0.04) / imgHeight) * 100,
+            wPct: ((displayW * 0.14) / imgWidth) * 100,
+            hPct: ((displayH * 0.08) / imgHeight) * 100,
+            result:
+              detectedScreenType === 'ability' ? '選択中 (Active)' : '非選択',
+            color: 'blue',
+          });
+
+          currentGroup.rects.push({
+            label: 'STATUS タブ判定枠',
+            xPct: ((xOffset + displayW * 0.44) / imgWidth) * 100,
+            yPct: ((yOffset + displayH * 0.04) / imgHeight) * 100,
+            wPct: ((displayW * 0.14) / imgWidth) * 100,
+            hPct: ((displayH * 0.08) / imgHeight) * 100,
+            result:
+              detectedScreenType === 'status' ? '選択中 (Active)' : '非選択',
+            color: 'blue',
+          });
 
           const isStatusScreen = detectedScreenType === 'status';
 
@@ -704,7 +704,11 @@ export const ImageAnalyzer: React.FC = () => {
 
               // Try Tesseract sWords first
               for (const word of otherWords) {
-                const bestAb = ocr.findBestMatch(word.text, abilityCandidates, 2);
+                const bestAb = ocr.findBestMatch(
+                  word.text,
+                  abilityCandidates,
+                  2
+                );
                 if (bestAb) {
                   const matchedAbilityObj = matchedPokemon.abilities.find(
                     (a) => a.ja === bestAb || a.en === bestAb
@@ -1046,26 +1050,6 @@ export const ImageAnalyzer: React.FC = () => {
       .catch((err) => console.error('Copy failed:', err));
   };
 
-  const copyJson = () => {
-    if (detectedParty.length === 0) return;
-
-    const formatted = detectedParty.map((p) => ({
-      pokemon_name: p.master.name[language] || p.master.name.ja,
-      ability_name: p.ability,
-      held_item: p.item,
-      moves: p.moves.map((m) => m.name[language] || m.name.ja),
-      evs: p.evs,
-    }));
-
-    navigator.clipboard
-      .writeText(JSON.stringify(formatted, null, 2))
-      .then(() => {
-        setJsonCopied(true);
-        setTimeout(() => setJsonCopied(false), 2000);
-      })
-      .catch((err) => console.error('Failed to copy JSON:', err));
-  };
-
   const importToParty = () => {
     if (detectedParty.length === 0) return;
 
@@ -1339,15 +1323,7 @@ export const ImageAnalyzer: React.FC = () => {
                   className="btn-secondary flex items-center justify-center gap-2 flex-1 font-semibold"
                 >
                   <span className="i-lucide-clipboard" />
-                  {copied ? 'コピーしました！' : 'ポケソル形式でコピー'}
-                </button>
-                <button
-                  type="button"
-                  onClick={copyJson}
-                  className="btn-secondary flex items-center justify-center gap-2 flex-1 font-semibold"
-                >
-                  <span className="i-lucide-braces" />
-                  {jsonCopied ? 'JSONをコピーしました！' : 'JSON形式でコピー'}
+                  {copied ? 'コピーしました！' : 'クリップボードでコピー'}
                 </button>
                 <button
                   type="button"
@@ -1451,7 +1427,7 @@ export const ImageAnalyzer: React.FC = () => {
                       return (
                         <div
                           key={`box-${rIdx}`}
-                          className="absolute border-2 border-rose-500 bg-rose-500/15 pointer-events-none overflow-visible"
+                          className="absolute border-2 border-sky-500 bg-sky-500/15 pointer-events-none overflow-visible"
                           style={{
                             left: `${rect.xPct}%`,
                             top: `${rect.yPct}%`,
@@ -1461,10 +1437,10 @@ export const ImageAnalyzer: React.FC = () => {
                         >
                           {/* Floating visual badge just above the bounding box */}
                           <div
-                            className={`absolute -top-5 ${badgeSideClass} bg-slate-900/95 text-white font-bold text-[9px] px-1 py-0.5 rounded shadow border border-rose-400/40 leading-none whitespace-nowrap flex gap-1 z-10`}
+                            className={`absolute -top-5 ${badgeSideClass} bg-slate-900/95 text-white font-bold text-[9px] px-1 py-0.5 rounded shadow border border-sky-400/40 leading-none whitespace-nowrap flex gap-1 z-10`}
                           >
-                            <span className="text-rose-400">{cleanLabel}:</span>
-                            <span className="text-rose-200">
+                            <span className="text-sky-400">{cleanLabel}:</span>
+                            <span className="text-sky-200">
                               {displayResult}
                             </span>
                           </div>

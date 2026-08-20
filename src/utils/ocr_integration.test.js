@@ -236,7 +236,7 @@ describe('OCR Real Image Integration Test', () => {
 
     const fixturePath = path.resolve(
       __dirname,
-      '../test/fixtures/Screenshot_20260803-180528.png'
+      '../test/fixtures/filterd/Screenshot_20260803-180528.png'
     );
     const png = parsePNG(fixturePath);
 

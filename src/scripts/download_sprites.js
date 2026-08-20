@@ -55,12 +55,16 @@ async function main() {
       }
       await delay(50); // 50ms delay
     } catch (err) {
-      console.error(`Failed to download sprite for ID ${poke.id}: ${err.message}`);
+      console.error(
+        `Failed to download sprite for ID ${poke.id}: ${err.message}`
+      );
       failed++;
     }
   }
 
-  console.log(`Done! Downloaded: ${downloaded}, Skipped: ${skipped}, Failed: ${failed}`);
+  console.log(
+    `Done! Downloaded: ${downloaded}, Skipped: ${skipped}, Failed: ${failed}`
+  );
 }
 
 main().catch(console.error);

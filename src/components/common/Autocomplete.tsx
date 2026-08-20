@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Input } from './Input';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { katakanaToHiragana, normalizeSearchText } from '../../utils/string';
+import { Input } from './Input';
 
 interface AutocompleteProps {
   id?: string;
@@ -35,7 +36,10 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   // Close suggestions dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
         // Reset display to current bound value if input doesn't match suggestions
         if (!suggestions.includes(inputValue)) {

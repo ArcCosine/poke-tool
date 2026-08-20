@@ -6,7 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const TARGET_DIR = path.join(__dirname, '../src/test/fixtures/downloaded');
-const MAX_IMAGES = 5;
+const MAX_IMAGES_PER_ARTICLE = 5;
+const MAX_ARTICLES = 50;
 
 // Helper to parse PNG dimensions from binary buffer
 function getPngSize(buffer: Buffer): { width: number; height: number } | null {
@@ -62,9 +63,8 @@ async function downloadImage(url: string, destPath: string): Promise<boolean> {
     if (!size) return false;
     
     const aspect = size.width / size.height;
-    // SV party screens are usually 16:9 (approx 1.777)
-    // Accept range between 1.7 and 1.8, and minimum width of 800px
-    if (aspect >= 1.7 && aspect <= 1.8 && size.width >= 800) {
+    // Accept standard 16:9 Switch screens (1.77) but also smartphone widescreen ratios (1.5 to 2.5)
+    if (aspect >= 1.5 && aspect <= 2.5 && size.width >= 800) {
       fs.writeFileSync(destPath, buffer);
       console.log(`Downloaded: ${url} (Size: ${size.width}x${size.height}, Aspect: ${aspect.toFixed(3)})`);
       return true;
@@ -80,35 +80,50 @@ async function main() {
     fs.mkdirSync(TARGET_DIR, { recursive: true });
   }
 
-  console.log('Fetching PokeDB Champs article list...');
-  const searchUrl = 'https://champs.pokedb.tokyo/article/search?rule=0';
-  
-  try {
-    const res = await fetch(searchUrl);
-    if (!res.ok) {
-      console.error(`Failed to fetch PokeDB page: ${res.status}`);
-      return;
+  let totalDownloadedCount = 0;
+  let articlesWithDownloadsCount = 0;
+  let page = 1;
+  const visitedArticles = new Set<string>();
+
+  while (articlesWithDownloadsCount < MAX_ARTICLES) {
+    console.log(`Fetching PokeDB Champs article list page ${page}...`);
+    const searchUrl = `https://champs.pokedb.tokyo/article/search?rule=0&page=${page}`;
+    let html = '';
+    try {
+      const res = await fetch(searchUrl);
+      if (!res.ok) {
+        console.error(`Failed to fetch PokeDB page ${page}: ${res.status}`);
+        break;
+      }
+      html = await res.text();
+    } catch (err) {
+      console.error(`Error fetching PokeDB Champs page ${page}:`, err);
+      break;
     }
-    const html = await res.text();
-    
+
     // Extract external article links (e.g. hatenablog, note.com, etc.)
     const linkRegex = /href="(https:\/\/[^"]+(?:hatenablog|note\.com|hatenadiary)[^"]*)"/g;
     const articleUrls: string[] = [];
     let match;
     while ((match = linkRegex.exec(html)) !== null) {
-      if (!articleUrls.includes(match[1])) {
-        articleUrls.push(match[1]);
+      const url = match[1];
+      if (!visitedArticles.has(url)) {
+        articleUrls.push(url);
+        visitedArticles.add(url);
       }
     }
-    
-    console.log(`Found ${articleUrls.length} article links. Scanning for party screenshots...`);
-    
-    let downloadedCount = 0;
-    
+
+    if (articleUrls.length === 0) {
+      console.log('No new article links found. Stopping search.');
+      break;
+    }
+
+    console.log(`Page ${page}: Found ${articleUrls.length} new article links. Scanning for party screenshots...`);
+
     for (const articleUrl of articleUrls) {
-      if (downloadedCount >= MAX_IMAGES) break;
+      if (articlesWithDownloadsCount >= MAX_ARTICLES) break;
       
-      console.log(`Scanning article: ${articleUrl}`);
+      console.log(`Scanning article [${articlesWithDownloadsCount + 1}/${MAX_ARTICLES}]: ${articleUrl}`);
       try {
         const articleRes = await fetch(articleUrl);
         if (!articleRes.ok) continue;
@@ -119,43 +134,46 @@ async function main() {
         const imageUrls: string[] = [];
         let imgMatch;
         while ((imgMatch = imgRegex.exec(articleHtml)) !== null) {
-          let url = imgMatch[1];
-          // Handle relative urls
-          if (url.startsWith('//')) {
-            url = 'https:' + url;
-          } else if (url.startsWith('/')) {
-            const parsedUrl = new URL(articleUrl);
-            url = parsedUrl.origin + url;
-          }
-          if (!imageUrls.includes(url)) {
-            imageUrls.push(url);
+          try {
+            const resolvedUrl = new URL(imgMatch[1], articleUrl).href;
+            if (!imageUrls.includes(resolvedUrl)) {
+              imageUrls.push(resolvedUrl);
+            }
+          } catch (e) {
+            // Ignore invalid URLs
           }
         }
         
+        let downloadedInArticle = 0;
         for (const imageUrl of imageUrls) {
-          if (downloadedCount >= MAX_IMAGES) break;
+          if (downloadedInArticle >= MAX_IMAGES_PER_ARTICLE) break;
           
           // Generate a filename
           const ext = imageUrl.endsWith('.png') ? '.png' : '.jpg';
-          const filename = `party_${Date.now()}_${downloadedCount}${ext}`;
+          const filename = `party_${Date.now()}_${totalDownloadedCount}${ext}`;
           const destPath = path.join(TARGET_DIR, filename);
           
           const success = await downloadImage(imageUrl, destPath);
           if (success) {
-            downloadedCount++;
+            downloadedInArticle++;
+            totalDownloadedCount++;
             // sleep a bit to avoid hammer
             await new Promise(resolve => setTimeout(resolve, 500));
           }
+        }
+        
+        if (downloadedInArticle > 0) {
+          articlesWithDownloadsCount++;
         }
       } catch (err) {
         console.error(`Failed to scan article ${articleUrl}:`, err);
       }
     }
-    
-    console.log(`Completed. Successfully downloaded ${downloadedCount} SV party screenshots to ${TARGET_DIR}`);
-  } catch (err) {
-    console.error('Error fetching PokeDB Champs:', err);
+
+    page++;
   }
+
+  console.log(`Completed. Successfully downloaded ${totalDownloadedCount} SV party screenshots from ${articlesWithDownloadsCount} articles to ${TARGET_DIR}`);
 }
 
 main();

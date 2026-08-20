@@ -1,6 +1,6 @@
 # 59_構築記事画像収集とWASM-OCR精度向上計画
 
-本計画は、実際のポケモンチャンピオンズ構築記事からパーティ画像を自動収集するスクリプト（上限5枚）を作成し、それらの実データを用いてブラウザ側のオンデバイス WASM OCR（onnxruntime-web / pure-onnx-ocr）の文字認識精度を大幅に向上させるための設計・実装手順を定義します。
+本計画は、実際のポケモンチャンピオンズ構築記事からパーティ画像を自動収集するスクリプト（1記事あたり最大5枚、最大50記事、合計最大250枚）を作成し、それらの実データを用いてブラウザ側のオンデバイス WASM OCR（onnxruntime-web / pure-onnx-ocr）の文字認識精度を大幅に向上させるための設計・実装手順を定義します。
 
 ---
 
@@ -13,7 +13,7 @@
   1. `https://champs.pokedb.tokyo/article/search?rule=0` から HTML を取得し、はてなブログ等の外部構築記事へのリンク（`href`）を抽出。
   2. 抽出した上位の記事ページに対し、順次 HTML をフェッチ。
   3. 各記事ページの `<img>` タグの中から、ポケモンパーティ画像（アスペクト比が 16:9 に近く、かつ一定以上のピクセルサイズを持つもの）をフィルタリング。
-  4. 該当する画像を **上限 5 枚** ダウンロードし、プロジェクト内の [`src/test/fixtures/downloaded/`](file:///home/arccosine/poke-tool/src/test/fixtures/downloaded/) に保存。
+  4. 各記事ページから該当する画像を **1記事あたり上限 5 枚** ダウンロードし、全体で **最大50記事**（合計最大250枚）を収集して、プロジェクト内の [`src/test/fixtures/downloaded/`](file:///home/arccosine/poke-tool/src/test/fixtures/downloaded/) に保存。
 
 ### ② OCR精度の向上処理（アルゴリズム改善）
 ブログへアップロードされた画像はリサイズや圧縮ノイズ（JPEGにじみ）が発生しており、文字の認識率が低下しやすい問題があります。これを解決するために、以下の 3 つのアプローチで精度を改善します。
@@ -40,7 +40,7 @@
 * [`scripts/download_party_images.ts`](file:///home/arccosine/poke-tool/scripts/download_party_images.ts) を作成。
   * `fetch` API を使って Champs 構築記事検索ページから外部リンクを取得。
   * リンク先のブログ記事からはてなブログの画像 CDN URL（`cdn-ak.f.st-hatena.com` など）や、16:9 アスペクト比に近い画像をフィルタリングしてダウンロード。
-  * **上限 5 枚** でダウンロードを停止。
+  * 各記事あたり **上限 5 枚**、スキャン対象として画像がダウンロードできた記事数が **最大50記事**（合計最大250枚）でダウンロードを停止。
   * `src/test/fixtures/downloaded/` ディレクトリに保存。
 * コマンド `npx tsx scripts/download_party_images.ts` で実行できるようにします。
 

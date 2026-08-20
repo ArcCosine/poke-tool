@@ -675,7 +675,7 @@ describe('ImageAnalyzer component', () => {
 
     // Copy pokesol text
     const copyBtn = screen.getByRole('button', {
-      name: /ポケソル形式でコピー/i,
+      name: /クリップボードでコピー/i,
     });
     fireEvent.click(copyBtn);
     expect(writeTextMock).toHaveBeenCalled();
@@ -683,21 +683,6 @@ describe('ImageAnalyzer component', () => {
     expect(copiedText).toContain('ゲッコウガ @ きあいのタスキ');
     expect(copiedText).toContain('特性: へんげんじざい');
     expect(copiedText).toContain('147-115-89(2)-155(32)-91-174(32)');
-
-    // Copy JSON text
-    const copyJsonBtn = screen.getByRole('button', {
-      name: /JSON形式でコピー/i,
-    });
-    fireEvent.click(copyJsonBtn);
-    expect(writeTextMock).toHaveBeenCalled();
-    const copiedJsonText = writeTextMock.mock.calls[writeTextMock.mock.calls.length - 1][0];
-    const parsedJson = JSON.parse(copiedJsonText);
-    expect(parsedJson.length).toBe(6);
-    expect(parsedJson[0].pokemon_name).toBe('ゲッコウガ');
-    expect(parsedJson[0].ability_name).toBe('へんげんじざい');
-    expect(parsedJson[0].held_item).toBe('きあいのタスキ');
-    expect(parsedJson[0].evs.sp_attack).toBe(32);
-    expect(parsedJson[0].evs.speed).toBe(32);
   });
 
   it('should analyze new test images (20260812) and output Garchomp/Sylveon party details', async () => {
@@ -760,7 +745,7 @@ describe('ImageAnalyzer component', () => {
     });
 
     const copyBtn = screen.getByRole('button', {
-      name: /ポケソル形式でコピー/i,
+      name: /クリップボードでコピー/i,
     });
     fireEvent.click(copyBtn);
     expect(writeTextMock).toHaveBeenCalled();
