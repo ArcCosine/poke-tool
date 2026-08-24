@@ -131,8 +131,9 @@ const uiTranslations: Record<Language, Record<string, string>> = {
 ユーザーは、本ツールの利用にあたり、以下の行為を行ってはなりません。
 1. 本ツールのソースコード、アルゴリズムの改ざん、または不正なリバースエンジニアリング行為
 2. 商用目的での本ツールの再配布、販売、または類似サービスの構築
-3. 外部APIや本ツールの提供インフラストラクチャに対するスクレイピング、過度な負荷をかけるアクセス行為
-4. その他、開発者または開発元の第三者に不利益や損害を与える行為、または公序良俗に反する行為
+3. スクレイピング、クローラー、ボット等の自動化ツールを用いた、本ツールや外部API、提供インフラに対する大量のデータ取得、一括ダウンロード、または過度な負荷をかけるアクセス行為
+4. 競合サービス関係者による本ツールの利用、データ収集、またはこれらを目的としたアクセス行為
+5. その他、開発者または開発元の第三者に不利益や損害を与える行為、または公序良俗に反する行為
 
 【第3条（サービスの提供と変更・終了）】
 本ツールは現状有姿で提供され、開発者は事前予告なしに本ツールの機能変更、提供の中断、一時停止、または完全な提供終了を行う権利を有します。
@@ -252,8 +253,9 @@ You may use the Tool solely for personal, non-commercial purposes, such as analy
 You shall not engage in any of the following activities:
 1. Modifying, tampering with, or reverse-engineering the Tool's source code or underlying algorithms.
 2. Redistributing, selling, or utilizing the Tool or its compiled components for commercial purposes.
-3. Performing data scraping or sending automated requests that cause excessive load on the Tool's components or external APIs.
-4. Any other activity that causes damage to the developer or third parties, or violates public order.
+3. Performing data scraping, or using crawlers, bots, or other automated tools to extract bulk data, perform bulk downloads, or send requests that cause excessive load on the Tool, its components, or external APIs.
+4. Access, data collection, or use of the Tool by associates, operators, or developers of competing services.
+5. Any other activity that causes damage to the developer or third parties, or violates public order.
 
 [Article 3 - Service Modifications and Termination]
 The Tool is provided on an "as-is" and "as-available" basis. The developer reserves the right to modify, suspend, or terminate the Tool or its features at any time without prior notice.

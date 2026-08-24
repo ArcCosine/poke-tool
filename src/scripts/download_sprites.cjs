@@ -13,7 +13,7 @@ const pokemonList = JSON.parse(fs.readFileSync(masterPath, 'utf8'));
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function downloadImage(id, attempt = 1) {
-  const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+  const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;
   const dest = path.join(outputDir, `${id}.png`);
 
   if (fs.existsSync(dest)) {
