@@ -4116,6 +4116,174 @@
     "pp": 10
   },
   {
+    "id": 94,
+    "name": {
+      "ja": "サイコキネシス",
+      "en": "Psychic"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 100,
+    "name": {
+      "ja": "テレポート",
+      "en": "Teleport"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 248,
+    "name": {
+      "ja": "みらいよち",
+      "en": "Future Sight"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 277,
+    "name": {
+      "ja": "マジックコート",
+      "en": "Magic Coat"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 278,
+    "name": {
+      "ja": "リサイクル",
+      "en": "Recycle"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 285,
+    "name": {
+      "ja": "スキルスワップ",
+      "en": "Skill Swap"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 473,
+    "name": {
+      "ja": "サイコショック",
+      "en": "Psyshock"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 477,
+    "name": {
+      "ja": "テレキネシス",
+      "en": "Telekinesis"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 478,
+    "name": {
+      "ja": "マジックルーム",
+      "en": "Magic Room"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 500,
+    "name": {
+      "ja": "アシストパワー",
+      "en": "Stored Power"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 502,
+    "name": {
+      "ja": "サイドチェンジ",
+      "en": "Ally Switch"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  {
+    "id": 678,
+    "name": {
+      "ja": "サイコフィールド",
+      "en": "Psychic Terrain"
+    },
+    "type": "psychic",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 797,
+    "name": {
+      "ja": "ワイドフォース",
+      "en": "Expanding Force"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 917,
+    "name": {
+      "ja": "サイコノイズ",
+      "en": "Psychic Noise"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
     "id": 1,
     "name": {
       "ja": "はたく",
@@ -4160,30 +4328,6 @@
     "type": "psychic",
     "category": "special",
     "power": 65,
-    "accuracy": 100,
-    "pp": 20
-  },
-  {
-    "id": 94,
-    "name": {
-      "ja": "サイコキネシス",
-      "en": "Psychic"
-    },
-    "type": "psychic",
-    "category": "special",
-    "power": 90,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 100,
-    "name": {
-      "ja": "テレポート",
-      "en": "Teleport"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
     "accuracy": 100,
     "pp": 20
   },
@@ -4356,18 +4500,6 @@
     "pp": 15
   },
   {
-    "id": 248,
-    "name": {
-      "ja": "みらいよち",
-      "en": "Future Sight"
-    },
-    "type": "psychic",
-    "category": "special",
-    "power": 120,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
     "id": 266,
     "name": {
       "ja": "このゆびとまれ",
@@ -4396,42 +4528,6 @@
     "name": {
       "ja": "なりきり",
       "en": "Role Play"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 277,
-    "name": {
-      "ja": "マジックコート",
-      "en": "Magic Coat"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 15
-  },
-  {
-    "id": 278,
-    "name": {
-      "ja": "リサイクル",
-      "en": "Recycle"
-    },
-    "type": "normal",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 285,
-    "name": {
-      "ja": "スキルスワップ",
-      "en": "Skill Swap"
     },
     "type": "psychic",
     "category": "status",
@@ -4572,60 +4668,12 @@
     "pp": 10
   },
   {
-    "id": 473,
-    "name": {
-      "ja": "サイコショック",
-      "en": "Psyshock"
-    },
-    "type": "psychic",
-    "category": "special",
-    "power": 80,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 477,
-    "name": {
-      "ja": "テレキネシス",
-      "en": "Telekinesis"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 15
-  },
-  {
     "id": 495,
     "name": {
       "ja": "おさきにどうぞ",
       "en": "After You"
     },
     "type": "normal",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 15
-  },
-  {
-    "id": 500,
-    "name": {
-      "ja": "アシストパワー",
-      "en": "Stored Power"
-    },
-    "type": "psychic",
-    "category": "special",
-    "power": 20,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 502,
-    "name": {
-      "ja": "サイドチェンジ",
-      "en": "Ally Switch"
-    },
-    "type": "psychic",
     "category": "status",
     "power": 0,
     "accuracy": 100,
@@ -4896,6 +4944,126 @@
     "pp": 5
   },
   {
+    "id": 62,
+    "name": {
+      "ja": "オーロラビーム",
+      "en": "Aurora Beam"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 181,
+    "name": {
+      "ja": "こなゆき",
+      "en": "Powder Snow"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  {
+    "id": 329,
+    "name": {
+      "ja": "ぜったいれいど",
+      "en": "Sheer Cold"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  {
+    "id": 333,
+    "name": {
+      "ja": "つららばり",
+      "en": "Icicle Spear"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 420,
+    "name": {
+      "ja": "こおりのつぶて",
+      "en": "Ice Shard"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  {
+    "id": 524,
+    "name": {
+      "ja": "こおりのいぶき",
+      "en": "Frost Breath"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 60,
+    "accuracy": 90,
+    "pp": 10
+  },
+  {
+    "id": 573,
+    "name": {
+      "ja": "フリーズドライ",
+      "en": "Freeze-Dry"
+    },
+    "type": "ice",
+    "category": "special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 694,
+    "name": {
+      "ja": "オーロラベール",
+      "en": "Aurora Veil"
+    },
+    "type": "ice",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 813,
+    "name": {
+      "ja": "トリプルアクセル",
+      "en": "Triple Axel"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 20,
+    "accuracy": 90,
+    "pp": 10
+  },
+  {
+    "id": 883,
+    "name": {
+      "ja": "ゆきげしき",
+      "en": "Snowscape"
+    },
+    "type": "ice",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
     "id": 71,
     "name": {
       "ja": "すいとる",
@@ -5076,6 +5244,78 @@
     "pp": 10
   },
   {
+    "id": 88,
+    "name": {
+      "ja": "いわおとし",
+      "en": "Rock Throw"
+    },
+    "type": "rock",
+    "category": "physical",
+    "power": 50,
+    "accuracy": 90,
+    "pp": 15
+  },
+  {
+    "id": 350,
+    "name": {
+      "ja": "ロックブラスト",
+      "en": "Rock Blast"
+    },
+    "type": "rock",
+    "category": "physical",
+    "power": 25,
+    "accuracy": 90,
+    "pp": 10
+  },
+  {
+    "id": 408,
+    "name": {
+      "ja": "パワージェム",
+      "en": "Power Gem"
+    },
+    "type": "rock",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 20
+  },
+  {
+    "id": 444,
+    "name": {
+      "ja": "ストーンエッジ",
+      "en": "Stone Edge"
+    },
+    "type": "rock",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 5
+  },
+  {
+    "id": 457,
+    "name": {
+      "ja": "もろはのずつき",
+      "en": "Head Smash"
+    },
+    "type": "rock",
+    "category": "physical",
+    "power": 150,
+    "accuracy": 80,
+    "pp": 5
+  },
+  {
+    "id": 684,
+    "name": {
+      "ja": "スマートホーン",
+      "en": "Smart Strike"
+    },
+    "type": "steel",
+    "category": "physical",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
     "id": 93,
     "name": {
       "ja": "ねんりき",
@@ -5208,42 +5448,6 @@
     "pp": 10
   },
   {
-    "id": 478,
-    "name": {
-      "ja": "マジックルーム",
-      "en": "Magic Room"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 678,
-    "name": {
-      "ja": "サイコフィールド",
-      "en": "Psychic Terrain"
-    },
-    "type": "psychic",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 797,
-    "name": {
-      "ja": "ワイドフォース",
-      "en": "Expanding Force"
-    },
-    "type": "psychic",
-    "category": "special",
-    "power": 80,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
     "id": 2,
     "name": {
       "ja": "からてチョップ",
@@ -5340,18 +5544,6 @@
     "pp": 20
   },
   {
-    "id": 350,
-    "name": {
-      "ja": "ロックブラスト",
-      "en": "Rock Blast"
-    },
-    "type": "rock",
-    "category": "physical",
-    "power": 25,
-    "accuracy": 90,
-    "pp": 10
-  },
-  {
     "id": 358,
     "name": {
       "ja": "めざましビンタ",
@@ -5386,18 +5578,6 @@
     "power": 40,
     "accuracy": 100,
     "pp": 30
-  },
-  {
-    "id": 444,
-    "name": {
-      "ja": "ストーンエッジ",
-      "en": "Stone Edge"
-    },
-    "type": "rock",
-    "category": "physical",
-    "power": 100,
-    "accuracy": 80,
-    "pp": 5
   },
   {
     "id": 469,
@@ -5580,26 +5760,14 @@
     "pp": 10
   },
   {
-    "id": 883,
+    "id": 801,
     "name": {
-      "ja": "ゆきげしき",
-      "en": "Snowscape"
+      "ja": "シェルアームズ",
+      "en": "Shell Side Arm"
     },
-    "type": "ice",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
-    "id": 917,
-    "name": {
-      "ja": "サイコノイズ",
-      "en": "Psychic Noise"
-    },
-    "type": "psychic",
+    "type": "poison",
     "category": "special",
-    "power": 75,
+    "power": 90,
     "accuracy": 100,
     "pp": 10
   },
@@ -5844,18 +6012,6 @@
     "pp": 10
   },
   {
-    "id": 408,
-    "name": {
-      "ja": "パワージェム",
-      "en": "Power Gem"
-    },
-    "type": "rock",
-    "category": "special",
-    "power": 80,
-    "accuracy": 100,
-    "pp": 20
-  },
-  {
     "id": 11,
     "name": {
       "ja": "はさむ",
@@ -5952,18 +6108,6 @@
     "pp": 10
   },
   {
-    "id": 684,
-    "name": {
-      "ja": "スマートホーン",
-      "en": "Smart Strike"
-    },
-    "type": "steel",
-    "category": "physical",
-    "power": 70,
-    "accuracy": 100,
-    "pp": 10
-  },
-  {
     "id": 873,
     "name": {
       "ja": "レイジングブル",
@@ -5986,18 +6130,6 @@
     "power": 0,
     "accuracy": 100,
     "pp": 10
-  },
-  {
-    "id": 62,
-    "name": {
-      "ja": "オーロラビーム",
-      "en": "Aurora Beam"
-    },
-    "type": "ice",
-    "category": "special",
-    "power": 65,
-    "accuracy": 100,
-    "pp": 20
   },
   {
     "id": 151,
@@ -6046,18 +6178,6 @@
     "power": 0,
     "accuracy": 55,
     "pp": 20
-  },
-  {
-    "id": 88,
-    "name": {
-      "ja": "いわおとし",
-      "en": "Rock Throw"
-    },
-    "type": "rock",
-    "category": "physical",
-    "power": 50,
-    "accuracy": 90,
-    "pp": 15
   },
   {
     "id": 397,
@@ -6118,6 +6238,18 @@
     "power": 150,
     "accuracy": 100,
     "pp": 5
+  },
+  {
+    "id": 844,
+    "name": {
+      "ja": "ひゃっきやこう",
+      "en": "Infernal Parade"
+    },
+    "type": "ghost",
+    "category": "special",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15
   },
   {
     "id": 260,
@@ -6348,6 +6480,18 @@
     "pp": 10
   },
   {
+    "id": 826,
+    "name": {
+      "ja": "ぶきみなじゅもん",
+      "en": "Eerie Spell"
+    },
+    "type": "psychic",
+    "category": "special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 5
+  },
+  {
     "id": 191,
     "name": {
       "ja": "まきびし",
@@ -6432,18 +6576,6 @@
     "pp": 15
   },
   {
-    "id": 457,
-    "name": {
-      "ja": "もろはのずつき",
-      "en": "Head Smash"
-    },
-    "type": "rock",
-    "category": "physical",
-    "power": 150,
-    "accuracy": 80,
-    "pp": 5
-  },
-  {
     "id": 367,
     "name": {
       "ja": "つぼをつく",
@@ -6466,6 +6598,18 @@
     "power": 60,
     "accuracy": 100,
     "pp": 10
+  },
+  {
+    "id": 301,
+    "name": {
+      "ja": "アイスボール",
+      "en": "Ice Ball"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 30,
+    "accuracy": 90,
+    "pp": 20
   },
   {
     "id": 292,
@@ -6576,18 +6720,6 @@
     "pp": 20
   },
   {
-    "id": 813,
-    "name": {
-      "ja": "トリプルアクセル",
-      "en": "Triple Axel"
-    },
-    "type": "ice",
-    "category": "physical",
-    "power": 20,
-    "accuracy": 90,
-    "pp": 10
-  },
-  {
     "id": 368,
     "name": {
       "ja": "メタルバースト",
@@ -6672,18 +6804,6 @@
     "pp": 30
   },
   {
-    "id": 181,
-    "name": {
-      "ja": "こなゆき",
-      "en": "Powder Snow"
-    },
-    "type": "ice",
-    "category": "special",
-    "power": 40,
-    "accuracy": 100,
-    "pp": 25
-  },
-  {
     "id": 381,
     "name": {
       "ja": "おまじない",
@@ -6744,66 +6864,6 @@
     "pp": 10
   },
   {
-    "id": 301,
-    "name": {
-      "ja": "アイスボール",
-      "en": "Ice Ball"
-    },
-    "type": "ice",
-    "category": "physical",
-    "power": 30,
-    "accuracy": 90,
-    "pp": 20
-  },
-  {
-    "id": 329,
-    "name": {
-      "ja": "ぜったいれいど",
-      "en": "Sheer Cold"
-    },
-    "type": "ice",
-    "category": "special",
-    "power": 0,
-    "accuracy": 30,
-    "pp": 5
-  },
-  {
-    "id": 333,
-    "name": {
-      "ja": "つららばり",
-      "en": "Icicle Spear"
-    },
-    "type": "ice",
-    "category": "physical",
-    "power": 25,
-    "accuracy": 100,
-    "pp": 30
-  },
-  {
-    "id": 420,
-    "name": {
-      "ja": "こおりのつぶて",
-      "en": "Ice Shard"
-    },
-    "type": "ice",
-    "category": "physical",
-    "power": 40,
-    "accuracy": 100,
-    "pp": 30
-  },
-  {
-    "id": 524,
-    "name": {
-      "ja": "こおりのいぶき",
-      "en": "Frost Breath"
-    },
-    "type": "ice",
-    "category": "special",
-    "power": 60,
-    "accuracy": 90,
-    "pp": 10
-  },
-  {
     "id": 556,
     "name": {
       "ja": "つららおとし",
@@ -6814,18 +6874,6 @@
     "power": 85,
     "accuracy": 90,
     "pp": 10
-  },
-  {
-    "id": 573,
-    "name": {
-      "ja": "フリーズドライ",
-      "en": "Freeze-Dry"
-    },
-    "type": "ice",
-    "category": "special",
-    "power": 70,
-    "accuracy": 100,
-    "pp": 20
   },
   {
     "id": 452,
@@ -6936,18 +6984,6 @@
     "pp": 10
   },
   {
-    "id": 694,
-    "name": {
-      "ja": "オーロラベール",
-      "en": "Aurora Veil"
-    },
-    "type": "ice",
-    "category": "status",
-    "power": 0,
-    "accuracy": 100,
-    "pp": 20
-  },
-  {
     "id": 439,
     "name": {
       "ja": "がんせきほう",
@@ -7006,6 +7042,18 @@
     "power": 0,
     "accuracy": 100,
     "pp": 5
+  },
+  {
+    "id": 845,
+    "name": {
+      "ja": "ひけん・ちえなみ",
+      "en": "Ceaseless Edge"
+    },
+    "type": "dark",
+    "category": "physical",
+    "power": 65,
+    "accuracy": 90,
+    "pp": 15
   },
   {
     "id": 158,
@@ -7104,6 +7152,18 @@
     "pp": 10
   },
   {
+    "id": 841,
+    "name": {
+      "ja": "うらみつらみ",
+      "en": "Bitter Malice"
+    },
+    "type": "ghost",
+    "category": "special",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
     "id": 377,
     "name": {
       "ja": "かいふくふうじ",
@@ -7126,6 +7186,18 @@
     "power": 0,
     "accuracy": 100,
     "pp": 20
+  },
+  {
+    "id": 779,
+    "name": {
+      "ja": "トラバサミ",
+      "en": "Snap Trap"
+    },
+    "type": "grass",
+    "category": "physical",
+    "power": 35,
+    "accuracy": 100,
+    "pp": 15
   },
   {
     "id": 483,
@@ -7344,6 +7416,18 @@
     "pp": 10
   },
   {
+    "id": 842,
+    "name": {
+      "ja": "たてこもる",
+      "en": "Shelter"
+    },
+    "type": "steel",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
     "id": 199,
     "name": {
       "ja": "ロックオン",
@@ -7428,6 +7512,30 @@
     "pp": 30
   },
   {
+    "id": 829,
+    "name": {
+      "ja": "パワーシフト",
+      "en": "Power Shift"
+    },
+    "type": "normal",
+    "category": "status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 836,
+    "name": {
+      "ja": "ひょうざんおろし",
+      "en": "Mountain Gale"
+    },
+    "type": "ice",
+    "category": "physical",
+    "power": 100,
+    "accuracy": 85,
+    "pp": 10
+  },
+  {
     "id": 662,
     "name": {
       "ja": "かげぬい",
@@ -7436,6 +7544,18 @@
     "type": "ghost",
     "category": "physical",
     "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  {
+    "id": 843,
+    "name": {
+      "ja": "３ぼんのや",
+      "en": "Triple Arrows"
+    },
+    "type": "fighting",
+    "category": "physical",
+    "power": 90,
     "accuracy": 100,
     "pp": 10
   },

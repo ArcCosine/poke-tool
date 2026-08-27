@@ -141,9 +141,13 @@ async function main() {
         const isDefault = variety.is_default;
         const varietyName = variety.pokemon.name;
         const isMega = varietyName.includes('-mega');
+        const isRegional = varietyName.includes('-alola') ||
+                           varietyName.includes('-galar') ||
+                           varietyName.includes('-hisui') ||
+                           varietyName.includes('-paldea');
 
-        // Skip non-default forms that are not mega evolutions (e.g., Gmax, custom forms)
-        if (!isDefault && !isMega) {
+        // Skip non-default forms that are not mega evolutions or regional forms (e.g., Gmax, custom forms)
+        if (!isDefault && !isMega && !isRegional) {
           continue;
         }
 
@@ -220,7 +224,7 @@ async function main() {
           }
         }
 
-        // Determine names for mega evolution
+        // Determine names for mega evolution or regional forms
         let jaName = baseJaName;
         let enName = baseEnName;
         if (isMega) {
@@ -233,6 +237,32 @@ async function main() {
           } else {
             jaName = `メガ${baseJaName}`;
             enName = `Mega ${baseEnName}`;
+          }
+        } else if (isRegional) {
+          if (varietyName.includes('-alola')) {
+            jaName = `アローラ${baseJaName}`;
+            enName = `Alolan ${baseEnName}`;
+          } else if (varietyName.includes('-galar')) {
+            jaName = `ガラール${baseJaName}`;
+            enName = `Galarian ${baseEnName}`;
+          } else if (varietyName.includes('-hisui')) {
+            jaName = `ヒスイ${baseJaName}`;
+            enName = `Hisuian ${baseEnName}`;
+          } else if (varietyName.includes('-paldea')) {
+            let suffixJa = '';
+            let suffixEn = '';
+            if (varietyName.includes('-combat-breed')) {
+              suffixJa = '(かくとう)';
+              suffixEn = ' (Combat Breed)';
+            } else if (varietyName.includes('-blaze-breed')) {
+              suffixJa = '(ほのお)';
+              suffixEn = ' (Blaze Breed)';
+            } else if (varietyName.includes('-aqua-breed')) {
+              suffixJa = '(みず)';
+              suffixEn = ' (Aqua Breed)';
+            }
+            jaName = `パルデア${baseJaName}${suffixJa}`;
+            enName = `Paldean ${baseEnName}${suffixEn}`;
           }
         }
 
