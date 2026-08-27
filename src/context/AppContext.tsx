@@ -17,7 +17,6 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 const uiTranslations: Record<Language, Record<string, string>> = {
   ja: {
     dashboard: 'ダッシュボード',
-    imageAnalyzer: '画像分析',
     statSearch: '火力・耐久',
     partySimulator: 'パーティ編成',
     searchType: '検索項目',
@@ -58,27 +57,12 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     weakness: '弱点',
     resistance: '耐性',
     immunity: '無効',
-    uploadPrompt:
-      '画像をドラッグ＆ドロップするか、クリックしてファイルを選択してください',
-    analyze: '画像を解析する',
-    importToParty: 'パーティにインポート',
-    analysisResult: '解析結果',
-    detectedPokemon: '検出されたポケモン',
-    radarChartStats: '努力値グラフ解析値',
-    importSuccess: 'パーティの空きスロットにインポートしました！',
-    noEmptySlot:
-      'パーティに空きスロットがありません（最大6匹）。先にスロットを空けてください。',
     dashboardDesc:
       'Poke-Toolへようこそ！このツールはポケモンチャンピオンズ向けのデータ分析とパーティシミュレーションをサポートします。',
-    imageAnalyzerDesc:
-      'スクリーンショット画像をローカルの ONNX OCR / WASM で解析し、ポケモンの努力値を読み込みます。',
     statSearchDesc:
       'レベル50固定時の物理耐久、特殊耐久、最大火力指数のランキングと詳細検索を行います。',
     partySimulatorDesc:
       'パーティの相性・弱点の一貫性、攻撃範囲のカバー率、レギュレーションの適合性を分析します。',
-    analyzing: '解析中...',
-    uploadInstruction:
-      '画像をアップロードし、解析を実行すると、認識されたポケモンのステータスが表示されます。',
     partySaved: 'パーティを保存しました！',
     defaultPartyName: 'マイチャンピオンズパーティ',
     hp: 'HP',
@@ -87,7 +71,6 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_attack: '特攻',
     sp_defense: '特防',
     speed: '素早さ',
-    uploadPreview: 'アップロードプレビュー',
     privacyPolicy: 'プライバシーポリシー',
     disclaimer: '免責事項',
     termsOfService: '利用規約',
@@ -97,11 +80,10 @@ const uiTranslations: Record<Language, Record<string, string>> = {
 
 【データのローカル処理と管理】
 本ツールにおいて行われる以下の処理およびデータ管理は、すべてユーザーのブラウザ上（ローカル環境）で完結して実行されます。
-1. アップロードされたゲームスクリーンショット画像の解析（努力値の読み取り等）
-2. ダメージ計算および火力・耐久指数の算出
-3. 作成されたパーティデータの保存（IndexedDBおよびlocalStorageへの保存）
+1. ダメージ計算および火力・耐久指数の算出
+2. 作成されたパーティデータの保存（IndexedDBおよびlocalStorageへの保存）
 
-お客様の画像データや入力されたパラメータが外部のサーバーに送信、蓄積、または処理されることは一切ありません。本ツールは完全にローカルで動作する「ローカルファースト」の設計を採用しています。
+お客様の入力されたパラメータが外部のサーバーに送信、蓄積、または処理されることは一切ありません。本ツールは完全にローカルで動作する「ローカルファースト」の設計を採用しています。
 
 【外部へのデータ送信およびCookie】
 本ツールでは、利便性の向上やアクセス解析のためのCookieの利用、およびサードパーティの追跡ツールの導入は行っていません。また、いかなる個人情報も取得いたしません。
@@ -112,7 +94,7 @@ const uiTranslations: Record<Language, Record<string, string>> = {
 本ツールは、任天堂株式会社、株式会社クリーチャーズ、株式会社ゲームフリーク、株式会社ポケモン、およびその他の公式関係者とは一切関係がない、ファンによる非公式の対戦データ分析支援ツールです。
 
 【計算結果・情報の正確性】
-本ツールで算出される火力指数、耐久指数、ステータス実数値、および画像解析によって得られる数値は、データ計算に基づく予測値または推定値です。ゲーム内での実際の数値、ダメージ計算結果、および挙動と完全に一致することを保証するものではありません。特に努力値のOCR読み取りやグラフ解析は、画像の解像度や状態によって誤差が生じる可能性があります。
+本ツールで算出される火力指数、耐久指数、およびステータス実数値は、データ計算に基づく予測値または推定値です。ゲーム内での実際の数値、ダメージ計算結果、および挙動と完全に一致することを保証するものではありません。
 
 【免責】
 本ツールの利用により生じた直接的、間接的、または偶発的な損害（対戦での敗北、データ消失、ハードウェアへの影響、その他一切の不利益）について、開発者は一切の責任を負いません。本ツールのご利用は、ユーザーご自身の責任において行ってください。
@@ -143,7 +125,6 @@ const uiTranslations: Record<Language, Record<string, string>> = {
   },
   en: {
     dashboard: 'Dashboard',
-    imageAnalyzer: 'Image Scan',
     statSearch: 'Stat Search',
     partySimulator: 'Party Sim',
     searchType: 'Search Target',
@@ -184,23 +165,10 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     weakness: 'Weak',
     resistance: 'Resist',
     immunity: 'Immune',
-    uploadPrompt: 'Drag & drop game screenshot here, or click to upload',
-    analyze: 'Analyze Image',
-    importToParty: 'Import to Party',
-    analysisResult: 'Analysis Result',
-    detectedPokemon: 'Detected Pokémon',
-    radarChartStats: 'Radar Chart EVs',
-    importSuccess: 'Imported to the first available slot in your party!',
-    noEmptySlot:
-      'No empty slot available in your party. Please remove a Pokémon first.',
     dashboardDesc:
       'Welcome to the Poke-Tool! This tool will support your Pokémon Champions data analysis.',
-    imageAnalyzerDesc: 'Analyze party images using Onnx OCR and WASM locally.',
     statSearchDesc: 'Search maximum damage and durability rankings.',
     partySimulatorDesc: 'Analyze party weaknesses and type balances.',
-    analyzing: 'Analyzing...',
-    uploadInstruction:
-      'Upload an image and run analysis to view the recognized Pokémon statistics.',
     partySaved: 'Party saved successfully!',
     defaultPartyName: 'My Champions Party',
     hp: 'HP',
@@ -209,7 +177,6 @@ const uiTranslations: Record<Language, Record<string, string>> = {
     sp_attack: 'Sp. Attack',
     sp_defense: 'Sp. Defense',
     speed: 'Speed',
-    uploadPreview: 'Upload preview',
     privacyPolicy: 'Privacy Policy',
     disclaimer: 'Disclaimer',
     termsOfService: 'Terms of Service',
@@ -219,11 +186,10 @@ This tool (hereinafter referred to as "the Tool") is highly committed to protect
 
 [Local Processing and Data Management]
 The following operations and data storage performed within the Tool are executed entirely within your web browser (local environment):
-1. Analysis of uploaded game screenshots (reading Effort Values (EVs), etc.)
-2. Damage calculations and maximum durability/damage index computation
-3. Storage of edited party data (stored in IndexedDB and localStorage)
+1. Damage calculations and maximum durability/damage index computation
+2. Storage of edited party data (stored in IndexedDB and localStorage)
 
-Your images, processed data, and custom parameters are never uploaded, stored, or processed on any external servers. The Tool is designed as a fully local-first application.
+Your processed data and custom parameters are never uploaded, stored, or processed on any external servers. The Tool is designed as a fully local-first application.
 
 [Data Transmission and Cookies]
 We do not use cookies, tracking pixels, or third-party analytics tools. The Tool does not collect, track, or share any personally identifiable information.
@@ -234,7 +200,7 @@ We reserve the right to modify this Privacy Policy at any time to reflect update
 The Tool is an unofficial, fan-made helper tool. It is not affiliated with, endorsed by, or associated with Nintendo, Creatures Inc., GAME FREAK inc., The Pokémon Company, or any of their associates.
 
 [Accuracy of Information]
-The statistics, damage indexes, durability values, and image OCR analysis results calculated by the Tool are estimates based on numerical algorithms. We do not guarantee absolute accuracy or 100% agreement with actual in-game stats, damage outcomes, or mechanics. In particular, OCR effort value detection may carry errors depending on image quality, crop size, and compression.
+The statistics, damage indexes, and durability values calculated by the Tool are estimates based on numerical algorithms. We do not guarantee absolute accuracy or 100% agreement with actual in-game stats, damage outcomes, or mechanics.
 
 [Limitation of Liability]
 Under no circumstances shall the developer be liable for any direct, indirect, incidental, or consequential damages (including, but not limited to, loss of game progress, hardware issues, or any game-related disadvantage) arising from the use or inability to use the Tool. The use of this Tool is at your own risk.

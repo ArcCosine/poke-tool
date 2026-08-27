@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { Button } from './components/common/Button';
-import { ImageAnalyzer } from './components/ImageAnalyzer/ImageAnalyzer';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
 import { AppProvider, useApp } from './context/AppContext';
 import 'virtual:uno.css';
 import './index.css';
 
-type Tab = 'dashboard' | 'statSearch' | 'imageAnalyzer' | 'partySimulator';
+type Tab = 'dashboard' | 'statSearch' | 'partySimulator';
 
 const tabIcons: Record<Tab, string> = {
   dashboard: 'i-lucide-layout-dashboard',
   statSearch: 'i-lucide-trending-up',
-  imageAnalyzer: 'i-lucide-scan-face',
   partySimulator: 'i-lucide-shield-alert',
 };
 
@@ -34,7 +32,7 @@ const DashboardContent = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <button
           type="button"
           onClick={() => setActiveTab('statSearch')}
@@ -43,16 +41,6 @@ const DashboardContent = ({
           <span className="i-lucide-trending-up text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('statSearch')}</h3>
           <p className="text-sm text-slate-500">{t('statSearchDesc')}</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('imageAnalyzer')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-scan-face text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('imageAnalyzer')}</h3>
-          <p className="text-sm text-slate-500">{t('imageAnalyzerDesc')}</p>
         </button>
 
         <button
@@ -97,12 +85,7 @@ const MainLayout = () => {
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     // Sync active tab with hash or fallback to dashboard
     const hash = window.location.hash.replace('#', '') as Tab;
-    return [
-      'dashboard',
-      'statSearch',
-      'imageAnalyzer',
-      'partySimulator',
-    ].includes(hash)
+    return ['dashboard', 'statSearch', 'partySimulator'].includes(hash)
       ? hash
       : 'dashboard';
   });
@@ -164,20 +147,12 @@ const MainLayout = () => {
           <DashboardContent setActiveTab={changeTab} />
         )}
         {activeTab === 'statSearch' && <StatSearch />}
-        {activeTab === 'imageAnalyzer' && <ImageAnalyzer />}
         {activeTab === 'partySimulator' && <PartySimulator />}
       </main>
 
       {/* Bottom Navigation Bar */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 flex justify-around items-center">
-        {(
-          [
-            'dashboard',
-            'statSearch',
-            'imageAnalyzer',
-            'partySimulator',
-          ] as const
-        ).map((tab) => (
+        {(['dashboard', 'statSearch', 'partySimulator'] as const).map((tab) => (
           <button
             key={tab}
             type="button"
