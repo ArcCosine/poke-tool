@@ -98,7 +98,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
     );
 
     // Wait for the loading to complete
-    expect(await screen.findByText('パーティ名')).toBeDefined();
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
 
     // 1. Initial state: Trigger button shows placeholder
     const triggerBtn = screen.getByRole('button', {
@@ -181,7 +181,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
       </AppProvider>
     );
 
-    expect(await screen.findByText('パーティ名')).toBeDefined();
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
 
     // Click trigger
     const triggerBtn = screen.getByRole('button', {
@@ -214,7 +214,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
       </AppProvider>
     );
 
-    expect(await screen.findByText('パーティ名')).toBeDefined();
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
 
     // Check that at least 18 type icon images are rendered (one for each type)
     const images = screen.getAllByRole('img') as HTMLImageElement[];
@@ -232,7 +232,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
       </AppProvider>
     );
 
-    expect(await screen.findByText('パーティ名')).toBeDefined();
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
 
     // Click trigger to open modal
     const triggerBtn = screen.getByRole('button', {

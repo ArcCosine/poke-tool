@@ -1,3 +1,4 @@
+import { calculateStat } from './calculator';
 import type { MoveMaster, PokemonMaster } from './db';
 import { TYPES } from './pokemon';
 
@@ -17,6 +18,26 @@ export interface PokemonInstance {
     speed: number;
   };
 }
+
+export const createEmptyInstance = (): PokemonInstance => ({
+  id: Math.random().toString(36).substring(2, 9),
+  masterId: 0,
+  ability: '',
+  nature: 'neutral',
+  item: '',
+  moves: [0, 0, 0, 0],
+  evs: { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 },
+});
+
+export const evToStep = (ev: number): number => {
+  if (ev <= 0) return 0;
+  return Math.floor((ev - 4) / 8) + 1;
+};
+
+export const stepToEv = (step: number): number => {
+  if (step <= 0) return 0;
+  return 4 + (step - 1) * 8;
+};
 
 const typeMatchups: Record<
   string,
@@ -298,14 +319,6 @@ export const getCalculatedStat = (
   const level = 50;
   const iv = 31;
 
-  if (statName === 'hp') {
-    const baseHp = Math.floor(((base * 2 + iv) * level) / 100) + level + 10;
-    return baseHp + ev;
-  }
-
-  const baseVal = Math.floor(((base * 2 + iv) * level) / 100) + 5;
-  const valWithEv = baseVal + ev;
-
   let multiplier = 1.0;
   const nat = NATURES.find((n) => n.id === natureId);
   if (nat) {
@@ -313,7 +326,7 @@ export const getCalculatedStat = (
     if (nat.minus === statName) multiplier = 0.9;
   }
 
-  return Math.floor(valWithEv * multiplier);
+  return calculateStat(statName, base, iv, ev, level, multiplier);
 };
 
 export const generatePokesolText = (

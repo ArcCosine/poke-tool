@@ -4,24 +4,20 @@ import type { MoveMaster, PokemonMaster } from './db';
 export function calculateStat(
   statName: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
   base: number,
-  iv: number,
+  _iv: number,
   ev: number,
-  level: number,
+  _level: number,
   nature = 1.0
 ): number {
+  // Convert traditional EV (0-252) to Champions points (0-32)
+  const points = ev <= 0 ? 0 : Math.floor((ev - 4) / 8) + 1;
+
   if (statName === 'hp') {
-    // HP calculation formula
-    return (
-      Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * level) / 100) +
-      level +
-      10
-    );
+    if (base === 1) return 1; // Shedinja
+    return Math.floor(base + points + 75.5);
   }
 
-  // Other stats calculation formula
-  const baseCalculated =
-    Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * level) / 100) + 5;
-  return Math.floor(baseCalculated * nature);
+  return Math.floor((base + points + 20.5) * nature);
 }
 
 // Calculate simple damage index (stat * movePower * stabMultiplier)

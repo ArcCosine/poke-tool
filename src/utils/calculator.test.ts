@@ -28,7 +28,7 @@ describe('calculator utilities', () => {
     it('should calculate other stats with positive nature correctly', () => {
       // Blastoise (Sp.Atk base: 85), IV: 31, EV: 252, Nature: 1.1 (max stat)
       const stat = calculateStat('sp_attack', 85, 31, 252, 50, 1.1);
-      expect(stat).toBe(150); // floor(137 * 1.1) = 150
+      expect(stat).toBe(151); // floor(137.5 * 1.1) = 151
     });
   });
 
@@ -85,9 +85,9 @@ describe('calculator utilities', () => {
       ];
 
       const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
-      // Sp.Atk max is 150 (neutral 137 * 1.1).
-      // Hydro Pump power 110, Torrent -> 110 * 1.5 = 165. STAB: true -> 165 * 1.5 = 247.5. Damage: 150 * 247.5 = 37125
-      expect(maxDmg[0].value).toBe(37125);
+      // Sp.Atk max is 151 (neutral 137.5 * 1.1).
+      // Hydro Pump power 110, Torrent -> 110 * 1.5 = 165. STAB: true -> 165 * 1.5 = 247.5. Damage: 151 * 247.5 = 37372.5 -> 37372
+      expect(maxDmg[0].value).toBe(37372);
       expect(maxDmg[0].moveName.ja).toBe('ハイドロポンプ');
       expect(maxDmg[0].abilityName.ja).toBe('げきりゅう');
     });
@@ -256,11 +256,11 @@ describe('calculator utilities', () => {
         },
       ];
 
-      // Attack base 135 max: neutral 187 * 1.1 = 205
+      // Attack base 135 max: (135 + 32 + 20.5) * 1.1 = 206.25 -> 206
       // Rock Slide: power 75 * 1.3 (Sand Force) = 97.5. STAB -> 97.5 * 1.5 = 146.25
-      // 205 * 146.25 = 29981.25 -> 29981
+      // 206 * 146.25 = 30127.5 -> 30127
       const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
-      expect(maxDmg[0].value).toBe(29981);
+      expect(maxDmg[0].value).toBe(30127);
       expect(maxDmg[0].abilityName.ja).toBe('すなのちから');
     });
 
@@ -294,11 +294,11 @@ describe('calculator utilities', () => {
         },
       ];
 
-      // Sp.Atk base 97 max: neutral 149 * 1.1 = 163
+      // Sp.Atk base 97 max: (97 + 32 + 20.5) * 1.1 = 164
       // Draco Meteor: power 130. Adaptability STAB -> 130 * 2.0 = 260
-      // 163 * 260 = 42380
+      // 164 * 260 = 42640
       const maxDmg = calculateMaxDamage(mockPokemon, mockMoves);
-      expect(maxDmg[0].value).toBe(42380);
+      expect(maxDmg[0].value).toBe(42640);
       expect(maxDmg[0].abilityName.ja).toBe('てきおうりょく');
     });
 
@@ -590,10 +590,10 @@ describe('calculator utilities', () => {
       // Max Defense: base 100 -> neutral 120, positive 120 * 1.1 = 167 (when EV: 252, nature: 1.1)
       // HP with max physical setup: EV 252 -> 186. Defense: EV 252, Nature 1.1 -> 167. Physical = 186 * 167 = 31062
       // For special durability:
-      // Max SpDef: base 105 -> neutral 125, positive 125 * 1.1 = 172. Special = 186 * 172 = 31992
+      // Max SpDef: (105 + 32 + 20.5) * 1.1 = 173. Special = 186 * 173 = 32178
       expect(durability.physical).toBe(31062);
       expect(durability.physicalAbility.ja).toBe('なし');
-      expect(durability.special).toBe(31992);
+      expect(durability.special).toBe(32178);
       expect(durability.specialAbility.ja).toBe('なし');
     });
 
@@ -668,10 +668,10 @@ describe('calculator utilities', () => {
       const durability = calculateMaxDurability(mockPokemon);
       // HP max: 213.
       // Defense max 특화: 200 * 2.0 (Multiscale) = 400. Physical: 213 * 400 = 85200
-      // SpDef max 특화: 226 * 2.0 (Multiscale) = 452. Special: 213 * 452 = 96276
+      // SpDef max 特화: (154 + 32 + 20.5) * 1.1 = 227. Multiscale -> 227 * 2 = 454. Special: 213 * 454 = 96702
       expect(durability.physical).toBe(85200);
       expect(durability.physicalAbility.ja).toBe('マルチスケイル');
-      expect(durability.special).toBe(96276);
+      expect(durability.special).toBe(96702);
       expect(durability.specialAbility.ja).toBe('マルチスケイル');
     });
 

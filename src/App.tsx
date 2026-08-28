@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Button } from './components/common/Button';
+import { EvCalculator } from './components/EvCalculator/EvCalculator';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
-import { ImageAnalyzer } from './components/ImageAnalyzer/ImageAnalyzer';
 import { AppProvider, useApp } from './context/AppContext';
 import 'virtual:uno.css';
 import './index.css';
 
-type Tab = 'dashboard' | 'statSearch' | 'partySimulator' | 'imageAnalyzer';
+type Tab = 'dashboard' | 'statSearch' | 'partySimulator' | 'evCalculator';
 
 const tabIcons: Record<Tab, string> = {
   dashboard: 'i-lucide-layout-dashboard',
   statSearch: 'i-lucide-trending-up',
   partySimulator: 'i-lucide-shield-alert',
-  imageAnalyzer: 'i-lucide-camera',
+  evCalculator: 'i-lucide-calculator',
 };
 
 const DashboardContent = ({
@@ -47,22 +47,22 @@ const DashboardContent = ({
 
         <button
           type="button"
+          onClick={() => setActiveTab('evCalculator')}
+          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
+        >
+          <span className="i-lucide-calculator text-3xl text-indigo-500 mb-3 block" />
+          <h3 className="font-semibold mb-2">{t('evCalculator')}</h3>
+          <p className="text-sm text-slate-500">{t('evCalculatorDesc')}</p>
+        </button>
+
+        <button
+          type="button"
           onClick={() => setActiveTab('partySimulator')}
           className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
         >
           <span className="i-lucide-shield-alert text-3xl text-indigo-500 mb-3 block" />
           <h3 className="font-semibold mb-2">{t('partySimulator')}</h3>
           <p className="text-sm text-slate-500">{t('partySimulatorDesc')}</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('imageAnalyzer')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-camera text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('imageAnalyzer')}</h3>
-          <p className="text-sm text-slate-500">{t('imageAnalyzerDesc')}</p>
         </button>
       </div>
 
@@ -160,14 +160,16 @@ const MainLayout = () => {
         )}
         {activeTab === 'statSearch' && <StatSearch />}
         {activeTab === 'partySimulator' && <PartySimulator />}
-        {activeTab === 'imageAnalyzer' && (
-          <ImageAnalyzer onImportComplete={() => changeTab('partySimulator')} />
+        {activeTab === 'evCalculator' && (
+          <EvCalculator onImportComplete={() => changeTab('partySimulator')} />
         )}
       </main>
 
       {/* Bottom Navigation Bar */}
       <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-950 flex justify-around items-center">
-        {(['dashboard', 'statSearch', 'partySimulator', 'imageAnalyzer'] as const).map((tab) => (
+        {(
+          ['dashboard', 'statSearch', 'evCalculator', 'partySimulator'] as const
+        ).map((tab) => (
           <button
             key={tab}
             type="button"

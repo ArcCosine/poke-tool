@@ -3,8 +3,11 @@ import type { MoveMaster, PokemonMaster } from './db';
 import {
   analyzePartyDefense,
   analyzePartyOffense,
+  evToStep,
+  getCalculatedStat,
   getTypeMatchup,
   type PokemonInstance,
+  stepToEv,
 } from './party';
 
 describe('party simulation utilities', () => {
@@ -197,6 +200,44 @@ describe('party simulation utilities', () => {
       expect(coverage).toContain('grass');
       expect(coverage).toContain('dragon');
       expect(coverage).not.toContain('water'); // Ice/Water doesn't hit Water super-effectively
+    });
+  });
+
+  describe('getCalculatedStat', () => {
+    it('should calculate HP with EVs correctly', () => {
+      // Blastoise base HP: 79. EV: 252. Expected L50 HP: 186
+      const hp = getCalculatedStat('hp', 79, 252, 'neutral');
+      expect(hp).toBe(186);
+    });
+
+    it('should calculate stats with positive and negative nature correction and EVs correctly', () => {
+      // Blastoise base Sp.Atk: 85. EV: 252. Nature: Modest (plus sp_attack) -> Expected L50 Sp.Atk: 151
+      const positiveSpAtk = getCalculatedStat('sp_attack', 85, 252, 'modest');
+      expect(positiveSpAtk).toBe(151);
+
+      // Blastoise base Attack: 83. EV: 4. Nature: Modest (minus attack) -> Expected L50 Attack: 94
+      const negativeAttack = getCalculatedStat('attack', 83, 4, 'modest');
+      expect(negativeAttack).toBe(94);
+    });
+  });
+
+  describe('evToStep & stepToEv conversion', () => {
+    it('should convert traditional EV values to step values (0-32) correctly', () => {
+      expect(evToStep(0)).toBe(0);
+      expect(evToStep(4)).toBe(1);
+      expect(evToStep(12)).toBe(2);
+      expect(evToStep(20)).toBe(3);
+      expect(evToStep(252)).toBe(32);
+      // boundary rounding check
+      expect(evToStep(10)).toBe(1); // 4 + 8*0 = 4, 10 is closest to step 1 (down)
+    });
+
+    it('should convert step values (0-32) to traditional EV values correctly', () => {
+      expect(stepToEv(0)).toBe(0);
+      expect(stepToEv(1)).toBe(4);
+      expect(stepToEv(2)).toBe(12);
+      expect(stepToEv(3)).toBe(20);
+      expect(stepToEv(32)).toBe(252);
     });
   });
 });

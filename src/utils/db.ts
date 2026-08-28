@@ -81,6 +81,71 @@ export async function setCachedData(key: string, data: unknown): Promise<void> {
   }
 }
 
+const EXCLUDED_ITEM_KEYWORDS = [
+  'ボール',
+  'きずぐすり',
+  'キズぐすり',
+  'くすり',
+  'げんきのか',
+  'おいしいみず',
+  'サイコソーダ',
+  'ミックスオレ',
+  'ピーピー',
+  'どくけし',
+  'まひなおし',
+  'ねむけざまし',
+  'やけどなおし',
+  'こおりなおし',
+  'なんでもなおし',
+  'ちからのこな',
+  'ちからのねっこ',
+  'ばんのうこな',
+  'かいふくのこな',
+  'せいなるはい',
+  'ふしぎなアメ',
+  'マックスアップ',
+  'タウリン',
+  'ブロムヘキシン',
+  'リゾチウム',
+  'キトサン',
+  'インドメタシン',
+  'プラスパワー',
+  'ディフェンダー',
+  'エフェクトガード',
+  'ヨクアタール',
+  'クリティカッター',
+  'スピーダー',
+  'スペシャルアップ',
+  'スペシャルガード',
+  'きんのたま',
+  'しんじゅ',
+  'ほしのすな',
+  'ほしのかけら',
+  'すいせいのかけら',
+  'おだんごしんじゅ',
+  'のはね',
+  'きれいなハネ',
+  'あまいミツ',
+  'パワーリスト',
+  'パワーベルト',
+  'パワーレンズ',
+  'パワーバンド',
+  'パワーアンクル',
+  'パワーウエイト',
+  'きょうせいギプス',
+  'やすらぎのすず',
+  'かわらずのいし',
+  'あかいいと',
+  'のいし',
+];
+
+function filterItems(items: ItemMaster[]): ItemMaster[] {
+  return items.filter((item) => {
+    const name = item.name.ja;
+    return !EXCLUDED_ITEM_KEYWORDS.some((keyword) => name.includes(keyword));
+  });
+}
+
 export async function loadMasterData(): Promise<{
   pokemon: PokemonMaster[];
   moves: MoveMaster[];
@@ -112,7 +177,11 @@ export async function loadMasterData(): Promise<{
     cachedMoves &&
     cachedItems
   ) {
-    return { pokemon: cachedPokemon, moves: cachedMoves, items: cachedItems };
+    return {
+      pokemon: cachedPokemon,
+      moves: cachedMoves,
+      items: filterItems(cachedItems),
+    };
   }
 
   // 3. Fetch from static JSON files
@@ -136,7 +205,7 @@ export async function loadMasterData(): Promise<{
     db.setCachedData('master_version', currentVersion).catch(console.error);
   }
 
-  return { pokemon, moves, items };
+  return { pokemon, moves, items: filterItems(items) };
 }
 
 export const db = {

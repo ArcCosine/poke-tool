@@ -10,41 +10,43 @@ import {
 import {
   analyzePartyDefense,
   analyzePartyOffense,
+  evToStep,
   generatePartyPokesolText,
   NATURES,
-  type PokemonInstance,
 } from '../../utils/party';
 import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
-import { Input } from '../common/Input';
 import { Select } from '../common/Select';
 import { TypeBadge } from '../common/TypeBadge';
 import { PokemonSearchModal } from './PokemonSearchModal';
 
-// Simple default blank PokemonInstance
-const createEmptyInstance = (): PokemonInstance => ({
-  id: Math.random().toString(36).substring(2, 9),
-  masterId: 0,
-  ability: '',
-  nature: 'neutral',
-  item: '',
-  moves: [0, 0, 0, 0],
-  evs: { hp: 0, attack: 0, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 },
-});
-
 export const PartySimulator: React.FC = () => {
-  const { language, t } = useApp();
+  const {
+    language,
+    t,
+    parties,
+    currentPartyId,
+    partyName,
+    partyMembers,
+    setPartyName,
+    updateMember,
+    updateMove,
+    removePokemonFromParty,
+    createNewParty,
+    deleteParty,
+    selectParty,
+    saveCurrentParty,
+    addEmptySlotToParty,
+  } = useApp();
+
+  const party = partyMembers;
+
   const [loading, setLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState<PokemonMaster[]>([]);
   const [movesData, setMovesData] = useState<MoveMaster[]>([]);
   const [itemsData, setItemsData] = useState<ItemMaster[]>([]);
 
-  // Party State
-  const [partyName, setPartyName] = useState('');
-  const [party, setParty] = useState<PokemonInstance[]>([
-    createEmptyInstance(),
-  ]);
   const [copied, setCopied] = useState(false);
   const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
   const [autoAdvance, setAutoAdvance] = useState(() => {
@@ -90,36 +92,20 @@ export const PartySimulator: React.FC = () => {
     localStorage.setItem('auto_advance_enabled', String(val));
   };
 
-  // Load master data and saved party
+  // Load master data
   useEffect(() => {
     db.loadMasterData()
       .then((data) => {
         setPokemonData(data.pokemon);
         setMovesData(data.moves);
         setItemsData(data.items);
-
-        // Load saved party if any
-        const saved = localStorage.getItem('saved_party');
-        if (saved) {
-          try {
-            const parsed = JSON.parse(saved);
-            if (parsed.name) setPartyName(parsed.name);
-            if (parsed.members) setParty(parsed.members);
-          } catch (e) {
-            console.error('Failed to parse saved party:', e);
-          }
-        }
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
 
   const saveParty = () => {
-    const payload = {
-      name: partyName,
-      members: party,
-    };
-    localStorage.setItem('saved_party', JSON.stringify(payload));
+    saveCurrentParty();
     alert(
       language === 'ja'
         ? 'パーティを保存しました！'
@@ -144,43 +130,7 @@ export const PartySimulator: React.FC = () => {
   };
 
   const addPokemonToParty = () => {
-    if (party.length >= 6) {
-      alert(
-        language === 'ja'
-          ? 'パーティは最大6匹です。'
-          : 'Max 6 Pokémon allowed in a party.'
-      );
-      return;
-    }
-    setParty([...party, createEmptyInstance()]);
-  };
-
-  const removePokemonFromParty = (index: number) => {
-    const nextParty = [...party];
-    nextParty.splice(index, 1);
-    // Keep at least one empty slot
-    if (nextParty.length === 0) {
-      nextParty.push(createEmptyInstance());
-    }
-    setParty(nextParty);
-  };
-
-  const updateMember = (index: number, fields: Partial<PokemonInstance>) => {
-    const nextParty = [...party];
-    nextParty[index] = { ...nextParty[index], ...fields };
-    setParty(nextParty);
-  };
-
-  const updateMove = (
-    memberIndex: number,
-    moveIndex: number,
-    moveId: number
-  ) => {
-    const nextParty = [...party];
-    const nextMoves = [...nextParty[memberIndex].moves];
-    nextMoves[moveIndex] = moveId;
-    nextParty[memberIndex] = { ...nextParty[memberIndex], moves: nextMoves };
-    setParty(nextParty);
+    addEmptySlotToParty();
   };
 
   if (loading) {
@@ -223,39 +173,93 @@ export const PartySimulator: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Header controls card */}
-      <div className="card-premium flex flex-col md:flex-row gap-4 items-center justify-between p-5">
-        <div className="flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
-          <div className="w-full sm:w-64">
-            <Input
-              id="party-name-input"
-              label={t('partyName')}
-              type="text"
-              value={partyName}
-              placeholder={t('defaultPartyName')}
-              onChange={(e) => setPartyName(e.target.value)}
-              className="py-2 text-sm font-semibold"
-            />
+      <div className="card-premium relative z-20 flex flex-col gap-5 p-5">
+        {/* Top row: Current selected party status display */}
+        <div className="flex flex-wrap items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-4">
+          <div className="flex items-center gap-2.5">
+            <span className="i-lucide-users text-indigo-500 text-xl" />
+            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+              {language === 'ja' ? '編集中のパーティ' : 'Editing Party'}
+            </span>
+            <span className="text-xl font-extrabold text-slate-800 dark:text-slate-100 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-xl border border-indigo-100 dark:border-indigo-900/50 shadow-xs">
+              {partyName || t('defaultPartyName')}
+            </span>
+          </div>
+          <div className="flex gap-2 mt-2 sm:mt-0">
+            <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold">
+              {language === 'ja'
+                ? `全 ${parties.length} 個のパーティ中`
+                : `${parties.length} Saved Parties`}
+            </span>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-          <Button
-            onClick={copyPokesolText}
-            disabled={activeParty.length === 0}
-            variant="secondary"
-            icon="i-lucide-clipboard"
-            className="w-full sm:w-auto"
-          >
-            {copied ? 'コピーしました！' : 'クリップボードにコピー'}
-          </Button>
-          <Button
-            onClick={saveParty}
-            variant="primary"
-            icon="i-lucide-save"
-            className="w-full sm:w-auto"
-          >
-            {t('saveParty')}
-          </Button>
+        {/* Bottom row: Controls */}
+        <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+          {/* Party Name Edit Autocomplete */}
+          <div className="w-full sm:w-80">
+            <Autocomplete
+              id="party-name-autocomplete"
+              label={
+                language === 'ja'
+                  ? 'パーティの検索・名前変更'
+                  : 'Search / Rename Party'
+              }
+              value={partyName}
+              suggestions={parties.map((p) => p.name)}
+              onChange={(val) => {
+                const matched = parties.find((p) => p.name === val);
+                if (matched) {
+                  selectParty(matched.id);
+                } else {
+                  setPartyName(val);
+                }
+              }}
+              placeholder={t('defaultPartyName')}
+              className="py-2 text-sm font-semibold"
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto flex-wrap">
+            <Button
+              onClick={copyPokesolText}
+              disabled={activeParty.length === 0}
+              variant="secondary"
+              icon="i-lucide-clipboard"
+              className="w-full sm:w-auto text-xs"
+            >
+              {copied ? 'コピーしました！' : 'クリップボードにコピー'}
+            </Button>
+            <Button
+              onClick={() =>
+                createNewParty(
+                  language === 'ja' ? '新規のパーティ' : 'New Party'
+                )
+              }
+              variant="secondary"
+              icon="i-lucide-plus"
+              className="w-full sm:w-auto text-xs"
+            >
+              {language === 'ja' ? '新規作成' : 'New Party'}
+            </Button>
+            <Button
+              onClick={() => deleteParty(currentPartyId)}
+              variant="danger"
+              icon="i-lucide-trash-2"
+              className="w-full sm:w-auto text-xs"
+            >
+              {language === 'ja' ? '削除' : 'Delete'}
+            </Button>
+            <Button
+              onClick={saveParty}
+              variant="primary"
+              icon="i-lucide-save"
+              className="w-full sm:w-auto text-xs"
+            >
+              {t('saveParty')}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -469,6 +473,89 @@ export const PartySimulator: React.FC = () => {
                         />
                       );
                     })}
+                  </div>
+                )}
+
+                {/* 努力値（能力ポイント）表示領域 */}
+                {currentPoke && (
+                  <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800/60 space-y-2">
+                    <div className="flex justify-between items-center text-xs font-semibold text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <span className="i-lucide-activity text-indigo-500 text-xs" />
+                        {language === 'ja'
+                          ? '努力値 (能力ポイント)'
+                          : 'Capacity Points'}
+                      </span>
+                      <span>
+                        <span
+                          className={
+                            Object.values(member.evs).reduce(
+                              (sum, val) => sum + evToStep(val),
+                              0
+                            ) > 66
+                              ? 'text-red-500 font-extrabold'
+                              : 'text-indigo-600 dark:text-indigo-400 font-extrabold'
+                          }
+                        >
+                          {Object.values(member.evs).reduce(
+                            (sum, val) => sum + evToStep(val),
+                            0
+                          )}
+                        </span>{' '}
+                        / 66
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-6 gap-2">
+                      {(
+                        [
+                          'hp',
+                          'attack',
+                          'defense',
+                          'sp_attack',
+                          'sp_defense',
+                          'speed',
+                        ] as const
+                      ).map((statKey) => {
+                        const pts = evToStep(member.evs[statKey]);
+                        const isHp = statKey === 'hp';
+                        // Apply nature color if not HP
+                        const nat = NATURES.find((n) => n.id === member.nature);
+                        let natureClass = 'text-slate-700 dark:text-slate-300';
+                        if (!isHp && nat) {
+                          if (nat.plus === statKey)
+                            natureClass =
+                              'text-red-500 dark:text-red-400 font-bold';
+                          if (nat.minus === statKey)
+                            natureClass =
+                              'text-blue-500 dark:text-blue-400 font-bold';
+                        }
+
+                        const shortLabelMap: Record<string, string> = {
+                          hp: 'H',
+                          attack: 'A',
+                          defense: 'B',
+                          sp_attack: 'C',
+                          sp_defense: 'D',
+                          speed: 'S',
+                        };
+
+                        return (
+                          <div
+                            key={statKey}
+                            className="bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/80 rounded-xl py-1 px-0.5 text-center"
+                          >
+                            <span className="text-[10px] font-bold text-slate-400 block uppercase leading-none mb-1">
+                              {shortLabelMap[statKey]}
+                            </span>
+                            <span
+                              className={`text-xs font-black ${pts > 0 ? (pts === 32 ? 'text-amber-500 dark:text-amber-400 font-bold' : natureClass) : 'text-slate-300 dark:text-slate-700'}`}
+                            >
+                              {pts}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>

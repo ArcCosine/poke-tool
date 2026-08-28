@@ -2149,6 +2149,174 @@
     }
   },
   {
+    "id": 3001,
+    "name": { "ja": "オボンのみ", "en": "Sitrus Berry" }
+  },
+  {
+    "id": 3002,
+    "name": { "ja": "ラムのみ", "en": "Lum Berry" }
+  },
+  {
+    "id": 3003,
+    "name": { "ja": "カゴのみ", "en": "Chesto Berry" }
+  },
+  {
+    "id": 3004,
+    "name": { "ja": "フィラのみ", "en": "Figy Berry" }
+  },
+  {
+    "id": 3005,
+    "name": { "ja": "イアのみ", "en": "Iapapa Berry" }
+  },
+  {
+    "id": 3006,
+    "name": { "ja": "ウブのみ", "en": "Mago Berry" }
+  },
+  {
+    "id": 3007,
+    "name": { "ja": "バンジのみ", "en": "Aguav Berry" }
+  },
+  {
+    "id": 3008,
+    "name": { "ja": "ウィのみ", "en": "Wiki Berry" }
+  },
+  {
+    "id": 3009,
+    "name": { "ja": "チーゴのみ", "en": "Rawst Berry" }
+  },
+  {
+    "id": 3010,
+    "name": { "ja": "モモンのみ", "en": "Pecha Berry" }
+  },
+  {
+    "id": 3011,
+    "name": { "ja": "クラボのみ", "en": "Cheri Berry" }
+  },
+  {
+    "id": 3012,
+    "name": { "ja": "ナナシのみ", "en": "Aspear Berry" }
+  },
+  {
+    "id": 3013,
+    "name": { "ja": "キーのみ", "en": "Persim Berry" }
+  },
+  {
+    "id": 3014,
+    "name": { "ja": "オッカのみ", "en": "Occa Berry" }
+  },
+  {
+    "id": 3015,
+    "name": { "ja": "イトケのみ", "en": "Passho Berry" }
+  },
+  {
+    "id": 3016,
+    "name": { "ja": "ソクノのみ", "en": "Wacan Berry" }
+  },
+  {
+    "id": 3017,
+    "name": { "ja": "リンドのみ", "en": "Rindo Berry" }
+  },
+  {
+    "id": 3018,
+    "name": { "ja": "ヤチェのみ", "en": "Yache Berry" }
+  },
+  {
+    "id": 3019,
+    "name": { "ja": "ヨプのみ", "en": "Chople Berry" }
+  },
+  {
+    "id": 3020,
+    "name": { "ja": "ビアーのみ", "en": "Kebia Berry" }
+  },
+  {
+    "id": 3021,
+    "name": { "ja": "シュカのみ", "en": "Shuca Berry" }
+  },
+  {
+    "id": 3022,
+    "name": { "ja": "バコウのみ", "en": "Coba Berry" }
+  },
+  {
+    "id": 3023,
+    "name": { "ja": "タンガのみ", "en": "Tanga Berry" }
+  },
+  {
+    "id": 3024,
+    "name": { "ja": "ヨロギのみ", "en": "Charti Berry" }
+  },
+  {
+    "id": 3025,
+    "name": { "ja": "カシブのみ", "en": "Kasib Berry" }
+  },
+  {
+    "id": 3026,
+    "name": { "ja": "ハバンのみ", "en": "Haban Berry" }
+  },
+  {
+    "id": 3027,
+    "name": { "ja": "ウタンのみ", "en": "Colbur Berry" }
+  },
+  {
+    "id": 3028,
+    "name": { "ja": "リリバのみ", "en": "Babiri Berry" }
+  },
+  {
+    "id": 3029,
+    "name": { "ja": "ロゼルのみ", "en": "Roseli Berry" }
+  },
+  {
+    "id": 3030,
+    "name": { "ja": "ホズのみ", "en": "Chilan Berry" }
+  },
+  {
+    "id": 3031,
+    "name": { "ja": "イバンのみ", "en": "Custap Berry" }
+  },
+  {
+    "id": 3032,
+    "name": { "ja": "アッキのみ", "en": "Kee Berry" }
+  },
+  {
+    "id": 3033,
+    "name": { "ja": "タラプのみ", "en": "Maranga Berry" }
+  },
+  {
+    "id": 3034,
+    "name": { "ja": "カムラのみ", "en": "Salac Berry" }
+  },
+  {
+    "id": 3035,
+    "name": { "ja": "チイラのみ", "en": "Liechi Berry" }
+  },
+  {
+    "id": 3036,
+    "name": { "ja": "リュガのみ", "en": "Ganlon Berry" }
+  },
+  {
+    "id": 3037,
+    "name": { "ja": "ヤタピのみ", "en": "Petaya Berry" }
+  },
+  {
+    "id": 3038,
+    "name": { "ja": "スターのみ", "en": "Starf Berry" }
+  },
+  {
+    "id": 3039,
+    "name": { "ja": "サンのみ", "en": "Lansat Berry" }
+  },
+  {
+    "id": 3040,
+    "name": { "ja": "ジャポのみ", "en": "Jaboca Berry" }
+  },
+  {
+    "id": 3041,
+    "name": { "ja": "レンブのみ", "en": "Rowap Berry" }
+  },
+  {
+    "id": 3042,
+    "name": { "ja": "ミクマのみ", "en": "Micle Berry" }
+  },
+  {
     "id": 99999,
     "name": {
       "ja": "なし",

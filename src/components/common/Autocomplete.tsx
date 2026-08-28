@@ -26,6 +26,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
+  const [isShowingAll, setIsShowingAll] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Sync state with value prop when parent value changes
@@ -41,6 +42,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         !wrapperRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
+        setIsShowingAll(false);
         // Reset display to current bound value if input doesn't match suggestions
         if (!suggestions.includes(inputValue)) {
           setInputValue(value);
@@ -53,7 +55,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   // Filter suggestions dynamically
   const getFilteredSuggestions = () => {
-    if (!inputValue) return suggestions;
+    if (isShowingAll || !inputValue) return suggestions;
 
     // Clean brackets/suffixes like " (でんき)" before normalisation
     const cleanInput = inputValue.replace(/\s*\([^)]+\)$/, '').trim();
@@ -76,29 +78,64 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     setInputValue(val);
     onChange(val);
     setIsOpen(false);
+    setIsShowingAll(false);
+  };
+
+  const toggleDropdown = () => {
+    if (disabled) return;
+    if (isOpen) {
+      setIsOpen(false);
+      setIsShowingAll(false);
+    } else {
+      setIsOpen(true);
+      setIsShowingAll(true);
+    }
   };
 
   return (
     <div ref={wrapperRef} className="relative w-full">
-      <Input
-        id={id}
-        label={label}
-        value={inputValue}
-        disabled={disabled}
-        placeholder={placeholder}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          setIsOpen(true);
-          // If cleared, trigger change immediately
-          if (e.target.value === '') {
-            onChange('');
-          }
-        }}
-        onFocus={() => {
-          if (!disabled) setIsOpen(true);
-        }}
-        className={className}
-      />
+      {label && (
+        <label
+          htmlFor={id}
+          className="block text-xs font-semibold text-slate-500 mb-1"
+        >
+          {label}
+        </label>
+      )}
+      <div className="relative w-full flex items-center">
+        <Input
+          id={id}
+          value={inputValue}
+          disabled={disabled}
+          placeholder={placeholder}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setIsOpen(true);
+            setIsShowingAll(false);
+            // If cleared, trigger change immediately
+            if (e.target.value === '') {
+              onChange('');
+            }
+          }}
+          onFocus={() => {
+            if (!disabled) {
+              setIsOpen(true);
+              setIsShowingAll(true);
+            }
+          }}
+          className={`${className} pr-8`}
+          autoComplete="off"
+        />
+        <button
+          type="button"
+          onClick={toggleDropdown}
+          disabled={disabled}
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer bg-transparent border-0 p-0 flex items-center"
+          style={{ zIndex: 5 }}
+        >
+          <span className="i-lucide-chevron-down text-base" />
+        </button>
+      </div>
       {isOpen && filtered.length > 0 && (
         <div className="absolute z-50 left-0 right-0 mt-1 max-h-60 overflow-y-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg">
           <ul className="py-1 list-none p-0 m-0">

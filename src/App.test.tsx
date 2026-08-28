@@ -62,7 +62,7 @@ describe('Poke-Tool Integration', () => {
       tabParty.click();
     });
 
-    expect(await screen.findByText('パーティ名')).toBeDefined();
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
   });
 
   it('should switch languages successfully', () => {
