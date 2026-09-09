@@ -291,9 +291,9 @@ export const StatSearch: React.FC = () => {
                   >
                     {t('value')}
                     {sortOrder === 'desc' ? (
-                      <span className="i-lucide-arrow-down text-slate-400/60 dark:text-slate-500/60 text-sm w-4 h-4" />
+                      <span className="i-lucide-arrow-down text-slate-400 dark:text-slate-300 text-sm w-4 h-4" />
                     ) : (
-                      <span className="i-lucide-arrow-up text-slate-400/60 dark:text-slate-500/60 text-sm w-4 h-4" />
+                      <span className="i-lucide-arrow-up text-slate-400 dark:text-slate-300 text-sm w-4 h-4" />
                     )}
                   </Button>
                 </th>

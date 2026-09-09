@@ -12,7 +12,9 @@ import {
   analyzePartyOffense,
   evToStep,
   generatePartyPokesolText,
+  getCalculatedStat,
   NATURES,
+  stepToEv,
 } from '../../utils/party';
 import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
 import { Autocomplete } from '../common/Autocomplete';
@@ -20,6 +22,36 @@ import { Button } from '../common/Button';
 import { Select } from '../common/Select';
 import { TypeBadge } from '../common/TypeBadge';
 import { PokemonSearchModal } from './PokemonSearchModal';
+
+type StatKey =
+  | 'hp'
+  | 'attack'
+  | 'defense'
+  | 'sp_attack'
+  | 'sp_defense'
+  | 'speed';
+
+const STAT_KEYS: StatKey[] = [
+  'hp',
+  'attack',
+  'defense',
+  'sp_attack',
+  'sp_defense',
+  'speed',
+];
+
+const EV_STATS: {
+  key: StatKey;
+  short: string;
+  label: Record<'ja' | 'en', string>;
+}[] = [
+  { key: 'hp', short: 'H', label: { ja: 'HP', en: 'HP' } },
+  { key: 'attack', short: 'A', label: { ja: '攻撃', en: 'Attack' } },
+  { key: 'defense', short: 'B', label: { ja: '防御', en: 'Defense' } },
+  { key: 'sp_attack', short: 'C', label: { ja: '特攻', en: 'Sp. Atk' } },
+  { key: 'sp_defense', short: 'D', label: { ja: '特防', en: 'Sp. Def' } },
+  { key: 'speed', short: 'S', label: { ja: '素早さ', en: 'Speed' } },
+];
 
 export const PartySimulator: React.FC = () => {
   const {
@@ -170,6 +202,40 @@ export const PartySimulator: React.FC = () => {
     }
   }
 
+  const handleMemberEvChange = (
+    memberIndex: number,
+    stat: StatKey,
+    stepVal: number
+  ) => {
+    const cleanStep = Math.max(0, Math.min(32, stepVal));
+    const currentMember = party[memberIndex];
+    if (!currentMember) return;
+
+    const currentEvs = currentMember.evs || {
+      hp: 0,
+      attack: 0,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 0,
+    };
+
+    const otherStepsTotal = STAT_KEYS.filter((k) => k !== stat).reduce(
+      (sum, k) => sum + evToStep(currentEvs[k] ?? 0),
+      0
+    );
+
+    const allowedMax = Math.min(32, 66 - otherStepsTotal);
+    const finalStep = Math.min(cleanStep, Math.max(0, allowedMax));
+
+    const updatedEvs = {
+      ...currentEvs,
+      [stat]: stepToEv(finalStep),
+    };
+
+    updateMember(memberIndex, { evs: updatedEvs });
+  };
+
   return (
     <div className="space-y-8">
       {/* Header controls card */}
@@ -195,7 +261,7 @@ export const PartySimulator: React.FC = () => {
         </div>
 
         {/* Bottom row: Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+        <div className="flex flex-col lg:flex-row gap-4 items-end justify-between">
           {/* Party Name Edit Autocomplete */}
           <div className="w-full sm:w-80">
             <Autocomplete
@@ -216,18 +282,18 @@ export const PartySimulator: React.FC = () => {
                 }
               }}
               placeholder={t('defaultPartyName')}
-              className="py-2 text-sm font-semibold"
+              className="h-10 py-2 text-sm font-semibold"
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto flex-wrap">
+          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto flex-wrap items-center">
             <Button
               onClick={copyPokesolText}
               disabled={activeParty.length === 0}
               variant="secondary"
               icon="i-lucide-clipboard"
-              className="w-full sm:w-auto text-xs"
+              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
               {copied ? 'コピーしました！' : 'クリップボードにコピー'}
             </Button>
@@ -239,7 +305,7 @@ export const PartySimulator: React.FC = () => {
               }
               variant="secondary"
               icon="i-lucide-plus"
-              className="w-full sm:w-auto text-xs"
+              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
               {language === 'ja' ? '新規作成' : 'New Party'}
             </Button>
@@ -247,7 +313,7 @@ export const PartySimulator: React.FC = () => {
               onClick={() => deleteParty(currentPartyId)}
               variant="danger"
               icon="i-lucide-trash-2"
-              className="w-full sm:w-auto text-xs"
+              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
               {language === 'ja' ? '削除' : 'Delete'}
             </Button>
@@ -255,7 +321,7 @@ export const PartySimulator: React.FC = () => {
               onClick={saveParty}
               variant="primary"
               icon="i-lucide-save"
-              className="w-full sm:w-auto text-xs"
+              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
               {t('saveParty')}
             </Button>
@@ -329,12 +395,13 @@ export const PartySimulator: React.FC = () => {
                     <div className="flex-1 min-w-0">
                       <label
                         htmlFor={`pokemon-select-trigger-${index}`}
-                        className="block text-xs font-semibold text-slate-500 mb-1"
+                        className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1"
                       >
                         {language === 'ja'
                           ? `ポケモン名 #${index + 1}`
                           : `Pokémon Name #${index + 1}`}
                       </label>
+
                       <button
                         id={`pokemon-select-trigger-${index}`}
                         type="button"
@@ -347,16 +414,17 @@ export const PartySimulator: React.FC = () => {
                         }
                       >
                         {currentPoke ? (
-                          <span className="text-sm font-semibold text-slate-200 truncate">
+                          <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
                             {currentPoke.name[language]}
                           </span>
                         ) : (
-                          <span className="text-sm text-slate-400 dark:text-slate-500 truncate">
+                          <span className="text-sm text-slate-400 dark:text-slate-300 truncate">
                             {language === 'ja'
                               ? 'ポケモン名を選択'
                               : 'Select Pokémon'}
                           </span>
                         )}
+
                         <span className="i-lucide-chevron-down text-slate-400 text-base shrink-0" />
                       </button>
                     </div>
@@ -424,6 +492,102 @@ export const PartySimulator: React.FC = () => {
                   )}
                 </div>
 
+                {/* EV Step Inputs (Number inputs only, no buttons, no conversion) */}
+                {currentPoke && (
+                  <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
+                    <div className="flex justify-between items-center text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-bold text-slate-700 dark:text-slate-300">
+                          {language === 'ja'
+                            ? '努力値 (ステップ)'
+                            : 'EVs (Steps)'}
+                        </span>
+                        <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                          {language === 'ja' ? '実数値 Lv.50' : 'Stats Lv.50'}
+                        </span>
+                      </div>
+                      {(() => {
+                        const totalSteps = STAT_KEYS.reduce(
+                          (sum, k) => sum + evToStep(member.evs?.[k] ?? 0),
+                          0
+                        );
+                        return (
+                          <span
+                            className={`font-semibold ${
+                              totalSteps === 66
+                                ? 'text-indigo-600 dark:text-indigo-400 font-bold'
+                                : 'text-slate-500 dark:text-slate-400'
+                            }`}
+                          >
+                            {language === 'ja' ? '合計' : 'Total'}: {totalSteps}{' '}
+                            / 66
+                          </span>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                      {EV_STATS.map((s) => {
+                        const currentStep = evToStep(member.evs?.[s.key] ?? 0);
+                        const isHp = s.key === 'hp';
+                        const nat = NATURES.find((n) => n.id === member.nature);
+                        let natureClass = 'text-slate-600 dark:text-slate-400';
+                        if (!isHp && nat) {
+                          if (nat.plus === s.key)
+                            natureClass =
+                              'text-red-500 dark:text-red-400 font-bold';
+                          if (nat.minus === s.key)
+                            natureClass =
+                              'text-blue-500 dark:text-blue-400 font-bold';
+                        }
+
+                        const calcStat = getCalculatedStat(
+                          s.key,
+                          currentPoke.base_stats[s.key],
+                          stepToEv(currentStep),
+                          member.nature
+                        );
+
+                        return (
+                          <div key={s.key} className="space-y-1 text-center">
+                            <label
+                              htmlFor={`ev-input-${index}-${s.key}`}
+                              className={`text-xs font-bold text-center block cursor-pointer ${natureClass}`}
+                            >
+                              {s.short}
+                              <span className="text-[10px] opacity-80 font-normal ml-0.5 hidden sm:inline">
+                                ({s.label[language]})
+                              </span>
+                            </label>
+
+                            {/* 実数値表示（入力欄の上の部分） */}
+                            <div
+                              className={`text-sm font-black text-center ${natureClass || 'text-slate-800 dark:text-slate-100'}`}
+                            >
+                              {calcStat}
+                            </div>
+
+                            <input
+                              id={`ev-input-${index}-${s.key}`}
+                              type="number"
+                              min="0"
+                              max="32"
+                              step="1"
+                              value={currentStep}
+                              onChange={(e) => {
+                                const val = Number.parseInt(e.target.value, 10);
+                                const numVal = Number.isNaN(val) ? 0 : val;
+                                handleMemberEvChange(index, s.key, numVal);
+                              }}
+                              className="w-full text-center py-1.5 px-1 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-sm font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 box-border"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* Move Selectors */}
                 {currentPoke && (
                   <div className="grid grid-cols-2 gap-3 pt-2">
@@ -473,89 +637,6 @@ export const PartySimulator: React.FC = () => {
                         />
                       );
                     })}
-                  </div>
-                )}
-
-                {/* 努力値（能力ポイント）表示領域 */}
-                {currentPoke && (
-                  <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800/60 space-y-2">
-                    <div className="flex justify-between items-center text-xs font-semibold text-slate-500">
-                      <span className="flex items-center gap-1">
-                        <span className="i-lucide-activity text-indigo-500 text-xs" />
-                        {language === 'ja'
-                          ? '努力値 (能力ポイント)'
-                          : 'Capacity Points'}
-                      </span>
-                      <span>
-                        <span
-                          className={
-                            Object.values(member.evs).reduce(
-                              (sum, val) => sum + evToStep(val),
-                              0
-                            ) > 66
-                              ? 'text-red-500 font-extrabold'
-                              : 'text-indigo-600 dark:text-indigo-400 font-extrabold'
-                          }
-                        >
-                          {Object.values(member.evs).reduce(
-                            (sum, val) => sum + evToStep(val),
-                            0
-                          )}
-                        </span>{' '}
-                        / 66
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-6 gap-2">
-                      {(
-                        [
-                          'hp',
-                          'attack',
-                          'defense',
-                          'sp_attack',
-                          'sp_defense',
-                          'speed',
-                        ] as const
-                      ).map((statKey) => {
-                        const pts = evToStep(member.evs[statKey]);
-                        const isHp = statKey === 'hp';
-                        // Apply nature color if not HP
-                        const nat = NATURES.find((n) => n.id === member.nature);
-                        let natureClass = 'text-slate-700 dark:text-slate-300';
-                        if (!isHp && nat) {
-                          if (nat.plus === statKey)
-                            natureClass =
-                              'text-red-500 dark:text-red-400 font-bold';
-                          if (nat.minus === statKey)
-                            natureClass =
-                              'text-blue-500 dark:text-blue-400 font-bold';
-                        }
-
-                        const shortLabelMap: Record<string, string> = {
-                          hp: 'H',
-                          attack: 'A',
-                          defense: 'B',
-                          sp_attack: 'C',
-                          sp_defense: 'D',
-                          speed: 'S',
-                        };
-
-                        return (
-                          <div
-                            key={statKey}
-                            className="bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200/40 dark:border-slate-800/80 rounded-xl py-1 px-0.5 text-center"
-                          >
-                            <span className="text-[10px] font-bold text-slate-400 block uppercase leading-none mb-1">
-                              {shortLabelMap[statKey]}
-                            </span>
-                            <span
-                              className={`text-xs font-black ${pts > 0 ? (pts === 32 ? 'text-amber-500 dark:text-amber-400 font-bold' : natureClass) : 'text-slate-300 dark:text-slate-700'}`}
-                            >
-                              {pts}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
                   </div>
                 )}
               </div>

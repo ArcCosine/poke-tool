@@ -76,7 +76,8 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
       >
         {/* Header */}
         <div className="flex justify-between items-center">
-          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">
+          <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <span className="i-lucide-search text-indigo-500" />
             {language === 'ja' ? 'ポケモンを選択' : 'Select Pokémon'}
           </h3>
           <button
@@ -92,7 +93,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
         {/* Search Input & Auto Advance Control */}
         <div className="space-y-3">
           <div className="relative">
-            <span className="absolute left-3 top-2.5 text-slate-400 i-lucide-search text-base" />
+            <span className="absolute left-3 top-2.5 text-slate-400 dark:text-slate-300 i-lucide-search text-base" />
             <input
               ref={inputRef}
               type="text"
@@ -101,13 +102,13 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                   ? '名前、ひらがな、カタカナ、ローマ字で検索...'
                   : 'Search by name, kana, romaji...'
               }
-              className="input-premium pl-9 py-2 px-3 text-sm w-full font-medium box-border"
+              className="input-premium pl-9 py-2 px-3 text-sm w-full font-medium box-border placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-800 dark:text-slate-100"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
-          <label className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 cursor-pointer select-none">
+          <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={autoAdvance}
@@ -123,9 +124,9 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
         </div>
 
         {/* Results List */}
-        <div className="overflow-y-auto flex-1 pr-1 space-y-1 divide-y divide-slate-100 dark:divide-slate-800/50">
+        <div className="overflow-y-auto flex-1 pr-1 space-y-2">
           {filteredPokemon.length === 0 ? (
-            <div className="py-8 text-center text-xs text-slate-400 font-medium">
+            <div className="py-8 text-center text-sm text-slate-500 dark:text-slate-300 font-medium">
               {language === 'ja'
                 ? 'ポケモンが見つかりません。'
                 : 'No Pokémon found.'}
@@ -136,29 +137,33 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                 key={poke.id}
                 type="button"
                 onClick={() => onSelect(poke.id)}
-                className="w-full text-left py-3.5 px-4 hover:bg-slate-50 dark:hover:bg-slate-800/30 flex items-center justify-between transition duration-150 rounded-none cursor-pointer"
+                className="w-full text-left p-3 flex items-center justify-between transition-all duration-150 rounded-xl cursor-pointer bg-slate-50 hover:bg-indigo-50/70 dark:bg-slate-800/70 dark:hover:bg-slate-800 border border-slate-200 hover:border-indigo-300 dark:border-slate-700 dark:hover:border-indigo-500/60 shadow-xs hover:shadow-md"
               >
-                <div className="flex items-center gap-3">
-                  <img
-                    src={`/assets/pokemon-sprites/${poke.id}.png`}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                    alt={poke.name[language]}
-                    className="w-10 h-10 object-contain shrink-0"
-                    loading="lazy"
-                  />
-                  <div className="space-y-0.5">
-                    <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-                      {poke.name[language]}
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-12 h-12 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 p-1 shadow-xs">
+                    <img
+                      src={`/assets/pokemon-sprites/${poke.id}.png`}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                      alt={poke.name[language]}
+                      className="w-10 h-10 object-contain shrink-0"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="space-y-0.5 min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                        {poke.name[language]}
+                      </span>
                     </div>
-                    <div className="text-[10px] text-slate-400 font-medium">
+                    <div className="text-xs text-slate-600 dark:text-slate-300 font-medium truncate">
                       {poke.abilities.map((a) => a[language]).join(' / ')}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-1.5">
+                <div className="flex gap-1.5 shrink-0 ml-2">
                   {poke.types.map((typeKey) => (
                     <TypeBadge key={typeKey} typeKey={typeKey} />
                   ))}

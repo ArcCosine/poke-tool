@@ -44,4 +44,21 @@ describe('Button Component', () => {
     const button = screen.getByRole('button') as HTMLButtonElement;
     expect(button.disabled).toBe(true);
   });
+
+  it('applies high-visibility background, border, and text colors for variant danger', () => {
+    render(<Button variant="danger">Delete</Button>);
+    const button = screen.getByRole('button');
+    expect(button.className).toContain('bg-red-100');
+    expect(button.className).toContain('dark:bg-red-950/60');
+    expect(button.className).toContain('border-red-300');
+    expect(button.className).toContain('dark:border-red-800');
+    expect(button.className).toContain('text-red-700');
+    expect(button.className).toContain('dark:text-red-300');
+  });
+
+  it('applies dark mode text color for variant dashed to support dark mode readability', () => {
+    render(<Button variant="dashed">Add</Button>);
+    const button = screen.getByRole('button');
+    expect(button.className).toContain('dark:text-slate-300');
+  });
 });

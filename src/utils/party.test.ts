@@ -6,6 +6,7 @@ import {
   evToStep,
   getCalculatedStat,
   getTypeMatchup,
+  NATURES,
   type PokemonInstance,
   stepToEv,
 } from './party';
@@ -238,6 +239,32 @@ describe('party simulation utilities', () => {
       expect(stepToEv(2)).toBe(12);
       expect(stepToEv(3)).toBe(20);
       expect(stepToEv(32)).toBe(252);
+    });
+  });
+
+  describe('NATURES', () => {
+    it('should define all 25 pokemon natures without duplicates', () => {
+      expect(NATURES.length).toBe(25);
+      const ids = NATURES.map((n) => n.id);
+      expect(new Set(ids).size).toBe(25);
+    });
+
+    it('should correctly define rash (うっかりや) with +sp_attack and -sp_defense', () => {
+      const rash = NATURES.find((n) => n.id === 'rash');
+      expect(rash).toBeDefined();
+      expect(rash?.name.ja).toBe('うっかりや');
+      expect(rash?.name.en).toBe('Rash');
+      expect(rash?.plus).toBe('sp_attack');
+      expect(rash?.minus).toBe('sp_defense');
+
+      // Test stat calculation with rash: Sp.Atk 1.1x, Sp.Def 0.9x
+      // Blastoise base Sp.Atk: 85, EV: 0 -> (85 + 20.5) * 1.1 = 105.5 * 1.1 = 116.05 -> floor = 116
+      const rashSpAtk = getCalculatedStat('sp_attack', 85, 0, 'rash');
+      expect(rashSpAtk).toBe(116);
+
+      // Blastoise base Sp.Def: 105, EV: 0 -> neutral: 125, 125 * 0.9 = 112
+      const rashSpDef = getCalculatedStat('sp_defense', 105, 0, 'rash');
+      expect(rashSpDef).toBe(112);
     });
   });
 });

@@ -35,35 +35,50 @@ const DashboardContent = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <button
-          type="button"
-          onClick={() => setActiveTab('statSearch')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-trending-up text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('statSearch')}</h3>
-          <p className="text-sm text-slate-500">{t('statSearchDesc')}</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('evCalculator')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-calculator text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('evCalculator')}</h3>
-          <p className="text-sm text-slate-500">{t('evCalculatorDesc')}</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setActiveTab('partySimulator')}
-          className="card-premium hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102"
-        >
-          <span className="i-lucide-shield-alert text-3xl text-indigo-500 mb-3 block" />
-          <h3 className="font-semibold mb-2">{t('partySimulator')}</h3>
-          <p className="text-sm text-slate-500">{t('partySimulatorDesc')}</p>
-        </button>
+        {[
+          {
+            tab: 'statSearch' as const,
+            title: t('statSearch'),
+            desc: t('statSearchDesc'),
+            icon: 'i-lucide-trending-up',
+          },
+          {
+            tab: 'evCalculator' as const,
+            title: t('evCalculator'),
+            desc: t('evCalculatorDesc'),
+            icon: 'i-lucide-calculator',
+          },
+          {
+            tab: 'partySimulator' as const,
+            title: t('partySimulator'),
+            desc: t('partySimulatorDesc'),
+            icon: 'i-lucide-shield-alert',
+          },
+        ].map((item) => (
+          <button
+            key={item.tab}
+            type="button"
+            onClick={() => setActiveTab(item.tab)}
+            className="group card-premium bg-white/70 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 text-left cursor-pointer transition-all hover:scale-102 flex flex-col justify-between p-6 shadow-sm hover:shadow-md"
+          >
+            <div>
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 flex items-center justify-center mb-4 group-hover:scale-110 transition duration-200">
+                <span
+                  className={`${item.icon} text-2xl text-indigo-600 dark:text-indigo-400`}
+                />
+              </div>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  {item.title}
+                </h3>
+                <span className="i-lucide-arrow-right text-slate-400 dark:text-slate-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-all text-sm" />
+              </div>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {item.desc}
+              </p>
+            </div>
+          </button>
+        ))}
       </div>
 
       <div className="pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-400 flex flex-wrap justify-center items-center gap-3">

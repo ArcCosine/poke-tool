@@ -110,4 +110,160 @@ describe('EvCalculator', () => {
     expect(screen.getByText('特性')).toBeDefined();
     expect(screen.getByText('性格')).toBeDefined();
   });
+
+  it('should adjust EV using stepper buttons (+1, 32, 0) and update calculated stats without conversion labels', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Open search modal and select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // カメックスの初期HP実数値: 154
+    expect(screen.getByText('154')).toBeDefined();
+
+    // 換算表示が存在しないことを確認
+    expect(screen.queryByText(/EV:/i)).toBeNull();
+
+    // HP行の input を取得
+    const hpInput = screen.getByRole('spinbutton', {
+      name: 'hp',
+    }) as HTMLInputElement;
+    expect(hpInput.value).toBe('0');
+
+    // 全ての 32 ボタンのうち最初のもの（HP）をクリック
+    const maxButtons = screen.getAllByRole('button', { name: '32' });
+    await act(async () => {
+      fireEvent.click(maxButtons[0]);
+    });
+
+    // HP実数値が 186 に更新されたことを確認
+    expect(screen.getByText('186')).toBeDefined();
+    expect(hpInput.value).toBe('32');
+
+    // -1 ボタンをクリック
+    const minusButtons = screen.getAllByRole('button', { name: '-1' });
+    await act(async () => {
+      fireEvent.click(minusButtons[0]);
+    });
+
+    // HP実数値が 185 に更新されたことを確認
+    expect(screen.getByText('185')).toBeDefined();
+    expect(hpInput.value).toBe('31');
+
+    // 0 ボタンをクリック
+    const zeroButtons = screen.getAllByRole('button', { name: '0' });
+    await act(async () => {
+      fireEvent.click(zeroButtons[0]);
+    });
+
+    // HP実数値が 154 に戻ったことを確認
+    expect(screen.getByText('154')).toBeDefined();
+    expect(hpInput.value).toBe('0');
+  });
+
+  it('should render compact table headers for stats, base stats, ev adjustment, and calculated stat', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Open search modal and select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // 列ヘッダーの存在を検証
+    expect(screen.getByText('ステータス')).toBeDefined();
+    expect(screen.getByText('種族値')).toBeDefined();
+    expect(screen.getByText('努力値 (ステップ)')).toBeDefined();
+    expect(screen.getByText('実数値')).toBeDefined();
+  });
+
+  it('should render durability optimizer under moves and apply optimal HBD EVs', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Open search modal and select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // Verify durability indices are displayed
+    expect(screen.getByText('耐久指数')).toBeDefined();
+    expect(screen.getByText('耐久調整')).toBeDefined();
+    expect(screen.getByText('HBDへの最適配分を計算')).toBeDefined();
+
+    // Click optimize button
+    const optimizeBtn = screen.getByRole('button', {
+      name: /HBDへの最適配分を計算/i,
+    });
+    await act(async () => {
+      fireEvent.click(optimizeBtn);
+    });
+
+    // Total EV should now be 66
+    expect(screen.getByText('66')).toBeDefined();
+  });
+
+  it('should apply relative z-20 to moves card and z-index to individual move selectors to prevent overlap with durability optimizer', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Open search modal and select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // Verify moves card has relative and z-20
+    const movesHeading = screen.getByText('技構成');
+    const movesCard = movesHeading.closest('.card-premium');
+    expect(movesCard).not.toBeNull();
+    expect(movesCard?.className).toContain('relative');
+    expect(movesCard?.className).toContain('z-20');
+
+    // Verify move selectors have z-index
+    const move1Input = screen.getByLabelText(/技を選択 1/i);
+    const move1Wrapper = move1Input.closest('[style*="z-index"]');
+    expect(move1Wrapper).not.toBeNull();
+  });
 });

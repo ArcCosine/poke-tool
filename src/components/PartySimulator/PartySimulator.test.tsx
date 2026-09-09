@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppProvider } from '../../context/AppContext';
 import { PartySimulator } from './PartySimulator';
@@ -252,5 +258,90 @@ describe('PartySimulator Pokémon Search Modal', () => {
     }) as HTMLInputElement;
     expect(itemInput.value).toBe('フシギバナイト');
     expect(itemInput.disabled).toBe(true);
+  });
+
+  it('should render EV step numeric inputs without buttons or conversion, and update EV values', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    // 1. Select Pikachu
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(triggerBtn);
+
+    const pikachuRow = screen.getByRole('button', { name: /ピカチュウ/i });
+    fireEvent.click(pikachuRow);
+
+    // 2. EV Section should appear with 6 stat inputs (H, A, B, C, D, S)
+    expect(screen.getByText(/努力値/i)).toBeDefined();
+
+    const hpInput = screen.getByLabelText(/H|HP/i) as HTMLInputElement;
+    const speedInput = screen.getByLabelText(/S|素早さ/i) as HTMLInputElement;
+    expect(hpInput).toBeDefined();
+    expect(hpInput.type).toBe('number');
+    expect(speedInput).toBeDefined();
+    expect(speedInput.type).toBe('number');
+
+    // 3. No buttons (+1, -1, 32, etc.) for EV adjustment
+    expect(screen.queryByRole('button', { name: '+1' })).toBeNull();
+    expect(screen.queryByRole('button', { name: '-1' })).toBeNull();
+
+    // 4. No conversion labels (like "EV: 252" or "/ 252")
+    expect(screen.queryByText(/EV:\s*\d+/i)).toBeNull();
+    expect(screen.queryByText(/\/ 252/)).toBeNull();
+
+    // 5. Initial value is 0 and initial calculated stats are displayed above inputs
+    expect(hpInput.value).toBe('0');
+    // Pikachu Lv.50: HP=110 (base 35, step 0), Speed=110 (base 90, step 0), Attack=75 (base 55, step 0)
+    expect(screen.getByText('実数値 Lv.50')).toBeDefined();
+    expect(screen.getAllByText('110').length).toBe(2);
+    expect(screen.getByText('75')).toBeDefined();
+
+    // 6. Change H to 32
+    fireEvent.change(hpInput, { target: { value: '32' } });
+    expect(hpInput.value).toBe('32');
+
+    // 7. HP stat should update to 142 (base 35, step 32)
+    expect(screen.getByText('142')).toBeDefined();
+    expect(screen.getAllByText('110').length).toBe(1); // Speed is still 110
+
+    // 8. Total steps display should reflect the change (e.g. 32/66)
+    expect(screen.getByText(/32\s*\/\s*66/)).toBeDefined();
+  });
+
+  it('should align party search/rename and action buttons with items-end', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    const autocomplete =
+      await screen.findByLabelText(/パーティの検索・名前変更/i);
+    expect(autocomplete).toBeDefined();
+
+    // Controls container should align to the end
+    const card = autocomplete.closest('.card-premium');
+    const controlsRow = card?.querySelector('.flex-col.lg\\:flex-row');
+    expect(controlsRow).not.toBeNull();
+    expect(controlsRow?.className).toContain('items-end');
+    expect(controlsRow?.className).not.toContain('items-center');
+
+    // Buttons within controlsRow should be rendered
+    const withinControls = within(controlsRow as HTMLElement);
+    expect(
+      withinControls.getByRole('button', { name: /クリップボードにコピー/i })
+    ).toBeDefined();
+    expect(
+      withinControls.getByRole('button', { name: /新規作成/i })
+    ).toBeDefined();
+    expect(withinControls.getByRole('button', { name: /削除/i })).toBeDefined();
+    expect(withinControls.getByRole('button', { name: /保存/i })).toBeDefined();
   });
 });

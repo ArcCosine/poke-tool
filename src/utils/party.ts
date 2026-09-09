@@ -307,7 +307,61 @@ export const NATURES: NatureDefinition[] = [
     plus: 'sp_defense',
     minus: 'speed',
   },
+  // 素早さ・耐久下降・両刀・変則性格
+  {
+    id: 'rash',
+    name: { ja: 'うっかりや', en: 'Rash' },
+    plus: 'sp_attack',
+    minus: 'sp_defense',
+  },
+  {
+    id: 'mild',
+    name: { ja: 'おっとり', en: 'Mild' },
+    plus: 'sp_attack',
+    minus: 'defense',
+  },
+  {
+    id: 'hasty',
+    name: { ja: 'せっかち', en: 'Hasty' },
+    plus: 'speed',
+    minus: 'defense',
+  },
+  {
+    id: 'naive',
+    name: { ja: 'むじゃき', en: 'Naive' },
+    plus: 'speed',
+    minus: 'sp_defense',
+  },
+  {
+    id: 'naughty',
+    name: { ja: 'やんちゃ', en: 'Naughty' },
+    plus: 'attack',
+    minus: 'sp_defense',
+  },
+  {
+    id: 'lonely',
+    name: { ja: 'さみしがり', en: 'Lonely' },
+    plus: 'attack',
+    minus: 'defense',
+  },
+  {
+    id: 'lax',
+    name: { ja: 'のうてんき', en: 'Lax' },
+    plus: 'defense',
+    minus: 'sp_defense',
+  },
+  {
+    id: 'gentle',
+    name: { ja: 'おとなしい', en: 'Gentle' },
+    plus: 'sp_defense',
+    minus: 'defense',
+  },
+  // 無補正性格
   { id: 'neutral', name: { ja: 'まじめ', en: 'Serious' } },
+  { id: 'hardy', name: { ja: 'がんばりや', en: 'Hardy' } },
+  { id: 'docile', name: { ja: 'すなお', en: 'Docile' } },
+  { id: 'bashful', name: { ja: 'てれや', en: 'Bashful' } },
+  { id: 'quirky', name: { ja: 'きまぐれ', en: 'Quirky' } },
 ];
 
 export const getCalculatedStat = (

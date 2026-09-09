@@ -110,4 +110,16 @@ describe('Poke-Tool Integration', () => {
     expect(disclaimerLink.getAttribute('href')).toBe('/disclaimer.html');
     expect(termsLink.getAttribute('href')).toBe('/terms.html');
   });
+
+  it('renders dashboard feature link cards with high contrast text for dark mode', () => {
+    render(<App />);
+
+    // 機能リンクの説明文要素を取得
+    const descElement = screen.getByText(/レベル50固定時の物理耐久/);
+    expect(descElement.className).toContain('dark:text-slate-300');
+
+    // 機能リンクのタイトル要素を取得
+    const titleElement = screen.getByRole('heading', { name: /火力・耐久/ });
+    expect(titleElement.className).toContain('dark:text-slate-100');
+  });
 });

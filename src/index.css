@@ -86,6 +86,13 @@ body {
   color: var(--text);
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
 h1,
 h2 {
   font-family: var(--heading);

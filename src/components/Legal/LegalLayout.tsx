@@ -31,7 +31,7 @@ const LegalLayoutContent: React.FC<{ children: React.ReactNode }> = ({
             <button
               type="button"
               onClick={toggleLanguage}
-              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5 text-sm cursor-pointer font-sans"
+              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition flex items-center gap-1.5 text-sm cursor-pointer font-sans"
             >
               <span className="i-lucide-languages text-slate-500" />
               {language === 'ja' ? 'English' : '日本語'}
@@ -42,7 +42,7 @@ const LegalLayoutContent: React.FC<{ children: React.ReactNode }> = ({
               type="button"
               data-testid="theme-toggle"
               onClick={toggleTheme}
-              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition text-sm flex items-center cursor-pointer"
+              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition text-sm flex items-center cursor-pointer"
             >
               {theme === 'dark' ? (
                 <span className="i-lucide-sun text-yellow-500" />
