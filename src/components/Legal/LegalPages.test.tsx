@@ -92,4 +92,38 @@ describe('Legal Pages and Layout', () => {
 
     expect(window.location.href).toBe('/');
   });
+
+  it('should render legal pages in Korean when language is ko', () => {
+    localStorage.setItem('lang', 'ko');
+    render(
+      <LegalLayout>
+        <PrivacyPolicy onBack={() => {}} />
+      </LegalLayout>
+    );
+
+    expect(screen.getByText('개인정보 처리방침')).toBeDefined();
+    expect(
+      screen.getByText(
+        /본 도구\(이하 "본 툴"\)는 사용자의 개인정보 보호를 위해 최선을 다하고 있습니다\./
+      )
+    ).toBeDefined();
+    expect(
+      screen.getByRole('button', { name: '대시보드로 돌아가기' })
+    ).toBeDefined();
+  });
+
+  it('should render legal pages in Traditional Chinese when language is zh-Hant', () => {
+    localStorage.setItem('lang', 'zh-Hant');
+    render(
+      <LegalLayout>
+        <TermsOfService onBack={() => {}} />
+      </LegalLayout>
+    );
+
+    expect(screen.getByText('使用條款')).toBeDefined();
+    expect(
+      screen.getByText(/本使用條款（以下簡稱「本條款」）旨在規範本工具使用者/)
+    ).toBeDefined();
+    expect(screen.getByRole('button', { name: '返回儀表板' })).toBeDefined();
+  });
 });
