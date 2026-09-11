@@ -22,7 +22,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
   autoAdvance,
   onToggleAutoAdvance,
 }) => {
-  const { language } = useApp();
+  const { language, t } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -48,14 +48,24 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
     if (!queryLower) return true;
 
     // 1. English name match
-    const enName = poke.name.en.toLowerCase();
+    const enName = (poke.name.en || '').toLowerCase();
     if (enName.includes(queryLower)) return true;
 
     // 2. Japanese name match
-    const jaName = poke.name.ja;
+    const jaName = poke.name.ja || '';
     const jaClean = jaName.replace(/ー/g, '');
 
     if (jaName.includes(queryKatakana) || jaClean.includes(queryClean)) {
+      return true;
+    }
+
+    // 3. Korean name match
+    if (poke.name.ko && poke.name.ko.toLowerCase().includes(queryLower)) {
+      return true;
+    }
+
+    // 4. Traditional Chinese name match
+    if (poke.name['zh-Hant'] && poke.name['zh-Hant'].toLowerCase().includes(queryLower)) {
       return true;
     }
 
@@ -64,27 +74,24 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs transition-opacity duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs"
       onClick={onClose}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') onClose();
-      }}
     >
       <div
-        className="card-premium w-full max-w-lg max-h-[80vh] flex flex-col p-5 space-y-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl"
+        className="card-premium w-full max-w-lg p-6 space-y-4 max-h-[85vh] flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl animate-in fade-in duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex justify-between items-center">
           <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <span className="i-lucide-search text-indigo-500" />
-            {language === 'ja' ? 'ポケモンを選択' : 'Select Pokémon'}
+            {t('pokemonSearchModal.title')}
           </h3>
           <button
             type="button"
             onClick={onClose}
             className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
-            aria-label={language === 'ja' ? '閉じる' : 'Close'}
+            aria-label={t('pokemonSearchModal.close')}
           >
             <span className="i-lucide-x text-lg" />
           </button>
@@ -97,11 +104,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
             <input
               ref={inputRef}
               type="text"
-              placeholder={
-                language === 'ja'
-                  ? '名前、ひらがな、カタカナ、ローマ字で検索...'
-                  : 'Search by name, kana, romaji...'
-              }
+              placeholder={t('pokemonSearchModal.searchPlaceholder')}
               className="input-premium pl-9 py-2 px-3 text-sm w-full font-medium box-border placeholder:text-slate-400 dark:placeholder:text-slate-400 text-slate-800 dark:text-slate-100"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -115,11 +118,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
               onChange={(e) => onToggleAutoAdvance(e.target.checked)}
               className="rounded border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-0 bg-transparent"
             />
-            <span>
-              {language === 'ja'
-                ? '連続入力（ポケモン → 特性・わざ）を有効にする'
-                : 'Enable auto-advance (Pokémon → Ability/Moves)'}
-            </span>
+            <span>{t('pokemonSearchModal.autoAdvanceLabel')}</span>
           </label>
         </div>
 
@@ -127,9 +126,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
         <div className="overflow-y-auto flex-1 pr-1 space-y-2">
           {filteredPokemon.length === 0 ? (
             <div className="py-8 text-center text-sm text-slate-500 dark:text-slate-300 font-medium">
-              {language === 'ja'
-                ? 'ポケモンが見つかりません。'
-                : 'No Pokémon found.'}
+              {t('pokemonSearchModal.noResults')}
             </div>
           ) : (
             filteredPokemon.map((poke) => (
@@ -146,7 +143,7 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
-                      alt={poke.name[language]}
+                      alt={poke.name[language] || poke.name.ja}
                       className="w-10 h-10 object-contain shrink-0"
                       loading="lazy"
                     />
@@ -154,11 +151,11 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                   <div className="space-y-0.5 min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                        {poke.name[language]}
+                        {poke.name[language] || poke.name.ja}
                       </span>
                     </div>
                     <div className="text-xs text-slate-600 dark:text-slate-300 font-medium truncate">
-                      {poke.abilities.map((a) => a[language]).join(' / ')}
+                      {poke.abilities.map((a) => a[language] || a.ja).join(' / ')}
                     </div>
                   </div>
                 </div>

@@ -302,14 +302,23 @@ def main():
         pokemon_list[idx_10310]["regulations"] = ["M-C"]
         print("Updated メガルカリオZ (10310)")
 
-    # 10327: メガグソクムシャ
-    # stats: 75-150-175-70-120-40, type: bug, water, ability: かたいツメ
-    # inherits moves from Golisopod (768)
-    golisopod = next((p for p in pokemon_list if p["id"] == 768), None)
+    # 10327: メガグソクムシャ & 768: グソクムシャ
+    # stats: 75-150-175-70-120-40, type: bug, steel, ability: かたいツメ
+    # GameWith Champions movepool (including U-turn/とんぼがえり #369, Aqua Jet/アクアジェット #453, etc.)
+    golisopod_mc_moves = [
+        14, 42, 57, 58, 59, 63, 97, 103, 127, 141, 156, 157, 163, 164, 173, 180, 182, 188, 191, 196,
+        203, 213, 214, 240, 263, 269, 280, 291, 317, 330, 334, 339, 341, 369, 370, 371, 372, 374, 389,
+        398, 399, 400, 404, 405, 411, 416, 421, 441, 442, 450, 453, 458, 469, 474, 482, 496, 503, 522,
+        529, 534, 555, 660, 675, 710, 806, 884, 886
+    ]
+    idx_768 = next((i for i, p in enumerate(pokemon_list) if p["id"] == 768), None)
+    if idx_768 is not None:
+        pokemon_list[idx_768]["learnable_moves"] = golisopod_mc_moves
+
     mega_golisopod = {
         "id": 10327,
         "name": {"ja": "メガグソクムシャ", "en": "Mega Golisopod"},
-        "types": ["bug", "water"],
+        "types": ["bug", "steel"],
         "base_stats": {
             "hp": 75,
             "attack": 150,
@@ -320,14 +329,14 @@ def main():
         },
         "abilities": [{"ja": "かたいツメ", "en": "Tough Claws"}],
         "regulations": ["M-C"],
-        "learnable_moves": golisopod["learnable_moves"] if golisopod else []
+        "learnable_moves": golisopod_mc_moves
     }
     idx_10327 = next((i for i, p in enumerate(pokemon_list) if p["id"] == 10327), None)
     if idx_10327 is not None:
         pokemon_list[idx_10327] = mega_golisopod
     else:
         pokemon_list.append(mega_golisopod)
-    print("Added メガグソクムシャ (10327)")
+    print("Added/Updated メガグソクムシャ (10327)")
 
     # 10328: メガセグレイブ
     # stats: 115-175-117-105-101-87, type: dragon, ice, ability: ねつこうかん

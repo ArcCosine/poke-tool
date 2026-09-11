@@ -1,12 +1,13 @@
 import type React from 'react';
 import { AppProvider, useApp } from '../../context/AppContext';
+import { LanguageSelector } from '../common/LanguageSelector';
 import 'virtual:uno.css';
 import '../../index.css';
 
 const LegalLayoutContent: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { language, toggleLanguage, theme, toggleTheme } = useApp();
+  const { theme, toggleTheme } = useApp();
 
   const handleBackToHome = () => {
     window.location.href = '/';
@@ -27,15 +28,8 @@ const LegalLayoutContent: React.FC<{ children: React.ReactNode }> = ({
           </button>
 
           <div className="flex gap-3">
-            {/* Language Toggle */}
-            <button
-              type="button"
-              onClick={toggleLanguage}
-              className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition flex items-center gap-1.5 text-sm cursor-pointer font-sans"
-            >
-              <span className="i-lucide-languages text-slate-500" />
-              {language === 'ja' ? 'English' : '日本語'}
-            </button>
+            {/* Language Selector */}
+            <LanguageSelector />
 
             {/* Theme Toggle */}
             <button

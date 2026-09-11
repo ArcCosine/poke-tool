@@ -3,1169 +3,1503 @@
     "id": 190,
     "name": {
       "ja": "ひかりのこな",
-      "en": "Bright Powder"
+      "en": "Bright Powder",
+      "ko": "반짝가루",
+      "zh-Hant": "光粉"
     }
   },
   {
     "id": 191,
     "name": {
       "ja": "しろいハーブ",
-      "en": "White Herb"
+      "en": "White Herb",
+      "ko": "하양허브",
+      "zh-Hant": "白色香草"
     }
   },
   {
     "id": 194,
     "name": {
       "ja": "せんせいのツメ",
-      "en": "Quick Claw"
+      "en": "Quick Claw",
+      "ko": "선제공격손톱",
+      "zh-Hant": "先制之爪"
     }
   },
   {
     "id": 196,
     "name": {
       "ja": "メンタルハーブ",
-      "en": "Mental Herb"
+      "en": "Mental Herb",
+      "ko": "멘탈허브",
+      "zh-Hant": "心靈香草"
     }
   },
   {
     "id": 198,
     "name": {
       "ja": "おうじゃのしるし",
-      "en": "King’s Rock"
+      "en": "King’s Rock",
+      "ko": "왕의징표석",
+      "zh-Hant": "王者之證"
     }
   },
   {
     "id": 199,
     "name": {
       "ja": "ぎんのこな",
-      "en": "Silver Powder"
+      "en": "Silver Powder",
+      "ko": "은빛가루",
+      "zh-Hant": "銀粉"
     }
   },
   {
     "id": 207,
     "name": {
       "ja": "きあいのハチマキ",
-      "en": "Focus Band"
+      "en": "Focus Band",
+      "ko": "기합의머리띠",
+      "zh-Hant": "氣勢頭帶"
     }
   },
   {
     "id": 209,
     "name": {
       "ja": "ピントレンズ",
-      "en": "Scope Lens"
+      "en": "Scope Lens",
+      "ko": "초점렌즈",
+      "zh-Hant": "焦點鏡"
     }
   },
   {
     "id": 210,
     "name": {
       "ja": "メタルコート",
-      "en": "Metal Coat"
+      "en": "Metal Coat",
+      "ko": "금속코트",
+      "zh-Hant": "金屬膜"
     }
   },
   {
     "id": 211,
     "name": {
       "ja": "たべのこし",
-      "en": "Leftovers"
+      "en": "Leftovers",
+      "ko": "먹다남은음식",
+      "zh-Hant": "吃剩的東西"
     }
   },
   {
     "id": 214,
     "name": {
       "ja": "やわらかいすな",
-      "en": "Soft Sand"
+      "en": "Soft Sand",
+      "ko": "부드러운모래",
+      "zh-Hant": "柔軟沙子"
     }
   },
   {
     "id": 215,
     "name": {
       "ja": "かたいいし",
-      "en": "Hard Stone"
+      "en": "Hard Stone",
+      "ko": "딱딱한돌",
+      "zh-Hant": "硬石頭"
     }
   },
   {
     "id": 216,
     "name": {
       "ja": "きせきのタネ",
-      "en": "Miracle Seed"
+      "en": "Miracle Seed",
+      "ko": "기적의씨",
+      "zh-Hant": "奇跡種子"
     }
   },
   {
     "id": 217,
     "name": {
       "ja": "くろいメガネ",
-      "en": "Black Glasses"
+      "en": "Black Glasses",
+      "ko": "검은안경",
+      "zh-Hant": "黑色眼鏡"
     }
   },
   {
     "id": 218,
     "name": {
       "ja": "くろおび",
-      "en": "Black Belt"
+      "en": "Black Belt",
+      "ko": "검은띠",
+      "zh-Hant": "黑帶"
     }
   },
   {
     "id": 219,
     "name": {
       "ja": "じしゃく",
-      "en": "Magnet"
+      "en": "Magnet",
+      "ko": "자석",
+      "zh-Hant": "磁鐵"
     }
   },
   {
     "id": 220,
     "name": {
       "ja": "しんぴのしずく",
-      "en": "Mystic Water"
+      "en": "Mystic Water",
+      "ko": "신비의물방울",
+      "zh-Hant": "神秘水滴"
     }
   },
   {
     "id": 221,
     "name": {
       "ja": "するどいくちばし",
-      "en": "Sharp Beak"
+      "en": "Sharp Beak",
+      "ko": "예리한부리",
+      "zh-Hant": "銳利鳥嘴"
     }
   },
   {
     "id": 222,
     "name": {
       "ja": "どくバリ",
-      "en": "Poison Barb"
+      "en": "Poison Barb",
+      "ko": "독바늘",
+      "zh-Hant": "毒針"
     }
   },
   {
     "id": 223,
     "name": {
       "ja": "とけないこおり",
-      "en": "Never-Melt Ice"
+      "en": "Never-Melt Ice",
+      "ko": "녹지않는얼음",
+      "zh-Hant": "不融冰"
     }
   },
   {
     "id": 224,
     "name": {
       "ja": "のろいのおふだ",
-      "en": "Spell Tag"
+      "en": "Spell Tag",
+      "ko": "저주의부적",
+      "zh-Hant": "詛咒之符"
     }
   },
   {
     "id": 225,
     "name": {
       "ja": "まがったスプーン",
-      "en": "Twisted Spoon"
+      "en": "Twisted Spoon",
+      "ko": "휘어진스푼",
+      "zh-Hant": "彎曲的湯匙"
     }
   },
   {
     "id": 226,
     "name": {
       "ja": "もくたん",
-      "en": "Charcoal"
+      "en": "Charcoal",
+      "ko": "목탄",
+      "zh-Hant": "木炭"
     }
   },
   {
     "id": 227,
     "name": {
       "ja": "りゅうのキバ",
-      "en": "Dragon Fang"
+      "en": "Dragon Fang",
+      "ko": "용의이빨",
+      "zh-Hant": "龍之牙"
     }
   },
   {
     "id": 228,
     "name": {
       "ja": "シルクのスカーフ",
-      "en": "Silk Scarf"
+      "en": "Silk Scarf",
+      "ko": "실크스카프",
+      "zh-Hant": "絲綢圍巾"
     }
   },
   {
     "id": 230,
     "name": {
       "ja": "かいがらのすず",
-      "en": "Shell Bell"
+      "en": "Shell Bell",
+      "ko": "조개껍질방울",
+      "zh-Hant": "貝殼之鈴"
     }
   },
   {
     "id": 236,
     "name": {
       "ja": "ながねぎ",
-      "en": "Leek"
+      "en": "Leek",
+      "ko": "대파",
+      "zh-Hant": "大蔥"
     }
   },
   {
     "id": 242,
     "name": {
       "ja": "こうかくレンズ",
-      "en": "Wide Lens"
+      "en": "Wide Lens",
+      "ko": "광각렌즈",
+      "zh-Hant": "廣角鏡"
     }
   },
   {
     "id": 243,
     "name": {
       "ja": "ちからのハチマキ",
-      "en": "Muscle Band"
+      "en": "Muscle Band",
+      "ko": "힘의머리띠",
+      "zh-Hant": "力量頭帶"
     }
   },
   {
     "id": 244,
     "name": {
       "ja": "ものしりメガネ",
-      "en": "Wise Glasses"
+      "en": "Wise Glasses",
+      "ko": "박식안경",
+      "zh-Hant": "博識眼鏡"
     }
   },
   {
     "id": 245,
     "name": {
       "ja": "たつじんのおび",
-      "en": "Expert Belt"
+      "en": "Expert Belt",
+      "ko": "달인의띠",
+      "zh-Hant": "達人帶"
     }
   },
   {
     "id": 246,
     "name": {
       "ja": "ひかりのねんど",
-      "en": "Light Clay"
+      "en": "Light Clay",
+      "ko": "빛의점토",
+      "zh-Hant": "光之黏土"
     }
   },
   {
     "id": 247,
     "name": {
       "ja": "いのちのたま",
-      "en": "Life Orb"
+      "en": "Life Orb",
+      "ko": "생명의구슬",
+      "zh-Hant": "生命寶珠"
     }
   },
   {
     "id": 252,
     "name": {
       "ja": "きあいのタスキ",
-      "en": "Focus Sash"
+      "en": "Focus Sash",
+      "ko": "기합의띠",
+      "zh-Hant": "氣勢披帶"
     }
   },
   {
     "id": 253,
     "name": {
       "ja": "フォーカスレンズ",
-      "en": "Zoom Lens"
+      "en": "Zoom Lens",
+      "ko": "포커스렌즈",
+      "zh-Hant": "對焦鏡"
     }
   },
   {
     "id": 254,
     "name": {
       "ja": "メトロノーム",
-      "en": "Metronome"
+      "en": "Metronome",
+      "ko": "메트로놈",
+      "zh-Hant": "節拍器"
     }
   },
   {
     "id": 255,
     "name": {
       "ja": "くろいてっきゅう",
-      "en": "Iron Ball"
+      "en": "Iron Ball",
+      "ko": "검은철구",
+      "zh-Hant": "黑色鐵球"
     }
   },
   {
     "id": 259,
     "name": {
       "ja": "つめたいいわ",
-      "en": "Icy Rock"
+      "en": "Icy Rock",
+      "ko": "차가운바위",
+      "zh-Hant": "冰冷岩石"
     }
   },
   {
     "id": 260,
     "name": {
       "ja": "さらさらいわ",
-      "en": "Smooth Rock"
+      "en": "Smooth Rock",
+      "ko": "보송보송바위",
+      "zh-Hant": "沙沙岩石"
     }
   },
   {
     "id": 261,
     "name": {
       "ja": "あついいわ",
-      "en": "Heat Rock"
+      "en": "Heat Rock",
+      "ko": "뜨거운바위",
+      "zh-Hant": "熾熱岩石"
     }
   },
   {
     "id": 262,
     "name": {
       "ja": "しめったいわ",
-      "en": "Damp Rock"
+      "en": "Damp Rock",
+      "ko": "축축한바위",
+      "zh-Hant": "潮濕岩石"
     }
   },
   {
     "id": 264,
     "name": {
       "ja": "こだわりスカーフ",
-      "en": "Choice Scarf"
+      "en": "Choice Scarf",
+      "ko": "구애스카프",
+      "zh-Hant": "講究圍巾"
     }
   },
   {
     "id": 272,
     "name": {
       "ja": "きれいなぬけがら",
-      "en": "Shed Shell"
+      "en": "Shed Shell",
+      "ko": "아름다운허물",
+      "zh-Hant": "美麗空殼"
     }
   },
   {
     "id": 273,
     "name": {
       "ja": "おおきなねっこ",
-      "en": "Big Root"
+      "en": "Big Root",
+      "ko": "큰뿌리",
+      "zh-Hant": "大根莖"
     }
   },
   {
     "id": 583,
     "name": {
       "ja": "ゴツゴツメット",
-      "en": "Rocky Helmet"
+      "en": "Rocky Helmet",
+      "ko": "울퉁불퉁멧",
+      "zh-Hant": "凸凸頭盔"
     }
   },
   {
     "id": 584,
     "name": {
       "ja": "ふうせん",
-      "en": "Air Balloon"
+      "en": "Air Balloon",
+      "ko": "풍선",
+      "zh-Hant": "氣球"
     }
   },
   {
     "id": 587,
     "name": {
       "ja": "しめつけバンド",
-      "en": "Binding Band"
+      "en": "Binding Band",
+      "ko": "조임밴드",
+      "zh-Hant": "緊綁束帶"
     }
   },
   {
     "id": 585,
     "name": {
       "ja": "レッドカード",
-      "en": "Red Card"
+      "en": "Red Card",
+      "ko": "레드카드",
+      "zh-Hant": "紅牌"
     }
   },
   {
     "id": 590,
     "name": {
       "ja": "だっしゅつボタン",
-      "en": "Eject Button"
+      "en": "Eject Button",
+      "ko": "탈출버튼",
+      "zh-Hant": "逃脫按鍵"
     }
   },
   {
     "id": 20001,
     "name": {
       "ja": "ノーマルジュエル",
-      "en": "Normal Gem"
+      "en": "Normal Gem",
+      "ko": "노말주얼",
+      "zh-Hant": "一般寶石"
     }
   },
   {
     "id": 896,
     "name": {
       "ja": "グランドコート",
-      "en": "Terrain Extender"
+      "en": "Terrain Extender",
+      "ko": "그라운드코트",
+      "zh-Hant": "大地膜"
     }
   },
   {
     "id": 898,
     "name": {
       "ja": "エレキシード",
-      "en": "Electric Seed"
+      "en": "Electric Seed",
+      "ko": "일렉트릭시드",
+      "zh-Hant": "電氣種子"
     }
   },
   {
     "id": 899,
     "name": {
       "ja": "サイコシード",
-      "en": "Psychic Seed"
+      "en": "Psychic Seed",
+      "ko": "사이코시드",
+      "zh-Hant": "精神種子"
     }
   },
   {
     "id": 900,
     "name": {
       "ja": "ミストシード",
-      "en": "Misty Seed"
+      "en": "Misty Seed",
+      "ko": "미스트시드",
+      "zh-Hant": "薄霧種子"
     }
   },
   {
     "id": 901,
     "name": {
       "ja": "グラスシード",
-      "en": "Grassy Seed"
+      "en": "Grassy Seed",
+      "ko": "그래스시드",
+      "zh-Hant": "青草種子"
     }
   },
   {
     "id": 3011,
     "name": {
       "ja": "クラボのみ",
-      "en": "Cheri Berry"
+      "en": "Cheri Berry",
+      "ko": "버치열매",
+      "zh-Hant": "櫻子果"
     }
   },
   {
     "id": 3003,
     "name": {
       "ja": "カゴのみ",
-      "en": "Chesto Berry"
+      "en": "Chesto Berry",
+      "ko": "유루열매",
+      "zh-Hant": "零餘果"
     }
   },
   {
     "id": 3010,
     "name": {
       "ja": "モモンのみ",
-      "en": "Pecha Berry"
+      "en": "Pecha Berry",
+      "ko": "복슝열매",
+      "zh-Hant": "桃桃果"
     }
   },
   {
     "id": 3009,
     "name": {
       "ja": "チーゴのみ",
-      "en": "Rawst Berry"
+      "en": "Rawst Berry",
+      "ko": "복분열매",
+      "zh-Hant": "莓莓果"
     }
   },
   {
     "id": 3012,
     "name": {
       "ja": "ナナシのみ",
-      "en": "Aspear Berry"
+      "en": "Aspear Berry",
+      "ko": "배리열매",
+      "zh-Hant": "利木果"
     }
   },
   {
     "id": 20002,
     "name": {
       "ja": "ヒメリのみ",
-      "en": "Leppa Berry"
+      "en": "Leppa Berry",
+      "ko": "과사열매",
+      "zh-Hant": "蘋野果"
     }
   },
   {
     "id": 20003,
     "name": {
       "ja": "オレンのみ",
-      "en": "Oran Berry"
+      "en": "Oran Berry",
+      "ko": "오랭열매",
+      "zh-Hant": "橙橙果"
     }
   },
   {
     "id": 3013,
     "name": {
       "ja": "キーのみ",
-      "en": "Persim Berry"
+      "en": "Persim Berry",
+      "ko": "시몬열매",
+      "zh-Hant": "柿仔果"
     }
   },
   {
     "id": 3002,
     "name": {
       "ja": "ラムのみ",
-      "en": "Lum Berry"
+      "en": "Lum Berry",
+      "ko": "리샘열매",
+      "zh-Hant": "木子果"
     }
   },
   {
     "id": 3001,
     "name": {
       "ja": "オボンのみ",
-      "en": "Sitrus Berry"
+      "en": "Sitrus Berry",
+      "ko": "자뭉열매",
+      "zh-Hant": "文柚果"
     }
   },
   {
     "id": 3014,
     "name": {
       "ja": "オッカのみ",
-      "en": "Occa Berry"
+      "en": "Occa Berry",
+      "ko": "오카열매",
+      "zh-Hant": "巧可果"
     }
   },
   {
     "id": 3015,
     "name": {
       "ja": "イトケのみ",
-      "en": "Passho Berry"
+      "en": "Passho Berry",
+      "ko": "꼬시개열매",
+      "zh-Hant": "千香果"
     }
   },
   {
     "id": 3016,
     "name": {
       "ja": "ソクノのみ",
-      "en": "Wacan Berry"
+      "en": "Wacan Berry",
+      "ko": "초나열매",
+      "zh-Hant": "燭木果"
     }
   },
   {
     "id": 3017,
     "name": {
       "ja": "リンドのみ",
-      "en": "Rindo Berry"
+      "en": "Rindo Berry",
+      "ko": "린드열매",
+      "zh-Hant": "羅子果"
     }
   },
   {
     "id": 3018,
     "name": {
       "ja": "ヤチェのみ",
-      "en": "Yache Berry"
+      "en": "Yache Berry",
+      "ko": "플카열매",
+      "zh-Hant": "番荔果"
     }
   },
   {
     "id": 3019,
     "name": {
       "ja": "ヨプのみ",
-      "en": "Chople Berry"
+      "en": "Chople Berry",
+      "ko": "로플열매",
+      "zh-Hant": "蓮蒲果"
     }
   },
   {
     "id": 3020,
     "name": {
       "ja": "ビアーのみ",
-      "en": "Kebia Berry"
+      "en": "Kebia Berry",
+      "ko": "으름열매",
+      "zh-Hant": "通通果"
     }
   },
   {
     "id": 3021,
     "name": {
       "ja": "シュカのみ",
-      "en": "Shuca Berry"
+      "en": "Shuca Berry",
+      "ko": "슈캐열매",
+      "zh-Hant": "腰木果"
     }
   },
   {
     "id": 3022,
     "name": {
       "ja": "バコウのみ",
-      "en": "Coba Berry"
+      "en": "Coba Berry",
+      "ko": "바코열매",
+      "zh-Hant": "稜瓜果"
     }
   },
   {
     "id": 3027,
     "name": {
       "ja": "ウタンのみ",
-      "en": "Colbur Berry"
+      "en": "Colbur Berry",
+      "ko": "마코열매",
+      "zh-Hant": "刺耳果"
     }
   },
   {
     "id": 3023,
     "name": {
       "ja": "タンガのみ",
-      "en": "Tanga Berry"
+      "en": "Tanga Berry",
+      "ko": "리체열매",
+      "zh-Hant": "扁櫻果"
     }
   },
   {
     "id": 3024,
     "name": {
       "ja": "ヨロギのみ",
-      "en": "Charti Berry"
+      "en": "Charti Berry",
+      "ko": "루미열매",
+      "zh-Hant": "草蠶果"
     }
   },
   {
     "id": 3025,
     "name": {
       "ja": "カシブのみ",
-      "en": "Kasib Berry"
+      "en": "Kasib Berry",
+      "ko": "수불열매",
+      "zh-Hant": "佛柑果"
     }
   },
   {
     "id": 3026,
     "name": {
       "ja": "ハバンのみ",
-      "en": "Haban Berry"
+      "en": "Haban Berry",
+      "ko": "하반열매",
+      "zh-Hant": "莓榴果"
     }
   },
   {
     "id": 20004,
     "name": {
       "ja": "ナモのみ",
-      "en": "Payapa Berry"
+      "en": "Payapa Berry",
+      "ko": "야파열매",
+      "zh-Hant": "福祿果"
     }
   },
   {
     "id": 3028,
     "name": {
       "ja": "リリバのみ",
-      "en": "Babiri Berry"
+      "en": "Babiri Berry",
+      "ko": "바리비열매",
+      "zh-Hant": "霹霹果"
     }
   },
   {
     "id": 3029,
     "name": {
       "ja": "ロゼルのみ",
-      "en": "Roseli Berry"
+      "en": "Roseli Berry",
+      "ko": "로셀열매",
+      "zh-Hant": "洛玫果"
     }
   },
   {
     "id": 3030,
     "name": {
       "ja": "ホズのみ",
-      "en": "Chilan Berry"
+      "en": "Chilan Berry",
+      "ko": "카리열매",
+      "zh-Hant": "燈漿果"
     }
   },
   {
     "id": 2105,
     "name": {
       "ja": "ようせいのハネ",
-      "en": "Fairy Feather"
+      "en": "Fairy Feather",
+      "ko": "요정의깃털",
+      "zh-Hant": "妖精之羽"
     }
   },
   {
     "id": 213,
     "name": {
       "ja": "でんきだま",
-      "en": "Light Ball"
+      "en": "Light Ball",
+      "ko": "전기구슬",
+      "zh-Hant": "電氣球"
     }
   },
   {
     "id": 20005,
     "name": {
       "ja": "オーダイルナイト",
-      "en": "Feraligatrite"
+      "en": "Feraligatrite",
+      "ko": "Feraligatrite",
+      "zh-Hant": "Feraligatrite"
     }
   },
   {
     "id": 20006,
     "name": {
       "ja": "メガニウムナイト",
-      "en": "Meganiumite"
+      "en": "Meganiumite",
+      "ko": "Meganiumite",
+      "zh-Hant": "Meganiumite"
     }
   },
   {
     "id": 20007,
     "name": {
       "ja": "エンブオナイト",
-      "en": "Emboarite"
+      "en": "Emboarite",
+      "ko": "Emboarite",
+      "zh-Hant": "Emboarite"
     }
   },
   {
     "id": 811,
     "name": {
       "ja": "スピアナイト",
-      "en": "Beedrillite"
+      "en": "Beedrillite",
+      "ko": "독침붕나이트",
+      "zh-Hant": "大針蜂進化石"
     }
   },
   {
     "id": 697,
     "name": {
       "ja": "デンリュウナイト",
-      "en": "Ampharosite"
+      "en": "Ampharosite",
+      "ko": "전룡나이트",
+      "zh-Hant": "電龍進化石"
     }
   },
   {
     "id": 20008,
     "name": {
       "ja": "ガメノデスナイト",
-      "en": "Barbaracite"
+      "en": "Barbaracite",
+      "ko": "Barbaracite",
+      "zh-Hant": "Barbaracite"
     }
   },
   {
     "id": 20009,
     "name": {
       "ja": "スターミナイト",
-      "en": "Starmite"
+      "en": "Starmite",
+      "ko": "Starmite",
+      "zh-Hant": "Starmite"
     }
   },
   {
     "id": 20010,
     "name": {
       "ja": "ウツボットナイト",
-      "en": "Victreebelite"
+      "en": "Victreebelite",
+      "ko": "Victreebelite",
+      "zh-Hant": "Victreebelite"
     }
   },
   {
     "id": 796,
     "name": {
       "ja": "チルタリスナイト",
-      "en": "Altarianite"
+      "en": "Altarianite",
+      "ko": "파비코리나이트",
+      "zh-Hant": "七夕青鳥進化石"
     }
   },
   {
     "id": 707,
     "name": {
       "ja": "ジュペッタナイト",
-      "en": "Banettite"
+      "en": "Banettite",
+      "ko": "다크펫나이트",
+      "zh-Hant": "詛咒娃娃進化石"
     }
   },
   {
     "id": 808,
     "name": {
       "ja": "バクーダナイト",
-      "en": "Cameruptite"
+      "en": "Cameruptite",
+      "ko": "폭타나이트",
+      "zh-Hant": "噴火駝進化石"
     }
   },
   {
     "id": 720,
     "name": {
       "ja": "クチートナイト",
-      "en": "Mawilite"
+      "en": "Mawilite",
+      "ko": "입치트나이트",
+      "zh-Hant": "大嘴娃進化石"
     }
   },
   {
     "id": 716,
     "name": {
       "ja": "アブソルナイト",
-      "en": "Absolite"
+      "en": "Absolite",
+      "ko": "앱솔나이트",
+      "zh-Hant": "阿勃梭魯進化石"
     }
   },
   {
     "id": 801,
     "name": {
       "ja": "ヤドランナイト",
-      "en": "Slowbronite"
+      "en": "Slowbronite",
+      "ko": "야도란나이트",
+      "zh-Hant": "呆殼獸進化石"
     }
   },
   {
     "id": 20011,
     "name": {
       "ja": "カイリュナイト",
-      "en": "Dragonitite"
+      "en": "Dragonitite",
+      "ko": "Dragonitite",
+      "zh-Hant": "Dragonitite"
     }
   },
   {
     "id": 20012,
     "name": {
       "ja": "ユキメノコナイト",
-      "en": "Froslassite"
+      "en": "Froslassite",
+      "ko": "Froslassite",
+      "zh-Hant": "Froslassite"
     }
   },
   {
     "id": 20013,
     "name": {
       "ja": "ルチャブルナイト",
-      "en": "Hawluchanite"
+      "en": "Hawluchanite",
+      "ko": "Hawluchanite",
+      "zh-Hant": "Hawluchanite"
     }
   },
   {
     "id": 708,
     "name": {
       "ja": "バンギラスナイト",
-      "en": "Tyranitarite"
+      "en": "Tyranitarite",
+      "ko": "마기라스나이트",
+      "zh-Hant": "班基拉斯進化石"
     }
   },
   {
     "id": 803,
     "name": {
       "ja": "ピジョットナイト",
-      "en": "Pidgeotite"
+      "en": "Pidgeotite",
+      "ko": "피죤투나이트",
+      "zh-Hant": "大比鳥進化石"
     }
   },
   {
     "id": 721,
     "name": {
       "ja": "ライボルトナイト",
-      "en": "Manectite"
+      "en": "Manectite",
+      "ko": "썬더볼트나이트",
+      "zh-Hant": "雷電獸進化石"
     }
   },
   {
     "id": 705,
     "name": {
       "ja": "ヘルガナイト",
-      "en": "Houndoominite"
+      "en": "Houndoominite",
+      "ko": "헬가나이트",
+      "zh-Hant": "黑魯加進化石"
     }
   },
   {
     "id": 798,
     "name": {
       "ja": "タブンネナイト",
-      "en": "Audinite"
+      "en": "Audinite",
+      "ko": "다부니나이트",
+      "zh-Hant": "差不多娃娃進化石"
     }
   },
   {
     "id": 809,
     "name": {
       "ja": "ミミロップナイト",
-      "en": "Lopunnite"
+      "en": "Lopunnite",
+      "ko": "이어롭나이트",
+      "zh-Hant": "長耳兔進化石"
     }
   },
   {
     "id": 795,
     "name": {
       "ja": "ヤミラミナイト",
-      "en": "Sablenite"
+      "en": "Sablenite",
+      "ko": "깜까미나이트",
+      "zh-Hant": "勾魂眼進化石"
     }
   },
   {
     "id": 800,
     "name": {
       "ja": "サメハダナイト",
-      "en": "Sharpedonite"
+      "en": "Sharpedonite",
+      "ko": "샤크니아나이트",
+      "zh-Hant": "巨牙鯊進化石"
     }
   },
   {
     "id": 715,
     "name": {
       "ja": "ギャラドスナイト",
-      "en": "Gyaradosite"
+      "en": "Gyaradosite",
+      "ko": "갸라도스나이트",
+      "zh-Hant": "暴鯉龍進化石"
     }
   },
   {
     "id": 712,
     "name": {
       "ja": "ルカリオナイト",
-      "en": "Lucarionite"
+      "en": "Lucarionite",
+      "ko": "루카리오나이트",
+      "zh-Hant": "路卡利歐進化石"
     }
   },
   {
     "id": 719,
     "name": {
       "ja": "ヘラクロスナイト",
-      "en": "Heracronite"
+      "en": "Heracronite",
+      "ko": "헤라크로스나이트",
+      "zh-Hant": "赫拉克羅斯進化石"
     }
   },
   {
     "id": 711,
     "name": {
       "ja": "プテラナイト",
-      "en": "Aerodactylite"
+      "en": "Aerodactylite",
+      "ko": "프테라나이트",
+      "zh-Hant": "化石翼龍進化石"
     }
   },
   {
     "id": 718,
     "name": {
       "ja": "フーディナイト",
-      "en": "Alakazite"
+      "en": "Alakazite",
+      "ko": "후딘나이트",
+      "zh-Hant": "胡地進化石"
     }
   },
   {
     "id": 20014,
     "name": {
       "ja": "ジジーロナイト",
-      "en": "Drampanite"
+      "en": "Drampanite",
+      "ko": "Drampanite",
+      "zh-Hant": "Drampanite"
     }
   },
   {
     "id": 20015,
     "name": {
       "ja": "シビルドナイト",
-      "en": "Eelektrossite"
+      "en": "Eelektrossite",
+      "ko": "Eelektrossite",
+      "zh-Hant": "Eelektrossite"
     }
   },
   {
     "id": 804,
     "name": {
       "ja": "オニゴーリナイト",
-      "en": "Glalitite"
+      "en": "Glalitite",
+      "ko": "얼음귀신나이트",
+      "zh-Hant": "冰鬼護進化石"
     }
   },
   {
     "id": 710,
     "name": {
       "ja": "カイロスナイト",
-      "en": "Pinsirite"
+      "en": "Pinsirite",
+      "ko": "쁘사이저나이트",
+      "zh-Hant": "大甲進化石"
     }
   },
   {
     "id": 20016,
     "name": {
       "ja": "タイレーツナイト",
-      "en": "Falinksite"
+      "en": "Falinksite",
+      "ko": "Falinksite",
+      "zh-Hant": "Falinksite"
     }
   },
   {
     "id": 20017,
     "name": {
       "ja": "ペンドラナイト",
-      "en": "Scolipedite"
+      "en": "Scolipedite",
+      "ko": "Scolipedite",
+      "zh-Hant": "Scolipedite"
     }
   },
   {
     "id": 696,
     "name": {
       "ja": "サーナイトナイト",
-      "en": "Gardevoirite"
+      "en": "Gardevoirite",
+      "ko": "가디안나이트",
+      "zh-Hant": "沙奈朵進化石"
     }
   },
   {
     "id": 797,
     "name": {
       "ja": "エルレイドナイト",
-      "en": "Galladite"
+      "en": "Galladite",
+      "ko": "엘레이드나이트",
+      "zh-Hant": "艾路雷朵進化石"
     }
   },
   {
     "id": 20018,
     "name": {
       "ja": "エアームドナイト",
-      "en": "Skarmorite"
+      "en": "Skarmorite",
+      "ko": "Skarmorite",
+      "zh-Hant": "Skarmorite"
     }
   },
   {
     "id": 20019,
     "name": {
       "ja": "ピクシナイト",
-      "en": "Clefablite"
+      "en": "Clefablite",
+      "ko": "Clefablite",
+      "zh-Hant": "Clefablite"
     }
   },
   {
     "id": 20020,
     "name": {
       "ja": "ドラミドナイト",
-      "en": "Dragalgite"
+      "en": "Dragalgite",
+      "ko": "Dragalgite",
+      "zh-Hant": "Dragalgite"
     }
   },
   {
     "id": 20021,
     "name": {
       "ja": "ズルズキナイト",
-      "en": "Scraftite"
+      "en": "Scraftite",
+      "ko": "Scraftite",
+      "zh-Hant": "Scraftite"
     }
   },
   {
     "id": 20022,
     "name": {
       "ja": "カエンジシナイト",
-      "en": "Pyroarite"
+      "en": "Pyroarite",
+      "ko": "Pyroarite",
+      "zh-Hant": "Pyroarite"
     }
   },
   {
     "id": 20023,
     "name": {
       "ja": "カラマネナイト",
-      "en": "Malamarite"
+      "en": "Malamarite",
+      "ko": "Malamarite",
+      "zh-Hant": "Malamarite"
     }
   },
   {
     "id": 20024,
     "name": {
       "ja": "ドリュウズナイト",
-      "en": "Excadrillite"
+      "en": "Excadrillite",
+      "ko": "Excadrillite",
+      "zh-Hant": "Excadrillite"
     }
   },
   {
     "id": 20025,
     "name": {
       "ja": "シャンデラナイト",
-      "en": "Chandelurite"
+      "en": "Chandelurite",
+      "ko": "Chandelurite",
+      "zh-Hant": "Chandelurite"
     }
   },
   {
     "id": 706,
     "name": {
       "ja": "ボスゴドラナイト",
-      "en": "Aggronite"
+      "en": "Aggronite",
+      "ko": "보스로라나이트",
+      "zh-Hant": "波士可多拉進化石"
     }
   },
   {
     "id": 810,
     "name": {
       "ja": "ボーマンダナイト",
-      "en": "Salamencite"
+      "en": "Salamencite",
+      "ko": "보만다나이트",
+      "zh-Hant": "暴飛龍進化石"
     }
   },
   {
     "id": 799,
     "name": {
       "ja": "メタグロスナイト",
-      "en": "Metagrossite"
+      "en": "Metagrossite",
+      "ko": "메타그로스나이트",
+      "zh-Hant": "巨金怪進化石"
     }
   },
   {
     "id": 695,
     "name": {
       "ja": "ゲンガナイト",
-      "en": "Gengarite"
+      "en": "Gengarite",
+      "ko": "팬텀나이트",
+      "zh-Hant": "耿鬼進化石"
     }
   },
   {
     "id": 704,
     "name": {
       "ja": "チャーレムナイト",
-      "en": "Medichamite"
+      "en": "Medichamite",
+      "ko": "요가램나이트",
+      "zh-Hant": "恰雷姆進化石"
     }
   },
   {
     "id": 713,
     "name": {
       "ja": "ユキノオナイト",
-      "en": "Abomasite"
+      "en": "Abomasite",
+      "ko": "눈설왕나이트",
+      "zh-Hant": "暴雪王進化石"
     }
   },
   {
     "id": 709,
     "name": {
       "ja": "ハッサムナイト",
-      "en": "Scizorite"
+      "en": "Scizorite",
+      "ko": "핫삼나이트",
+      "zh-Hant": "巨鉗螳螂進化石"
     }
   },
   {
     "id": 722,
     "name": {
       "ja": "ガブリアスナイト",
-      "en": "Garchompite"
+      "en": "Garchompite",
+      "ko": "한카리아스나이트",
+      "zh-Hant": "烈咬陸鯊進化石"
     }
   },
   {
     "id": 802,
     "name": {
       "ja": "ハガネールナイト",
-      "en": "Steelixite"
+      "en": "Steelixite",
+      "ko": "강철톤나이트",
+      "zh-Hant": "大鋼蛇進化石"
     }
   },
   {
     "id": 714,
     "name": {
       "ja": "ガルーラナイト",
-      "en": "Kangaskhanite"
+      "en": "Kangaskhanite",
+      "ko": "캥카나이트",
+      "zh-Hant": "袋獸進化石"
     }
   },
   {
     "id": 20026,
     "name": {
       "ja": "リザードナイトX",
-      "en": "Charizardite X"
+      "en": "Charizardite X",
+      "ko": "리자몽나이트X",
+      "zh-Hant": "噴火龍進化石X"
     }
   },
   {
     "id": 20027,
     "name": {
       "ja": "リザードナイトY",
-      "en": "Charizardite Y"
+      "en": "Charizardite Y",
+      "ko": "리자몽나이트Y",
+      "zh-Hant": "噴火龍進化石Y"
     }
   },
   {
     "id": 700,
     "name": {
       "ja": "カメックスナイト",
-      "en": "Blastoisinite"
+      "en": "Blastoisinite",
+      "ko": "거북왕나이트",
+      "zh-Hant": "水箭龜進化石"
     }
   },
   {
     "id": 698,
     "name": {
       "ja": "フシギバナイト",
-      "en": "Venusaurite"
+      "en": "Venusaurite",
+      "ko": "이상해꽃나이트",
+      "zh-Hant": "妙蛙花進化石"
     }
   },
   {
     "id": 20028,
     "name": {
       "ja": "ゲッコウガナイト",
-      "en": "Greninjite"
+      "en": "Greninjite",
+      "ko": "Greninjite",
+      "zh-Hant": "Greninjite"
     }
   },
   {
     "id": 20029,
     "name": {
       "ja": "マフォクシナイト",
-      "en": "Delphoxite"
+      "en": "Delphoxite",
+      "ko": "Delphoxite",
+      "zh-Hant": "Delphoxite"
     }
   },
   {
     "id": 20030,
     "name": {
       "ja": "ブリガロナイト",
-      "en": "Chesnaughtite"
+      "en": "Chesnaughtite",
+      "ko": "Chesnaughtite",
+      "zh-Hant": "Chesnaughtite"
     }
   },
   {
     "id": 20031,
     "name": {
       "ja": "フラエッテナイト",
-      "en": "Floettite"
+      "en": "Floettite",
+      "ko": "Floettite",
+      "zh-Hant": "Floettite"
     }
   },
   {
     "id": 20032,
     "name": {
       "ja": "セグレイブナイト",
-      "en": "Baxcaliburite"
+      "en": "Baxcaliburite",
+      "ko": "드닐레이브나이트",
+      "zh-Hant": "戟脊龍進化石"
     }
   },
   {
     "id": 20033,
     "name": {
       "ja": "ルカリオナイトZ",
-      "en": "Lucarionite Z"
+      "en": "Lucarionite Z",
+      "ko": "루카리오나이트Z",
+      "zh-Hant": "路卡利歐進化石Z"
     }
   },
   {
     "id": 20034,
     "name": {
       "ja": "ライチュウナイトX",
-      "en": "Raichunite X"
+      "en": "Raichunite X",
+      "ko": "Raichunite X",
+      "zh-Hant": "Raichunite X"
     }
   },
   {
     "id": 20035,
     "name": {
       "ja": "ライチュウナイトY",
-      "en": "Raichunite Y"
+      "en": "Raichunite Y",
+      "ko": "Raichunite Y",
+      "zh-Hant": "Raichunite Y"
     }
   },
   {
     "id": 794,
     "name": {
       "ja": "ジュカインナイト",
-      "en": "Sceptilite"
+      "en": "Sceptilite",
+      "ko": "나무킹나이트",
+      "zh-Hant": "蜥蜴王進化石"
     }
   },
   {
     "id": 793,
     "name": {
       "ja": "ラグラージナイト",
-      "en": "Swampertite"
+      "en": "Swampertite",
+      "ko": "대짱이나이트",
+      "zh-Hant": "巨沼怪進化石"
     }
   },
   {
     "id": 703,
     "name": {
       "ja": "バシャーモナイト",
-      "en": "Blazikenite"
+      "en": "Blazikenite",
+      "ko": "번치코나이트",
+      "zh-Hant": "火焰雞進化石"
     }
   },
   {
     "id": 20036,
     "name": {
       "ja": "アブソルナイトZ",
-      "en": "Absolite Z"
+      "en": "Absolite Z",
+      "ko": "앱솔나이트Z",
+      "zh-Hant": "阿勃梭魯進化石Z"
     }
   },
   {
     "id": 20037,
     "name": {
       "ja": "ムクホークナイト",
-      "en": "Staraptorite"
+      "en": "Staraptorite",
+      "ko": "Staraptorite",
+      "zh-Hant": "Staraptorite"
     }
   },
   {
     "id": 20038,
     "name": {
       "ja": "チリーンナイト",
-      "en": "Chimechonite"
+      "en": "Chimechonite",
+      "ko": "Chimechonite",
+      "zh-Hant": "Chimechonite"
     }
   },
   {
     "id": 20039,
     "name": {
       "ja": "ケケンカニナイト",
-      "en": "Crabominableite"
+      "en": "Crabominableite",
+      "ko": "Crabominableite",
+      "zh-Hant": "Crabominableite"
     }
   },
   {
     "id": 20040,
     "name": {
       "ja": "スコヴィラナイト",
-      "en": "Scovillainite"
+      "en": "Scovillainite",
+      "ko": "Scovillainite",
+      "zh-Hant": "Scovillainite"
     }
   },
   {
     "id": 20041,
     "name": {
       "ja": "ゴルーグナイト",
-      "en": "Golurkite"
+      "en": "Golurkite",
+      "ko": "Golurkite",
+      "zh-Hant": "Golurkite"
     }
   },
   {
     "id": 20042,
     "name": {
       "ja": "ニャオニクスナイト",
-      "en": "Meowsticite"
+      "en": "Meowsticite",
+      "ko": "Meowsticite",
+      "zh-Hant": "Meowsticite"
     }
   },
   {
     "id": 20043,
     "name": {
       "ja": "グソクムシャナイト",
-      "en": "Golisopodite"
+      "en": "Golisopodite",
+      "ko": "갑주무사나이트",
+      "zh-Hant": "具甲武者進化石"
     }
   },
   {
     "id": 20044,
     "name": {
       "ja": "キラフロルナイト",
-      "en": "Glimmorite"
+      "en": "Glimmorite",
+      "ko": "Glimmorite",
+      "zh-Hant": "Glimmorite"
     }
   },
   {
     "id": 20045,
     "name": {
       "ja": "ガブリアスナイトZ",
-      "en": "Garchompite Z"
+      "en": "Garchompite Z",
+      "ko": "한카리아스나이트Z",
+      "zh-Hant": "烈咬陸鯊進化石Z"
     }
   },
   {
     "id": 99999,
     "name": {
       "ja": "なし",
-      "en": "None"
+      "en": "None",
+      "ko": "None",
+      "zh-Hant": "None"
     }
   }
 ]

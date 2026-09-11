@@ -105,7 +105,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
     if (poke.name.ja.startsWith('メガ') && poke.name.ja !== 'メガレックウザ') {
       const mapped = megaStoneMap[poke.name.ja];
       if (mapped) {
-        initialItem = language === 'ja' ? mapped.ja : mapped.en;
+        initialItem = mapped[language];
       } else {
         initialItem = `${poke.name.ja.replace('メガ', '')}ナイト`;
       }
@@ -163,7 +163,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       setIsPartySelectOpen(true);
     } else {
       const createdId = createNewParty(
-        language === 'ja' ? 'マイパーティ' : 'My Party',
+        t('evCalculator.myParty'),
         []
       );
       addPokemonToPartyDirectly(instance, createdId);
@@ -189,9 +189,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   const handleCreateNewPartyWithPending = () => {
     if (pendingPokemonToAdd) {
       createNewParty(
-        language === 'ja'
-          ? `${pendingPokemonToAdd.id}入りパーティ`
-          : `Party with ${pendingPokemonToAdd.id}`,
+        t('evCalculator.partyWithPokemon', { name: pendingPokemonToAdd.id }),
         [pendingPokemonToAdd]
       );
       setPendingPokemonToAdd(null);
@@ -242,12 +240,10 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
         <div>
           <h2 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent flex items-center gap-2">
             <span className="i-lucide-calculator text-indigo-500" />
-            {language === 'ja' ? '努力値計算ツール' : 'EV Calculator'}
+            {t('evCalculator.title')}
           </h2>
           <p className="text-sm text-slate-500 mt-1">
-            {language === 'ja'
-              ? '努力値と性格を調整し、レベル50時の実数値を計算します。'
-              : 'Adjust EVs and natures to calculate Level 50 stats.'}
+            {t('evCalculator.subdescription')}
           </p>
         </div>
         {selectedPoke ? (
@@ -257,11 +253,11 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
             icon="i-lucide-plus"
             className="shadow-md shadow-indigo-500/20"
           >
-            {language === 'ja' ? 'パーティに追加' : 'Add to Party'}
+            {t('evCalculator.addToParty')}
           </Button>
         ) : (
           <Button onClick={() => setIsSearchOpen(true)} icon="i-lucide-search">
-            {language === 'ja' ? 'ポケモンを選択' : 'Select Pokémon'}
+            {t('evCalculator.selectPokemon')}
           </Button>
         )}
       </div>
@@ -271,11 +267,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
           <div
             onClick={() => setIsSearchOpen(true)}
             className="card-premium relative z-30 overflow-visible p-5 border-l-4 border-l-indigo-500 dark:border-l-indigo-600 bg-white dark:bg-slate-900 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition duration-200 group flex flex-col lg:flex-row gap-6 justify-between items-start lg:items-center"
-            title={
-              language === 'ja'
-                ? 'クリックしてポケモンを変更'
-                : 'Click to change Pokémon'
-            }
+            title={t('evCalculator.changePokemonTooltip')}
           >
             {/* Left Side: Avatar, Name, Type */}
             <div className="flex items-center gap-4 shrink-0">
@@ -313,7 +305,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               {/* Nature Select */}
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                  {language === 'ja' ? '性格' : 'Nature'}
+                  {t('evCalculator.nature')}
                 </label>
                 <Select
                   value={nature}
@@ -334,7 +326,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               {/* Ability Select */}
               <div className="space-y-1">
                 <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                  {language === 'ja' ? '特性' : 'Ability'}
+                  {t('evCalculator.ability')}
                 </label>
 
                 <Select
@@ -354,13 +346,11 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               <div className="space-y-1">
                 <Autocomplete
                   id="item-select"
-                  label={language === 'ja' ? '持ち物' : 'Item'}
+                  label={t('evCalculator.item')}
                   value={item}
-                  suggestions={itemsData.map((i) => i.name[language])}
+                  suggestions={itemsData.map((i) => i.name[language] || i.name.ja)}
                   onChange={(val) => setItem(val)}
-                  placeholder={
-                    language === 'ja' ? '持ち物を選択...' : 'Search items...'
-                  }
+                  placeholder={t('evCalculator.itemPlaceholder')}
                 />
               </div>
             </div>
@@ -372,7 +362,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                   <span className="i-lucide-activity text-indigo-500" />
-                  {language === 'ja' ? '努力値と実数値' : 'EVs and Stats'}
+                  {t('evCalculator.evAndStats')}
                 </h3>
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-semibold">
@@ -394,16 +384,16 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               {/* Compact Stat Table Headers */}
               <div className="grid grid-cols-12 gap-2 px-3 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 select-none">
                 <div className="col-span-3 sm:col-span-3">
-                  {language === 'ja' ? 'ステータス' : 'Stat'}
+                  {t('evCalculator.statTableStat')}
                 </div>
                 <div className="col-span-2 sm:col-span-2 text-center">
-                  {language === 'ja' ? '種族値' : 'Base'}
+                  {t('evCalculator.statTableBase')}
                 </div>
                 <div className="col-span-5 sm:col-span-5 text-center">
-                  {language === 'ja' ? '努力値 (ステップ)' : 'EVs (Step)'}
+                  {t('evCalculator.statTableEv')}
                 </div>
                 <div className="col-span-2 sm:col-span-2 text-right">
-                  {language === 'ja' ? '実数値' : 'Final'}
+                  {t('evCalculator.statTableFinal')}
                 </div>
               </div>
 
@@ -485,7 +475,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               <div className="card-premium relative z-20 space-y-4">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                   <span className="i-lucide-swords text-indigo-500" />
-                  {language === 'ja' ? '技構成' : 'Moves'}
+                  {t('evCalculator.moves')}
                 </h3>
                 <div className="grid grid-cols-1 gap-2">
                   {[0, 1, 2, 3].map((idx) => {
@@ -564,9 +554,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
         <div className="card-premium py-20 text-center space-y-4">
           <span className="i-lucide-help-circle text-5xl text-slate-300 dark:text-slate-700 block mx-auto" />
           <p className="text-slate-600 dark:text-slate-300 font-medium">
-            {language === 'ja'
-              ? '上のボタンから努力値を計算したいポケモンを選択してください。'
-              : 'Please select a Pokémon above to start EV calculations.'}
+            {t('evCalculator.selectPokemonAbovePrompt')}
           </p>
         </div>
       )}
@@ -588,21 +576,17 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
             <div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                 <span className="i-lucide-alert-triangle text-amber-500" />
-                {language === 'ja' ? 'パーティが満杯です' : 'Party is Full'}
+                {t('evCalculator.partyFull')}
               </h3>
               <p className="text-sm text-slate-500 mt-2">
-                {language === 'ja'
-                  ? '現在のパーティにはすでに6匹設定されています。新規のパーティを作るか、既存のメンバーを入れ替えてください。'
-                  : 'Your current party already has 6 members. Create a new party or replace one of the existing slots.'}
+                {t('evCalculator.partyFullDesc')}
               </p>
             </div>
 
             {/* List of members to replace */}
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                {language === 'ja'
-                  ? '入れ替えるスロットを選択'
-                  : 'Select a Slot to Replace'}
+                {t('evCalculator.selectSlotToReplace')}
               </label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {partyMembers.map((member, index) => {
@@ -644,16 +628,14 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 icon="i-lucide-plus"
                 className="w-full md:w-auto"
               >
-                {language === 'ja'
-                  ? '新規パーティを作成して追加'
-                  : 'Create New Party & Add'}
+                {t('evCalculator.createNewPartyAndAdd')}
               </Button>
               <Button
                 onClick={() => setPendingPokemonToAdd(null)}
                 variant="secondary"
                 className="w-full md:w-auto"
               >
-                {language === 'ja' ? 'キャンセル' : 'Cancel'}
+                {t('common.cancel')}
               </Button>
             </div>
           </div>
@@ -667,14 +649,10 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
             <div>
               <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                 <span className="i-lucide-plus-circle text-indigo-500" />
-                {language === 'ja'
-                  ? '追加先のパーティを選択'
-                  : 'Select Target Party'}
+                {t('evCalculator.selectTargetParty')}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                {language === 'ja'
-                  ? 'このポケモンを追加したいパーティを選択してください。'
-                  : 'Select which party you want to add this Pokémon to.'}
+                {t('evCalculator.selectTargetPartyDesc')}
               </p>
             </div>
 
@@ -706,7 +684,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 type="button"
                 onClick={() => {
                   const createdId = createNewParty(
-                    language === 'ja' ? 'マイパーティ' : 'My Party',
+                    t('evCalculator.myParty'),
                     []
                   );
                   handleConfirmAddParty(createdId);
@@ -714,9 +692,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 className="w-full transition duration-200 cursor-pointer font-semibold flex items-center justify-center gap-2 btn-secondary py-2.5 text-sm"
               >
                 <span className="i-lucide-plus" />
-                {language === 'ja'
-                  ? '新規のパーティを作成して追加'
-                  : 'Create New Party & Add'}
+                {t('evCalculator.createNewPartyAndAdd')}
               </button>
               <button
                 type="button"
@@ -726,7 +702,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 }}
                 className="w-full transition duration-200 cursor-pointer font-semibold flex items-center justify-center gap-2 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm"
               >
-                {language === 'ja' ? 'キャンセル' : 'Cancel'}
+                {t('common.cancel')}
               </button>
             </div>
           </div>

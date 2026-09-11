@@ -3,21 +3,27 @@
     "id": "M-A",
     "name": {
       "ja": "レギュレーションM-A",
-      "en": "Regulation M-A"
+      "en": "Regulation M-A",
+      "ko": "레귤레이션 M-A",
+      "zh-Hant": "規則 M-A"
     }
   },
   {
     "id": "M-B",
     "name": {
       "ja": "レギュレーションM-B",
-      "en": "Regulation M-B"
+      "en": "Regulation M-B",
+      "ko": "레귤레이션 M-B",
+      "zh-Hant": "規則 M-B"
     }
   },
   {
     "id": "M-C",
     "name": {
       "ja": "レギュレーションM-C",
-      "en": "Regulation M-C"
+      "en": "Regulation M-C",
+      "ko": "레귤레이션 M-C",
+      "zh-Hant": "規則 M-C"
     }
   }
 ]

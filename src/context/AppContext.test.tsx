@@ -11,6 +11,11 @@ const TestComponent = () => {
       <span data-testid="lang">{language}</span>
       <span data-testid="theme">{theme}</span>
       <span data-testid="translated">{t('dashboard')}</span>
+      <span data-testid="nested-translated">{t('evCalculator.title')}</span>
+      <span data-testid="fallback-key">{t('missing.unknown.key')}</span>
+      <span data-testid="interpolated">
+        {t('evCalculator.partyWithPokemon', { name: 'ピカチュウ' })}
+      </span>
       <button type="button" onClick={toggleLanguage} data-testid="btn-lang">
         Toggle Lang
       </button>
@@ -39,6 +44,15 @@ describe('AppContext', () => {
     expect(screen.getByTestId('theme').textContent).toBe('dark');
     expect(document.documentElement.classList.contains('dark')).toBe(true);
     expect(screen.getByTestId('translated').textContent).toBe('ダッシュボード');
+    expect(screen.getByTestId('nested-translated').textContent).toBe(
+      '努力値計算ツール'
+    );
+    expect(screen.getByTestId('interpolated').textContent).toBe(
+      'ピカチュウ入りパーティ'
+    );
+    expect(screen.getByTestId('fallback-key').textContent).toBe(
+      'missing.unknown.key'
+    );
   });
 
   it('should initialize with a default party', () => {
@@ -178,7 +192,7 @@ describe('AppContext', () => {
     expect(appInstance.pendingPokemonToAdd).toBeNull();
   });
 
-  it('should toggle language and persist in localStorage', () => {
+  it('should cycle through 4 languages and persist in localStorage', () => {
     render(
       <AppProvider>
         <TestComponent />
@@ -186,13 +200,60 @@ describe('AppContext', () => {
     );
 
     const btnLang = screen.getByTestId('btn-lang');
+
+    // 1. ja -> en
     act(() => {
       btnLang.click();
     });
-
     expect(screen.getByTestId('lang').textContent).toBe('en');
     expect(localStorage.getItem('lang')).toBe('en');
     expect(screen.getByTestId('translated').textContent).toBe('Dashboard');
+
+    // 2. en -> ko
+    act(() => {
+      btnLang.click();
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('ko');
+    expect(localStorage.getItem('lang')).toBe('ko');
+    expect(screen.getByTestId('translated').textContent).toBe('대시보드');
+
+    // 3. ko -> zh-Hant
+    act(() => {
+      btnLang.click();
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('zh-Hant');
+    expect(localStorage.getItem('lang')).toBe('zh-Hant');
+    expect(screen.getByTestId('translated').textContent).toBe('儀表板');
+
+    // 4. zh-Hant -> ja
+    act(() => {
+      btnLang.click();
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('ja');
+    expect(localStorage.getItem('lang')).toBe('ja');
+    expect(screen.getByTestId('translated').textContent).toBe('ダッシュボード');
+  });
+
+  it('should allow setting language directly with setLanguage', () => {
+    render(
+      <AppProvider>
+        <TestComponent />
+      </AppProvider>
+    );
+
+    act(() => {
+      appInstance.setLanguage('ko');
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('ko');
+    expect(localStorage.getItem('lang')).toBe('ko');
+    expect(screen.getByTestId('nested-translated').textContent).toBe('노력치 계산기');
+
+    act(() => {
+      appInstance.setLanguage('zh-Hant');
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('zh-Hant');
+    expect(localStorage.getItem('lang')).toBe('zh-Hant');
+    expect(screen.getByTestId('nested-translated').textContent).toBe('努力值計算器');
   });
 
   it('should toggle theme and update html class and localStorage', () => {

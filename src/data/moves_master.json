@@ -3,7 +3,9 @@
     "id": 14,
     "name": {
       "ja": "つるぎのまい",
-      "en": "Swords Dance"
+      "en": "Swords Dance",
+      "ko": "칼춤",
+      "zh-Hant": "劍舞"
     },
     "type": "normal",
     "category": "status",
@@ -15,7 +17,9 @@
     "id": 15,
     "name": {
       "ja": "いあいぎり",
-      "en": "Cut"
+      "en": "Cut",
+      "ko": "풀베기",
+      "zh-Hant": "居合斬"
     },
     "type": "normal",
     "category": "physical",
@@ -27,7 +31,9 @@
     "id": 20,
     "name": {
       "ja": "しめつける",
-      "en": "Bind"
+      "en": "Bind",
+      "ko": "조이기",
+      "zh-Hant": "綁緊"
     },
     "type": "normal",
     "category": "physical",
@@ -39,7 +45,9 @@
     "id": 22,
     "name": {
       "ja": "つるのムチ",
-      "en": "Vine Whip"
+      "en": "Vine Whip",
+      "ko": "덩굴채찍",
+      "zh-Hant": "藤鞭"
     },
     "type": "grass",
     "category": "physical",
@@ -51,7 +59,9 @@
     "id": 29,
     "name": {
       "ja": "ずつき",
-      "en": "Headbutt"
+      "en": "Headbutt",
+      "ko": "박치기",
+      "zh-Hant": "頭錘"
     },
     "type": "normal",
     "category": "physical",
@@ -63,7 +73,9 @@
     "id": 33,
     "name": {
       "ja": "たいあたり",
-      "en": "Tackle"
+      "en": "Tackle",
+      "ko": "몸통박치기",
+      "zh-Hant": "撞擊"
     },
     "type": "normal",
     "category": "physical",
@@ -75,7 +87,9 @@
     "id": 34,
     "name": {
       "ja": "のしかかり",
-      "en": "Body Slam"
+      "en": "Body Slam",
+      "ko": "누르기",
+      "zh-Hant": "泰山壓頂"
     },
     "type": "normal",
     "category": "physical",
@@ -87,7 +101,9 @@
     "id": 36,
     "name": {
       "ja": "とっしん",
-      "en": "Take Down"
+      "en": "Take Down",
+      "ko": "돌진",
+      "zh-Hant": "猛撞"
     },
     "type": "normal",
     "category": "physical",
@@ -99,7 +115,9 @@
     "id": 38,
     "name": {
       "ja": "すてみタックル",
-      "en": "Double-Edge"
+      "en": "Double-Edge",
+      "ko": "이판사판태클",
+      "zh-Hant": "捨身衝撞"
     },
     "type": "normal",
     "category": "physical",
@@ -111,7 +129,9 @@
     "id": 45,
     "name": {
       "ja": "なきごえ",
-      "en": "Growl"
+      "en": "Growl",
+      "ko": "울음소리",
+      "zh-Hant": "叫聲"
     },
     "type": "normal",
     "category": "status",
@@ -123,7 +143,9 @@
     "id": 46,
     "name": {
       "ja": "ほえる",
-      "en": "Roar"
+      "en": "Roar",
+      "ko": "울부짖기",
+      "zh-Hant": "吼叫"
     },
     "type": "normal",
     "category": "status",
@@ -135,7 +157,9 @@
     "id": 63,
     "name": {
       "ja": "はかいこうせん",
-      "en": "Hyper Beam"
+      "en": "Hyper Beam",
+      "ko": "파괴광선",
+      "zh-Hant": "破壞光線"
     },
     "type": "normal",
     "category": "special",
@@ -147,7 +171,9 @@
     "id": 70,
     "name": {
       "ja": "かいりき",
-      "en": "Strength"
+      "en": "Strength",
+      "ko": "괴력",
+      "zh-Hant": "怪力"
     },
     "type": "normal",
     "category": "physical",
@@ -159,7 +185,9 @@
     "id": 72,
     "name": {
       "ja": "メガドレイン",
-      "en": "Mega Drain"
+      "en": "Mega Drain",
+      "ko": "메가드레인",
+      "zh-Hant": "超級吸取"
     },
     "type": "grass",
     "category": "special",
@@ -171,7 +199,9 @@
     "id": 73,
     "name": {
       "ja": "やどりぎのタネ",
-      "en": "Leech Seed"
+      "en": "Leech Seed",
+      "ko": "씨뿌리기",
+      "zh-Hant": "寄生種子"
     },
     "type": "grass",
     "category": "status",
@@ -183,7 +213,9 @@
     "id": 74,
     "name": {
       "ja": "せいちょう",
-      "en": "Growth"
+      "en": "Growth",
+      "ko": "성장",
+      "zh-Hant": "生長"
     },
     "type": "normal",
     "category": "status",
@@ -195,7 +227,9 @@
     "id": 75,
     "name": {
       "ja": "はっぱカッター",
-      "en": "Razor Leaf"
+      "en": "Razor Leaf",
+      "ko": "잎날가르기",
+      "zh-Hant": "飛葉快刀"
     },
     "type": "grass",
     "category": "physical",
@@ -207,7 +241,9 @@
     "id": 76,
     "name": {
       "ja": "ソーラービーム",
-      "en": "Solar Beam"
+      "en": "Solar Beam",
+      "ko": "솔라빔",
+      "zh-Hant": "日光束"
     },
     "type": "grass",
     "category": "special",
@@ -219,7 +255,9 @@
     "id": 77,
     "name": {
       "ja": "どくのこな",
-      "en": "Poison Powder"
+      "en": "Poison Powder",
+      "ko": "독가루",
+      "zh-Hant": "毒粉"
     },
     "type": "poison",
     "category": "status",
@@ -231,7 +269,9 @@
     "id": 79,
     "name": {
       "ja": "ねむりごな",
-      "en": "Sleep Powder"
+      "en": "Sleep Powder",
+      "ko": "수면가루",
+      "zh-Hant": "催眠粉"
     },
     "type": "grass",
     "category": "status",
@@ -243,7 +283,9 @@
     "id": 80,
     "name": {
       "ja": "はなびらのまい",
-      "en": "Petal Dance"
+      "en": "Petal Dance",
+      "ko": "꽃잎댄스",
+      "zh-Hant": "花瓣舞"
     },
     "type": "grass",
     "category": "special",
@@ -255,7 +297,9 @@
     "id": 81,
     "name": {
       "ja": "いとをはく",
-      "en": "String Shot"
+      "en": "String Shot",
+      "ko": "실뿜기",
+      "zh-Hant": "吐絲"
     },
     "type": "bug",
     "category": "status",
@@ -267,7 +311,9 @@
     "id": 89,
     "name": {
       "ja": "じしん",
-      "en": "Earthquake"
+      "en": "Earthquake",
+      "ko": "지진",
+      "zh-Hant": "地震"
     },
     "type": "ground",
     "category": "physical",
@@ -279,7 +325,9 @@
     "id": 92,
     "name": {
       "ja": "どくどく",
-      "en": "Toxic"
+      "en": "Toxic",
+      "ko": "맹독",
+      "zh-Hant": "劇毒"
     },
     "type": "poison",
     "category": "status",
@@ -291,7 +339,9 @@
     "id": 99,
     "name": {
       "ja": "いかり",
-      "en": "Rage"
+      "en": "Rage",
+      "ko": "분노",
+      "zh-Hant": "憤怒"
     },
     "type": "normal",
     "category": "physical",
@@ -303,7 +353,9 @@
     "id": 102,
     "name": {
       "ja": "ものまね",
-      "en": "Mimic"
+      "en": "Mimic",
+      "ko": "흉내내기",
+      "zh-Hant": "模仿"
     },
     "type": "normal",
     "category": "status",
@@ -315,7 +367,9 @@
     "id": 104,
     "name": {
       "ja": "かげぶんしん",
-      "en": "Double Team"
+      "en": "Double Team",
+      "ko": "그림자분신",
+      "zh-Hant": "影子分身"
     },
     "type": "normal",
     "category": "status",
@@ -327,7 +381,9 @@
     "id": 111,
     "name": {
       "ja": "まるくなる",
-      "en": "Defense Curl"
+      "en": "Defense Curl",
+      "ko": "웅크리기",
+      "zh-Hant": "變圓"
     },
     "type": "normal",
     "category": "status",
@@ -339,7 +395,9 @@
     "id": 113,
     "name": {
       "ja": "ひかりのかべ",
-      "en": "Light Screen"
+      "en": "Light Screen",
+      "ko": "빛의장막",
+      "zh-Hant": "光牆"
     },
     "type": "psychic",
     "category": "status",
@@ -351,7 +409,9 @@
     "id": 115,
     "name": {
       "ja": "リフレクター",
-      "en": "Reflect"
+      "en": "Reflect",
+      "ko": "리플렉터",
+      "zh-Hant": "反射壁"
     },
     "type": "psychic",
     "category": "status",
@@ -363,7 +423,9 @@
     "id": 117,
     "name": {
       "ja": "がまん",
-      "en": "Bide"
+      "en": "Bide",
+      "ko": "참기",
+      "zh-Hant": "忍耐"
     },
     "type": "normal",
     "category": "physical",
@@ -375,7 +437,9 @@
     "id": 133,
     "name": {
       "ja": "ドわすれ",
-      "en": "Amnesia"
+      "en": "Amnesia",
+      "ko": "망각술",
+      "zh-Hant": "瞬間失憶"
     },
     "type": "psychic",
     "category": "status",
@@ -387,7 +451,9 @@
     "id": 148,
     "name": {
       "ja": "フラッシュ",
-      "en": "Flash"
+      "en": "Flash",
+      "ko": "플래시",
+      "zh-Hant": "閃光"
     },
     "type": "normal",
     "category": "status",
@@ -399,7 +465,9 @@
     "id": 156,
     "name": {
       "ja": "ねむる",
-      "en": "Rest"
+      "en": "Rest",
+      "ko": "잠자기",
+      "zh-Hant": "睡覺"
     },
     "type": "psychic",
     "category": "status",
@@ -411,7 +479,9 @@
     "id": 164,
     "name": {
       "ja": "みがわり",
-      "en": "Substitute"
+      "en": "Substitute",
+      "ko": "대타출동",
+      "zh-Hant": "替身"
     },
     "type": "normal",
     "category": "status",
@@ -423,7 +493,9 @@
     "id": 173,
     "name": {
       "ja": "いびき",
-      "en": "Snore"
+      "en": "Snore",
+      "ko": "코골기",
+      "zh-Hant": "打鼾"
     },
     "type": "normal",
     "category": "special",
@@ -435,7 +507,9 @@
     "id": 174,
     "name": {
       "ja": "のろい",
-      "en": "Curse"
+      "en": "Curse",
+      "ko": "저주",
+      "zh-Hant": "詛咒"
     },
     "type": "ghost",
     "category": "status",
@@ -447,7 +521,9 @@
     "id": 182,
     "name": {
       "ja": "まもる",
-      "en": "Protect"
+      "en": "Protect",
+      "ko": "방어",
+      "zh-Hant": "守住"
     },
     "type": "normal",
     "category": "status",
@@ -459,7 +535,9 @@
     "id": 184,
     "name": {
       "ja": "こわいかお",
-      "en": "Scary Face"
+      "en": "Scary Face",
+      "ko": "겁나는얼굴",
+      "zh-Hant": "鬼面"
     },
     "type": "normal",
     "category": "status",
@@ -471,7 +549,9 @@
     "id": 188,
     "name": {
       "ja": "ヘドロばくだん",
-      "en": "Sludge Bomb"
+      "en": "Sludge Bomb",
+      "ko": "오물폭탄",
+      "zh-Hant": "污泥炸彈"
     },
     "type": "poison",
     "category": "special",
@@ -483,7 +563,9 @@
     "id": 189,
     "name": {
       "ja": "どろかけ",
-      "en": "Mud-Slap"
+      "en": "Mud-Slap",
+      "ko": "진흙뿌리기",
+      "zh-Hant": "擲泥"
     },
     "type": "ground",
     "category": "special",
@@ -495,7 +577,9 @@
     "id": 200,
     "name": {
       "ja": "げきりん",
-      "en": "Outrage"
+      "en": "Outrage",
+      "ko": "역린",
+      "zh-Hant": "逆鱗"
     },
     "type": "dragon",
     "category": "physical",
@@ -507,7 +591,9 @@
     "id": 202,
     "name": {
       "ja": "ギガドレイン",
-      "en": "Giga Drain"
+      "en": "Giga Drain",
+      "ko": "기가드레인",
+      "zh-Hant": "終極吸取"
     },
     "type": "grass",
     "category": "special",
@@ -519,7 +605,9 @@
     "id": 203,
     "name": {
       "ja": "こらえる",
-      "en": "Endure"
+      "en": "Endure",
+      "ko": "버티기",
+      "zh-Hant": "挺住"
     },
     "type": "normal",
     "category": "status",
@@ -531,7 +619,9 @@
     "id": 204,
     "name": {
       "ja": "あまえる",
-      "en": "Charm"
+      "en": "Charm",
+      "ko": "애교부리기",
+      "zh-Hant": "撒嬌"
     },
     "type": "fairy",
     "category": "status",
@@ -543,7 +633,9 @@
     "id": 206,
     "name": {
       "ja": "みねうち",
-      "en": "False Swipe"
+      "en": "False Swipe",
+      "ko": "칼등치기",
+      "zh-Hant": "點到為止"
     },
     "type": "normal",
     "category": "physical",
@@ -555,7 +647,9 @@
     "id": 207,
     "name": {
       "ja": "いばる",
-      "en": "Swagger"
+      "en": "Swagger",
+      "ko": "뽐내기",
+      "zh-Hant": "虛張聲勢"
     },
     "type": "normal",
     "category": "status",
@@ -567,7 +661,9 @@
     "id": 210,
     "name": {
       "ja": "れんぞくぎり",
-      "en": "Fury Cutter"
+      "en": "Fury Cutter",
+      "ko": "연속자르기",
+      "zh-Hant": "連斬"
     },
     "type": "bug",
     "category": "physical",
@@ -579,7 +675,9 @@
     "id": 213,
     "name": {
       "ja": "メロメロ",
-      "en": "Attract"
+      "en": "Attract",
+      "ko": "헤롱헤롱",
+      "zh-Hant": "迷人"
     },
     "type": "normal",
     "category": "status",
@@ -591,7 +689,9 @@
     "id": 214,
     "name": {
       "ja": "ねごと",
-      "en": "Sleep Talk"
+      "en": "Sleep Talk",
+      "ko": "잠꼬대",
+      "zh-Hant": "夢話"
     },
     "type": "normal",
     "category": "status",
@@ -603,7 +703,9 @@
     "id": 216,
     "name": {
       "ja": "おんがえし",
-      "en": "Return"
+      "en": "Return",
+      "ko": "은혜갚기",
+      "zh-Hant": "報恩"
     },
     "type": "normal",
     "category": "physical",
@@ -615,7 +717,9 @@
     "id": 218,
     "name": {
       "ja": "やつあたり",
-      "en": "Frustration"
+      "en": "Frustration",
+      "ko": "화풀이",
+      "zh-Hant": "遷怒"
     },
     "type": "normal",
     "category": "physical",
@@ -627,7 +731,9 @@
     "id": 219,
     "name": {
       "ja": "しんぴのまもり",
-      "en": "Safeguard"
+      "en": "Safeguard",
+      "ko": "신비의부적",
+      "zh-Hant": "神秘守護"
     },
     "type": "normal",
     "category": "status",
@@ -639,7 +745,9 @@
     "id": 230,
     "name": {
       "ja": "あまいかおり",
-      "en": "Sweet Scent"
+      "en": "Sweet Scent",
+      "ko": "달콤한향기",
+      "zh-Hant": "甜甜香氣"
     },
     "type": "normal",
     "category": "status",
@@ -651,7 +759,9 @@
     "id": 235,
     "name": {
       "ja": "こうごうせい",
-      "en": "Synthesis"
+      "en": "Synthesis",
+      "ko": "광합성",
+      "zh-Hant": "光合作用"
     },
     "type": "grass",
     "category": "status",
@@ -663,7 +773,9 @@
     "id": 237,
     "name": {
       "ja": "めざめるパワー",
-      "en": "Hidden Power"
+      "en": "Hidden Power",
+      "ko": "잠재파워",
+      "zh-Hant": "覺醒力量"
     },
     "type": "normal",
     "category": "special",
@@ -675,7 +787,9 @@
     "id": 241,
     "name": {
       "ja": "にほんばれ",
-      "en": "Sunny Day"
+      "en": "Sunny Day",
+      "ko": "쾌청",
+      "zh-Hant": "大晴天"
     },
     "type": "fire",
     "category": "status",
@@ -687,7 +801,9 @@
     "id": 249,
     "name": {
       "ja": "いわくだき",
-      "en": "Rock Smash"
+      "en": "Rock Smash",
+      "ko": "바위깨기",
+      "zh-Hant": "碎岩"
     },
     "type": "fighting",
     "category": "physical",
@@ -699,7 +815,9 @@
     "id": 263,
     "name": {
       "ja": "からげんき",
-      "en": "Facade"
+      "en": "Facade",
+      "ko": "객기",
+      "zh-Hant": "硬撐"
     },
     "type": "normal",
     "category": "physical",
@@ -711,7 +829,9 @@
     "id": 267,
     "name": {
       "ja": "しぜんのちから",
-      "en": "Nature Power"
+      "en": "Nature Power",
+      "ko": "자연의힘",
+      "zh-Hant": "自然之力"
     },
     "type": "normal",
     "category": "status",
@@ -723,7 +843,9 @@
     "id": 270,
     "name": {
       "ja": "てだすけ",
-      "en": "Helping Hand"
+      "en": "Helping Hand",
+      "ko": "도우미",
+      "zh-Hant": "幫助"
     },
     "type": "normal",
     "category": "status",
@@ -735,7 +857,9 @@
     "id": 275,
     "name": {
       "ja": "ねをはる",
-      "en": "Ingrain"
+      "en": "Ingrain",
+      "ko": "뿌리박기",
+      "zh-Hant": "扎根"
     },
     "type": "grass",
     "category": "status",
@@ -747,7 +871,9 @@
     "id": 282,
     "name": {
       "ja": "はたきおとす",
-      "en": "Knock Off"
+      "en": "Knock Off",
+      "ko": "탁쳐서떨구기",
+      "zh-Hant": "拍落"
     },
     "type": "dark",
     "category": "physical",
@@ -759,7 +885,9 @@
     "id": 290,
     "name": {
       "ja": "ひみつのちから",
-      "en": "Secret Power"
+      "en": "Secret Power",
+      "ko": "비밀의힘",
+      "zh-Hant": "秘密之力"
     },
     "type": "normal",
     "category": "physical",
@@ -771,7 +899,9 @@
     "id": 311,
     "name": {
       "ja": "ウェザーボール",
-      "en": "Weather Ball"
+      "en": "Weather Ball",
+      "ko": "웨더볼",
+      "zh-Hant": "氣象球"
     },
     "type": "normal",
     "category": "special",
@@ -783,7 +913,9 @@
     "id": 331,
     "name": {
       "ja": "タネマシンガン",
-      "en": "Bullet Seed"
+      "en": "Bullet Seed",
+      "ko": "씨기관총",
+      "zh-Hant": "種子機關槍"
     },
     "type": "grass",
     "category": "physical",
@@ -795,7 +927,9 @@
     "id": 335,
     "name": {
       "ja": "とおせんぼう",
-      "en": "Block"
+      "en": "Block",
+      "ko": "블록",
+      "zh-Hant": "擋路"
     },
     "type": "normal",
     "category": "status",
@@ -807,7 +941,9 @@
     "id": 338,
     "name": {
       "ja": "ハードプラント",
-      "en": "Frenzy Plant"
+      "en": "Frenzy Plant",
+      "ko": "하드플랜트",
+      "zh-Hant": "瘋狂植物"
     },
     "type": "grass",
     "category": "special",
@@ -819,7 +955,9 @@
     "id": 345,
     "name": {
       "ja": "マジカルリーフ",
-      "en": "Magical Leaf"
+      "en": "Magical Leaf",
+      "ko": "매지컬리프",
+      "zh-Hant": "魔法葉"
     },
     "type": "grass",
     "category": "special",
@@ -831,7 +969,9 @@
     "id": 363,
     "name": {
       "ja": "しぜんのめぐみ",
-      "en": "Natural Gift"
+      "en": "Natural Gift",
+      "ko": "자연의은혜",
+      "zh-Hant": "自然之恩"
     },
     "type": "normal",
     "category": "physical",
@@ -843,7 +983,9 @@
     "id": 388,
     "name": {
       "ja": "なやみのタネ",
-      "en": "Worry Seed"
+      "en": "Worry Seed",
+      "ko": "고민씨",
+      "zh-Hant": "煩惱種子"
     },
     "type": "grass",
     "category": "status",
@@ -855,7 +997,9 @@
     "id": 398,
     "name": {
       "ja": "どくづき",
-      "en": "Poison Jab"
+      "en": "Poison Jab",
+      "ko": "독찌르기",
+      "zh-Hant": "毒擊"
     },
     "type": "poison",
     "category": "physical",
@@ -867,7 +1011,9 @@
     "id": 402,
     "name": {
       "ja": "タネばくだん",
-      "en": "Seed Bomb"
+      "en": "Seed Bomb",
+      "ko": "씨폭탄",
+      "zh-Hant": "種子炸彈"
     },
     "type": "grass",
     "category": "physical",
@@ -879,7 +1025,9 @@
     "id": 412,
     "name": {
       "ja": "エナジーボール",
-      "en": "Energy Ball"
+      "en": "Energy Ball",
+      "ko": "에너지볼",
+      "zh-Hant": "能量球"
     },
     "type": "grass",
     "category": "special",
@@ -891,7 +1039,9 @@
     "id": 414,
     "name": {
       "ja": "だいちのちから",
-      "en": "Earth Power"
+      "en": "Earth Power",
+      "ko": "대지의힘",
+      "zh-Hant": "大地之力"
     },
     "type": "ground",
     "category": "special",
@@ -903,7 +1053,9 @@
     "id": 416,
     "name": {
       "ja": "ギガインパクト",
-      "en": "Giga Impact"
+      "en": "Giga Impact",
+      "ko": "기가임팩트",
+      "zh-Hant": "終極衝擊"
     },
     "type": "normal",
     "category": "physical",
@@ -915,7 +1067,9 @@
     "id": 431,
     "name": {
       "ja": "ロッククライム",
-      "en": "Rock Climb"
+      "en": "Rock Climb",
+      "ko": "록클라임",
+      "zh-Hant": "攀岩"
     },
     "type": "normal",
     "category": "physical",
@@ -927,7 +1081,9 @@
     "id": 437,
     "name": {
       "ja": "リーフストーム",
-      "en": "Leaf Storm"
+      "en": "Leaf Storm",
+      "ko": "리프스톰",
+      "zh-Hant": "飛葉風暴"
     },
     "type": "grass",
     "category": "special",
@@ -939,7 +1095,9 @@
     "id": 438,
     "name": {
       "ja": "パワーウィップ",
-      "en": "Power Whip"
+      "en": "Power Whip",
+      "ko": "파워휩",
+      "zh-Hant": "強力鞭打"
     },
     "type": "grass",
     "category": "physical",
@@ -951,7 +1109,9 @@
     "id": 445,
     "name": {
       "ja": "ゆうわく",
-      "en": "Captivate"
+      "en": "Captivate",
+      "ko": "유혹",
+      "zh-Hant": "誘惑"
     },
     "type": "normal",
     "category": "status",
@@ -963,7 +1123,9 @@
     "id": 447,
     "name": {
       "ja": "くさむすび",
-      "en": "Grass Knot"
+      "en": "Grass Knot",
+      "ko": "풀묶기",
+      "zh-Hant": "打草結"
     },
     "type": "grass",
     "category": "special",
@@ -975,7 +1137,9 @@
     "id": 474,
     "name": {
       "ja": "ベノムショック",
-      "en": "Venoshock"
+      "en": "Venoshock",
+      "ko": "베놈쇼크",
+      "zh-Hant": "毒液衝擊"
     },
     "type": "poison",
     "category": "special",
@@ -987,7 +1151,9 @@
     "id": 482,
     "name": {
       "ja": "ヘドロウェーブ",
-      "en": "Sludge Wave"
+      "en": "Sludge Wave",
+      "ko": "오물웨이브",
+      "zh-Hant": "污泥波"
     },
     "type": "poison",
     "category": "special",
@@ -999,7 +1165,9 @@
     "id": 491,
     "name": {
       "ja": "アシッドボム",
-      "en": "Acid Spray"
+      "en": "Acid Spray",
+      "ko": "애시드봄",
+      "zh-Hant": "酸液炸彈"
     },
     "type": "poison",
     "category": "special",
@@ -1011,7 +1179,9 @@
     "id": 496,
     "name": {
       "ja": "りんしょう",
-      "en": "Round"
+      "en": "Round",
+      "ko": "돌림노래",
+      "zh-Hant": "輪唱"
     },
     "type": "normal",
     "category": "special",
@@ -1023,7 +1193,9 @@
     "id": 497,
     "name": {
       "ja": "エコーボイス",
-      "en": "Echoed Voice"
+      "en": "Echoed Voice",
+      "ko": "에코보이스",
+      "zh-Hant": "回聲"
     },
     "type": "normal",
     "category": "special",
@@ -1035,7 +1207,9 @@
     "id": 520,
     "name": {
       "ja": "くさのちかい",
-      "en": "Grass Pledge"
+      "en": "Grass Pledge",
+      "ko": "풀의맹세",
+      "zh-Hant": "草之誓約"
     },
     "type": "grass",
     "category": "special",
@@ -1047,7 +1221,9 @@
     "id": 523,
     "name": {
       "ja": "じならし",
-      "en": "Bulldoze"
+      "en": "Bulldoze",
+      "ko": "땅고르기",
+      "zh-Hant": "重踏"
     },
     "type": "ground",
     "category": "physical",
@@ -1059,7 +1235,9 @@
     "id": 526,
     "name": {
       "ja": "ふるいたてる",
-      "en": "Work Up"
+      "en": "Work Up",
+      "ko": "분발",
+      "zh-Hant": "自我激勵"
     },
     "type": "normal",
     "category": "status",
@@ -1071,7 +1249,9 @@
     "id": 572,
     "name": {
       "ja": "はなふぶき",
-      "en": "Petal Blizzard"
+      "en": "Petal Blizzard",
+      "ko": "꽃보라",
+      "zh-Hant": "落英繽紛"
     },
     "type": "grass",
     "category": "physical",
@@ -1083,7 +1263,9 @@
     "id": 580,
     "name": {
       "ja": "グラスフィールド",
-      "en": "Grassy Terrain"
+      "en": "Grassy Terrain",
+      "ko": "그래스필드",
+      "zh-Hant": "青草場地"
     },
     "type": "grass",
     "category": "status",
@@ -1095,7 +1277,9 @@
     "id": 590,
     "name": {
       "ja": "ないしょばなし",
-      "en": "Confide"
+      "en": "Confide",
+      "ko": "비밀이야기",
+      "zh-Hant": "密語"
     },
     "type": "normal",
     "category": "status",
@@ -1107,7 +1291,9 @@
     "id": 707,
     "name": {
       "ja": "じだんだ",
-      "en": "Stomping Tantrum"
+      "en": "Stomping Tantrum",
+      "ko": "분함의발구르기",
+      "zh-Hant": "跺腳"
     },
     "type": "ground",
     "category": "physical",
@@ -1119,7 +1305,9 @@
     "id": 803,
     "name": {
       "ja": "グラススライダー",
-      "en": "Grassy Glide"
+      "en": "Grassy Glide",
+      "ko": "그래스슬라이더",
+      "zh-Hant": "青草滑梯"
     },
     "type": "grass",
     "category": "physical",
@@ -1131,7 +1319,9 @@
     "id": 805,
     "name": {
       "ja": "だいちのはどう",
-      "en": "Terrain Pulse"
+      "en": "Terrain Pulse",
+      "ko": "대지의파동",
+      "zh-Hant": "大地波動"
     },
     "type": "normal",
     "category": "special",
@@ -1143,7 +1333,9 @@
     "id": 851,
     "name": {
       "ja": "テラバースト",
-      "en": "Tera Blast"
+      "en": "Tera Blast",
+      "ko": "테라버스트",
+      "zh-Hant": "太晶爆發"
     },
     "type": "normal",
     "category": "special",
@@ -1155,7 +1347,9 @@
     "id": 885,
     "name": {
       "ja": "くさわけ",
-      "en": "Trailblaze"
+      "en": "Trailblaze",
+      "ko": "개척하기",
+      "zh-Hant": "起草"
     },
     "type": "grass",
     "category": "physical",
@@ -1167,7 +1361,9 @@
     "id": 5,
     "name": {
       "ja": "メガトンパンチ",
-      "en": "Mega Punch"
+      "en": "Mega Punch",
+      "ko": "메가톤펀치",
+      "zh-Hant": "百萬噸重拳"
     },
     "type": "normal",
     "category": "physical",
@@ -1179,7 +1375,9 @@
     "id": 7,
     "name": {
       "ja": "ほのおのパンチ",
-      "en": "Fire Punch"
+      "en": "Fire Punch",
+      "ko": "불꽃펀치",
+      "zh-Hant": "火焰拳"
     },
     "type": "fire",
     "category": "physical",
@@ -1191,7 +1389,9 @@
     "id": 9,
     "name": {
       "ja": "かみなりパンチ",
-      "en": "Thunder Punch"
+      "en": "Thunder Punch",
+      "ko": "번개펀치",
+      "zh-Hant": "雷電拳"
     },
     "type": "electric",
     "category": "physical",
@@ -1203,7 +1403,9 @@
     "id": 10,
     "name": {
       "ja": "ひっかく",
-      "en": "Scratch"
+      "en": "Scratch",
+      "ko": "할퀴기",
+      "zh-Hant": "抓"
     },
     "type": "normal",
     "category": "physical",
@@ -1215,7 +1417,9 @@
     "id": 17,
     "name": {
       "ja": "つばさでうつ",
-      "en": "Wing Attack"
+      "en": "Wing Attack",
+      "ko": "날개치기",
+      "zh-Hant": "翅膀攻擊"
     },
     "type": "flying",
     "category": "physical",
@@ -1227,7 +1431,9 @@
     "id": 19,
     "name": {
       "ja": "そらをとぶ",
-      "en": "Fly"
+      "en": "Fly",
+      "ko": "공중날기",
+      "zh-Hant": "飛翔"
     },
     "type": "flying",
     "category": "physical",
@@ -1239,7 +1445,9 @@
     "id": 25,
     "name": {
       "ja": "メガトンキック",
-      "en": "Mega Kick"
+      "en": "Mega Kick",
+      "ko": "메가톤킥",
+      "zh-Hant": "百萬噸重踢"
     },
     "type": "normal",
     "category": "physical",
@@ -1251,7 +1459,9 @@
     "id": 43,
     "name": {
       "ja": "にらみつける",
-      "en": "Leer"
+      "en": "Leer",
+      "ko": "째려보기",
+      "zh-Hant": "瞪眼"
     },
     "type": "normal",
     "category": "status",
@@ -1263,7 +1473,9 @@
     "id": 44,
     "name": {
       "ja": "かみつく",
-      "en": "Bite"
+      "en": "Bite",
+      "ko": "물기",
+      "zh-Hant": "咬住"
     },
     "type": "dark",
     "category": "physical",
@@ -1275,7 +1487,9 @@
     "id": 52,
     "name": {
       "ja": "ひのこ",
-      "en": "Ember"
+      "en": "Ember",
+      "ko": "불꽃세례",
+      "zh-Hant": "火花"
     },
     "type": "fire",
     "category": "special",
@@ -1287,7 +1501,9 @@
     "id": 53,
     "name": {
       "ja": "かえんほうしゃ",
-      "en": "Flamethrower"
+      "en": "Flamethrower",
+      "ko": "화염방사",
+      "zh-Hant": "噴射火焰"
     },
     "type": "fire",
     "category": "special",
@@ -1299,7 +1515,9 @@
     "id": 66,
     "name": {
       "ja": "じごくぐるま",
-      "en": "Submission"
+      "en": "Submission",
+      "ko": "지옥의바퀴",
+      "zh-Hant": "地獄翻滾"
     },
     "type": "fighting",
     "category": "physical",
@@ -1311,7 +1529,9 @@
     "id": 68,
     "name": {
       "ja": "カウンター",
-      "en": "Counter"
+      "en": "Counter",
+      "ko": "카운터",
+      "zh-Hant": "雙倍奉還"
     },
     "type": "fighting",
     "category": "physical",
@@ -1323,7 +1543,9 @@
     "id": 69,
     "name": {
       "ja": "ちきゅうなげ",
-      "en": "Seismic Toss"
+      "en": "Seismic Toss",
+      "ko": "지구던지기",
+      "zh-Hant": "地球上投"
     },
     "type": "fighting",
     "category": "physical",
@@ -1335,7 +1557,9 @@
     "id": 82,
     "name": {
       "ja": "りゅうのいかり",
-      "en": "Dragon Rage"
+      "en": "Dragon Rage",
+      "ko": "용의분노",
+      "zh-Hant": "龍之怒"
     },
     "type": "dragon",
     "category": "special",
@@ -1347,7 +1571,9 @@
     "id": 83,
     "name": {
       "ja": "ほのおのうず",
-      "en": "Fire Spin"
+      "en": "Fire Spin",
+      "ko": "회오리불꽃",
+      "zh-Hant": "火焰旋渦"
     },
     "type": "fire",
     "category": "special",
@@ -1359,7 +1585,9 @@
     "id": 90,
     "name": {
       "ja": "じわれ",
-      "en": "Fissure"
+      "en": "Fissure",
+      "ko": "땅가르기",
+      "zh-Hant": "地裂"
     },
     "type": "ground",
     "category": "physical",
@@ -1371,7 +1599,9 @@
     "id": 91,
     "name": {
       "ja": "あなをほる",
-      "en": "Dig"
+      "en": "Dig",
+      "ko": "구멍파기",
+      "zh-Hant": "挖洞"
     },
     "type": "ground",
     "category": "physical",
@@ -1383,7 +1613,9 @@
     "id": 108,
     "name": {
       "ja": "えんまく",
-      "en": "Smokescreen"
+      "en": "Smokescreen",
+      "ko": "연막",
+      "zh-Hant": "煙幕"
     },
     "type": "normal",
     "category": "status",
@@ -1395,7 +1627,9 @@
     "id": 126,
     "name": {
       "ja": "だいもんじ",
-      "en": "Fire Blast"
+      "en": "Fire Blast",
+      "ko": "불대문자",
+      "zh-Hant": "大字爆炎"
     },
     "type": "fire",
     "category": "special",
@@ -1407,7 +1641,9 @@
     "id": 129,
     "name": {
       "ja": "スピードスター",
-      "en": "Swift"
+      "en": "Swift",
+      "ko": "스피드스타",
+      "zh-Hant": "高速星星"
     },
     "type": "normal",
     "category": "special",
@@ -1419,7 +1655,9 @@
     "id": 130,
     "name": {
       "ja": "ロケットずつき",
-      "en": "Skull Bash"
+      "en": "Skull Bash",
+      "ko": "로켓박치기",
+      "zh-Hant": "火箭頭錘"
     },
     "type": "normal",
     "category": "physical",
@@ -1431,7 +1669,9 @@
     "id": 154,
     "name": {
       "ja": "みだれひっかき",
-      "en": "Fury Swipes"
+      "en": "Fury Swipes",
+      "ko": "마구할퀴기",
+      "zh-Hant": "亂抓"
     },
     "type": "normal",
     "category": "physical",
@@ -1443,7 +1683,9 @@
     "id": 157,
     "name": {
       "ja": "いわなだれ",
-      "en": "Rock Slide"
+      "en": "Rock Slide",
+      "ko": "스톤샤워",
+      "zh-Hant": "岩崩"
     },
     "type": "rock",
     "category": "physical",
@@ -1455,7 +1697,9 @@
     "id": 163,
     "name": {
       "ja": "きりさく",
-      "en": "Slash"
+      "en": "Slash",
+      "ko": "베어가르기",
+      "zh-Hant": "劈開"
     },
     "type": "normal",
     "category": "physical",
@@ -1467,7 +1711,9 @@
     "id": 187,
     "name": {
       "ja": "はらだいこ",
-      "en": "Belly Drum"
+      "en": "Belly Drum",
+      "ko": "배북",
+      "zh-Hant": "腹鼓"
     },
     "type": "normal",
     "category": "status",
@@ -1479,7 +1725,9 @@
     "id": 201,
     "name": {
       "ja": "すなあらし",
-      "en": "Sandstorm"
+      "en": "Sandstorm",
+      "ko": "모래바람",
+      "zh-Hant": "沙暴"
     },
     "type": "rock",
     "category": "status",
@@ -1491,7 +1739,9 @@
     "id": 211,
     "name": {
       "ja": "はがねのつばさ",
-      "en": "Steel Wing"
+      "en": "Steel Wing",
+      "ko": "강철날개",
+      "zh-Hant": "鋼翼"
     },
     "type": "steel",
     "category": "physical",
@@ -1503,7 +1753,9 @@
     "id": 223,
     "name": {
       "ja": "ばくれつパンチ",
-      "en": "Dynamic Punch"
+      "en": "Dynamic Punch",
+      "ko": "폭발펀치",
+      "zh-Hant": "爆裂拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -1515,7 +1767,9 @@
     "id": 225,
     "name": {
       "ja": "りゅうのいぶき",
-      "en": "Dragon Breath"
+      "en": "Dragon Breath",
+      "ko": "용의숨결",
+      "zh-Hant": "龍息"
     },
     "type": "dragon",
     "category": "special",
@@ -1527,7 +1781,9 @@
     "id": 231,
     "name": {
       "ja": "アイアンテール",
-      "en": "Iron Tail"
+      "en": "Iron Tail",
+      "ko": "아이언테일",
+      "zh-Hant": "鐵尾"
     },
     "type": "steel",
     "category": "physical",
@@ -1539,7 +1795,9 @@
     "id": 232,
     "name": {
       "ja": "メタルクロー",
-      "en": "Metal Claw"
+      "en": "Metal Claw",
+      "ko": "메탈클로",
+      "zh-Hant": "金屬爪"
     },
     "type": "steel",
     "category": "physical",
@@ -1551,7 +1809,9 @@
     "id": 239,
     "name": {
       "ja": "たつまき",
-      "en": "Twister"
+      "en": "Twister",
+      "ko": "회오리",
+      "zh-Hant": "龍捲風"
     },
     "type": "dragon",
     "category": "special",
@@ -1563,7 +1823,9 @@
     "id": 242,
     "name": {
       "ja": "かみくだく",
-      "en": "Crunch"
+      "en": "Crunch",
+      "ko": "깨물어부수기",
+      "zh-Hant": "咬碎"
     },
     "type": "dark",
     "category": "physical",
@@ -1575,7 +1837,9 @@
     "id": 246,
     "name": {
       "ja": "げんしのちから",
-      "en": "Ancient Power"
+      "en": "Ancient Power",
+      "ko": "원시의힘",
+      "zh-Hant": "原始之力"
     },
     "type": "rock",
     "category": "special",
@@ -1587,7 +1851,9 @@
     "id": 251,
     "name": {
       "ja": "ふくろだたき",
-      "en": "Beat Up"
+      "en": "Beat Up",
+      "ko": "집단구타",
+      "zh-Hant": "圍攻"
     },
     "type": "dark",
     "category": "physical",
@@ -1599,7 +1865,9 @@
     "id": 257,
     "name": {
       "ja": "ねっぷう",
-      "en": "Heat Wave"
+      "en": "Heat Wave",
+      "ko": "열풍",
+      "zh-Hant": "熱風"
     },
     "type": "fire",
     "category": "special",
@@ -1611,7 +1879,9 @@
     "id": 261,
     "name": {
       "ja": "おにび",
-      "en": "Will-O-Wisp"
+      "en": "Will-O-Wisp",
+      "ko": "도깨비불",
+      "zh-Hant": "鬼火"
     },
     "type": "fire",
     "category": "status",
@@ -1623,7 +1893,9 @@
     "id": 264,
     "name": {
       "ja": "きあいパンチ",
-      "en": "Focus Punch"
+      "en": "Focus Punch",
+      "ko": "힘껏펀치",
+      "zh-Hant": "真氣拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -1635,7 +1907,9 @@
     "id": 280,
     "name": {
       "ja": "かわらわり",
-      "en": "Brick Break"
+      "en": "Brick Break",
+      "ko": "깨뜨리다",
+      "zh-Hant": "劈瓦"
     },
     "type": "fighting",
     "category": "physical",
@@ -1647,7 +1921,9 @@
     "id": 299,
     "name": {
       "ja": "ブレイズキック",
-      "en": "Blaze Kick"
+      "en": "Blaze Kick",
+      "ko": "블레이즈킥",
+      "zh-Hant": "火焰踢"
     },
     "type": "fire",
     "category": "physical",
@@ -1659,7 +1935,9 @@
     "id": 307,
     "name": {
       "ja": "ブラストバーン",
-      "en": "Blast Burn"
+      "en": "Blast Burn",
+      "ko": "블라스트번",
+      "zh-Hant": "爆炸烈焰"
     },
     "type": "fire",
     "category": "special",
@@ -1671,7 +1949,9 @@
     "id": 314,
     "name": {
       "ja": "エアカッター",
-      "en": "Air Cutter"
+      "en": "Air Cutter",
+      "ko": "에어커터",
+      "zh-Hant": "空氣利刃"
     },
     "type": "flying",
     "category": "special",
@@ -1683,7 +1963,9 @@
     "id": 315,
     "name": {
       "ja": "オーバーヒート",
-      "en": "Overheat"
+      "en": "Overheat",
+      "ko": "오버히트",
+      "zh-Hant": "過熱"
     },
     "type": "fire",
     "category": "special",
@@ -1695,7 +1977,9 @@
     "id": 317,
     "name": {
       "ja": "がんせきふうじ",
-      "en": "Rock Tomb"
+      "en": "Rock Tomb",
+      "ko": "암석봉인",
+      "zh-Hant": "岩石封鎖"
     },
     "type": "rock",
     "category": "physical",
@@ -1707,7 +1991,9 @@
     "id": 332,
     "name": {
       "ja": "つばめがえし",
-      "en": "Aerial Ace"
+      "en": "Aerial Ace",
+      "ko": "제비반환",
+      "zh-Hant": "燕返"
     },
     "type": "flying",
     "category": "physical",
@@ -1719,7 +2005,9 @@
     "id": 337,
     "name": {
       "ja": "ドラゴンクロー",
-      "en": "Dragon Claw"
+      "en": "Dragon Claw",
+      "ko": "드래곤클로",
+      "zh-Hant": "龍爪"
     },
     "type": "dragon",
     "category": "physical",
@@ -1731,7 +2019,9 @@
     "id": 349,
     "name": {
       "ja": "りゅうのまい",
-      "en": "Dragon Dance"
+      "en": "Dragon Dance",
+      "ko": "용의춤",
+      "zh-Hant": "龍之舞"
     },
     "type": "dragon",
     "category": "status",
@@ -1743,7 +2033,9 @@
     "id": 355,
     "name": {
       "ja": "はねやすめ",
-      "en": "Roost"
+      "en": "Roost",
+      "ko": "날개쉬기",
+      "zh-Hant": "羽棲"
     },
     "type": "flying",
     "category": "status",
@@ -1755,7 +2047,9 @@
     "id": 366,
     "name": {
       "ja": "おいかぜ",
-      "en": "Tailwind"
+      "en": "Tailwind",
+      "ko": "순풍",
+      "zh-Hant": "順風"
     },
     "type": "flying",
     "category": "status",
@@ -1767,7 +2061,9 @@
     "id": 374,
     "name": {
       "ja": "なげつける",
-      "en": "Fling"
+      "en": "Fling",
+      "ko": "내던지기",
+      "zh-Hant": "投擲"
     },
     "type": "dark",
     "category": "physical",
@@ -1779,7 +2075,9 @@
     "id": 394,
     "name": {
       "ja": "フレアドライブ",
-      "en": "Flare Blitz"
+      "en": "Flare Blitz",
+      "ko": "플레어드라이브",
+      "zh-Hant": "閃焰衝鋒"
     },
     "type": "fire",
     "category": "physical",
@@ -1791,7 +2089,9 @@
     "id": 403,
     "name": {
       "ja": "エアスラッシュ",
-      "en": "Air Slash"
+      "en": "Air Slash",
+      "ko": "에어슬래시",
+      "zh-Hant": "空氣斬"
     },
     "type": "flying",
     "category": "special",
@@ -1803,7 +2103,9 @@
     "id": 406,
     "name": {
       "ja": "りゅうのはどう",
-      "en": "Dragon Pulse"
+      "en": "Dragon Pulse",
+      "ko": "용의파동",
+      "zh-Hant": "龍之波動"
     },
     "type": "dragon",
     "category": "special",
@@ -1815,7 +2117,9 @@
     "id": 407,
     "name": {
       "ja": "ドラゴンダイブ",
-      "en": "Dragon Rush"
+      "en": "Dragon Rush",
+      "ko": "드래곤다이브",
+      "zh-Hant": "龍之俯衝"
     },
     "type": "dragon",
     "category": "physical",
@@ -1827,7 +2131,9 @@
     "id": 411,
     "name": {
       "ja": "きあいだま",
-      "en": "Focus Blast"
+      "en": "Focus Blast",
+      "ko": "기합구슬",
+      "zh-Hant": "真氣彈"
     },
     "type": "fighting",
     "category": "special",
@@ -1839,7 +2145,9 @@
     "id": 421,
     "name": {
       "ja": "シャドークロー",
-      "en": "Shadow Claw"
+      "en": "Shadow Claw",
+      "ko": "섀도클로",
+      "zh-Hant": "暗影爪"
     },
     "type": "ghost",
     "category": "physical",
@@ -1851,7 +2159,9 @@
     "id": 424,
     "name": {
       "ja": "ほのおのキバ",
-      "en": "Fire Fang"
+      "en": "Fire Fang",
+      "ko": "불꽃엄니",
+      "zh-Hant": "火焰牙"
     },
     "type": "fire",
     "category": "physical",
@@ -1863,7 +2173,9 @@
     "id": 432,
     "name": {
       "ja": "きりばらい",
-      "en": "Defog"
+      "en": "Defog",
+      "ko": "안개제거",
+      "zh-Hant": "清除濃霧"
     },
     "type": "flying",
     "category": "status",
@@ -1875,7 +2187,9 @@
     "id": 466,
     "name": {
       "ja": "あやしいかぜ",
-      "en": "Ominous Wind"
+      "en": "Ominous Wind",
+      "ko": "괴상한바람",
+      "zh-Hant": "奇異之風"
     },
     "type": "ghost",
     "category": "special",
@@ -1887,7 +2201,9 @@
     "id": 468,
     "name": {
       "ja": "つめとぎ",
-      "en": "Hone Claws"
+      "en": "Hone Claws",
+      "ko": "손톱갈기",
+      "zh-Hant": "磨爪"
     },
     "type": "dark",
     "category": "status",
@@ -1899,7 +2215,9 @@
     "id": 481,
     "name": {
       "ja": "はじけるほのお",
-      "en": "Flame Burst"
+      "en": "Flame Burst",
+      "ko": "불꽃튀기기",
+      "zh-Hant": "烈焰濺射"
     },
     "type": "fire",
     "category": "special",
@@ -1911,7 +2229,9 @@
     "id": 488,
     "name": {
       "ja": "ニトロチャージ",
-      "en": "Flame Charge"
+      "en": "Flame Charge",
+      "ko": "니트로차지",
+      "zh-Hant": "蓄能焰襲"
     },
     "type": "fire",
     "category": "physical",
@@ -1923,7 +2243,9 @@
     "id": 507,
     "name": {
       "ja": "フリーフォール",
-      "en": "Sky Drop"
+      "en": "Sky Drop",
+      "ko": "프리폴",
+      "zh-Hant": "自由落體"
     },
     "type": "flying",
     "category": "physical",
@@ -1935,7 +2257,9 @@
     "id": 510,
     "name": {
       "ja": "やきつくす",
-      "en": "Incinerate"
+      "en": "Incinerate",
+      "ko": "불태우기",
+      "zh-Hant": "燒盡"
     },
     "type": "fire",
     "category": "special",
@@ -1947,7 +2271,9 @@
     "id": 512,
     "name": {
       "ja": "アクロバット",
-      "en": "Acrobatics"
+      "en": "Acrobatics",
+      "ko": "애크러뱃",
+      "zh-Hant": "雜技"
     },
     "type": "flying",
     "category": "physical",
@@ -1959,7 +2285,9 @@
     "id": 517,
     "name": {
       "ja": "れんごく",
-      "en": "Inferno"
+      "en": "Inferno",
+      "ko": "연옥",
+      "zh-Hant": "煉獄"
     },
     "type": "fire",
     "category": "special",
@@ -1971,7 +2299,9 @@
     "id": 519,
     "name": {
       "ja": "ほのおのちかい",
-      "en": "Fire Pledge"
+      "en": "Fire Pledge",
+      "ko": "불꽃의맹세",
+      "zh-Hant": "火之誓約"
     },
     "type": "fire",
     "category": "special",
@@ -1983,7 +2313,9 @@
     "id": 525,
     "name": {
       "ja": "ドラゴンテール",
-      "en": "Dragon Tail"
+      "en": "Dragon Tail",
+      "ko": "드래곤테일",
+      "zh-Hant": "龍尾"
     },
     "type": "dragon",
     "category": "physical",
@@ -1995,7 +2327,9 @@
     "id": 535,
     "name": {
       "ja": "ヒートスタンプ",
-      "en": "Heat Crash"
+      "en": "Heat Crash",
+      "ko": "히트스탬프",
+      "zh-Hant": "高溫重壓"
     },
     "type": "fire",
     "category": "physical",
@@ -2007,7 +2341,9 @@
     "id": 542,
     "name": {
       "ja": "ぼうふう",
-      "en": "Hurricane"
+      "en": "Hurricane",
+      "ko": "폭풍",
+      "zh-Hant": "暴風"
     },
     "type": "flying",
     "category": "special",
@@ -2019,7 +2355,9 @@
     "id": 595,
     "name": {
       "ja": "マジカルフレイム",
-      "en": "Mystical Fire"
+      "en": "Mystical Fire",
+      "ko": "매지컬플레임",
+      "zh-Hant": "魔法火焰"
     },
     "type": "fire",
     "category": "special",
@@ -2031,7 +2369,9 @@
     "id": 612,
     "name": {
       "ja": "グロウパンチ",
-      "en": "Power-Up Punch"
+      "en": "Power-Up Punch",
+      "ko": "그로우펀치",
+      "zh-Hant": "增強拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -2043,7 +2383,9 @@
     "id": 693,
     "name": {
       "ja": "ぶんまわす",
-      "en": "Brutal Swing"
+      "en": "Brutal Swing",
+      "ko": "세차게휘두르기",
+      "zh-Hant": "狂舞揮打"
     },
     "type": "dark",
     "category": "physical",
@@ -2055,7 +2397,9 @@
     "id": 784,
     "name": {
       "ja": "ワイドブレイカー",
-      "en": "Breaking Swipe"
+      "en": "Breaking Swipe",
+      "ko": "와이드브레이커",
+      "zh-Hant": "廣域破壞"
     },
     "type": "dragon",
     "category": "physical",
@@ -2067,7 +2411,9 @@
     "id": 799,
     "name": {
       "ja": "スケイルショット",
-      "en": "Scale Shot"
+      "en": "Scale Shot",
+      "ko": "스케일샷",
+      "zh-Hant": "鱗射"
     },
     "type": "dragon",
     "category": "physical",
@@ -2079,7 +2425,9 @@
     "id": 814,
     "name": {
       "ja": "ダブルウイング",
-      "en": "Dual Wingbeat"
+      "en": "Dual Wingbeat",
+      "ko": "더블윙",
+      "zh-Hant": "雙翼"
     },
     "type": "flying",
     "category": "physical",
@@ -2091,7 +2439,9 @@
     "id": 815,
     "name": {
       "ja": "ねっさのだいち",
-      "en": "Scorching Sands"
+      "en": "Scorching Sands",
+      "ko": "열사의대지",
+      "zh-Hant": "熱沙大地"
     },
     "type": "ground",
     "category": "special",
@@ -2103,7 +2453,9 @@
     "id": 913,
     "name": {
       "ja": "ドラゴンエール",
-      "en": "Dragon Cheer"
+      "en": "Dragon Cheer",
+      "ko": "드래곤옐",
+      "zh-Hant": "龍聲鼓舞"
     },
     "type": "dragon",
     "category": "status",
@@ -2115,7 +2467,9 @@
     "id": 915,
     "name": {
       "ja": "やけっぱち",
-      "en": "Temper Flare"
+      "en": "Temper Flare",
+      "ko": "열불내기",
+      "zh-Hant": "豁出去"
     },
     "type": "fire",
     "category": "physical",
@@ -2127,7 +2481,9 @@
     "id": 8,
     "name": {
       "ja": "れいとうパンチ",
-      "en": "Ice Punch"
+      "en": "Ice Punch",
+      "ko": "냉동펀치",
+      "zh-Hant": "冰凍拳"
     },
     "type": "ice",
     "category": "physical",
@@ -2139,7 +2495,9 @@
     "id": 39,
     "name": {
       "ja": "しっぽをふる",
-      "en": "Tail Whip"
+      "en": "Tail Whip",
+      "ko": "꼬리흔들기",
+      "zh-Hant": "搖尾巴"
     },
     "type": "normal",
     "category": "status",
@@ -2151,7 +2509,9 @@
     "id": 54,
     "name": {
       "ja": "しろいきり",
-      "en": "Mist"
+      "en": "Mist",
+      "ko": "흰안개",
+      "zh-Hant": "白霧"
     },
     "type": "ice",
     "category": "status",
@@ -2163,7 +2523,9 @@
     "id": 55,
     "name": {
       "ja": "みずでっぽう",
-      "en": "Water Gun"
+      "en": "Water Gun",
+      "ko": "물대포",
+      "zh-Hant": "水槍"
     },
     "type": "water",
     "category": "special",
@@ -2175,7 +2537,9 @@
     "id": 56,
     "name": {
       "ja": "ハイドロポンプ",
-      "en": "Hydro Pump"
+      "en": "Hydro Pump",
+      "ko": "하이드로펌프",
+      "zh-Hant": "水炮"
     },
     "type": "water",
     "category": "special",
@@ -2187,7 +2551,9 @@
     "id": 57,
     "name": {
       "ja": "なみのり",
-      "en": "Surf"
+      "en": "Surf",
+      "ko": "파도타기",
+      "zh-Hant": "衝浪"
     },
     "type": "water",
     "category": "special",
@@ -2199,7 +2565,9 @@
     "id": 58,
     "name": {
       "ja": "れいとうビーム",
-      "en": "Ice Beam"
+      "en": "Ice Beam",
+      "ko": "냉동빔",
+      "zh-Hant": "冰凍光束"
     },
     "type": "ice",
     "category": "special",
@@ -2211,7 +2579,9 @@
     "id": 59,
     "name": {
       "ja": "ふぶき",
-      "en": "Blizzard"
+      "en": "Blizzard",
+      "ko": "눈보라",
+      "zh-Hant": "暴風雪"
     },
     "type": "ice",
     "category": "special",
@@ -2223,7 +2593,9 @@
     "id": 61,
     "name": {
       "ja": "バブルこうせん",
-      "en": "Bubble Beam"
+      "en": "Bubble Beam",
+      "ko": "거품광선",
+      "zh-Hant": "泡沫光線"
     },
     "type": "water",
     "category": "special",
@@ -2235,7 +2607,9 @@
     "id": 110,
     "name": {
       "ja": "からにこもる",
-      "en": "Withdraw"
+      "en": "Withdraw",
+      "ko": "껍질에숨기",
+      "zh-Hant": "縮入殼中"
     },
     "type": "water",
     "category": "status",
@@ -2247,7 +2621,9 @@
     "id": 114,
     "name": {
       "ja": "くろいきり",
-      "en": "Haze"
+      "en": "Haze",
+      "ko": "흑안개",
+      "zh-Hant": "黑霧"
     },
     "type": "ice",
     "category": "status",
@@ -2259,7 +2635,9 @@
     "id": 127,
     "name": {
       "ja": "たきのぼり",
-      "en": "Waterfall"
+      "en": "Waterfall",
+      "ko": "폭포오르기",
+      "zh-Hant": "攀瀑"
     },
     "type": "water",
     "category": "physical",
@@ -2271,7 +2649,9 @@
     "id": 145,
     "name": {
       "ja": "あわ",
-      "en": "Bubble"
+      "en": "Bubble",
+      "ko": "거품",
+      "zh-Hant": "泡沫"
     },
     "type": "water",
     "category": "special",
@@ -2283,7 +2663,9 @@
     "id": 175,
     "name": {
       "ja": "じたばた",
-      "en": "Flail"
+      "en": "Flail",
+      "ko": "바둥바둥",
+      "zh-Hant": "抓狂"
     },
     "type": "normal",
     "category": "physical",
@@ -2295,7 +2677,9 @@
     "id": 196,
     "name": {
       "ja": "こごえるかぜ",
-      "en": "Icy Wind"
+      "en": "Icy Wind",
+      "ko": "얼어붙은바람",
+      "zh-Hant": "冰凍之風"
     },
     "type": "ice",
     "category": "special",
@@ -2307,7 +2691,9 @@
     "id": 205,
     "name": {
       "ja": "ころがる",
-      "en": "Rollout"
+      "en": "Rollout",
+      "ko": "구르기",
+      "zh-Hant": "滾動"
     },
     "type": "rock",
     "category": "physical",
@@ -2319,7 +2705,9 @@
     "id": 229,
     "name": {
       "ja": "こうそくスピン",
-      "en": "Rapid Spin"
+      "en": "Rapid Spin",
+      "ko": "고속스핀",
+      "zh-Hant": "高速旋轉"
     },
     "type": "normal",
     "category": "physical",
@@ -2331,7 +2719,9 @@
     "id": 240,
     "name": {
       "ja": "あまごい",
-      "en": "Rain Dance"
+      "en": "Rain Dance",
+      "ko": "비바라기",
+      "zh-Hant": "求雨"
     },
     "type": "water",
     "category": "status",
@@ -2343,7 +2733,9 @@
     "id": 243,
     "name": {
       "ja": "ミラーコート",
-      "en": "Mirror Coat"
+      "en": "Mirror Coat",
+      "ko": "미러코트",
+      "zh-Hant": "鏡面反射"
     },
     "type": "psychic",
     "category": "special",
@@ -2355,7 +2747,9 @@
     "id": 250,
     "name": {
       "ja": "うずしお",
-      "en": "Whirlpool"
+      "en": "Whirlpool",
+      "ko": "바다회오리",
+      "zh-Hant": "潮旋"
     },
     "type": "water",
     "category": "special",
@@ -2367,7 +2761,9 @@
     "id": 252,
     "name": {
       "ja": "ねこだまし",
-      "en": "Fake Out"
+      "en": "Fake Out",
+      "ko": "속이기",
+      "zh-Hant": "擊掌奇襲"
     },
     "type": "normal",
     "category": "physical",
@@ -2379,7 +2775,9 @@
     "id": 258,
     "name": {
       "ja": "あられ",
-      "en": "Hail"
+      "en": "Hail",
+      "ko": "싸라기눈",
+      "zh-Hant": "冰雹"
     },
     "type": "ice",
     "category": "status",
@@ -2391,7 +2789,9 @@
     "id": 281,
     "name": {
       "ja": "あくび",
-      "en": "Yawn"
+      "en": "Yawn",
+      "ko": "하품",
+      "zh-Hant": "哈欠"
     },
     "type": "normal",
     "category": "status",
@@ -2403,7 +2803,9 @@
     "id": 291,
     "name": {
       "ja": "ダイビング",
-      "en": "Dive"
+      "en": "Dive",
+      "ko": "다이빙",
+      "zh-Hant": "潛水"
     },
     "type": "water",
     "category": "physical",
@@ -2415,7 +2817,9 @@
     "id": 308,
     "name": {
       "ja": "ハイドロカノン",
-      "en": "Hydro Cannon"
+      "en": "Hydro Cannon",
+      "ko": "하이드로캐논",
+      "zh-Hant": "加農水炮"
     },
     "type": "water",
     "category": "special",
@@ -2427,7 +2831,9 @@
     "id": 323,
     "name": {
       "ja": "しおふき",
-      "en": "Water Spout"
+      "en": "Water Spout",
+      "ko": "해수스파우팅",
+      "zh-Hant": "噴水"
     },
     "type": "water",
     "category": "special",
@@ -2439,7 +2845,9 @@
     "id": 324,
     "name": {
       "ja": "シグナルビーム",
-      "en": "Signal Beam"
+      "en": "Signal Beam",
+      "ko": "시그널빔",
+      "zh-Hant": "信號光束"
     },
     "type": "bug",
     "category": "special",
@@ -2451,7 +2859,9 @@
     "id": 330,
     "name": {
       "ja": "だくりゅう",
-      "en": "Muddy Water"
+      "en": "Muddy Water",
+      "ko": "탁류",
+      "zh-Hant": "濁流"
     },
     "type": "water",
     "category": "special",
@@ -2463,7 +2873,9 @@
     "id": 334,
     "name": {
       "ja": "てっぺき",
-      "en": "Iron Defense"
+      "en": "Iron Defense",
+      "ko": "철벽",
+      "zh-Hant": "鐵壁"
     },
     "type": "steel",
     "category": "status",
@@ -2475,7 +2887,9 @@
     "id": 341,
     "name": {
       "ja": "マッドショット",
-      "en": "Mud Shot"
+      "en": "Mud Shot",
+      "ko": "머드샷",
+      "zh-Hant": "泥巴射擊"
     },
     "type": "ground",
     "category": "special",
@@ -2487,7 +2901,9 @@
     "id": 352,
     "name": {
       "ja": "みずのはどう",
-      "en": "Water Pulse"
+      "en": "Water Pulse",
+      "ko": "물의파동",
+      "zh-Hant": "水之波動"
     },
     "type": "water",
     "category": "special",
@@ -2499,7 +2915,9 @@
     "id": 360,
     "name": {
       "ja": "ジャイロボール",
-      "en": "Gyro Ball"
+      "en": "Gyro Ball",
+      "ko": "자이로볼",
+      "zh-Hant": "陀螺球"
     },
     "type": "steel",
     "category": "physical",
@@ -2511,7 +2929,9 @@
     "id": 362,
     "name": {
       "ja": "しおみず",
-      "en": "Brine"
+      "en": "Brine",
+      "ko": "소금물",
+      "zh-Hant": "鹽水"
     },
     "type": "water",
     "category": "special",
@@ -2523,7 +2943,9 @@
     "id": 392,
     "name": {
       "ja": "アクアリング",
-      "en": "Aqua Ring"
+      "en": "Aqua Ring",
+      "ko": "아쿠아링",
+      "zh-Hant": "水流環"
     },
     "type": "water",
     "category": "status",
@@ -2535,7 +2957,9 @@
     "id": 396,
     "name": {
       "ja": "はどうだん",
-      "en": "Aura Sphere"
+      "en": "Aura Sphere",
+      "ko": "파동탄",
+      "zh-Hant": "波導彈"
     },
     "type": "fighting",
     "category": "special",
@@ -2547,7 +2971,9 @@
     "id": 399,
     "name": {
       "ja": "あくのはどう",
-      "en": "Dark Pulse"
+      "en": "Dark Pulse",
+      "ko": "악의파동",
+      "zh-Hant": "惡之波動"
     },
     "type": "dark",
     "category": "special",
@@ -2559,7 +2985,9 @@
     "id": 401,
     "name": {
       "ja": "アクアテール",
-      "en": "Aqua Tail"
+      "en": "Aqua Tail",
+      "ko": "아쿠아테일",
+      "zh-Hant": "水流尾"
     },
     "type": "water",
     "category": "physical",
@@ -2571,7 +2999,9 @@
     "id": 419,
     "name": {
       "ja": "ゆきなだれ",
-      "en": "Avalanche"
+      "en": "Avalanche",
+      "ko": "눈사태",
+      "zh-Hant": "雪崩"
     },
     "type": "ice",
     "category": "physical",
@@ -2583,7 +3013,9 @@
     "id": 428,
     "name": {
       "ja": "しねんのずつき",
-      "en": "Zen Headbutt"
+      "en": "Zen Headbutt",
+      "ko": "사념의박치기",
+      "zh-Hant": "意念頭錘"
     },
     "type": "psychic",
     "category": "physical",
@@ -2595,7 +3027,9 @@
     "id": 430,
     "name": {
       "ja": "ラスターカノン",
-      "en": "Flash Cannon"
+      "en": "Flash Cannon",
+      "ko": "러스터캐논",
+      "zh-Hant": "加農光炮"
     },
     "type": "steel",
     "category": "special",
@@ -2607,7 +3041,9 @@
     "id": 442,
     "name": {
       "ja": "アイアンヘッド",
-      "en": "Iron Head"
+      "en": "Iron Head",
+      "ko": "아이언헤드",
+      "zh-Hant": "鐵頭"
     },
     "type": "steel",
     "category": "physical",
@@ -2619,7 +3055,9 @@
     "id": 453,
     "name": {
       "ja": "アクアジェット",
-      "en": "Aqua Jet"
+      "en": "Aqua Jet",
+      "ko": "아쿠아제트",
+      "zh-Hant": "水流噴射"
     },
     "type": "water",
     "category": "physical",
@@ -2631,7 +3069,9 @@
     "id": 479,
     "name": {
       "ja": "うちおとす",
-      "en": "Smack Down"
+      "en": "Smack Down",
+      "ko": "떨어뜨리기",
+      "zh-Hant": "擊落"
     },
     "type": "rock",
     "category": "physical",
@@ -2643,7 +3083,9 @@
     "id": 503,
     "name": {
       "ja": "ねっとう",
-      "en": "Scald"
+      "en": "Scald",
+      "ko": "열탕",
+      "zh-Hant": "熱水"
     },
     "type": "water",
     "category": "special",
@@ -2655,7 +3097,9 @@
     "id": 504,
     "name": {
       "ja": "からをやぶる",
-      "en": "Shell Smash"
+      "en": "Shell Smash",
+      "ko": "껍질깨기",
+      "zh-Hant": "破殼"
     },
     "type": "normal",
     "category": "status",
@@ -2667,7 +3111,9 @@
     "id": 518,
     "name": {
       "ja": "みずのちかい",
-      "en": "Water Pledge"
+      "en": "Water Pledge",
+      "ko": "물의맹세",
+      "zh-Hant": "水之誓約"
     },
     "type": "water",
     "category": "special",
@@ -2679,7 +3125,9 @@
     "id": 710,
     "name": {
       "ja": "アクアブレイク",
-      "en": "Liquidation"
+      "en": "Liquidation",
+      "ko": "아쿠아브레이크",
+      "zh-Hant": "水流裂破"
     },
     "type": "water",
     "category": "physical",
@@ -2691,7 +3139,9 @@
     "id": 776,
     "name": {
       "ja": "ボディプレス",
-      "en": "Body Press"
+      "en": "Body Press",
+      "ko": "바디프레스",
+      "zh-Hant": "撲擊"
     },
     "type": "fighting",
     "category": "physical",
@@ -2703,7 +3153,9 @@
     "id": 791,
     "name": {
       "ja": "いのちのしずく",
-      "en": "Life Dew"
+      "en": "Life Dew",
+      "ko": "생명의물방울",
+      "zh-Hant": "生命水滴"
     },
     "type": "water",
     "category": "status",
@@ -2715,7 +3167,9 @@
     "id": 812,
     "name": {
       "ja": "クイックターン",
-      "en": "Flip Turn"
+      "en": "Flip Turn",
+      "ko": "퀵턴",
+      "zh-Hant": "快速折返"
     },
     "type": "water",
     "category": "physical",
@@ -2727,7 +3181,9 @@
     "id": 834,
     "name": {
       "ja": "ウェーブタックル",
-      "en": "Wave Crash"
+      "en": "Wave Crash",
+      "ko": "웨이브태클",
+      "zh-Hant": "波動衝"
     },
     "type": "water",
     "category": "physical",
@@ -2739,7 +3195,9 @@
     "id": 861,
     "name": {
       "ja": "アイススピナー",
-      "en": "Ice Spinner"
+      "en": "Ice Spinner",
+      "ko": "아이스스피너",
+      "zh-Hant": "冰旋"
     },
     "type": "ice",
     "category": "physical",
@@ -2751,7 +3209,9 @@
     "id": 886,
     "name": {
       "ja": "ひやみず",
-      "en": "Chilling Water"
+      "en": "Chilling Water",
+      "ko": "찬물끼얹기",
+      "zh-Hant": "潑冷水"
     },
     "type": "water",
     "category": "special",
@@ -2763,7 +3223,9 @@
     "id": 31,
     "name": {
       "ja": "みだれづき",
-      "en": "Fury Attack"
+      "en": "Fury Attack",
+      "ko": "마구찌르기",
+      "zh-Hant": "亂擊"
     },
     "type": "normal",
     "category": "physical",
@@ -2775,7 +3237,9 @@
     "id": 40,
     "name": {
       "ja": "どくばり",
-      "en": "Poison Sting"
+      "en": "Poison Sting",
+      "ko": "독침",
+      "zh-Hant": "毒針"
     },
     "type": "poison",
     "category": "physical",
@@ -2787,7 +3251,9 @@
     "id": 41,
     "name": {
       "ja": "ダブルニードル",
-      "en": "Twineedle"
+      "en": "Twineedle",
+      "ko": "더블니들",
+      "zh-Hant": "雙針"
     },
     "type": "bug",
     "category": "physical",
@@ -2799,7 +3265,9 @@
     "id": 42,
     "name": {
       "ja": "ミサイルばり",
-      "en": "Pin Missile"
+      "en": "Pin Missile",
+      "ko": "바늘미사일",
+      "zh-Hant": "飛彈針"
     },
     "type": "bug",
     "category": "physical",
@@ -2811,7 +3279,9 @@
     "id": 64,
     "name": {
       "ja": "つつく",
-      "en": "Peck"
+      "en": "Peck",
+      "ko": "쪼기",
+      "zh-Hant": "啄"
     },
     "type": "flying",
     "category": "physical",
@@ -2823,7 +3293,9 @@
     "id": 97,
     "name": {
       "ja": "こうそくいどう",
-      "en": "Agility"
+      "en": "Agility",
+      "ko": "고속이동",
+      "zh-Hant": "高速移動"
     },
     "type": "psychic",
     "category": "status",
@@ -2835,7 +3307,9 @@
     "id": 103,
     "name": {
       "ja": "いやなおと",
-      "en": "Screech"
+      "en": "Screech",
+      "ko": "싫은소리",
+      "zh-Hant": "刺耳聲"
     },
     "type": "normal",
     "category": "status",
@@ -2847,7 +3321,9 @@
     "id": 106,
     "name": {
       "ja": "かたくなる",
-      "en": "Harden"
+      "en": "Harden",
+      "ko": "단단해지기",
+      "zh-Hant": "變硬"
     },
     "type": "normal",
     "category": "status",
@@ -2859,7 +3335,9 @@
     "id": 116,
     "name": {
       "ja": "きあいだめ",
-      "en": "Focus Energy"
+      "en": "Focus Energy",
+      "ko": "기충전",
+      "zh-Hant": "聚氣"
     },
     "type": "normal",
     "category": "status",
@@ -2871,7 +3349,9 @@
     "id": 168,
     "name": {
       "ja": "どろぼう",
-      "en": "Thief"
+      "en": "Thief",
+      "ko": "도둑질",
+      "zh-Hant": "小偷"
     },
     "type": "dark",
     "category": "physical",
@@ -2883,7 +3363,9 @@
     "id": 226,
     "name": {
       "ja": "バトンタッチ",
-      "en": "Baton Pass"
+      "en": "Baton Pass",
+      "ko": "배턴터치",
+      "zh-Hant": "接棒"
     },
     "type": "normal",
     "category": "status",
@@ -2895,7 +3377,9 @@
     "id": 228,
     "name": {
       "ja": "おいうち",
-      "en": "Pursuit"
+      "en": "Pursuit",
+      "ko": "따라가때리기",
+      "zh-Hant": "追打"
     },
     "type": "dark",
     "category": "physical",
@@ -2907,7 +3391,9 @@
     "id": 283,
     "name": {
       "ja": "がむしゃら",
-      "en": "Endeavor"
+      "en": "Endeavor",
+      "ko": "죽기살기",
+      "zh-Hant": "蠻幹"
     },
     "type": "normal",
     "category": "physical",
@@ -2919,7 +3405,9 @@
     "id": 318,
     "name": {
       "ja": "ぎんいろのかぜ",
-      "en": "Silver Wind"
+      "en": "Silver Wind",
+      "ko": "은빛바람",
+      "zh-Hant": "銀色旋風"
     },
     "type": "bug",
     "category": "special",
@@ -2931,7 +3419,9 @@
     "id": 369,
     "name": {
       "ja": "とんぼがえり",
-      "en": "U-turn"
+      "en": "U-turn",
+      "ko": "유턴",
+      "zh-Hant": "急速折返"
     },
     "type": "bug",
     "category": "physical",
@@ -2943,7 +3433,9 @@
     "id": 371,
     "name": {
       "ja": "しっぺがえし",
-      "en": "Payback"
+      "en": "Payback",
+      "ko": "보복",
+      "zh-Hant": "以牙還牙"
     },
     "type": "dark",
     "category": "physical",
@@ -2955,7 +3447,9 @@
     "id": 372,
     "name": {
       "ja": "ダメおし",
-      "en": "Assurance"
+      "en": "Assurance",
+      "ko": "승부굳히기",
+      "zh-Hant": "惡意追擊"
     },
     "type": "dark",
     "category": "physical",
@@ -2967,7 +3461,9 @@
     "id": 390,
     "name": {
       "ja": "どくびし",
-      "en": "Toxic Spikes"
+      "en": "Toxic Spikes",
+      "ko": "독압정",
+      "zh-Hant": "毒菱"
     },
     "type": "poison",
     "category": "status",
@@ -2979,7 +3475,9 @@
     "id": 404,
     "name": {
       "ja": "シザークロス",
-      "en": "X-Scissor"
+      "en": "X-Scissor",
+      "ko": "시저크로스",
+      "zh-Hant": "十字剪"
     },
     "type": "bug",
     "category": "physical",
@@ -2991,7 +3489,9 @@
     "id": 405,
     "name": {
       "ja": "むしのさざめき",
-      "en": "Bug Buzz"
+      "en": "Bug Buzz",
+      "ko": "벌레의야단법석",
+      "zh-Hant": "蟲鳴"
     },
     "type": "bug",
     "category": "special",
@@ -3003,7 +3503,9 @@
     "id": 440,
     "name": {
       "ja": "クロスポイズン",
-      "en": "Cross Poison"
+      "en": "Cross Poison",
+      "ko": "크로스포이즌",
+      "zh-Hant": "十字毒刃"
     },
     "type": "poison",
     "category": "physical",
@@ -3015,7 +3517,9 @@
     "id": 450,
     "name": {
       "ja": "むしくい",
-      "en": "Bug Bite"
+      "en": "Bug Bite",
+      "ko": "벌레먹기",
+      "zh-Hant": "蟲咬"
     },
     "type": "bug",
     "category": "physical",
@@ -3027,7 +3531,9 @@
     "id": 458,
     "name": {
       "ja": "ダブルアタック",
-      "en": "Double Hit"
+      "en": "Double Hit",
+      "ko": "더블어택",
+      "zh-Hant": "二連擊"
     },
     "type": "normal",
     "category": "physical",
@@ -3039,7 +3545,9 @@
     "id": 522,
     "name": {
       "ja": "むしのていこう",
-      "en": "Struggle Bug"
+      "en": "Struggle Bug",
+      "ko": "벌레의저항",
+      "zh-Hant": "蟲之抵抗"
     },
     "type": "bug",
     "category": "special",
@@ -3051,7 +3559,9 @@
     "id": 527,
     "name": {
       "ja": "エレキネット",
-      "en": "Electroweb"
+      "en": "Electroweb",
+      "ko": "일렉트릭네트",
+      "zh-Hant": "電網"
     },
     "type": "electric",
     "category": "special",
@@ -3063,7 +3573,9 @@
     "id": 529,
     "name": {
       "ja": "ドリルライナー",
-      "en": "Drill Run"
+      "en": "Drill Run",
+      "ko": "드릴라이너",
+      "zh-Hant": "直衝鑽"
     },
     "type": "ground",
     "category": "physical",
@@ -3075,7 +3587,9 @@
     "id": 565,
     "name": {
       "ja": "とどめばり",
-      "en": "Fell Stinger"
+      "en": "Fell Stinger",
+      "ko": "마지막일침",
+      "zh-Hant": "致命針刺"
     },
     "type": "bug",
     "category": "physical",
@@ -3087,7 +3601,9 @@
     "id": 611,
     "name": {
       "ja": "まとわりつく",
-      "en": "Infestation"
+      "en": "Infestation",
+      "ko": "엉겨붙기",
+      "zh-Hant": "死纏爛打"
     },
     "type": "bug",
     "category": "special",
@@ -3099,7 +3615,9 @@
     "id": 673,
     "name": {
       "ja": "とぎすます",
-      "en": "Laser Focus"
+      "en": "Laser Focus",
+      "ko": "예민해지기",
+      "zh-Hant": "磨礪"
     },
     "type": "normal",
     "category": "status",
@@ -3111,7 +3629,9 @@
     "id": 675,
     "name": {
       "ja": "じごくづき",
-      "en": "Throat Chop"
+      "en": "Throat Chop",
+      "ko": "지옥찌르기",
+      "zh-Hant": "地獄突刺"
     },
     "type": "dark",
     "category": "physical",
@@ -3123,7 +3643,9 @@
     "id": 676,
     "name": {
       "ja": "かふんだんご",
-      "en": "Pollen Puff"
+      "en": "Pollen Puff",
+      "ko": "꽃가루경단",
+      "zh-Hant": "花粉團"
     },
     "type": "bug",
     "category": "special",
@@ -3135,7 +3657,9 @@
     "id": 679,
     "name": {
       "ja": "とびかかる",
-      "en": "Lunge"
+      "en": "Lunge",
+      "ko": "덤벼들기",
+      "zh-Hant": "猛撲"
     },
     "type": "bug",
     "category": "physical",
@@ -3147,7 +3671,9 @@
     "id": 806,
     "name": {
       "ja": "はいよるいちげき",
-      "en": "Skitter Smack"
+      "en": "Skitter Smack",
+      "ko": "엄습하는일격",
+      "zh-Hant": "爬擊"
     },
     "type": "bug",
     "category": "physical",
@@ -3159,7 +3685,9 @@
     "id": 884,
     "name": {
       "ja": "とびつく",
-      "en": "Pounce"
+      "en": "Pounce",
+      "ko": "달려들기",
+      "zh-Hant": "蟲撲"
     },
     "type": "bug",
     "category": "physical",
@@ -3171,7 +3699,9 @@
     "id": 13,
     "name": {
       "ja": "かまいたち",
-      "en": "Razor Wind"
+      "en": "Razor Wind",
+      "ko": "칼바람",
+      "zh-Hant": "旋風刀"
     },
     "type": "normal",
     "category": "special",
@@ -3183,7 +3713,9 @@
     "id": 16,
     "name": {
       "ja": "かぜおこし",
-      "en": "Gust"
+      "en": "Gust",
+      "ko": "바람일으키기",
+      "zh-Hant": "起風"
     },
     "type": "flying",
     "category": "special",
@@ -3195,7 +3727,9 @@
     "id": 18,
     "name": {
       "ja": "ふきとばし",
-      "en": "Whirlwind"
+      "en": "Whirlwind",
+      "ko": "날려버리기",
+      "zh-Hant": "吹飛"
     },
     "type": "normal",
     "category": "status",
@@ -3207,7 +3741,9 @@
     "id": 28,
     "name": {
       "ja": "すなかけ",
-      "en": "Sand Attack"
+      "en": "Sand Attack",
+      "ko": "모래뿌리기",
+      "zh-Hant": "潑沙"
     },
     "type": "ground",
     "category": "status",
@@ -3219,7 +3755,9 @@
     "id": 98,
     "name": {
       "ja": "でんこうせっか",
-      "en": "Quick Attack"
+      "en": "Quick Attack",
+      "ko": "전광석화",
+      "zh-Hant": "電光一閃"
     },
     "type": "normal",
     "category": "physical",
@@ -3231,7 +3769,9 @@
     "id": 119,
     "name": {
       "ja": "オウムがえし",
-      "en": "Mirror Move"
+      "en": "Mirror Move",
+      "ko": "따라하기",
+      "zh-Hant": "鸚鵡學舌"
     },
     "type": "flying",
     "category": "status",
@@ -3243,7 +3783,9 @@
     "id": 143,
     "name": {
       "ja": "ゴッドバード",
-      "en": "Sky Attack"
+      "en": "Sky Attack",
+      "ko": "불새",
+      "zh-Hant": "神鳥猛擊"
     },
     "type": "flying",
     "category": "physical",
@@ -3255,7 +3797,9 @@
     "id": 197,
     "name": {
       "ja": "みきり",
-      "en": "Detect"
+      "en": "Detect",
+      "ko": "판별",
+      "zh-Hant": "看穿"
     },
     "type": "fighting",
     "category": "status",
@@ -3267,7 +3811,9 @@
     "id": 253,
     "name": {
       "ja": "さわぐ",
-      "en": "Uproar"
+      "en": "Uproar",
+      "ko": "소란피기",
+      "zh-Hant": "吵鬧"
     },
     "type": "normal",
     "category": "special",
@@ -3279,7 +3825,9 @@
     "id": 297,
     "name": {
       "ja": "フェザーダンス",
-      "en": "Feather Dance"
+      "en": "Feather Dance",
+      "ko": "깃털댄스",
+      "zh-Hant": "羽毛舞"
     },
     "type": "flying",
     "category": "status",
@@ -3291,7 +3839,9 @@
     "id": 365,
     "name": {
       "ja": "ついばむ",
-      "en": "Pluck"
+      "en": "Pluck",
+      "ko": "쪼아대기",
+      "zh-Hant": "啄食"
     },
     "type": "flying",
     "category": "physical",
@@ -3303,7 +3853,9 @@
     "id": 413,
     "name": {
       "ja": "ブレイブバード",
-      "en": "Brave Bird"
+      "en": "Brave Bird",
+      "ko": "브레이브버드",
+      "zh-Hant": "勇鳥猛攻"
     },
     "type": "flying",
     "category": "physical",
@@ -3315,7 +3867,9 @@
     "id": 21,
     "name": {
       "ja": "たたきつける",
-      "en": "Slam"
+      "en": "Slam",
+      "ko": "힘껏치기",
+      "zh-Hant": "摔打"
     },
     "type": "normal",
     "category": "physical",
@@ -3327,7 +3881,9 @@
     "id": 35,
     "name": {
       "ja": "まきつく",
-      "en": "Wrap"
+      "en": "Wrap",
+      "ko": "김밥말이",
+      "zh-Hant": "緊束"
     },
     "type": "normal",
     "category": "physical",
@@ -3339,7 +3895,9 @@
     "id": 51,
     "name": {
       "ja": "ようかいえき",
-      "en": "Acid"
+      "en": "Acid",
+      "ko": "용해액",
+      "zh-Hant": "溶解液"
     },
     "type": "poison",
     "category": "special",
@@ -3351,7 +3909,9 @@
     "id": 137,
     "name": {
       "ja": "へびにらみ",
-      "en": "Glare"
+      "en": "Glare",
+      "ko": "뱀눈초리",
+      "zh-Hant": "大蛇瞪眼"
     },
     "type": "normal",
     "category": "status",
@@ -3363,7 +3923,9 @@
     "id": 141,
     "name": {
       "ja": "きゅうけつ",
-      "en": "Leech Life"
+      "en": "Leech Life",
+      "ko": "흡혈",
+      "zh-Hant": "吸血"
     },
     "type": "bug",
     "category": "physical",
@@ -3375,7 +3937,9 @@
     "id": 180,
     "name": {
       "ja": "うらみ",
-      "en": "Spite"
+      "en": "Spite",
+      "ko": "원한",
+      "zh-Hant": "怨恨"
     },
     "type": "ghost",
     "category": "status",
@@ -3387,7 +3951,9 @@
     "id": 220,
     "name": {
       "ja": "いたみわけ",
-      "en": "Pain Split"
+      "en": "Pain Split",
+      "ko": "아픔나누기",
+      "zh-Hant": "分擔痛楚"
     },
     "type": "normal",
     "category": "status",
@@ -3399,7 +3965,9 @@
     "id": 254,
     "name": {
       "ja": "たくわえる",
-      "en": "Stockpile"
+      "en": "Stockpile",
+      "ko": "비축하기",
+      "zh-Hant": "蓄力"
     },
     "type": "normal",
     "category": "status",
@@ -3411,7 +3979,9 @@
     "id": 255,
     "name": {
       "ja": "はきだす",
-      "en": "Spit Up"
+      "en": "Spit Up",
+      "ko": "토해내기",
+      "zh-Hant": "噴出"
     },
     "type": "normal",
     "category": "special",
@@ -3423,7 +3993,9 @@
     "id": 256,
     "name": {
       "ja": "のみこむ",
-      "en": "Swallow"
+      "en": "Swallow",
+      "ko": "꿀꺽",
+      "zh-Hant": "吞下"
     },
     "type": "normal",
     "category": "status",
@@ -3435,7 +4007,9 @@
     "id": 259,
     "name": {
       "ja": "いちゃもん",
-      "en": "Torment"
+      "en": "Torment",
+      "ko": "트집",
+      "zh-Hant": "無理取鬧"
     },
     "type": "dark",
     "category": "status",
@@ -3447,7 +4021,9 @@
     "id": 287,
     "name": {
       "ja": "リフレッシュ",
-      "en": "Refresh"
+      "en": "Refresh",
+      "ko": "리프레시",
+      "zh-Hant": "煥然一新"
     },
     "type": "normal",
     "category": "status",
@@ -3459,7 +4035,9 @@
     "id": 289,
     "name": {
       "ja": "よこどり",
-      "en": "Snatch"
+      "en": "Snatch",
+      "ko": "가로채기",
+      "zh-Hant": "搶奪"
     },
     "type": "dark",
     "category": "status",
@@ -3471,7 +4049,9 @@
     "id": 305,
     "name": {
       "ja": "どくどくのキバ",
-      "en": "Poison Fang"
+      "en": "Poison Fang",
+      "ko": "맹독엄니",
+      "zh-Hant": "劇毒牙"
     },
     "type": "poison",
     "category": "physical",
@@ -3483,7 +4063,9 @@
     "id": 342,
     "name": {
       "ja": "ポイズンテール",
-      "en": "Poison Tail"
+      "en": "Poison Tail",
+      "ko": "포이즌테일",
+      "zh-Hant": "毒尾"
     },
     "type": "poison",
     "category": "physical",
@@ -3495,7 +4077,9 @@
     "id": 380,
     "name": {
       "ja": "いえき",
-      "en": "Gastro Acid"
+      "en": "Gastro Acid",
+      "ko": "위액",
+      "zh-Hant": "胃液"
     },
     "type": "poison",
     "category": "status",
@@ -3507,7 +4091,9 @@
     "id": 389,
     "name": {
       "ja": "ふいうち",
-      "en": "Sucker Punch"
+      "en": "Sucker Punch",
+      "ko": "기습",
+      "zh-Hant": "突襲"
     },
     "type": "dark",
     "category": "physical",
@@ -3519,7 +4105,9 @@
     "id": 415,
     "name": {
       "ja": "すりかえ",
-      "en": "Switcheroo"
+      "en": "Switcheroo",
+      "ko": "바꿔치기",
+      "zh-Hant": "掉包"
     },
     "type": "dark",
     "category": "status",
@@ -3531,7 +4119,9 @@
     "id": 422,
     "name": {
       "ja": "かみなりのキバ",
-      "en": "Thunder Fang"
+      "en": "Thunder Fang",
+      "ko": "번개엄니",
+      "zh-Hant": "雷電牙"
     },
     "type": "electric",
     "category": "physical",
@@ -3543,7 +4133,9 @@
     "id": 423,
     "name": {
       "ja": "こおりのキバ",
-      "en": "Ice Fang"
+      "en": "Ice Fang",
+      "ko": "얼음엄니",
+      "zh-Hant": "冰凍牙"
     },
     "type": "ice",
     "category": "physical",
@@ -3555,7 +4147,9 @@
     "id": 426,
     "name": {
       "ja": "どろばくだん",
-      "en": "Mud Bomb"
+      "en": "Mud Bomb",
+      "ko": "진흙폭탄",
+      "zh-Hant": "泥巴炸彈"
     },
     "type": "ground",
     "category": "special",
@@ -3567,7 +4161,9 @@
     "id": 441,
     "name": {
       "ja": "ダストシュート",
-      "en": "Gunk Shot"
+      "en": "Gunk Shot",
+      "ko": "더스트슈트",
+      "zh-Hant": "垃圾射擊"
     },
     "type": "poison",
     "category": "physical",
@@ -3579,7 +4175,9 @@
     "id": 489,
     "name": {
       "ja": "とぐろをまく",
-      "en": "Coil"
+      "en": "Coil",
+      "ko": "똬리틀기",
+      "zh-Hant": "盤蜷"
     },
     "type": "poison",
     "category": "status",
@@ -3591,7 +4189,9 @@
     "id": 555,
     "name": {
       "ja": "バークアウト",
-      "en": "Snarl"
+      "en": "Snarl",
+      "ko": "바크아웃",
+      "zh-Hant": "大聲咆哮"
     },
     "type": "dark",
     "category": "special",
@@ -3603,7 +4203,9 @@
     "id": 562,
     "name": {
       "ja": "ゲップ",
-      "en": "Belch"
+      "en": "Belch",
+      "ko": "트림",
+      "zh-Hant": "打嗝"
     },
     "type": "poison",
     "category": "special",
@@ -3615,7 +4217,9 @@
     "id": 706,
     "name": {
       "ja": "サイコファング",
-      "en": "Psychic Fangs"
+      "en": "Psychic Fangs",
+      "ko": "사이코팽",
+      "zh-Hant": "精神之牙"
     },
     "type": "psychic",
     "category": "physical",
@@ -3627,7 +4231,9 @@
     "id": 808,
     "name": {
       "ja": "うっぷんばらし",
-      "en": "Lash Out"
+      "en": "Lash Out",
+      "ko": "분풀이",
+      "zh-Hant": "洩憤"
     },
     "type": "dark",
     "category": "physical",
@@ -3639,7 +4245,9 @@
     "id": 6,
     "name": {
       "ja": "ネコにこばん",
-      "en": "Pay Day"
+      "en": "Pay Day",
+      "ko": "고양이돈받기",
+      "zh-Hant": "聚寶功"
     },
     "type": "normal",
     "category": "physical",
@@ -3651,7 +4259,9 @@
     "id": 24,
     "name": {
       "ja": "にどげり",
-      "en": "Double Kick"
+      "en": "Double Kick",
+      "ko": "두번차기",
+      "zh-Hant": "二連踢"
     },
     "type": "fighting",
     "category": "physical",
@@ -3663,7 +4273,9 @@
     "id": 84,
     "name": {
       "ja": "でんきショック",
-      "en": "Thunder Shock"
+      "en": "Thunder Shock",
+      "ko": "전기쇼크",
+      "zh-Hant": "電擊"
     },
     "type": "electric",
     "category": "special",
@@ -3675,7 +4287,9 @@
     "id": 85,
     "name": {
       "ja": "１０まんボルト",
-      "en": "Thunderbolt"
+      "en": "Thunderbolt",
+      "ko": "10만볼트",
+      "zh-Hant": "十萬伏特"
     },
     "type": "electric",
     "category": "special",
@@ -3687,7 +4301,9 @@
     "id": 86,
     "name": {
       "ja": "でんじは",
-      "en": "Thunder Wave"
+      "en": "Thunder Wave",
+      "ko": "전기자석파",
+      "zh-Hant": "電磁波"
     },
     "type": "electric",
     "category": "status",
@@ -3699,7 +4315,9 @@
     "id": 87,
     "name": {
       "ja": "かみなり",
-      "en": "Thunder"
+      "en": "Thunder",
+      "ko": "번개",
+      "zh-Hant": "打雷"
     },
     "type": "electric",
     "category": "special",
@@ -3711,7 +4329,9 @@
     "id": 179,
     "name": {
       "ja": "きしかいせい",
-      "en": "Reversal"
+      "en": "Reversal",
+      "ko": "기사회생",
+      "zh-Hant": "起死回生"
     },
     "type": "fighting",
     "category": "physical",
@@ -3723,7 +4343,9 @@
     "id": 186,
     "name": {
       "ja": "てんしのキッス",
-      "en": "Sweet Kiss"
+      "en": "Sweet Kiss",
+      "ko": "천사의키스",
+      "zh-Hant": "天使之吻"
     },
     "type": "fairy",
     "category": "status",
@@ -3735,7 +4357,9 @@
     "id": 192,
     "name": {
       "ja": "でんじほう",
-      "en": "Zap Cannon"
+      "en": "Zap Cannon",
+      "ko": "전자포",
+      "zh-Hant": "電磁炮"
     },
     "type": "electric",
     "category": "special",
@@ -3747,7 +4371,9 @@
     "id": 209,
     "name": {
       "ja": "スパーク",
-      "en": "Spark"
+      "en": "Spark",
+      "ko": "스파크",
+      "zh-Hant": "電光"
     },
     "type": "electric",
     "category": "physical",
@@ -3759,7 +4385,9 @@
     "id": 227,
     "name": {
       "ja": "アンコール",
-      "en": "Encore"
+      "en": "Encore",
+      "ko": "앙코르",
+      "zh-Hant": "再來一次"
     },
     "type": "normal",
     "category": "status",
@@ -3771,7 +4399,9 @@
     "id": 268,
     "name": {
       "ja": "じゅうでん",
-      "en": "Charge"
+      "en": "Charge",
+      "ko": "충전",
+      "zh-Hant": "充電"
     },
     "type": "electric",
     "category": "status",
@@ -3783,7 +4413,9 @@
     "id": 273,
     "name": {
       "ja": "ねがいごと",
-      "en": "Wish"
+      "en": "Wish",
+      "ko": "희망사항",
+      "zh-Hant": "祈願"
     },
     "type": "normal",
     "category": "status",
@@ -3795,7 +4427,9 @@
     "id": 313,
     "name": {
       "ja": "うそなき",
-      "en": "Fake Tears"
+      "en": "Fake Tears",
+      "ko": "거짓울음",
+      "zh-Hant": "假哭"
     },
     "type": "dark",
     "category": "status",
@@ -3807,7 +4441,9 @@
     "id": 321,
     "name": {
       "ja": "くすぐる",
-      "en": "Tickle"
+      "en": "Tickle",
+      "ko": "간지르기",
+      "zh-Hant": "搔癢"
     },
     "type": "normal",
     "category": "status",
@@ -3819,7 +4455,9 @@
     "id": 343,
     "name": {
       "ja": "ほしがる",
-      "en": "Covet"
+      "en": "Covet",
+      "ko": "탐내다",
+      "zh-Hant": "渴望"
     },
     "type": "normal",
     "category": "physical",
@@ -3831,7 +4469,9 @@
     "id": 344,
     "name": {
       "ja": "ボルテッカー",
-      "en": "Volt Tackle"
+      "en": "Volt Tackle",
+      "ko": "볼트태클",
+      "zh-Hant": "伏特攻擊"
     },
     "type": "electric",
     "category": "physical",
@@ -3843,7 +4483,9 @@
     "id": 347,
     "name": {
       "ja": "めいそう",
-      "en": "Calm Mind"
+      "en": "Calm Mind",
+      "ko": "명상",
+      "zh-Hant": "冥想"
     },
     "type": "psychic",
     "category": "status",
@@ -3855,7 +4497,9 @@
     "id": 351,
     "name": {
       "ja": "でんげきは",
-      "en": "Shock Wave"
+      "en": "Shock Wave",
+      "ko": "전격파",
+      "zh-Hant": "電擊波"
     },
     "type": "electric",
     "category": "special",
@@ -3867,7 +4511,9 @@
     "id": 364,
     "name": {
       "ja": "フェイント",
-      "en": "Feint"
+      "en": "Feint",
+      "ko": "페인트",
+      "zh-Hant": "佯攻"
     },
     "type": "normal",
     "category": "physical",
@@ -3879,7 +4525,9 @@
     "id": 393,
     "name": {
       "ja": "でんじふゆう",
-      "en": "Magnet Rise"
+      "en": "Magnet Rise",
+      "ko": "전자부유",
+      "zh-Hant": "電磁飄浮"
     },
     "type": "electric",
     "category": "status",
@@ -3891,7 +4539,9 @@
     "id": 417,
     "name": {
       "ja": "わるだくみ",
-      "en": "Nasty Plot"
+      "en": "Nasty Plot",
+      "ko": "나쁜음모",
+      "zh-Hant": "詭計"
     },
     "type": "dark",
     "category": "status",
@@ -3903,7 +4553,9 @@
     "id": 435,
     "name": {
       "ja": "ほうでん",
-      "en": "Discharge"
+      "en": "Discharge",
+      "ko": "방전",
+      "zh-Hant": "放電"
     },
     "type": "electric",
     "category": "special",
@@ -3915,7 +4567,9 @@
     "id": 451,
     "name": {
       "ja": "チャージビーム",
-      "en": "Charge Beam"
+      "en": "Charge Beam",
+      "ko": "차지빔",
+      "zh-Hant": "充電光束"
     },
     "type": "electric",
     "category": "special",
@@ -3927,7 +4581,9 @@
     "id": 486,
     "name": {
       "ja": "エレキボール",
-      "en": "Electro Ball"
+      "en": "Electro Ball",
+      "ko": "일렉트릭볼",
+      "zh-Hant": "電球"
     },
     "type": "electric",
     "category": "special",
@@ -3939,7 +4595,9 @@
     "id": 521,
     "name": {
       "ja": "ボルトチェンジ",
-      "en": "Volt Switch"
+      "en": "Volt Switch",
+      "ko": "볼트체인지",
+      "zh-Hant": "伏特替換"
     },
     "type": "electric",
     "category": "special",
@@ -3951,7 +4609,9 @@
     "id": 528,
     "name": {
       "ja": "ワイルドボルト",
-      "en": "Wild Charge"
+      "en": "Wild Charge",
+      "ko": "와일드볼트",
+      "zh-Hant": "瘋狂伏特"
     },
     "type": "electric",
     "category": "physical",
@@ -3963,7 +4623,9 @@
     "id": 574,
     "name": {
       "ja": "チャームボイス",
-      "en": "Disarming Voice"
+      "en": "Disarming Voice",
+      "ko": "차밍보이스",
+      "zh-Hant": "魅惑之聲"
     },
     "type": "fairy",
     "category": "special",
@@ -3975,7 +4637,9 @@
     "id": 577,
     "name": {
       "ja": "ドレインキッス",
-      "en": "Draining Kiss"
+      "en": "Draining Kiss",
+      "ko": "드레인키스",
+      "zh-Hant": "吸取之吻"
     },
     "type": "fairy",
     "category": "special",
@@ -3987,7 +4651,9 @@
     "id": 583,
     "name": {
       "ja": "じゃれつく",
-      "en": "Play Rough"
+      "en": "Play Rough",
+      "ko": "치근거리기",
+      "zh-Hant": "嬉鬧"
     },
     "type": "fairy",
     "category": "physical",
@@ -3999,7 +4665,9 @@
     "id": 589,
     "name": {
       "ja": "なかよくする",
-      "en": "Play Nice"
+      "en": "Play Nice",
+      "ko": "친해지기",
+      "zh-Hant": "和睦相處"
     },
     "type": "normal",
     "category": "status",
@@ -4011,7 +4679,9 @@
     "id": 598,
     "name": {
       "ja": "かいでんぱ",
-      "en": "Eerie Impulse"
+      "en": "Eerie Impulse",
+      "ko": "괴전파",
+      "zh-Hant": "怪異電波"
     },
     "type": "electric",
     "category": "status",
@@ -4023,7 +4693,9 @@
     "id": 604,
     "name": {
       "ja": "エレキフィールド",
-      "en": "Electric Terrain"
+      "en": "Electric Terrain",
+      "ko": "일렉트릭필드",
+      "zh-Hant": "電氣場地"
     },
     "type": "electric",
     "category": "status",
@@ -4035,7 +4707,9 @@
     "id": 609,
     "name": {
       "ja": "ほっぺすりすり",
-      "en": "Nuzzle"
+      "en": "Nuzzle",
+      "ko": "볼부비부비",
+      "zh-Hant": "蹭蹭臉頰"
     },
     "type": "electric",
     "category": "physical",
@@ -4047,7 +4721,9 @@
     "id": 804,
     "name": {
       "ja": "ライジングボルト",
-      "en": "Rising Voltage"
+      "en": "Rising Voltage",
+      "ko": "라이징볼트",
+      "zh-Hant": "電力上升"
     },
     "type": "electric",
     "category": "special",
@@ -4059,7 +4735,9 @@
     "id": 914,
     "name": {
       "ja": "みわくのボイス",
-      "en": "Alluring Voice"
+      "en": "Alluring Voice",
+      "ko": "매혹의보이스",
+      "zh-Hant": "魅誘之聲"
     },
     "type": "fairy",
     "category": "special",
@@ -4071,7 +4749,9 @@
     "id": 918,
     "name": {
       "ja": "はやてがえし",
-      "en": "Upper Hand"
+      "en": "Upper Hand",
+      "ko": "기선제압",
+      "zh-Hant": "快手還擊"
     },
     "type": "fighting",
     "category": "physical",
@@ -4083,7 +4763,9 @@
     "id": 409,
     "name": {
       "ja": "ドレインパンチ",
-      "en": "Drain Punch"
+      "en": "Drain Punch",
+      "ko": "드레인펀치",
+      "zh-Hant": "吸取拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -4095,7 +4777,9 @@
     "id": 605,
     "name": {
       "ja": "マジカルシャイン",
-      "en": "Dazzling Gleam"
+      "en": "Dazzling Gleam",
+      "ko": "매지컬샤인",
+      "zh-Hant": "魔法閃耀"
     },
     "type": "fairy",
     "category": "special",
@@ -4107,7 +4791,9 @@
     "id": 683,
     "name": {
       "ja": "スピードスワップ",
-      "en": "Speed Swap"
+      "en": "Speed Swap",
+      "ko": "스피드스왑",
+      "zh-Hant": "速度互換"
     },
     "type": "psychic",
     "category": "status",
@@ -4119,7 +4805,9 @@
     "id": 94,
     "name": {
       "ja": "サイコキネシス",
-      "en": "Psychic"
+      "en": "Psychic",
+      "ko": "사이코키네시스",
+      "zh-Hant": "精神強念"
     },
     "type": "psychic",
     "category": "special",
@@ -4131,7 +4819,9 @@
     "id": 100,
     "name": {
       "ja": "テレポート",
-      "en": "Teleport"
+      "en": "Teleport",
+      "ko": "순간이동",
+      "zh-Hant": "瞬間移動"
     },
     "type": "psychic",
     "category": "status",
@@ -4143,7 +4833,9 @@
     "id": 248,
     "name": {
       "ja": "みらいよち",
-      "en": "Future Sight"
+      "en": "Future Sight",
+      "ko": "미래예지",
+      "zh-Hant": "預知未來"
     },
     "type": "psychic",
     "category": "special",
@@ -4155,7 +4847,9 @@
     "id": 277,
     "name": {
       "ja": "マジックコート",
-      "en": "Magic Coat"
+      "en": "Magic Coat",
+      "ko": "매직코트",
+      "zh-Hant": "魔法反射"
     },
     "type": "psychic",
     "category": "status",
@@ -4167,7 +4861,9 @@
     "id": 278,
     "name": {
       "ja": "リサイクル",
-      "en": "Recycle"
+      "en": "Recycle",
+      "ko": "리사이클",
+      "zh-Hant": "回收利用"
     },
     "type": "normal",
     "category": "status",
@@ -4179,7 +4875,9 @@
     "id": 285,
     "name": {
       "ja": "スキルスワップ",
-      "en": "Skill Swap"
+      "en": "Skill Swap",
+      "ko": "스킬스왑",
+      "zh-Hant": "特性互換"
     },
     "type": "psychic",
     "category": "status",
@@ -4191,7 +4889,9 @@
     "id": 473,
     "name": {
       "ja": "サイコショック",
-      "en": "Psyshock"
+      "en": "Psyshock",
+      "ko": "사이코쇼크",
+      "zh-Hant": "精神衝擊"
     },
     "type": "psychic",
     "category": "special",
@@ -4203,7 +4903,9 @@
     "id": 477,
     "name": {
       "ja": "テレキネシス",
-      "en": "Telekinesis"
+      "en": "Telekinesis",
+      "ko": "텔레키네시스",
+      "zh-Hant": "意念移物"
     },
     "type": "psychic",
     "category": "status",
@@ -4215,7 +4917,9 @@
     "id": 478,
     "name": {
       "ja": "マジックルーム",
-      "en": "Magic Room"
+      "en": "Magic Room",
+      "ko": "매직룸",
+      "zh-Hant": "魔法空間"
     },
     "type": "psychic",
     "category": "status",
@@ -4227,7 +4931,9 @@
     "id": 500,
     "name": {
       "ja": "アシストパワー",
-      "en": "Stored Power"
+      "en": "Stored Power",
+      "ko": "어시스트파워",
+      "zh-Hant": "輔助力量"
     },
     "type": "psychic",
     "category": "special",
@@ -4239,7 +4945,9 @@
     "id": 502,
     "name": {
       "ja": "サイドチェンジ",
-      "en": "Ally Switch"
+      "en": "Ally Switch",
+      "ko": "사이드체인지",
+      "zh-Hant": "交換場地"
     },
     "type": "psychic",
     "category": "status",
@@ -4251,7 +4959,9 @@
     "id": 678,
     "name": {
       "ja": "サイコフィールド",
-      "en": "Psychic Terrain"
+      "en": "Psychic Terrain",
+      "ko": "사이코필드",
+      "zh-Hant": "精神場地"
     },
     "type": "psychic",
     "category": "status",
@@ -4263,7 +4973,9 @@
     "id": 797,
     "name": {
       "ja": "ワイドフォース",
-      "en": "Expanding Force"
+      "en": "Expanding Force",
+      "ko": "와이드포스",
+      "zh-Hant": "廣域戰力"
     },
     "type": "psychic",
     "category": "special",
@@ -4275,7 +4987,9 @@
     "id": 917,
     "name": {
       "ja": "サイコノイズ",
-      "en": "Psychic Noise"
+      "en": "Psychic Noise",
+      "ko": "사이코노이즈",
+      "zh-Hant": "精神噪音"
     },
     "type": "psychic",
     "category": "special",
@@ -4287,7 +5001,9 @@
     "id": 1,
     "name": {
       "ja": "はたく",
-      "en": "Pound"
+      "en": "Pound",
+      "ko": "막치기",
+      "zh-Hant": "拍擊"
     },
     "type": "normal",
     "category": "physical",
@@ -4299,7 +5015,9 @@
     "id": 3,
     "name": {
       "ja": "おうふくビンタ",
-      "en": "Double Slap"
+      "en": "Double Slap",
+      "ko": "연속뺨치기",
+      "zh-Hant": "連環巴掌"
     },
     "type": "normal",
     "category": "physical",
@@ -4311,7 +5029,9 @@
     "id": 47,
     "name": {
       "ja": "うたう",
-      "en": "Sing"
+      "en": "Sing",
+      "ko": "노래하기",
+      "zh-Hant": "唱歌"
     },
     "type": "normal",
     "category": "status",
@@ -4323,7 +5043,9 @@
     "id": 60,
     "name": {
       "ja": "サイケこうせん",
-      "en": "Psybeam"
+      "en": "Psybeam",
+      "ko": "환상빔",
+      "zh-Hant": "幻象光線"
     },
     "type": "psychic",
     "category": "special",
@@ -4335,7 +5057,9 @@
     "id": 101,
     "name": {
       "ja": "ナイトヘッド",
-      "en": "Night Shade"
+      "en": "Night Shade",
+      "ko": "나이트헤드",
+      "zh-Hant": "黑夜魔影"
     },
     "type": "ghost",
     "category": "special",
@@ -4347,7 +5071,9 @@
     "id": 107,
     "name": {
       "ja": "ちいさくなる",
-      "en": "Minimize"
+      "en": "Minimize",
+      "ko": "작아지기",
+      "zh-Hant": "變小"
     },
     "type": "normal",
     "category": "status",
@@ -4359,7 +5085,9 @@
     "id": 118,
     "name": {
       "ja": "ゆびをふる",
-      "en": "Metronome"
+      "en": "Metronome",
+      "ko": "손가락흔들기",
+      "zh-Hant": "揮指"
     },
     "type": "normal",
     "category": "status",
@@ -4371,7 +5099,9 @@
     "id": 135,
     "name": {
       "ja": "タマゴうみ",
-      "en": "Soft-Boiled"
+      "en": "Soft-Boiled",
+      "ko": "알낳기",
+      "zh-Hant": "生蛋"
     },
     "type": "normal",
     "category": "status",
@@ -4383,7 +5113,9 @@
     "id": 138,
     "name": {
       "ja": "ゆめくい",
-      "en": "Dream Eater"
+      "en": "Dream Eater",
+      "ko": "꿈먹기",
+      "zh-Hant": "食夢"
     },
     "type": "psychic",
     "category": "special",
@@ -4395,7 +5127,9 @@
     "id": 149,
     "name": {
       "ja": "サイコウェーブ",
-      "en": "Psywave"
+      "en": "Psywave",
+      "ko": "사이코웨이브",
+      "zh-Hant": "精神波"
     },
     "type": "psychic",
     "category": "special",
@@ -4407,7 +5141,9 @@
     "id": 150,
     "name": {
       "ja": "はねる",
-      "en": "Splash"
+      "en": "Splash",
+      "ko": "튀어오르기",
+      "zh-Hant": "躍起"
     },
     "type": "normal",
     "category": "status",
@@ -4419,7 +5155,9 @@
     "id": 161,
     "name": {
       "ja": "トライアタック",
-      "en": "Tri Attack"
+      "en": "Tri Attack",
+      "ko": "트라이어택",
+      "zh-Hant": "三重攻擊"
     },
     "type": "normal",
     "category": "special",
@@ -4431,7 +5169,9 @@
     "id": 171,
     "name": {
       "ja": "あくむ",
-      "en": "Nightmare"
+      "en": "Nightmare",
+      "ko": "악몽",
+      "zh-Hant": "惡夢"
     },
     "type": "ghost",
     "category": "status",
@@ -4443,7 +5183,9 @@
     "id": 215,
     "name": {
       "ja": "いやしのすず",
-      "en": "Heal Bell"
+      "en": "Heal Bell",
+      "ko": "치료방울",
+      "zh-Hant": "治癒鈴聲"
     },
     "type": "normal",
     "category": "status",
@@ -4455,7 +5197,9 @@
     "id": 217,
     "name": {
       "ja": "プレゼント",
-      "en": "Present"
+      "en": "Present",
+      "ko": "프레젠트",
+      "zh-Hant": "禮物"
     },
     "type": "normal",
     "category": "physical",
@@ -4467,7 +5211,9 @@
     "id": 236,
     "name": {
       "ja": "つきのひかり",
-      "en": "Moonlight"
+      "en": "Moonlight",
+      "ko": "달빛",
+      "zh-Hant": "月光"
     },
     "type": "fairy",
     "category": "status",
@@ -4479,7 +5225,9 @@
     "id": 244,
     "name": {
       "ja": "じこあんじ",
-      "en": "Psych Up"
+      "en": "Psych Up",
+      "ko": "자기암시",
+      "zh-Hant": "自我暗示"
     },
     "type": "normal",
     "category": "status",
@@ -4491,7 +5239,9 @@
     "id": 247,
     "name": {
       "ja": "シャドーボール",
-      "en": "Shadow Ball"
+      "en": "Shadow Ball",
+      "ko": "섀도볼",
+      "zh-Hant": "暗影球"
     },
     "type": "ghost",
     "category": "special",
@@ -4503,7 +5253,9 @@
     "id": 266,
     "name": {
       "ja": "このゆびとまれ",
-      "en": "Follow Me"
+      "en": "Follow Me",
+      "ko": "날따름",
+      "zh-Hant": "看我嘛"
     },
     "type": "normal",
     "category": "status",
@@ -4515,7 +5267,9 @@
     "id": 271,
     "name": {
       "ja": "トリック",
-      "en": "Trick"
+      "en": "Trick",
+      "ko": "트릭",
+      "zh-Hant": "戲法"
     },
     "type": "psychic",
     "category": "status",
@@ -4527,7 +5281,9 @@
     "id": 272,
     "name": {
       "ja": "なりきり",
-      "en": "Role Play"
+      "en": "Role Play",
+      "ko": "역할",
+      "zh-Hant": "扮演"
     },
     "type": "psychic",
     "category": "status",
@@ -4539,7 +5295,9 @@
     "id": 286,
     "name": {
       "ja": "ふういん",
-      "en": "Imprison"
+      "en": "Imprison",
+      "ko": "봉인",
+      "zh-Hant": "封印"
     },
     "type": "psychic",
     "category": "status",
@@ -4551,7 +5309,9 @@
     "id": 304,
     "name": {
       "ja": "ハイパーボイス",
-      "en": "Hyper Voice"
+      "en": "Hyper Voice",
+      "ko": "하이퍼보이스",
+      "zh-Hant": "巨聲"
     },
     "type": "normal",
     "category": "special",
@@ -4563,7 +5323,9 @@
     "id": 309,
     "name": {
       "ja": "コメットパンチ",
-      "en": "Meteor Mash"
+      "en": "Meteor Mash",
+      "ko": "코멧펀치",
+      "zh-Hant": "彗星拳"
     },
     "type": "steel",
     "category": "physical",
@@ -4575,7 +5337,9 @@
     "id": 322,
     "name": {
       "ja": "コスモパワー",
-      "en": "Cosmic Power"
+      "en": "Cosmic Power",
+      "ko": "코스믹파워",
+      "zh-Hant": "宇宙力量"
     },
     "type": "psychic",
     "category": "status",
@@ -4587,7 +5351,9 @@
     "id": 340,
     "name": {
       "ja": "とびはねる",
-      "en": "Bounce"
+      "en": "Bounce",
+      "ko": "뛰어오르기",
+      "zh-Hant": "彈跳"
     },
     "type": "flying",
     "category": "physical",
@@ -4599,7 +5365,9 @@
     "id": 356,
     "name": {
       "ja": "じゅうりょく",
-      "en": "Gravity"
+      "en": "Gravity",
+      "ko": "중력",
+      "zh-Hant": "重力"
     },
     "type": "psychic",
     "category": "status",
@@ -4611,7 +5379,9 @@
     "id": 361,
     "name": {
       "ja": "いやしのねがい",
-      "en": "Healing Wish"
+      "en": "Healing Wish",
+      "ko": "치유소원",
+      "zh-Hant": "治癒之願"
     },
     "type": "psychic",
     "category": "status",
@@ -4623,7 +5393,9 @@
     "id": 383,
     "name": {
       "ja": "まねっこ",
-      "en": "Copycat"
+      "en": "Copycat",
+      "ko": "흉내쟁이",
+      "zh-Hant": "仿效"
     },
     "type": "normal",
     "category": "status",
@@ -4635,7 +5407,9 @@
     "id": 387,
     "name": {
       "ja": "とっておき",
-      "en": "Last Resort"
+      "en": "Last Resort",
+      "ko": "비장의무기",
+      "zh-Hant": "珍藏"
     },
     "type": "normal",
     "category": "physical",
@@ -4647,7 +5421,9 @@
     "id": 446,
     "name": {
       "ja": "ステルスロック",
-      "en": "Stealth Rock"
+      "en": "Stealth Rock",
+      "ko": "스텔스록",
+      "zh-Hant": "隱形岩"
     },
     "type": "rock",
     "category": "status",
@@ -4659,7 +5435,9 @@
     "id": 472,
     "name": {
       "ja": "ワンダールーム",
-      "en": "Wonder Room"
+      "en": "Wonder Room",
+      "ko": "원더룸",
+      "zh-Hant": "奇妙空間"
     },
     "type": "psychic",
     "category": "status",
@@ -4671,7 +5449,9 @@
     "id": 495,
     "name": {
       "ja": "おさきにどうぞ",
-      "en": "After You"
+      "en": "After You",
+      "ko": "당신먼저",
+      "zh-Hant": "您先請"
     },
     "type": "normal",
     "category": "status",
@@ -4683,7 +5463,9 @@
     "id": 505,
     "name": {
       "ja": "いやしのはどう",
-      "en": "Heal Pulse"
+      "en": "Heal Pulse",
+      "ko": "치유파동",
+      "zh-Hant": "治癒波動"
     },
     "type": "psychic",
     "category": "status",
@@ -4695,7 +5477,9 @@
     "id": 514,
     "name": {
       "ja": "かたきうち",
-      "en": "Retaliate"
+      "en": "Retaliate",
+      "ko": "원수갚기",
+      "zh-Hant": "報仇"
     },
     "type": "normal",
     "category": "physical",
@@ -4707,7 +5491,9 @@
     "id": 581,
     "name": {
       "ja": "ミストフィールド",
-      "en": "Misty Terrain"
+      "en": "Misty Terrain",
+      "ko": "미스트필드",
+      "zh-Hant": "薄霧場地"
     },
     "type": "fairy",
     "category": "status",
@@ -4719,7 +5505,9 @@
     "id": 584,
     "name": {
       "ja": "ようせいのかぜ",
-      "en": "Fairy Wind"
+      "en": "Fairy Wind",
+      "ko": "요정의바람",
+      "zh-Hant": "妖精之風"
     },
     "type": "fairy",
     "category": "special",
@@ -4731,7 +5519,9 @@
     "id": 585,
     "name": {
       "ja": "ムーンフォース",
-      "en": "Moonblast"
+      "en": "Moonblast",
+      "ko": "문포스",
+      "zh-Hant": "月亮之力"
     },
     "type": "fairy",
     "category": "special",
@@ -4743,7 +5533,9 @@
     "id": 608,
     "name": {
       "ja": "つぶらなひとみ",
-      "en": "Baby-Doll Eyes"
+      "en": "Baby-Doll Eyes",
+      "ko": "초롱초롱눈동자",
+      "zh-Hant": "圓瞳"
     },
     "type": "fairy",
     "category": "status",
@@ -4755,7 +5547,9 @@
     "id": 671,
     "name": {
       "ja": "スポットライト",
-      "en": "Spotlight"
+      "en": "Spotlight",
+      "ko": "스포트라이트",
+      "zh-Hant": "聚光燈"
     },
     "type": "normal",
     "category": "status",
@@ -4767,7 +5561,9 @@
     "id": 800,
     "name": {
       "ja": "メテオビーム",
-      "en": "Meteor Beam"
+      "en": "Meteor Beam",
+      "ko": "메테오빔",
+      "zh-Hant": "流星光束"
     },
     "type": "rock",
     "category": "special",
@@ -4779,7 +5575,9 @@
     "id": 802,
     "name": {
       "ja": "ミストバースト",
-      "en": "Misty Explosion"
+      "en": "Misty Explosion",
+      "ko": "미스트버스트",
+      "zh-Hant": "薄霧炸裂"
     },
     "type": "fairy",
     "category": "special",
@@ -4791,7 +5589,9 @@
     "id": 50,
     "name": {
       "ja": "かなしばり",
-      "en": "Disable"
+      "en": "Disable",
+      "ko": "사슬묶기",
+      "zh-Hant": "定身法"
     },
     "type": "normal",
     "category": "status",
@@ -4803,7 +5603,9 @@
     "id": 95,
     "name": {
       "ja": "さいみんじゅつ",
-      "en": "Hypnosis"
+      "en": "Hypnosis",
+      "ko": "최면술",
+      "zh-Hant": "催眠術"
     },
     "type": "psychic",
     "category": "status",
@@ -4815,7 +5617,9 @@
     "id": 109,
     "name": {
       "ja": "あやしいひかり",
-      "en": "Confuse Ray"
+      "en": "Confuse Ray",
+      "ko": "이상한빛",
+      "zh-Hant": "奇異之光"
     },
     "type": "ghost",
     "category": "status",
@@ -4827,7 +5631,9 @@
     "id": 172,
     "name": {
       "ja": "かえんぐるま",
-      "en": "Flame Wheel"
+      "en": "Flame Wheel",
+      "ko": "화염바퀴",
+      "zh-Hant": "火焰輪"
     },
     "type": "fire",
     "category": "physical",
@@ -4839,7 +5645,9 @@
     "id": 262,
     "name": {
       "ja": "おきみやげ",
-      "en": "Memento"
+      "en": "Memento",
+      "ko": "추억의선물",
+      "zh-Hant": "臨別禮物"
     },
     "type": "dark",
     "category": "status",
@@ -4851,7 +5659,9 @@
     "id": 288,
     "name": {
       "ja": "おんねん",
-      "en": "Grudge"
+      "en": "Grudge",
+      "ko": "원념",
+      "zh-Hant": "怨念"
     },
     "type": "ghost",
     "category": "status",
@@ -4863,7 +5673,9 @@
     "id": 326,
     "name": {
       "ja": "じんつうりき",
-      "en": "Extrasensory"
+      "en": "Extrasensory",
+      "ko": "신통력",
+      "zh-Hant": "神通力"
     },
     "type": "psychic",
     "category": "special",
@@ -4875,7 +5687,9 @@
     "id": 336,
     "name": {
       "ja": "とおぼえ",
-      "en": "Howl"
+      "en": "Howl",
+      "ko": "멀리짖기",
+      "zh-Hant": "長嚎"
     },
     "type": "normal",
     "category": "status",
@@ -4887,7 +5701,9 @@
     "id": 384,
     "name": {
       "ja": "パワースワップ",
-      "en": "Power Swap"
+      "en": "Power Swap",
+      "ko": "파워스왑",
+      "zh-Hant": "力量互換"
     },
     "type": "psychic",
     "category": "status",
@@ -4899,7 +5715,9 @@
     "id": 492,
     "name": {
       "ja": "イカサマ",
-      "en": "Foul Play"
+      "en": "Foul Play",
+      "ko": "속임수",
+      "zh-Hant": "欺詐"
     },
     "type": "dark",
     "category": "physical",
@@ -4911,7 +5729,9 @@
     "id": 506,
     "name": {
       "ja": "たたりめ",
-      "en": "Hex"
+      "en": "Hex",
+      "ko": "병상첨병",
+      "zh-Hant": "禍不單行"
     },
     "type": "ghost",
     "category": "special",
@@ -4923,7 +5743,9 @@
     "id": 541,
     "name": {
       "ja": "スイープビンタ",
-      "en": "Tail Slap"
+      "en": "Tail Slap",
+      "ko": "스위프뺨치기",
+      "zh-Hant": "掃尾拍打"
     },
     "type": "normal",
     "category": "physical",
@@ -4935,7 +5757,9 @@
     "id": 807,
     "name": {
       "ja": "しっとのほのお",
-      "en": "Burning Jealousy"
+      "en": "Burning Jealousy",
+      "ko": "질투의불꽃",
+      "zh-Hant": "妒火"
     },
     "type": "fire",
     "category": "special",
@@ -4947,7 +5771,9 @@
     "id": 62,
     "name": {
       "ja": "オーロラビーム",
-      "en": "Aurora Beam"
+      "en": "Aurora Beam",
+      "ko": "오로라빔",
+      "zh-Hant": "極光束"
     },
     "type": "ice",
     "category": "special",
@@ -4959,7 +5785,9 @@
     "id": 181,
     "name": {
       "ja": "こなゆき",
-      "en": "Powder Snow"
+      "en": "Powder Snow",
+      "ko": "눈싸라기",
+      "zh-Hant": "細雪"
     },
     "type": "ice",
     "category": "special",
@@ -4971,7 +5799,9 @@
     "id": 329,
     "name": {
       "ja": "ぜったいれいど",
-      "en": "Sheer Cold"
+      "en": "Sheer Cold",
+      "ko": "절대영도",
+      "zh-Hant": "絕對零度"
     },
     "type": "ice",
     "category": "special",
@@ -4983,7 +5813,9 @@
     "id": 333,
     "name": {
       "ja": "つららばり",
-      "en": "Icicle Spear"
+      "en": "Icicle Spear",
+      "ko": "고드름침",
+      "zh-Hant": "冰錐"
     },
     "type": "ice",
     "category": "physical",
@@ -4995,7 +5827,9 @@
     "id": 420,
     "name": {
       "ja": "こおりのつぶて",
-      "en": "Ice Shard"
+      "en": "Ice Shard",
+      "ko": "얼음뭉치",
+      "zh-Hant": "冰礫"
     },
     "type": "ice",
     "category": "physical",
@@ -5007,7 +5841,9 @@
     "id": 524,
     "name": {
       "ja": "こおりのいぶき",
-      "en": "Frost Breath"
+      "en": "Frost Breath",
+      "ko": "얼음숨결",
+      "zh-Hant": "冰息"
     },
     "type": "ice",
     "category": "special",
@@ -5019,7 +5855,9 @@
     "id": 573,
     "name": {
       "ja": "フリーズドライ",
-      "en": "Freeze-Dry"
+      "en": "Freeze-Dry",
+      "ko": "프리즈드라이",
+      "zh-Hant": "冷凍乾燥"
     },
     "type": "ice",
     "category": "special",
@@ -5031,7 +5869,9 @@
     "id": 694,
     "name": {
       "ja": "オーロラベール",
-      "en": "Aurora Veil"
+      "en": "Aurora Veil",
+      "ko": "오로라베일",
+      "zh-Hant": "極光幕"
     },
     "type": "ice",
     "category": "status",
@@ -5043,7 +5883,9 @@
     "id": 813,
     "name": {
       "ja": "トリプルアクセル",
-      "en": "Triple Axel"
+      "en": "Triple Axel",
+      "ko": "트리플악셀",
+      "zh-Hant": "三旋擊"
     },
     "type": "ice",
     "category": "physical",
@@ -5055,7 +5897,9 @@
     "id": 883,
     "name": {
       "ja": "ゆきげしき",
-      "en": "Snowscape"
+      "en": "Snowscape",
+      "ko": "설경",
+      "zh-Hant": "雪景"
     },
     "type": "ice",
     "category": "status",
@@ -5067,7 +5911,9 @@
     "id": 71,
     "name": {
       "ja": "すいとる",
-      "en": "Absorb"
+      "en": "Absorb",
+      "ko": "흡수",
+      "zh-Hant": "吸取"
     },
     "type": "grass",
     "category": "special",
@@ -5079,7 +5925,9 @@
     "id": 78,
     "name": {
       "ja": "しびれごな",
-      "en": "Stun Spore"
+      "en": "Stun Spore",
+      "ko": "저리가루",
+      "zh-Hant": "麻痺粉"
     },
     "type": "grass",
     "category": "status",
@@ -5091,7 +5939,9 @@
     "id": 298,
     "name": {
       "ja": "フラフラダンス",
-      "en": "Teeter Dance"
+      "en": "Teeter Dance",
+      "ko": "흔들흔들댄스",
+      "zh-Hant": "搖晃舞"
     },
     "type": "normal",
     "category": "status",
@@ -5103,7 +5953,9 @@
     "id": 312,
     "name": {
       "ja": "アロマセラピー",
-      "en": "Aromatherapy"
+      "en": "Aromatherapy",
+      "ko": "아로마테라피",
+      "zh-Hant": "芳香治療"
     },
     "type": "grass",
     "category": "status",
@@ -5115,7 +5967,9 @@
     "id": 668,
     "name": {
       "ja": "ちからをすいとる",
-      "en": "Strength Sap"
+      "en": "Strength Sap",
+      "ko": "힘흡수",
+      "zh-Hant": "吸取力量"
     },
     "type": "grass",
     "category": "status",
@@ -5127,7 +5981,9 @@
     "id": 669,
     "name": {
       "ja": "ソーラーブレード",
-      "en": "Solar Blade"
+      "en": "Solar Blade",
+      "ko": "솔라블레이드",
+      "zh-Hant": "日光刃"
     },
     "type": "grass",
     "category": "physical",
@@ -5139,7 +5995,9 @@
     "id": 810,
     "name": {
       "ja": "ふしょくガス",
-      "en": "Corrosive Gas"
+      "en": "Corrosive Gas",
+      "ko": "부식가스",
+      "zh-Hant": "腐蝕氣體"
     },
     "type": "poison",
     "category": "status",
@@ -5151,7 +6009,9 @@
     "id": 37,
     "name": {
       "ja": "あばれる",
-      "en": "Thrash"
+      "en": "Thrash",
+      "ko": "난동부리기",
+      "zh-Hant": "大鬧一番"
     },
     "type": "normal",
     "category": "physical",
@@ -5163,7 +6023,9 @@
     "id": 234,
     "name": {
       "ja": "あさのひざし",
-      "en": "Morning Sun"
+      "en": "Morning Sun",
+      "ko": "아침햇살",
+      "zh-Hant": "晨光"
     },
     "type": "normal",
     "category": "status",
@@ -5175,7 +6037,9 @@
     "id": 245,
     "name": {
       "ja": "しんそく",
-      "en": "Extreme Speed"
+      "en": "Extreme Speed",
+      "ko": "신속",
+      "zh-Hant": "神速"
     },
     "type": "normal",
     "category": "physical",
@@ -5187,7 +6051,9 @@
     "id": 276,
     "name": {
       "ja": "ばかぢから",
-      "en": "Superpower"
+      "en": "Superpower",
+      "ko": "엄청난힘",
+      "zh-Hant": "蠻力"
     },
     "type": "fighting",
     "category": "physical",
@@ -5199,7 +6065,9 @@
     "id": 316,
     "name": {
       "ja": "かぎわける",
-      "en": "Odor Sleuth"
+      "en": "Odor Sleuth",
+      "ko": "냄새구별",
+      "zh-Hant": "氣味偵測"
     },
     "type": "normal",
     "category": "status",
@@ -5211,7 +6079,9 @@
     "id": 370,
     "name": {
       "ja": "インファイト",
-      "en": "Close Combat"
+      "en": "Close Combat",
+      "ko": "인파이트",
+      "zh-Hant": "近身戰"
     },
     "type": "fighting",
     "category": "physical",
@@ -5223,7 +6093,9 @@
     "id": 682,
     "name": {
       "ja": "もえつきる",
-      "en": "Burn Up"
+      "en": "Burn Up",
+      "ko": "불사르기",
+      "zh-Hant": "燃盡"
     },
     "type": "fire",
     "category": "special",
@@ -5235,7 +6107,9 @@
     "id": 833,
     "name": {
       "ja": "だいふんげき",
-      "en": "Raging Fury"
+      "en": "Raging Fury",
+      "ko": "대격분",
+      "zh-Hant": "大憤慨"
     },
     "type": "fire",
     "category": "physical",
@@ -5247,7 +6121,9 @@
     "id": 88,
     "name": {
       "ja": "いわおとし",
-      "en": "Rock Throw"
+      "en": "Rock Throw",
+      "ko": "돌떨구기",
+      "zh-Hant": "落石"
     },
     "type": "rock",
     "category": "physical",
@@ -5259,7 +6135,9 @@
     "id": 350,
     "name": {
       "ja": "ロックブラスト",
-      "en": "Rock Blast"
+      "en": "Rock Blast",
+      "ko": "록블라스트",
+      "zh-Hant": "岩石爆擊"
     },
     "type": "rock",
     "category": "physical",
@@ -5271,7 +6149,9 @@
     "id": 408,
     "name": {
       "ja": "パワージェム",
-      "en": "Power Gem"
+      "en": "Power Gem",
+      "ko": "파워젬",
+      "zh-Hant": "力量寶石"
     },
     "type": "rock",
     "category": "special",
@@ -5283,7 +6163,9 @@
     "id": 444,
     "name": {
       "ja": "ストーンエッジ",
-      "en": "Stone Edge"
+      "en": "Stone Edge",
+      "ko": "스톤에지",
+      "zh-Hant": "尖石攻擊"
     },
     "type": "rock",
     "category": "physical",
@@ -5295,7 +6177,9 @@
     "id": 457,
     "name": {
       "ja": "もろはのずつき",
-      "en": "Head Smash"
+      "en": "Head Smash",
+      "ko": "양날박치기",
+      "zh-Hant": "雙刃頭錘"
     },
     "type": "rock",
     "category": "physical",
@@ -5307,7 +6191,9 @@
     "id": 684,
     "name": {
       "ja": "スマートホーン",
-      "en": "Smart Strike"
+      "en": "Smart Strike",
+      "ko": "스마트혼",
+      "zh-Hant": "修長之角"
     },
     "type": "steel",
     "category": "physical",
@@ -5319,7 +6205,9 @@
     "id": 93,
     "name": {
       "ja": "ねんりき",
-      "en": "Confusion"
+      "en": "Confusion",
+      "ko": "염동력",
+      "zh-Hant": "念力"
     },
     "type": "psychic",
     "category": "special",
@@ -5331,7 +6219,9 @@
     "id": 105,
     "name": {
       "ja": "じこさいせい",
-      "en": "Recover"
+      "en": "Recover",
+      "ko": "HP회복",
+      "zh-Hant": "自我再生"
     },
     "type": "normal",
     "category": "status",
@@ -5343,7 +6233,9 @@
     "id": 112,
     "name": {
       "ja": "バリアー",
-      "en": "Barrier"
+      "en": "Barrier",
+      "ko": "배리어",
+      "zh-Hant": "屏障"
     },
     "type": "psychic",
     "category": "status",
@@ -5355,7 +6247,9 @@
     "id": 134,
     "name": {
       "ja": "スプーンまげ",
-      "en": "Kinesis"
+      "en": "Kinesis",
+      "ko": "숟가락휘기",
+      "zh-Hant": "折彎湯匙"
     },
     "type": "psychic",
     "category": "status",
@@ -5367,7 +6261,9 @@
     "id": 269,
     "name": {
       "ja": "ちょうはつ",
-      "en": "Taunt"
+      "en": "Taunt",
+      "ko": "도발",
+      "zh-Hant": "挑釁"
     },
     "type": "dark",
     "category": "status",
@@ -5379,7 +6275,9 @@
     "id": 357,
     "name": {
       "ja": "ミラクルアイ",
-      "en": "Miracle Eye"
+      "en": "Miracle Eye",
+      "ko": "미라클아이",
+      "zh-Hant": "奇跡之眼"
     },
     "type": "psychic",
     "category": "status",
@@ -5391,7 +6289,9 @@
     "id": 373,
     "name": {
       "ja": "さしおさえ",
-      "en": "Embargo"
+      "en": "Embargo",
+      "ko": "금제",
+      "zh-Hant": "查封"
     },
     "type": "dark",
     "category": "status",
@@ -5403,7 +6303,9 @@
     "id": 385,
     "name": {
       "ja": "ガードスワップ",
-      "en": "Guard Swap"
+      "en": "Guard Swap",
+      "ko": "가드스왑",
+      "zh-Hant": "防守互換"
     },
     "type": "psychic",
     "category": "status",
@@ -5415,7 +6317,9 @@
     "id": 427,
     "name": {
       "ja": "サイコカッター",
-      "en": "Psycho Cut"
+      "en": "Psycho Cut",
+      "ko": "사이코커터",
+      "zh-Hant": "精神利刃"
     },
     "type": "psychic",
     "category": "physical",
@@ -5427,7 +6331,9 @@
     "id": 433,
     "name": {
       "ja": "トリックルーム",
-      "en": "Trick Room"
+      "en": "Trick Room",
+      "ko": "트릭룸",
+      "zh-Hant": "戲法空間"
     },
     "type": "psychic",
     "category": "status",
@@ -5439,7 +6345,9 @@
     "id": 470,
     "name": {
       "ja": "ガードシェア",
-      "en": "Guard Split"
+      "en": "Guard Split",
+      "ko": "가드셰어",
+      "zh-Hant": "防守平分"
     },
     "type": "psychic",
     "category": "status",
@@ -5451,7 +6359,9 @@
     "id": 2,
     "name": {
       "ja": "からてチョップ",
-      "en": "Karate Chop"
+      "en": "Karate Chop",
+      "ko": "태권당수",
+      "zh-Hant": "空手劈"
     },
     "type": "fighting",
     "category": "physical",
@@ -5463,7 +6373,9 @@
     "id": 67,
     "name": {
       "ja": "けたぐり",
-      "en": "Low Kick"
+      "en": "Low Kick",
+      "ko": "안다리걸기",
+      "zh-Hant": "踢倒"
     },
     "type": "fighting",
     "category": "physical",
@@ -5475,7 +6387,9 @@
     "id": 183,
     "name": {
       "ja": "マッハパンチ",
-      "en": "Mach Punch"
+      "en": "Mach Punch",
+      "ko": "마하펀치",
+      "zh-Hant": "音速拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -5487,7 +6401,9 @@
     "id": 193,
     "name": {
       "ja": "みやぶる",
-      "en": "Foresight"
+      "en": "Foresight",
+      "ko": "꿰뚫어보기",
+      "zh-Hant": "識破"
     },
     "type": "normal",
     "category": "status",
@@ -5499,7 +6415,9 @@
     "id": 233,
     "name": {
       "ja": "あてみなげ",
-      "en": "Vital Throw"
+      "en": "Vital Throw",
+      "ko": "받아던지기",
+      "zh-Hant": "借力摔"
     },
     "type": "fighting",
     "category": "physical",
@@ -5511,7 +6429,9 @@
     "id": 238,
     "name": {
       "ja": "クロスチョップ",
-      "en": "Cross Chop"
+      "en": "Cross Chop",
+      "ko": "크로스촙",
+      "zh-Hant": "十字劈"
     },
     "type": "fighting",
     "category": "physical",
@@ -5523,7 +6443,9 @@
     "id": 279,
     "name": {
       "ja": "リベンジ",
-      "en": "Revenge"
+      "en": "Revenge",
+      "ko": "리벤지",
+      "zh-Hant": "報復"
     },
     "type": "fighting",
     "category": "physical",
@@ -5535,7 +6457,9 @@
     "id": 339,
     "name": {
       "ja": "ビルドアップ",
-      "en": "Bulk Up"
+      "en": "Bulk Up",
+      "ko": "벌크업",
+      "zh-Hant": "健美"
     },
     "type": "fighting",
     "category": "status",
@@ -5547,7 +6471,9 @@
     "id": 358,
     "name": {
       "ja": "めざましビンタ",
-      "en": "Wake-Up Slap"
+      "en": "Wake-Up Slap",
+      "ko": "잠깨움뺨치기",
+      "zh-Hant": "喚醒巴掌"
     },
     "type": "fighting",
     "category": "physical",
@@ -5559,7 +6485,9 @@
     "id": 410,
     "name": {
       "ja": "しんくうは",
-      "en": "Vacuum Wave"
+      "en": "Vacuum Wave",
+      "ko": "진공파",
+      "zh-Hant": "真空波"
     },
     "type": "fighting",
     "category": "special",
@@ -5571,7 +6499,9 @@
     "id": 418,
     "name": {
       "ja": "バレットパンチ",
-      "en": "Bullet Punch"
+      "en": "Bullet Punch",
+      "ko": "불릿펀치",
+      "zh-Hant": "子彈拳"
     },
     "type": "steel",
     "category": "physical",
@@ -5583,7 +6513,9 @@
     "id": 469,
     "name": {
       "ja": "ワイドガード",
-      "en": "Wide Guard"
+      "en": "Wide Guard",
+      "ko": "와이드가드",
+      "zh-Hant": "廣域防守"
     },
     "type": "rock",
     "category": "status",
@@ -5595,7 +6527,9 @@
     "id": 480,
     "name": {
       "ja": "やまあらし",
-      "en": "Storm Throw"
+      "en": "Storm Throw",
+      "ko": "업어후리기",
+      "zh-Hant": "山嵐摔"
     },
     "type": "fighting",
     "category": "physical",
@@ -5607,7 +6541,9 @@
     "id": 484,
     "name": {
       "ja": "ヘビーボンバー",
-      "en": "Heavy Slam"
+      "en": "Heavy Slam",
+      "ko": "헤비봄버",
+      "zh-Hant": "重磅衝撞"
     },
     "type": "steel",
     "category": "physical",
@@ -5619,7 +6555,9 @@
     "id": 490,
     "name": {
       "ja": "ローキック",
-      "en": "Low Sweep"
+      "en": "Low Sweep",
+      "ko": "로킥",
+      "zh-Hant": "下盤踢"
     },
     "type": "fighting",
     "category": "physical",
@@ -5631,7 +6569,9 @@
     "id": 501,
     "name": {
       "ja": "ファストガード",
-      "en": "Quick Guard"
+      "en": "Quick Guard",
+      "ko": "패스트가드",
+      "zh-Hant": "快速防守"
     },
     "type": "fighting",
     "category": "status",
@@ -5643,7 +6583,9 @@
     "id": 530,
     "name": {
       "ja": "ダブルチョップ",
-      "en": "Dual Chop"
+      "en": "Dual Chop",
+      "ko": "더블촙",
+      "zh-Hant": "二連劈"
     },
     "type": "dragon",
     "category": "physical",
@@ -5655,7 +6597,9 @@
     "id": 663,
     "name": {
       "ja": "ＤＤラリアット",
-      "en": "Darkest Lariat"
+      "en": "Darkest Lariat",
+      "ko": "DD래리어트",
+      "zh-Hant": "ＤＤ金勾臂"
     },
     "type": "dark",
     "category": "physical",
@@ -5667,7 +6611,9 @@
     "id": 667,
     "name": {
       "ja": "１０まんばりき",
-      "en": "High Horsepower"
+      "en": "High Horsepower",
+      "ko": "10만마력",
+      "zh-Hant": "十萬馬力"
     },
     "type": "ground",
     "category": "physical",
@@ -5679,7 +6625,9 @@
     "id": 811,
     "name": {
       "ja": "コーチング",
-      "en": "Coaching"
+      "en": "Coaching",
+      "ko": "코칭",
+      "zh-Hant": "指導"
     },
     "type": "fighting",
     "category": "status",
@@ -5691,7 +6639,9 @@
     "id": 348,
     "name": {
       "ja": "リーフブレード",
-      "en": "Leaf Blade"
+      "en": "Leaf Blade",
+      "ko": "리프블레이드",
+      "zh-Hant": "葉刃"
     },
     "type": "grass",
     "category": "physical",
@@ -5703,7 +6653,9 @@
     "id": 499,
     "name": {
       "ja": "クリアスモッグ",
-      "en": "Clear Smog"
+      "en": "Clear Smog",
+      "ko": "클리어스모그",
+      "zh-Hant": "清除之煙"
     },
     "type": "poison",
     "category": "special",
@@ -5715,7 +6667,9 @@
     "id": 536,
     "name": {
       "ja": "グラスミキサー",
-      "en": "Leaf Tornado"
+      "en": "Leaf Tornado",
+      "ko": "그래스믹서",
+      "zh-Hant": "青草攪拌器"
     },
     "type": "grass",
     "category": "special",
@@ -5727,7 +6681,9 @@
     "id": 23,
     "name": {
       "ja": "ふみつけ",
-      "en": "Stomp"
+      "en": "Stomp",
+      "ko": "짓밟기",
+      "zh-Hant": "踩踏"
     },
     "type": "normal",
     "category": "physical",
@@ -5739,7 +6695,9 @@
     "id": 303,
     "name": {
       "ja": "なまける",
-      "en": "Slack Off"
+      "en": "Slack Off",
+      "ko": "게으름피우기",
+      "zh-Hant": "偷懶"
     },
     "type": "normal",
     "category": "status",
@@ -5751,7 +6709,9 @@
     "id": 534,
     "name": {
       "ja": "シェルブレード",
-      "en": "Razor Shell"
+      "en": "Razor Shell",
+      "ko": "셸블레이드",
+      "zh-Hant": "貝殼刃"
     },
     "type": "water",
     "category": "physical",
@@ -5763,7 +6723,9 @@
     "id": 801,
     "name": {
       "ja": "シェルアームズ",
-      "en": "Shell Side Arm"
+      "en": "Shell Side Arm",
+      "ko": "셸암즈",
+      "zh-Hant": "臂貝武器"
     },
     "type": "poison",
     "category": "special",
@@ -5775,7 +6737,9 @@
     "id": 120,
     "name": {
       "ja": "じばく",
-      "en": "Self-Destruct"
+      "en": "Self-Destruct",
+      "ko": "자폭",
+      "zh-Hant": "自爆"
     },
     "type": "normal",
     "category": "physical",
@@ -5787,7 +6751,9 @@
     "id": 122,
     "name": {
       "ja": "したでなめる",
-      "en": "Lick"
+      "en": "Lick",
+      "ko": "핥기",
+      "zh-Hant": "舌舔"
     },
     "type": "ghost",
     "category": "physical",
@@ -5799,7 +6765,9 @@
     "id": 123,
     "name": {
       "ja": "スモッグ",
-      "en": "Smog"
+      "en": "Smog",
+      "ko": "스모그",
+      "zh-Hant": "濁霧"
     },
     "type": "poison",
     "category": "special",
@@ -5811,7 +6779,9 @@
     "id": 139,
     "name": {
       "ja": "どくガス",
-      "en": "Poison Gas"
+      "en": "Poison Gas",
+      "ko": "독가스",
+      "zh-Hant": "毒瓦斯"
     },
     "type": "poison",
     "category": "status",
@@ -5823,7 +6793,9 @@
     "id": 153,
     "name": {
       "ja": "だいばくはつ",
-      "en": "Explosion"
+      "en": "Explosion",
+      "ko": "대폭발",
+      "zh-Hant": "大爆炸"
     },
     "type": "normal",
     "category": "physical",
@@ -5835,7 +6807,9 @@
     "id": 194,
     "name": {
       "ja": "みちづれ",
-      "en": "Destiny Bond"
+      "en": "Destiny Bond",
+      "ko": "길동무",
+      "zh-Hant": "同命"
     },
     "type": "ghost",
     "category": "status",
@@ -5847,7 +6821,9 @@
     "id": 195,
     "name": {
       "ja": "ほろびのうた",
-      "en": "Perish Song"
+      "en": "Perish Song",
+      "ko": "멸망의노래",
+      "zh-Hant": "滅亡之歌"
     },
     "type": "normal",
     "category": "status",
@@ -5859,7 +6835,9 @@
     "id": 212,
     "name": {
       "ja": "くろいまなざし",
-      "en": "Mean Look"
+      "en": "Mean Look",
+      "ko": "검은눈빛",
+      "zh-Hant": "黑色目光"
     },
     "type": "normal",
     "category": "status",
@@ -5871,7 +6849,9 @@
     "id": 310,
     "name": {
       "ja": "おどろかす",
-      "en": "Astonish"
+      "en": "Astonish",
+      "ko": "놀래키기",
+      "zh-Hant": "驚嚇"
     },
     "type": "ghost",
     "category": "physical",
@@ -5883,7 +6863,9 @@
     "id": 325,
     "name": {
       "ja": "シャドーパンチ",
-      "en": "Shadow Punch"
+      "en": "Shadow Punch",
+      "ko": "섀도펀치",
+      "zh-Hant": "暗影拳"
     },
     "type": "ghost",
     "category": "physical",
@@ -5895,7 +6877,9 @@
     "id": 513,
     "name": {
       "ja": "ミラータイプ",
-      "en": "Reflect Type"
+      "en": "Reflect Type",
+      "ko": "미러타입",
+      "zh-Hant": "鏡面屬性"
     },
     "type": "normal",
     "category": "status",
@@ -5907,7 +6891,9 @@
     "id": 566,
     "name": {
       "ja": "ゴーストダイブ",
-      "en": "Phantom Force"
+      "en": "Phantom Force",
+      "ko": "고스트다이브",
+      "zh-Hant": "潛靈奇襲"
     },
     "type": "ghost",
     "category": "physical",
@@ -5919,7 +6905,9 @@
     "id": 809,
     "name": {
       "ja": "ポルターガイスト",
-      "en": "Poltergeist"
+      "en": "Poltergeist",
+      "ko": "폴터가이스트",
+      "zh-Hant": "靈騷"
     },
     "type": "ghost",
     "category": "physical",
@@ -5931,7 +6919,9 @@
     "id": 4,
     "name": {
       "ja": "れんぞくパンチ",
-      "en": "Comet Punch"
+      "en": "Comet Punch",
+      "ko": "연속펀치",
+      "zh-Hant": "連續拳"
     },
     "type": "normal",
     "category": "physical",
@@ -5943,7 +6933,9 @@
     "id": 146,
     "name": {
       "ja": "ピヨピヨパンチ",
-      "en": "Dizzy Punch"
+      "en": "Dizzy Punch",
+      "ko": "잼잼펀치",
+      "zh-Hant": "迷昏拳"
     },
     "type": "normal",
     "category": "physical",
@@ -5955,7 +6947,9 @@
     "id": 306,
     "name": {
       "ja": "ブレイククロー",
-      "en": "Crush Claw"
+      "en": "Crush Claw",
+      "ko": "브레이크클로",
+      "zh-Hant": "撕裂爪"
     },
     "type": "normal",
     "category": "physical",
@@ -5967,7 +6961,9 @@
     "id": 359,
     "name": {
       "ja": "アームハンマー",
-      "en": "Hammer Arm"
+      "en": "Hammer Arm",
+      "ko": "암해머",
+      "zh-Hant": "臂錘"
     },
     "type": "fighting",
     "category": "physical",
@@ -5979,7 +6975,9 @@
     "id": 376,
     "name": {
       "ja": "きりふだ",
-      "en": "Trump Card"
+      "en": "Trump Card",
+      "ko": "마지막수단",
+      "zh-Hant": "王牌"
     },
     "type": "normal",
     "category": "special",
@@ -5991,7 +6989,9 @@
     "id": 498,
     "name": {
       "ja": "なしくずし",
-      "en": "Chip Away"
+      "en": "Chip Away",
+      "ko": "야금야금",
+      "zh-Hant": "逐步擊破"
     },
     "type": "normal",
     "category": "physical",
@@ -6003,7 +7003,9 @@
     "id": 509,
     "name": {
       "ja": "ともえなげ",
-      "en": "Circle Throw"
+      "en": "Circle Throw",
+      "ko": "배대뒤치기",
+      "zh-Hant": "巴投"
     },
     "type": "fighting",
     "category": "physical",
@@ -6015,7 +7017,9 @@
     "id": 11,
     "name": {
       "ja": "はさむ",
-      "en": "Vise Grip"
+      "en": "Vise Grip",
+      "ko": "찝기",
+      "zh-Hant": "夾住"
     },
     "type": "normal",
     "category": "physical",
@@ -6027,7 +7031,9 @@
     "id": 12,
     "name": {
       "ja": "ハサミギロチン",
-      "en": "Guillotine"
+      "en": "Guillotine",
+      "ko": "가위자르기",
+      "zh-Hant": "斷頭鉗"
     },
     "type": "normal",
     "category": "physical",
@@ -6039,7 +7045,9 @@
     "id": 185,
     "name": {
       "ja": "だましうち",
-      "en": "Feint Attack"
+      "en": "Feint Attack",
+      "ko": "속여때리기",
+      "zh-Hant": "出奇一擊"
     },
     "type": "dark",
     "category": "physical",
@@ -6051,7 +7059,9 @@
     "id": 382,
     "name": {
       "ja": "さきどり",
-      "en": "Me First"
+      "en": "Me First",
+      "ko": "선취",
+      "zh-Hant": "搶先一步"
     },
     "type": "normal",
     "category": "status",
@@ -6063,7 +7073,9 @@
     "id": 912,
     "name": {
       "ja": "ハードプレス",
-      "en": "Hard Press"
+      "en": "Hard Press",
+      "ko": "하드프레스",
+      "zh-Hant": "硬壓"
     },
     "type": "steel",
     "category": "physical",
@@ -6075,7 +7087,9 @@
     "id": 30,
     "name": {
       "ja": "つのでつく",
-      "en": "Horn Attack"
+      "en": "Horn Attack",
+      "ko": "뿔찌르기",
+      "zh-Hant": "角撞"
     },
     "type": "normal",
     "category": "physical",
@@ -6087,7 +7101,9 @@
     "id": 32,
     "name": {
       "ja": "つのドリル",
-      "en": "Horn Drill"
+      "en": "Horn Drill",
+      "ko": "뿔드릴",
+      "zh-Hant": "角鑽"
     },
     "type": "normal",
     "category": "physical",
@@ -6099,7 +7115,9 @@
     "id": 224,
     "name": {
       "ja": "メガホーン",
-      "en": "Megahorn"
+      "en": "Megahorn",
+      "ko": "메가혼",
+      "zh-Hant": "超級角擊"
     },
     "type": "bug",
     "category": "physical",
@@ -6111,7 +7129,9 @@
     "id": 873,
     "name": {
       "ja": "レイジングブル",
-      "en": "Raging Bull"
+      "en": "Raging Bull",
+      "ko": "레이징불",
+      "zh-Hant": "怒牛"
     },
     "type": "normal",
     "category": "physical",
@@ -6123,7 +7143,9 @@
     "id": 144,
     "name": {
       "ja": "へんしん",
-      "en": "Transform"
+      "en": "Transform",
+      "ko": "변신",
+      "zh-Hant": "變身"
     },
     "type": "normal",
     "category": "status",
@@ -6135,7 +7157,9 @@
     "id": 151,
     "name": {
       "ja": "とける",
-      "en": "Acid Armor"
+      "en": "Acid Armor",
+      "ko": "녹기",
+      "zh-Hant": "溶化"
     },
     "type": "poison",
     "category": "status",
@@ -6147,7 +7171,9 @@
     "id": 319,
     "name": {
       "ja": "きんぞくおん",
-      "en": "Metal Sound"
+      "en": "Metal Sound",
+      "ko": "금속음",
+      "zh-Hant": "金屬音"
     },
     "type": "steel",
     "category": "status",
@@ -6159,7 +7185,9 @@
     "id": 436,
     "name": {
       "ja": "ふんえん",
-      "en": "Lava Plume"
+      "en": "Lava Plume",
+      "ko": "분연",
+      "zh-Hant": "噴煙"
     },
     "type": "fire",
     "category": "special",
@@ -6171,7 +7199,9 @@
     "id": 48,
     "name": {
       "ja": "ちょうおんぱ",
-      "en": "Supersonic"
+      "en": "Supersonic",
+      "ko": "초음파",
+      "zh-Hant": "超音波"
     },
     "type": "normal",
     "category": "status",
@@ -6183,7 +7213,9 @@
     "id": 397,
     "name": {
       "ja": "ロックカット",
-      "en": "Rock Polish"
+      "en": "Rock Polish",
+      "ko": "록커트",
+      "zh-Hant": "岩石打磨"
     },
     "type": "rock",
     "category": "status",
@@ -6195,7 +7227,9 @@
     "id": 798,
     "name": {
       "ja": "アイアンローラー",
-      "en": "Steel Roller"
+      "en": "Steel Roller",
+      "ko": "아이언롤러",
+      "zh-Hant": "鐵滾輪"
     },
     "type": "steel",
     "category": "physical",
@@ -6207,7 +7241,9 @@
     "id": 916,
     "name": {
       "ja": "サンダーダイブ",
-      "en": "Supercell Slam"
+      "en": "Supercell Slam",
+      "ko": "썬더다이브",
+      "zh-Hant": "閃電強襲"
     },
     "type": "electric",
     "category": "physical",
@@ -6219,7 +7255,9 @@
     "id": 434,
     "name": {
       "ja": "りゅうせいぐん",
-      "en": "Draco Meteor"
+      "en": "Draco Meteor",
+      "ko": "용성군",
+      "zh-Hant": "流星群"
     },
     "type": "dragon",
     "category": "special",
@@ -6231,7 +7269,9 @@
     "id": 284,
     "name": {
       "ja": "ふんか",
-      "en": "Eruption"
+      "en": "Eruption",
+      "ko": "분화",
+      "zh-Hant": "噴火"
     },
     "type": "fire",
     "category": "special",
@@ -6243,7 +7283,9 @@
     "id": 844,
     "name": {
       "ja": "ひゃっきやこう",
-      "en": "Infernal Parade"
+      "en": "Infernal Parade",
+      "ko": "백귀야행",
+      "zh-Hant": "群魔亂舞"
     },
     "type": "ghost",
     "category": "special",
@@ -6255,7 +7297,9 @@
     "id": 260,
     "name": {
       "ja": "おだてる",
-      "en": "Flatter"
+      "en": "Flatter",
+      "ko": "부추기기",
+      "zh-Hant": "吹捧"
     },
     "type": "dark",
     "category": "status",
@@ -6267,7 +7311,9 @@
     "id": 132,
     "name": {
       "ja": "からみつく",
-      "en": "Constrict"
+      "en": "Constrict",
+      "ko": "휘감기",
+      "zh-Hant": "纏繞"
     },
     "type": "normal",
     "category": "physical",
@@ -6279,7 +7325,9 @@
     "id": 169,
     "name": {
       "ja": "クモのす",
-      "en": "Spider Web"
+      "en": "Spider Web",
+      "ko": "거미집",
+      "zh-Hant": "蛛網"
     },
     "type": "bug",
     "category": "status",
@@ -6291,7 +7339,9 @@
     "id": 400,
     "name": {
       "ja": "つじぎり",
-      "en": "Night Slash"
+      "en": "Night Slash",
+      "ko": "깜짝베기",
+      "zh-Hant": "暗襲要害"
     },
     "type": "dark",
     "category": "physical",
@@ -6303,7 +7353,9 @@
     "id": 425,
     "name": {
       "ja": "かげうち",
-      "en": "Shadow Sneak"
+      "en": "Shadow Sneak",
+      "ko": "야습",
+      "zh-Hant": "影子偷襲"
     },
     "type": "ghost",
     "category": "physical",
@@ -6315,7 +7367,9 @@
     "id": 476,
     "name": {
       "ja": "いかりのこな",
-      "en": "Rage Powder"
+      "en": "Rage Powder",
+      "ko": "분노가루",
+      "zh-Hant": "憤怒粉"
     },
     "type": "bug",
     "category": "status",
@@ -6327,7 +7381,9 @@
     "id": 564,
     "name": {
       "ja": "ねばねばネット",
-      "en": "Sticky Web"
+      "en": "Sticky Web",
+      "ko": "끈적끈적네트",
+      "zh-Hant": "黏黏網"
     },
     "type": "bug",
     "category": "status",
@@ -6339,7 +7395,9 @@
     "id": 599,
     "name": {
       "ja": "ベノムトラップ",
-      "en": "Venom Drench"
+      "en": "Venom Drench",
+      "ko": "베놈트랩",
+      "zh-Hant": "毒液陷阱"
     },
     "type": "poison",
     "category": "status",
@@ -6351,7 +7409,9 @@
     "id": 660,
     "name": {
       "ja": "であいがしら",
-      "en": "First Impression"
+      "en": "First Impression",
+      "ko": "만나자마자",
+      "zh-Hant": "迎頭一擊"
     },
     "type": "bug",
     "category": "physical",
@@ -6363,7 +7423,9 @@
     "id": 672,
     "name": {
       "ja": "どくのいと",
-      "en": "Toxic Thread"
+      "en": "Toxic Thread",
+      "ko": "독실",
+      "zh-Hant": "毒絲"
     },
     "type": "poison",
     "category": "status",
@@ -6375,7 +7437,9 @@
     "id": 178,
     "name": {
       "ja": "わたほうし",
-      "en": "Cotton Spore"
+      "en": "Cotton Spore",
+      "ko": "목화포자",
+      "zh-Hant": "棉孢子"
     },
     "type": "grass",
     "category": "status",
@@ -6387,7 +7451,9 @@
     "id": 538,
     "name": {
       "ja": "コットンガード",
-      "en": "Cotton Guard"
+      "en": "Cotton Guard",
+      "ko": "코튼가드",
+      "zh-Hant": "棉花防守"
     },
     "type": "grass",
     "category": "status",
@@ -6399,7 +7465,9 @@
     "id": 569,
     "name": {
       "ja": "プラズマシャワー",
-      "en": "Ion Deluge"
+      "en": "Ion Deluge",
+      "ko": "플라스마샤워",
+      "zh-Hant": "等離子浴"
     },
     "type": "electric",
     "category": "status",
@@ -6411,7 +7479,9 @@
     "id": 570,
     "name": {
       "ja": "パラボラチャージ",
-      "en": "Parabolic Charge"
+      "en": "Parabolic Charge",
+      "ko": "파라볼라차지",
+      "zh-Hant": "拋物面充電"
     },
     "type": "electric",
     "category": "special",
@@ -6423,7 +7493,9 @@
     "id": 602,
     "name": {
       "ja": "じばそうさ",
-      "en": "Magnetic Flux"
+      "en": "Magnetic Flux",
+      "ko": "자기장조작",
+      "zh-Hant": "磁場操控"
     },
     "type": "electric",
     "category": "status",
@@ -6435,7 +7507,9 @@
     "id": 346,
     "name": {
       "ja": "みずあそび",
-      "en": "Water Sport"
+      "en": "Water Sport",
+      "ko": "물놀이",
+      "zh-Hant": "玩水"
     },
     "type": "water",
     "category": "status",
@@ -6447,7 +7521,9 @@
     "id": 487,
     "name": {
       "ja": "みずびたし",
-      "en": "Soak"
+      "en": "Soak",
+      "ko": "물붓기",
+      "zh-Hant": "浸水"
     },
     "type": "water",
     "category": "status",
@@ -6459,7 +7535,9 @@
     "id": 511,
     "name": {
       "ja": "さきおくり",
-      "en": "Quash"
+      "en": "Quash",
+      "ko": "순서미루기",
+      "zh-Hant": "延後"
     },
     "type": "dark",
     "category": "status",
@@ -6471,7 +7549,9 @@
     "id": 881,
     "name": {
       "ja": "さむいギャグ",
-      "en": "Chilly Reception"
+      "en": "Chilly Reception",
+      "ko": "썰렁개그",
+      "zh-Hant": "冷笑話"
     },
     "type": "ice",
     "category": "status",
@@ -6483,7 +7563,9 @@
     "id": 826,
     "name": {
       "ja": "ぶきみなじゅもん",
-      "en": "Eerie Spell"
+      "en": "Eerie Spell",
+      "ko": "섬뜩한주문",
+      "zh-Hant": "詭異咒語"
     },
     "type": "psychic",
     "category": "special",
@@ -6495,7 +7577,9 @@
     "id": 191,
     "name": {
       "ja": "まきびし",
-      "en": "Spikes"
+      "en": "Spikes",
+      "ko": "압정뿌리기",
+      "zh-Hant": "撒菱"
     },
     "type": "ground",
     "category": "status",
@@ -6507,7 +7591,9 @@
     "id": 328,
     "name": {
       "ja": "すなじごく",
-      "en": "Sand Tomb"
+      "en": "Sand Tomb",
+      "ko": "모래지옥",
+      "zh-Hant": "流沙地獄"
     },
     "type": "ground",
     "category": "physical",
@@ -6519,7 +7605,9 @@
     "id": 379,
     "name": {
       "ja": "パワートリック",
-      "en": "Power Trick"
+      "en": "Power Trick",
+      "ko": "파워트릭",
+      "zh-Hant": "力量戲法"
     },
     "type": "psychic",
     "category": "status",
@@ -6531,7 +7619,9 @@
     "id": 429,
     "name": {
       "ja": "ミラーショット",
-      "en": "Mirror Shot"
+      "en": "Mirror Shot",
+      "ko": "미러샷",
+      "zh-Hant": "鏡光射擊"
     },
     "type": "steel",
     "category": "special",
@@ -6543,7 +7633,9 @@
     "id": 475,
     "name": {
       "ja": "ボディパージ",
-      "en": "Autotomize"
+      "en": "Autotomize",
+      "ko": "바디퍼지",
+      "zh-Hant": "身體輕量化"
     },
     "type": "steel",
     "category": "status",
@@ -6555,7 +7647,9 @@
     "id": 796,
     "name": {
       "ja": "てっていこうせん",
-      "en": "Steel Beam"
+      "en": "Steel Beam",
+      "ko": "철제광선",
+      "zh-Hant": "鐵蹄光線"
     },
     "type": "steel",
     "category": "special",
@@ -6567,7 +7661,9 @@
     "id": 300,
     "name": {
       "ja": "どろあそび",
-      "en": "Mud Sport"
+      "en": "Mud Sport",
+      "ko": "흙놀이",
+      "zh-Hant": "玩泥巴"
     },
     "type": "ground",
     "category": "status",
@@ -6579,7 +7675,9 @@
     "id": 367,
     "name": {
       "ja": "つぼをつく",
-      "en": "Acupressure"
+      "en": "Acupressure",
+      "ko": "경혈찌르기",
+      "zh-Hant": "點穴"
     },
     "type": "normal",
     "category": "status",
@@ -6591,7 +7689,9 @@
     "id": 839,
     "name": {
       "ja": "どくばりセンボン",
-      "en": "Barb Barrage"
+      "en": "Barb Barrage",
+      "ko": "독침천발",
+      "zh-Hant": "毒千針"
     },
     "type": "poison",
     "category": "physical",
@@ -6603,7 +7703,9 @@
     "id": 301,
     "name": {
       "ja": "アイスボール",
-      "en": "Ice Ball"
+      "en": "Ice Ball",
+      "ko": "아이스볼",
+      "zh-Hant": "冰球"
     },
     "type": "ice",
     "category": "physical",
@@ -6615,7 +7717,9 @@
     "id": 292,
     "name": {
       "ja": "つっぱり",
-      "en": "Arm Thrust"
+      "en": "Arm Thrust",
+      "ko": "손바닥치기",
+      "zh-Hant": "猛推"
     },
     "type": "fighting",
     "category": "physical",
@@ -6627,7 +7731,9 @@
     "id": 65,
     "name": {
       "ja": "ドリルくちばし",
-      "en": "Drill Peck"
+      "en": "Drill Peck",
+      "ko": "회전부리",
+      "zh-Hant": "啄鑽"
     },
     "type": "flying",
     "category": "physical",
@@ -6639,7 +7745,9 @@
     "id": 162,
     "name": {
       "ja": "いかりのまえば",
-      "en": "Super Fang"
+      "en": "Super Fang",
+      "ko": "분노의앞니",
+      "zh-Hant": "憤怒門牙"
     },
     "type": "normal",
     "category": "physical",
@@ -6651,7 +7759,9 @@
     "id": 894,
     "name": {
       "ja": "ほうふく",
-      "en": "Comeuppance"
+      "en": "Comeuppance",
+      "ko": "앙갚음",
+      "zh-Hant": "復仇"
     },
     "type": "dark",
     "category": "physical",
@@ -6663,7 +7773,9 @@
     "id": 670,
     "name": {
       "ja": "このは",
-      "en": "Leafage"
+      "en": "Leafage",
+      "ko": "나뭇잎",
+      "zh-Hant": "樹葉"
     },
     "type": "grass",
     "category": "physical",
@@ -6675,7 +7787,9 @@
     "id": 880,
     "name": {
       "ja": "しっぽきり",
-      "en": "Shed Tail"
+      "en": "Shed Tail",
+      "ko": "꼬리자르기",
+      "zh-Hant": "斷尾"
     },
     "type": "normal",
     "category": "status",
@@ -6687,7 +7801,9 @@
     "id": 136,
     "name": {
       "ja": "とびひざげり",
-      "en": "High Jump Kick"
+      "en": "High Jump Kick",
+      "ko": "무릎차기",
+      "zh-Hant": "飛膝踢"
     },
     "type": "fighting",
     "category": "physical",
@@ -6699,7 +7815,9 @@
     "id": 327,
     "name": {
       "ja": "スカイアッパー",
-      "en": "Sky Uppercut"
+      "en": "Sky Uppercut",
+      "ko": "스카이어퍼",
+      "zh-Hant": "衝天拳"
     },
     "type": "fighting",
     "category": "physical",
@@ -6711,7 +7829,9 @@
     "id": 124,
     "name": {
       "ja": "ヘドロこうげき",
-      "en": "Sludge"
+      "en": "Sludge",
+      "ko": "오물공격",
+      "zh-Hant": "污泥攻擊"
     },
     "type": "poison",
     "category": "special",
@@ -6723,7 +7843,9 @@
     "id": 368,
     "name": {
       "ja": "メタルバースト",
-      "en": "Metal Burst"
+      "en": "Metal Burst",
+      "ko": "메탈버스트",
+      "zh-Hant": "金屬爆炸"
     },
     "type": "steel",
     "category": "physical",
@@ -6735,7 +7857,9 @@
     "id": 386,
     "name": {
       "ja": "おしおき",
-      "en": "Punishment"
+      "en": "Punishment",
+      "ko": "혼내기",
+      "zh-Hant": "懲罰"
     },
     "type": "dark",
     "category": "physical",
@@ -6747,7 +7871,9 @@
     "id": 96,
     "name": {
       "ja": "ヨガのポーズ",
-      "en": "Meditate"
+      "en": "Meditate",
+      "ko": "요가포즈",
+      "zh-Hant": "瑜伽姿勢"
     },
     "type": "psychic",
     "category": "status",
@@ -6759,7 +7885,9 @@
     "id": 170,
     "name": {
       "ja": "こころのめ",
-      "en": "Mind Reader"
+      "en": "Mind Reader",
+      "ko": "마음의눈",
+      "zh-Hant": "心之眼"
     },
     "type": "normal",
     "category": "status",
@@ -6771,7 +7899,9 @@
     "id": 395,
     "name": {
       "ja": "はっけい",
-      "en": "Force Palm"
+      "en": "Force Palm",
+      "ko": "발경",
+      "zh-Hant": "發勁"
     },
     "type": "fighting",
     "category": "physical",
@@ -6783,7 +7913,9 @@
     "id": 853,
     "name": {
       "ja": "かかとおとし",
-      "en": "Axe Kick"
+      "en": "Axe Kick",
+      "ko": "발꿈치찍기",
+      "zh-Hant": "下壓踢"
     },
     "type": "fighting",
     "category": "physical",
@@ -6795,7 +7927,9 @@
     "id": 222,
     "name": {
       "ja": "マグニチュード",
-      "en": "Magnitude"
+      "en": "Magnitude",
+      "ko": "매그니튜드",
+      "zh-Hant": "震級"
     },
     "type": "ground",
     "category": "physical",
@@ -6807,7 +7941,9 @@
     "id": 381,
     "name": {
       "ja": "おまじない",
-      "en": "Lucky Chant"
+      "en": "Lucky Chant",
+      "ko": "주술",
+      "zh-Hant": "幸運咒語"
     },
     "type": "normal",
     "category": "status",
@@ -6819,7 +7955,9 @@
     "id": 485,
     "name": {
       "ja": "シンクロノイズ",
-      "en": "Synchronoise"
+      "en": "Synchronoise",
+      "ko": "싱크로노이즈",
+      "zh-Hant": "同步干擾"
     },
     "type": "psychic",
     "category": "special",
@@ -6831,7 +7969,9 @@
     "id": 494,
     "name": {
       "ja": "なかまづくり",
-      "en": "Entrainment"
+      "en": "Entrainment",
+      "ko": "동료만들기",
+      "zh-Hant": "找夥伴"
     },
     "type": "normal",
     "category": "status",
@@ -6843,7 +7983,9 @@
     "id": 578,
     "name": {
       "ja": "トリックガード",
-      "en": "Crafty Shield"
+      "en": "Crafty Shield",
+      "ko": "트릭가드",
+      "zh-Hant": "戲法防守"
     },
     "type": "fairy",
     "category": "status",
@@ -6855,7 +7997,9 @@
     "id": 586,
     "name": {
       "ja": "ばくおんぱ",
-      "en": "Boomburst"
+      "en": "Boomburst",
+      "ko": "폭음파",
+      "zh-Hant": "爆音波"
     },
     "type": "normal",
     "category": "special",
@@ -6867,7 +8011,9 @@
     "id": 556,
     "name": {
       "ja": "つららおとし",
-      "en": "Icicle Crash"
+      "en": "Icicle Crash",
+      "ko": "고드름떨구기",
+      "zh-Hant": "冰柱墜擊"
     },
     "type": "ice",
     "category": "physical",
@@ -6879,7 +8025,9 @@
     "id": 452,
     "name": {
       "ja": "ウッドハンマー",
-      "en": "Wood Hammer"
+      "en": "Wood Hammer",
+      "ko": "우드해머",
+      "zh-Hant": "木槌"
     },
     "type": "grass",
     "category": "physical",
@@ -6891,7 +8039,9 @@
     "id": 838,
     "name": {
       "ja": "ぶちかまし",
-      "en": "Headlong Rush"
+      "en": "Headlong Rush",
+      "ko": "들이받기",
+      "zh-Hant": "突飛猛撲"
     },
     "type": "ground",
     "category": "physical",
@@ -6903,7 +8053,9 @@
     "id": 681,
     "name": {
       "ja": "つけあがる",
-      "en": "Power Trip"
+      "en": "Power Trip",
+      "ko": "기어오르기",
+      "zh-Hant": "囂張"
     },
     "type": "dark",
     "category": "physical",
@@ -6915,7 +8067,9 @@
     "id": 515,
     "name": {
       "ja": "いのちがけ",
-      "en": "Final Gambit"
+      "en": "Final Gambit",
+      "ko": "목숨걸기",
+      "zh-Hant": "搏命"
     },
     "type": "fighting",
     "category": "special",
@@ -6927,7 +8081,9 @@
     "id": 26,
     "name": {
       "ja": "とびげり",
-      "en": "Jump Kick"
+      "en": "Jump Kick",
+      "ko": "점프킥",
+      "zh-Hant": "飛踢"
     },
     "type": "fighting",
     "category": "physical",
@@ -6939,7 +8095,9 @@
     "id": 563,
     "name": {
       "ja": "たがやす",
-      "en": "Rototiller"
+      "en": "Rototiller",
+      "ko": "일구기",
+      "zh-Hant": "耕地"
     },
     "type": "ground",
     "category": "status",
@@ -6951,7 +8109,9 @@
     "id": 198,
     "name": {
       "ja": "ボーンラッシュ",
-      "en": "Bone Rush"
+      "en": "Bone Rush",
+      "ko": "본러시",
+      "zh-Hant": "骨棒亂打"
     },
     "type": "ground",
     "category": "physical",
@@ -6963,7 +8123,9 @@
     "id": 320,
     "name": {
       "ja": "くさぶえ",
-      "en": "Grass Whistle"
+      "en": "Grass Whistle",
+      "ko": "풀피리",
+      "zh-Hant": "草笛"
     },
     "type": "grass",
     "category": "status",
@@ -6975,7 +8137,9 @@
     "id": 665,
     "name": {
       "ja": "アイスハンマー",
-      "en": "Ice Hammer"
+      "en": "Ice Hammer",
+      "ko": "아이스해머",
+      "zh-Hant": "冰錘"
     },
     "type": "ice",
     "category": "physical",
@@ -6987,7 +8151,9 @@
     "id": 439,
     "name": {
       "ja": "がんせきほう",
-      "en": "Rock Wrecker"
+      "en": "Rock Wrecker",
+      "ko": "암석포",
+      "zh-Hant": "岩石炮"
     },
     "type": "rock",
     "category": "physical",
@@ -6999,7 +8165,9 @@
     "id": 152,
     "name": {
       "ja": "クラブハンマー",
-      "en": "Crabhammer"
+      "en": "Crabhammer",
+      "ko": "집게해머",
+      "zh-Hant": "蟹鉗錘"
     },
     "type": "water",
     "category": "physical",
@@ -7011,7 +8179,9 @@
     "id": 533,
     "name": {
       "ja": "せいなるつるぎ",
-      "en": "Sacred Sword"
+      "en": "Sacred Sword",
+      "ko": "성스러운칼",
+      "zh-Hant": "聖劍"
     },
     "type": "fighting",
     "category": "physical",
@@ -7023,7 +8193,9 @@
     "id": 895,
     "name": {
       "ja": "アクアカッター",
-      "en": "Aqua Cutter"
+      "en": "Aqua Cutter",
+      "ko": "아쿠아커터",
+      "zh-Hant": "水波刀"
     },
     "type": "water",
     "category": "physical",
@@ -7035,7 +8207,9 @@
     "id": 378,
     "name": {
       "ja": "しぼりとる",
-      "en": "Wring Out"
+      "en": "Wring Out",
+      "ko": "쥐어짜기",
+      "zh-Hant": "絞緊"
     },
     "type": "normal",
     "category": "special",
@@ -7047,7 +8221,9 @@
     "id": 845,
     "name": {
       "ja": "ひけん・ちえなみ",
-      "en": "Ceaseless Edge"
+      "en": "Ceaseless Edge",
+      "ko": "비검천중파",
+      "zh-Hant": "秘劍・千重濤"
     },
     "type": "dark",
     "category": "physical",
@@ -7059,7 +8235,9 @@
     "id": 158,
     "name": {
       "ja": "ひっさつまえば",
-      "en": "Hyper Fang"
+      "en": "Hyper Fang",
+      "ko": "필살앞니",
+      "zh-Hant": "必殺門牙"
     },
     "type": "normal",
     "category": "physical",
@@ -7071,7 +8249,9 @@
     "id": 274,
     "name": {
       "ja": "ねこのて",
-      "en": "Assist"
+      "en": "Assist",
+      "ko": "조수",
+      "zh-Hant": "借助"
     },
     "type": "normal",
     "category": "status",
@@ -7083,7 +8263,9 @@
     "id": 747,
     "name": {
       "ja": "ほおばる",
-      "en": "Stuff Cheeks"
+      "en": "Stuff Cheeks",
+      "ko": "볼가득넣기",
+      "zh-Hant": "大快朵頤"
     },
     "type": "normal",
     "category": "status",
@@ -7095,7 +8277,9 @@
     "id": 493,
     "name": {
       "ja": "シンプルビーム",
-      "en": "Simple Beam"
+      "en": "Simple Beam",
+      "ko": "심플빔",
+      "zh-Hant": "單純光束"
     },
     "type": "normal",
     "category": "status",
@@ -7107,7 +8291,9 @@
     "id": 516,
     "name": {
       "ja": "ギフトパス",
-      "en": "Bestow"
+      "en": "Bestow",
+      "ko": "기프트패스",
+      "zh-Hant": "傳遞禮物"
     },
     "type": "normal",
     "category": "status",
@@ -7119,7 +8305,9 @@
     "id": 537,
     "name": {
       "ja": "ハードローラー",
-      "en": "Steamroller"
+      "en": "Steamroller",
+      "ko": "하드롤러",
+      "zh-Hant": "瘋狂滾壓"
     },
     "type": "bug",
     "category": "physical",
@@ -7131,7 +8319,9 @@
     "id": 471,
     "name": {
       "ja": "パワーシェア",
-      "en": "Power Split"
+      "en": "Power Split",
+      "ko": "파워셰어",
+      "zh-Hant": "力量平分"
     },
     "type": "psychic",
     "category": "status",
@@ -7143,7 +8333,9 @@
     "id": 539,
     "name": {
       "ja": "ナイトバースト",
-      "en": "Night Daze"
+      "en": "Night Daze",
+      "ko": "나이트버스트",
+      "zh-Hant": "暗黑爆破"
     },
     "type": "dark",
     "category": "special",
@@ -7155,7 +8347,9 @@
     "id": 841,
     "name": {
       "ja": "うらみつらみ",
-      "en": "Bitter Malice"
+      "en": "Bitter Malice",
+      "ko": "천추지한",
+      "zh-Hant": "冤冤相報"
     },
     "type": "ghost",
     "category": "special",
@@ -7167,7 +8361,9 @@
     "id": 377,
     "name": {
       "ja": "かいふくふうじ",
-      "en": "Heal Block"
+      "en": "Heal Block",
+      "ko": "회복봉인",
+      "zh-Hant": "回復封鎖"
     },
     "type": "psychic",
     "category": "status",
@@ -7179,7 +8375,9 @@
     "id": 293,
     "name": {
       "ja": "ほごしょく",
-      "en": "Camouflage"
+      "en": "Camouflage",
+      "ko": "보호색",
+      "zh-Hant": "保護色"
     },
     "type": "normal",
     "category": "status",
@@ -7191,7 +8389,9 @@
     "id": 779,
     "name": {
       "ja": "トラバサミ",
-      "en": "Snap Trap"
+      "en": "Snap Trap",
+      "ko": "집게덫",
+      "zh-Hant": "捕獸夾"
     },
     "type": "grass",
     "category": "physical",
@@ -7203,7 +8403,9 @@
     "id": 483,
     "name": {
       "ja": "ちょうのまい",
-      "en": "Quiver Dance"
+      "en": "Quiver Dance",
+      "ko": "나비춤",
+      "zh-Hant": "蝶舞"
     },
     "type": "bug",
     "category": "status",
@@ -7215,7 +8417,9 @@
     "id": 552,
     "name": {
       "ja": "ほのおのまい",
-      "en": "Fiery Dance"
+      "en": "Fiery Dance",
+      "ko": "불꽃춤",
+      "zh-Hant": "火之舞"
     },
     "type": "fire",
     "category": "special",
@@ -7227,7 +8431,9 @@
     "id": 302,
     "name": {
       "ja": "ニードルアーム",
-      "en": "Needle Arm"
+      "en": "Needle Arm",
+      "ko": "바늘팔",
+      "zh-Hant": "尖刺臂"
     },
     "type": "grass",
     "category": "physical",
@@ -7239,7 +8445,9 @@
     "id": 596,
     "name": {
       "ja": "ニードルガード",
-      "en": "Spiky Shield"
+      "en": "Spiky Shield",
+      "ko": "니들가드",
+      "zh-Hant": "尖刺防守"
     },
     "type": "grass",
     "category": "status",
@@ -7251,7 +8459,9 @@
     "id": 561,
     "name": {
       "ja": "たたみがえし",
-      "en": "Mat Block"
+      "en": "Mat Block",
+      "ko": "마룻바닥세워막기",
+      "zh-Hant": "掀榻榻米"
     },
     "type": "fighting",
     "category": "status",
@@ -7263,7 +8473,9 @@
     "id": 594,
     "name": {
       "ja": "みずしゅりけん",
-      "en": "Water Shuriken"
+      "en": "Water Shuriken",
+      "ko": "물수리검",
+      "zh-Hant": "飛水手裡劍"
     },
     "type": "water",
     "category": "special",
@@ -7275,7 +8487,9 @@
     "id": 600,
     "name": {
       "ja": "ふんじん",
-      "en": "Powder"
+      "en": "Powder",
+      "ko": "분진",
+      "zh-Hant": "粉塵"
     },
     "type": "bug",
     "category": "status",
@@ -7287,7 +8501,9 @@
     "id": 568,
     "name": {
       "ja": "おたけび",
-      "en": "Noble Roar"
+      "en": "Noble Roar",
+      "ko": "부르짖기",
+      "zh-Hant": "戰吼"
     },
     "type": "normal",
     "category": "status",
@@ -7299,7 +8515,9 @@
     "id": 617,
     "name": {
       "ja": "はめつのひかり",
-      "en": "Light of Ruin"
+      "en": "Light of Ruin",
+      "ko": "파멸의빛",
+      "zh-Hant": "破滅之光"
     },
     "type": "fairy",
     "category": "special",
@@ -7311,7 +8529,9 @@
     "id": 715,
     "name": {
       "ja": "なみだめ",
-      "en": "Tearful Look"
+      "en": "Tearful Look",
+      "ko": "눈물그렁그렁",
+      "zh-Hant": "淚眼汪汪"
     },
     "type": "normal",
     "category": "status",
@@ -7323,7 +8543,9 @@
     "id": 579,
     "name": {
       "ja": "フラワーガード",
-      "en": "Flower Shield"
+      "en": "Flower Shield",
+      "ko": "플라워가드",
+      "zh-Hant": "鮮花防守"
     },
     "type": "fairy",
     "category": "status",
@@ -7335,7 +8557,9 @@
     "id": 575,
     "name": {
       "ja": "すてゼリフ",
-      "en": "Parting Shot"
+      "en": "Parting Shot",
+      "ko": "막말내뱉기",
+      "zh-Hant": "拋下狠話"
     },
     "type": "dark",
     "category": "status",
@@ -7347,7 +8571,9 @@
     "id": 588,
     "name": {
       "ja": "キングシールド",
-      "en": "King’s Shield"
+      "en": "King’s Shield",
+      "ko": "킹실드",
+      "zh-Hant": "王者盾牌"
     },
     "type": "steel",
     "category": "status",
@@ -7359,7 +8585,9 @@
     "id": 597,
     "name": {
       "ja": "アロマミスト",
-      "en": "Aromatic Mist"
+      "en": "Aromatic Mist",
+      "ko": "아로마미스트",
+      "zh-Hant": "芳香薄霧"
     },
     "type": "fairy",
     "category": "status",
@@ -7371,7 +8599,9 @@
     "id": 576,
     "name": {
       "ja": "ひっくりかえす",
-      "en": "Topsy-Turvy"
+      "en": "Topsy-Turvy",
+      "ko": "뒤집어엎기",
+      "zh-Hant": "顛倒"
     },
     "type": "dark",
     "category": "status",
@@ -7383,7 +8613,9 @@
     "id": 128,
     "name": {
       "ja": "からではさむ",
-      "en": "Clamp"
+      "en": "Clamp",
+      "ko": "껍질끼우기",
+      "zh-Hant": "貝殼夾擊"
     },
     "type": "water",
     "category": "physical",
@@ -7395,7 +8627,9 @@
     "id": 582,
     "name": {
       "ja": "そうでん",
-      "en": "Electrify"
+      "en": "Electrify",
+      "ko": "송전",
+      "zh-Hant": "輸電"
     },
     "type": "electric",
     "category": "status",
@@ -7407,7 +8641,9 @@
     "id": 560,
     "name": {
       "ja": "フライングプレス",
-      "en": "Flying Press"
+      "en": "Flying Press",
+      "ko": "플라잉프레스",
+      "zh-Hant": "飛身重壓"
     },
     "type": "fighting",
     "category": "physical",
@@ -7419,7 +8655,9 @@
     "id": 842,
     "name": {
       "ja": "たてこもる",
-      "en": "Shelter"
+      "en": "Shelter",
+      "ko": "농성",
+      "zh-Hant": "閉關"
     },
     "type": "steel",
     "category": "status",
@@ -7431,7 +8669,9 @@
     "id": 199,
     "name": {
       "ja": "ロックオン",
-      "en": "Lock-On"
+      "en": "Lock-On",
+      "ko": "록온",
+      "zh-Hant": "鎖定"
     },
     "type": "normal",
     "category": "status",
@@ -7443,7 +8683,9 @@
     "id": 587,
     "name": {
       "ja": "フェアリーロック",
-      "en": "Fairy Lock"
+      "en": "Fairy Lock",
+      "ko": "페어리록",
+      "zh-Hant": "妖精之鎖"
     },
     "type": "fairy",
     "category": "status",
@@ -7455,7 +8697,9 @@
     "id": 532,
     "name": {
       "ja": "ウッドホーン",
-      "en": "Horn Leech"
+      "en": "Horn Leech",
+      "ko": "우드혼",
+      "zh-Hant": "木角"
     },
     "type": "grass",
     "category": "physical",
@@ -7467,7 +8711,9 @@
     "id": 571,
     "name": {
       "ja": "もりののろい",
-      "en": "Forest’s Curse"
+      "en": "Forest’s Curse",
+      "ko": "숲의저주",
+      "zh-Hant": "森林詛咒"
     },
     "type": "grass",
     "category": "status",
@@ -7479,7 +8725,9 @@
     "id": 785,
     "name": {
       "ja": "えだづき",
-      "en": "Branch Poke"
+      "en": "Branch Poke",
+      "ko": "가지찌르기",
+      "zh-Hant": "木枝突刺"
     },
     "type": "grass",
     "category": "physical",
@@ -7491,7 +8739,9 @@
     "id": 567,
     "name": {
       "ja": "ハロウィン",
-      "en": "Trick-or-Treat"
+      "en": "Trick-or-Treat",
+      "ko": "핼러윈",
+      "zh-Hant": "萬聖夜"
     },
     "type": "ghost",
     "category": "status",
@@ -7503,7 +8753,9 @@
     "id": 159,
     "name": {
       "ja": "かくばる",
-      "en": "Sharpen"
+      "en": "Sharpen",
+      "ko": "각지기",
+      "zh-Hant": "稜角化"
     },
     "type": "normal",
     "category": "status",
@@ -7515,7 +8767,9 @@
     "id": 829,
     "name": {
       "ja": "パワーシフト",
-      "en": "Power Shift"
+      "en": "Power Shift",
+      "ko": "파워시프트",
+      "zh-Hant": "力量轉換"
     },
     "type": "normal",
     "category": "status",
@@ -7527,7 +8781,9 @@
     "id": 836,
     "name": {
       "ja": "ひょうざんおろし",
-      "en": "Mountain Gale"
+      "en": "Mountain Gale",
+      "ko": "빙산바람",
+      "zh-Hant": "冰山風"
     },
     "type": "ice",
     "category": "physical",
@@ -7539,7 +8795,9 @@
     "id": 662,
     "name": {
       "ja": "かげぬい",
-      "en": "Spirit Shackle"
+      "en": "Spirit Shackle",
+      "ko": "그림자꿰매기",
+      "zh-Hant": "縫影"
     },
     "type": "ghost",
     "category": "physical",
@@ -7551,7 +8809,9 @@
     "id": 843,
     "name": {
       "ja": "３ぼんのや",
-      "en": "Triple Arrows"
+      "en": "Triple Arrows",
+      "ko": "3연화살",
+      "zh-Hant": "三連箭"
     },
     "type": "fighting",
     "category": "physical",
@@ -7563,7 +8823,9 @@
     "id": 664,
     "name": {
       "ja": "うたかたのアリア",
-      "en": "Sparkling Aria"
+      "en": "Sparkling Aria",
+      "ko": "물거품아리아",
+      "zh-Hant": "泡影的詠歎調"
     },
     "type": "water",
     "category": "special",
@@ -7575,7 +8837,9 @@
     "id": 690,
     "name": {
       "ja": "くちばしキャノン",
-      "en": "Beak Blast"
+      "en": "Beak Blast",
+      "ko": "부리캐논",
+      "zh-Hant": "鳥嘴加農炮"
     },
     "type": "flying",
     "category": "physical",
@@ -7587,7 +8851,9 @@
     "id": 709,
     "name": {
       "ja": "アクセルロック",
-      "en": "Accelerock"
+      "en": "Accelerock",
+      "ko": "액셀록",
+      "zh-Hant": "衝岩"
     },
     "type": "rock",
     "category": "physical",
@@ -7599,7 +8865,9 @@
     "id": 131,
     "name": {
       "ja": "とげキャノン",
-      "en": "Spike Cannon"
+      "en": "Spike Cannon",
+      "ko": "가시대포",
+      "zh-Hant": "尖刺加農炮"
     },
     "type": "normal",
     "category": "physical",
@@ -7611,7 +8879,9 @@
     "id": 661,
     "name": {
       "ja": "トーチカ",
-      "en": "Baneful Bunker"
+      "en": "Baneful Bunker",
+      "ko": "토치카",
+      "zh-Hant": "碉堡"
     },
     "type": "poison",
     "category": "status",
@@ -7623,7 +8893,9 @@
     "id": 680,
     "name": {
       "ja": "ほのおのムチ",
-      "en": "Fire Lash"
+      "en": "Fire Lash",
+      "ko": "불꽃채찍",
+      "zh-Hant": "火焰鞭"
     },
     "type": "fire",
     "category": "physical",
@@ -7635,7 +8907,9 @@
     "id": 688,
     "name": {
       "ja": "トロピカルキック",
-      "en": "Trop Kick"
+      "en": "Trop Kick",
+      "ko": "트로피컬킥",
+      "zh-Hant": "熱帶踢"
     },
     "type": "grass",
     "category": "physical",
@@ -7647,7 +8921,9 @@
     "id": 689,
     "name": {
       "ja": "さいはい",
-      "en": "Instruct"
+      "en": "Instruct",
+      "ko": "지휘",
+      "zh-Hant": "號令"
     },
     "type": "psychic",
     "category": "status",
@@ -7659,7 +8935,9 @@
     "id": 691,
     "name": {
       "ja": "スケイルノイズ",
-      "en": "Clanging Scales"
+      "en": "Clanging Scales",
+      "ko": "스케일노이즈",
+      "zh-Hant": "鱗片噪音"
     },
     "type": "dragon",
     "category": "special",
@@ -7671,7 +8949,9 @@
     "id": 775,
     "name": {
       "ja": "ソウルビート",
-      "en": "Clangorous Soul"
+      "en": "Clangorous Soul",
+      "ko": "소울비트",
+      "zh-Hant": "魂舞烈音爆"
     },
     "type": "dragon",
     "category": "status",
@@ -7683,7 +8963,9 @@
     "id": 788,
     "name": {
       "ja": "Ｇのちから",
-      "en": "Grav Apple"
+      "en": "Grav Apple",
+      "ko": "G의힘",
+      "zh-Hant": "萬有引力"
     },
     "type": "grass",
     "category": "physical",
@@ -7695,7 +8977,9 @@
     "id": 787,
     "name": {
       "ja": "りんごさん",
-      "en": "Apple Acid"
+      "en": "Apple Acid",
+      "ko": "사과산",
+      "zh-Hant": "蘋果酸"
     },
     "type": "grass",
     "category": "special",
@@ -7707,7 +8991,9 @@
     "id": 752,
     "name": {
       "ja": "おちゃかい",
-      "en": "Teatime"
+      "en": "Teatime",
+      "ko": "다과회",
+      "zh-Hant": "茶會"
     },
     "type": "normal",
     "category": "status",
@@ -7719,7 +9005,9 @@
     "id": 750,
     "name": {
       "ja": "まほうのこな",
-      "en": "Magic Powder"
+      "en": "Magic Powder",
+      "ko": "마법가루",
+      "zh-Hant": "魔法粉"
     },
     "type": "psychic",
     "category": "status",
@@ -7731,7 +9019,9 @@
     "id": 789,
     "name": {
       "ja": "ソウルクラッシュ",
-      "en": "Spirit Break"
+      "en": "Spirit Break",
+      "ko": "소울크래시",
+      "zh-Hant": "靈魂衝擊"
     },
     "type": "fairy",
     "category": "physical",
@@ -7743,7 +9033,9 @@
     "id": 793,
     "name": {
       "ja": "どげざつき",
-      "en": "False Surrender"
+      "en": "False Surrender",
+      "ko": "사죄의찌르기",
+      "zh-Hant": "假跪真撞"
     },
     "type": "dark",
     "category": "physical",
@@ -7755,7 +9047,9 @@
     "id": 777,
     "name": {
       "ja": "デコレーション",
-      "en": "Decorate"
+      "en": "Decorate",
+      "ko": "데코레이션",
+      "zh-Hant": "裝飾"
     },
     "type": "fairy",
     "category": "status",
@@ -7767,7 +9061,9 @@
     "id": 748,
     "name": {
       "ja": "はいすいのじん",
-      "en": "No Retreat"
+      "en": "No Retreat",
+      "ko": "배수의진",
+      "zh-Hant": "背水一戰"
     },
     "type": "fighting",
     "category": "status",
@@ -7779,7 +9075,9 @@
     "id": 783,
     "name": {
       "ja": "オーラぐるま",
-      "en": "Aura Wheel"
+      "en": "Aura Wheel",
+      "ko": "오라휠",
+      "zh-Hant": "氣場輪"
     },
     "type": "electric",
     "category": "physical",
@@ -7791,7 +9089,9 @@
     "id": 751,
     "name": {
       "ja": "ドラゴンアロー",
-      "en": "Dragon Darts"
+      "en": "Dragon Darts",
+      "ko": "드래곤애로",
+      "zh-Hant": "龍箭"
     },
     "type": "dragon",
     "category": "physical",
@@ -7803,7 +9103,9 @@
     "id": 828,
     "name": {
       "ja": "バリアーラッシュ",
-      "en": "Psyshield Bash"
+      "en": "Psyshield Bash",
+      "ko": "배리어러시",
+      "zh-Hant": "屏障猛攻"
     },
     "type": "psychic",
     "category": "physical",
@@ -7815,7 +9117,9 @@
     "id": 830,
     "name": {
       "ja": "がんせきアックス",
-      "en": "Stone Axe"
+      "en": "Stone Axe",
+      "ko": "암석액스",
+      "zh-Hant": "岩斧"
     },
     "type": "rock",
     "category": "physical",
@@ -7827,7 +9131,9 @@
     "id": 854,
     "name": {
       "ja": "おはかまいり",
-      "en": "Last Respects"
+      "en": "Last Respects",
+      "ko": "성묘",
+      "zh-Hant": "掃墓"
     },
     "type": "ghost",
     "category": "physical",
@@ -7839,7 +9145,9 @@
     "id": 827,
     "name": {
       "ja": "フェイタルクロー",
-      "en": "Dire Claw"
+      "en": "Dire Claw",
+      "ko": "페이탈클로",
+      "zh-Hant": "剋命爪"
     },
     "type": "poison",
     "category": "physical",
@@ -7851,7 +9159,9 @@
     "id": 870,
     "name": {
       "ja": "トリックフラワー",
-      "en": "Flower Trick"
+      "en": "Flower Trick",
+      "ko": "트릭플라워",
+      "zh-Hant": "千變萬花"
     },
     "type": "grass",
     "category": "physical",
@@ -7863,7 +9173,9 @@
     "id": 871,
     "name": {
       "ja": "フレアソング",
-      "en": "Torch Song"
+      "en": "Torch Song",
+      "ko": "플레어송",
+      "zh-Hant": "閃焰高歌"
     },
     "type": "fire",
     "category": "special",
@@ -7875,7 +9187,9 @@
     "id": 872,
     "name": {
       "ja": "アクアステップ",
-      "en": "Aqua Step"
+      "en": "Aqua Step",
+      "ko": "아쿠아스텝",
+      "zh-Hant": "流水旋舞"
     },
     "type": "water",
     "category": "physical",
@@ -7887,7 +9201,9 @@
     "id": 860,
     "name": {
       "ja": "ネズミざん",
-      "en": "Population Bomb"
+      "en": "Population Bomb",
+      "ko": "찍찍베기",
+      "zh-Hant": "鼠數兒"
     },
     "type": "normal",
     "category": "physical",
@@ -7899,7 +9215,9 @@
     "id": 882,
     "name": {
       "ja": "おかたづけ",
-      "en": "Tidy Up"
+      "en": "Tidy Up",
+      "ko": "정리정돈",
+      "zh-Hant": "大掃除"
     },
     "type": "normal",
     "category": "status",
@@ -7911,7 +9229,9 @@
     "id": 864,
     "name": {
       "ja": "しおづけ",
-      "en": "Salt Cure"
+      "en": "Salt Cure",
+      "ko": "소금절이",
+      "zh-Hant": "鹽醃"
     },
     "type": "rock",
     "category": "physical",
@@ -7923,7 +9243,9 @@
     "id": 890,
     "name": {
       "ja": "アーマーキャノン",
-      "en": "Armor Cannon"
+      "en": "Armor Cannon",
+      "ko": "아머캐논",
+      "zh-Hant": "鎧農炮"
     },
     "type": "fire",
     "category": "special",
@@ -7935,7 +9257,9 @@
     "id": 891,
     "name": {
       "ja": "むねんのつるぎ",
-      "en": "Bitter Blade"
+      "en": "Bitter Blade",
+      "ko": "원념의칼",
+      "zh-Hant": "悔念劍"
     },
     "type": "fire",
     "category": "physical",
@@ -7947,7 +9271,9 @@
     "id": 858,
     "name": {
       "ja": "ハバネロエキス",
-      "en": "Spicy Extract"
+      "en": "Spicy Extract",
+      "ko": "하바네로엑기스",
+      "zh-Hant": "辣椒精華"
     },
     "type": "grass",
     "category": "status",
@@ -7959,7 +9285,9 @@
     "id": 855,
     "name": {
       "ja": "ルミナコリジョン",
-      "en": "Lumina Crash"
+      "en": "Lumina Crash",
+      "ko": "루미나콜리전",
+      "zh-Hant": "琉光衝激"
     },
     "type": "psychic",
     "category": "special",
@@ -7971,7 +9299,9 @@
     "id": 893,
     "name": {
       "ja": "デカハンマー",
-      "en": "Gigaton Hammer"
+      "en": "Gigaton Hammer",
+      "ko": "거대해머",
+      "zh-Hant": "巨力錘"
     },
     "type": "steel",
     "category": "physical",
@@ -7983,7 +9313,9 @@
     "id": 857,
     "name": {
       "ja": "ジェットパンチ",
-      "en": "Jet Punch"
+      "en": "Jet Punch",
+      "ko": "제트펀치",
+      "zh-Hant": "噴射拳"
     },
     "type": "water",
     "category": "physical",
@@ -7995,7 +9327,9 @@
     "id": 866,
     "name": {
       "ja": "キラースピン",
-      "en": "Mortal Spin"
+      "en": "Mortal Spin",
+      "ko": "킬러스핀",
+      "zh-Hant": "晶光轉轉"
     },
     "type": "poison",
     "category": "physical",
@@ -8007,7 +9341,9 @@
     "id": 889,
     "name": {
       "ja": "ふんどのこぶし",
-      "en": "Rage Fist"
+      "en": "Rage Fist",
+      "ko": "분노의주먹",
+      "zh-Hant": "憤怒之拳"
     },
     "type": "ghost",
     "category": "physical",
@@ -8019,7 +9355,9 @@
     "id": 888,
     "name": {
       "ja": "ツインビーム",
-      "en": "Twin Beam"
+      "en": "Twin Beam",
+      "ko": "트윈빔",
+      "zh-Hant": "雙光束"
     },
     "type": "psychic",
     "category": "special",
@@ -8031,7 +9369,9 @@
     "id": 869,
     "name": {
       "ja": "ドゲザン",
-      "en": "Kowtow Cleave"
+      "en": "Kowtow Cleave",
+      "ko": "도각참",
+      "zh-Hant": "仆斬"
     },
     "type": "dark",
     "category": "physical",
@@ -8043,7 +9383,9 @@
     "id": 874,
     "name": {
       "ja": "ゴールドラッシュ",
-      "en": "Make It Rain"
+      "en": "Make It Rain",
+      "ko": "골드러시",
+      "zh-Hant": "淘金潮"
     },
     "type": "steel",
     "category": "special",
@@ -8055,7 +9397,9 @@
     "id": 902,
     "name": {
       "ja": "シャカシャカほう",
-      "en": "Matcha Gotcha"
+      "en": "Matcha Gotcha",
+      "ko": "휘적휘적포",
+      "zh-Hant": "刷刷茶炮"
     },
     "type": "grass",
     "category": "special",
@@ -8067,7 +9411,9 @@
     "id": 905,
     "name": {
       "ja": "エレクトロビーム",
-      "en": "Electro Shot"
+      "en": "Electro Shot",
+      "ko": "일렉트로빔",
+      "zh-Hant": "電光束"
     },
     "type": "electric",
     "category": "special",
@@ -8079,7 +9425,9 @@
     "id": 903,
     "name": {
       "ja": "みずあめボム",
-      "en": "Syrup Bomb"
+      "en": "Syrup Bomb",
+      "ko": "시럽봄",
+      "zh-Hant": "糖漿炸彈"
     },
     "type": "grass",
     "category": "special",
@@ -8091,7 +9439,9 @@
     "id": 907,
     "name": {
       "ja": "きまぐレーザー",
-      "en": "Fickle Beam"
+      "en": "Fickle Beam",
+      "ko": "변덕레이저",
+      "zh-Hant": "隨機光"
     },
     "type": "dragon",
     "category": "special",
@@ -8103,7 +9453,9 @@
     "id": 208,
     "name": {
       "ja": "ミルクのみ",
-      "en": "Milk Drink"
+      "en": "Milk Drink",
+      "ko": "우유마시기",
+      "zh-Hant": "喝牛奶"
     },
     "type": "normal",
     "category": "status",
@@ -8115,7 +9467,9 @@
     "id": 778,
     "name": {
       "ja": "ドラムアタック",
-      "en": "Drum Beating"
+      "en": "Drum Beating",
+      "ko": "드럼어택",
+      "zh-Hant": "鼓擊"
     },
     "type": "grass",
     "category": "physical",
@@ -8127,7 +9481,9 @@
     "id": 756,
     "name": {
       "ja": "コートチェンジ",
-      "en": "Court Change"
+      "en": "Court Change",
+      "ko": "코트체인지",
+      "zh-Hant": "換場"
     },
     "type": "normal",
     "category": "status",
@@ -8139,7 +9495,9 @@
     "id": 780,
     "name": {
       "ja": "かえんボール",
-      "en": "Pyro Ball"
+      "en": "Pyro Ball",
+      "ko": "화염볼",
+      "zh-Hant": "火焰球"
     },
     "type": "fire",
     "category": "physical",
@@ -8151,7 +9509,9 @@
     "id": 745,
     "name": {
       "ja": "ねらいうち",
-      "en": "Snipe Shot"
+      "en": "Snipe Shot",
+      "ko": "노려맞히기",
+      "zh-Hant": "狙擊"
     },
     "type": "water",
     "category": "special",
@@ -8163,7 +9523,9 @@
     "id": 508,
     "name": {
       "ja": "ギアチェンジ",
-      "en": "Shift Gear"
+      "en": "Shift Gear",
+      "ko": "기어체인지",
+      "zh-Hant": "換檔"
     },
     "type": "steel",
     "category": "status",
@@ -8175,7 +9537,9 @@
     "id": 786,
     "name": {
       "ja": "オーバードライブ",
-      "en": "Overdrive"
+      "en": "Overdrive",
+      "ko": "오버드라이브",
+      "zh-Hant": "破音"
     },
     "type": "electric",
     "category": "special",
@@ -8187,7 +9551,9 @@
     "id": 190,
     "name": {
       "ja": "オクタンほう",
-      "en": "Octazooka"
+      "en": "Octazooka",
+      "ko": "대포무노포",
+      "zh-Hant": "章魚桶炮"
     },
     "type": "water",
     "category": "special",
@@ -8199,7 +9565,9 @@
     "id": 753,
     "name": {
       "ja": "たこがため",
-      "en": "Octolock"
+      "en": "Octolock",
+      "ko": "문어굳히기",
+      "zh-Hant": "蛸固"
     },
     "type": "fighting",
     "category": "status",
@@ -8211,7 +9579,9 @@
     "id": 794,
     "name": {
       "ja": "スターアサルト",
-      "en": "Meteor Assault"
+      "en": "Meteor Assault",
+      "ko": "스타어설트",
+      "zh-Hant": "流星突擊"
     },
     "type": "fighting",
     "category": "physical",
@@ -8223,7 +9593,9 @@
     "id": 716,
     "name": {
       "ja": "びりびりちくちく",
-      "en": "Zing Zap"
+      "en": "Zing Zap",
+      "ko": "찌리리따끔따끔",
+      "zh-Hant": "麻麻刺刺"
     },
     "type": "electric",
     "category": "physical",
@@ -8235,7 +9607,9 @@
     "id": 863,
     "name": {
       "ja": "さいきのいのり",
-      "en": "Revival Blessing"
+      "en": "Revival Blessing",
+      "ko": "회생의기도",
+      "zh-Hant": "復生祈禱"
     },
     "type": "normal",
     "category": "status",
@@ -8247,7 +9621,9 @@
     "id": 892,
     "name": {
       "ja": "でんこうそうげき",
-      "en": "Double Shock"
+      "en": "Double Shock",
+      "ko": "전광쌍격",
+      "zh-Hant": "電光雙擊"
     },
     "type": "electric",
     "category": "physical",
@@ -8259,7 +9635,9 @@
     "id": 746,
     "name": {
       "ja": "くらいつく",
-      "en": "Jaw Lock"
+      "en": "Jaw Lock",
+      "ko": "물고버티기",
+      "zh-Hant": "緊咬不放"
     },
     "type": "dark",
     "category": "physical",
@@ -8271,7 +9649,9 @@
     "id": 862,
     "name": {
       "ja": "きょけんとつげき",
-      "en": "Glaive Rush"
+      "en": "Glaive Rush",
+      "ko": "대검돌격",
+      "zh-Hant": "巨劍突擊"
     },
     "type": "dragon",
     "category": "physical",
@@ -8283,7 +9663,9 @@
     "id": 375,
     "name": {
       "ja": "サイコシフト",
-      "en": "Psycho Shift"
+      "en": "Psycho Shift",
+      "ko": "사이코시프트",
+      "zh-Hant": "精神轉移"
     },
     "type": "psychic",
     "category": "status",

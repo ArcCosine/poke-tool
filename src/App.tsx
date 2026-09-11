@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from './components/common/Button';
+import { LanguageSelector } from './components/common/LanguageSelector';
 import { EvCalculator } from './components/EvCalculator/EvCalculator';
 import { PartySimulator } from './components/PartySimulator/PartySimulator';
 import { StatSearch } from './components/StatSearch/StatSearch';
@@ -108,7 +109,7 @@ const DashboardContent = ({
 };
 
 const MainLayout = () => {
-  const { language, toggleLanguage, theme, toggleTheme, t } = useApp();
+  const { theme, toggleTheme, t } = useApp();
   const [activeTab, setActiveTab] = useState<Tab>(() => {
     // Sync active tab with hash or fallback to dashboard
     const hash = window.location.hash.replace('#', '') as Tab;
@@ -141,15 +142,8 @@ const MainLayout = () => {
           </a>
 
           <div className="flex gap-3">
-            {/* Language Toggle */}
-            <Button
-              onClick={toggleLanguage}
-              variant="secondary"
-              icon="i-lucide-languages text-slate-500"
-              className="px-3 py-1.5 text-sm"
-            >
-              {language === 'ja' ? 'English' : '日本語'}
-            </Button>
+            {/* Language Selector */}
+            <LanguageSelector />
 
             {/* Theme Toggle */}
             <Button

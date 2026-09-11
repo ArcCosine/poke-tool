@@ -65,16 +65,21 @@ describe('Poke-Tool Integration', () => {
     expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
   });
 
-  it('should switch languages successfully', () => {
+  it('should switch languages successfully using LanguageSelector', () => {
     render(<App />);
 
-    const langBtn = screen.getByText('English');
+    const trigger = screen.getByTestId('language-selector-trigger');
     act(() => {
-      langBtn.click();
+      trigger.click();
     });
 
-    // Should now display English button alternative text '日本語'
-    expect(screen.getByText('日本語')).toBeDefined();
+    const englishOption = screen.getByText('English');
+    act(() => {
+      englishOption.click();
+    });
+
+    // Should now display English label on trigger
+    expect(screen.getByTestId('language-selector-trigger').textContent).toContain('English');
   });
 
   it('should toggle dark/light theme classes', () => {

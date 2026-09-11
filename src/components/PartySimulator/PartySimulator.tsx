@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { useApp } from '../../context/AppContext';
+import { useApp, type Language } from '../../context/AppContext';
 import {
   db,
   type ItemMaster,
@@ -43,14 +43,14 @@ const STAT_KEYS: StatKey[] = [
 const EV_STATS: {
   key: StatKey;
   short: string;
-  label: Record<'ja' | 'en', string>;
+  label: Record<Language, string>;
 }[] = [
-  { key: 'hp', short: 'H', label: { ja: 'HP', en: 'HP' } },
-  { key: 'attack', short: 'A', label: { ja: '攻撃', en: 'Attack' } },
-  { key: 'defense', short: 'B', label: { ja: '防御', en: 'Defense' } },
-  { key: 'sp_attack', short: 'C', label: { ja: '特攻', en: 'Sp. Atk' } },
-  { key: 'sp_defense', short: 'D', label: { ja: '特防', en: 'Sp. Def' } },
-  { key: 'speed', short: 'S', label: { ja: '素早さ', en: 'Speed' } },
+  { key: 'hp', short: 'H', label: { ja: 'HP', en: 'HP', ko: 'HP', 'zh-Hant': 'HP' } },
+  { key: 'attack', short: 'A', label: { ja: '攻撃', en: 'Attack', ko: '공격', 'zh-Hant': '攻擊' } },
+  { key: 'defense', short: 'B', label: { ja: '防御', en: 'Defense', ko: '방어', 'zh-Hant': '防禦' } },
+  { key: 'sp_attack', short: 'C', label: { ja: '特攻', en: 'Sp. Atk', ko: '특공', 'zh-Hant': '特攻' } },
+  { key: 'sp_defense', short: 'D', label: { ja: '特防', en: 'Sp. Def', ko: '특방', 'zh-Hant': '特防' } },
+  { key: 'speed', short: 'S', label: { ja: '素早さ', en: 'Speed', ko: '스피드', 'zh-Hant': '速度' } },
 ];
 
 export const PartySimulator: React.FC = () => {
@@ -95,7 +95,7 @@ export const PartySimulator: React.FC = () => {
     if (poke?.name.ja.startsWith('メガ') && poke.name.ja !== 'メガレックウザ') {
       const mapped = megaStoneMap[poke.name.ja];
       if (mapped) {
-        initialItem = language === 'ja' ? mapped.ja : mapped.en;
+        initialItem = mapped[language];
       } else {
         initialItem = `${poke.name.ja.replace('メガ', '')}ナイト`;
       }
@@ -138,11 +138,7 @@ export const PartySimulator: React.FC = () => {
 
   const saveParty = () => {
     saveCurrentParty();
-    alert(
-      language === 'ja'
-        ? 'パーティを保存しました！'
-        : 'Party saved successfully!'
-    );
+    alert(t('partySimulator.partySaved'));
   };
 
   const copyPokesolText = () => {
@@ -190,9 +186,10 @@ export const PartySimulator: React.FC = () => {
     if (defenseAnalysis[type].weaknesses >= 3) {
       const typeLabel = typeTranslations[type]?.[language] || type;
       defenseWarnings.push(
-        language === 'ja'
-          ? `${typeLabel}タイプの攻撃が一貫しています（弱点持ちが${defenseAnalysis[type].weaknesses}匹）。`
-          : `${typeLabel} type is highly effective: ${defenseAnalysis[type].weaknesses} members are weak to it.`
+        t('partySimulator.defenseWarning', {
+          type: typeLabel,
+          count: defenseAnalysis[type].weaknesses,
+        })
       );
     }
 
@@ -245,7 +242,7 @@ export const PartySimulator: React.FC = () => {
           <div className="flex items-center gap-2.5">
             <span className="i-lucide-users text-indigo-500 text-xl" />
             <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
-              {language === 'ja' ? '編集中のパーティ' : 'Editing Party'}
+              {t('partySimulator.editingParty')}
             </span>
             <span className="text-xl font-extrabold text-slate-800 dark:text-slate-100 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-xl border border-indigo-100 dark:border-indigo-900/50 shadow-xs">
               {partyName || t('defaultPartyName')}
@@ -253,9 +250,9 @@ export const PartySimulator: React.FC = () => {
           </div>
           <div className="flex gap-2 mt-2 sm:mt-0">
             <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold">
-              {language === 'ja'
-                ? `全 ${parties.length} 個のパーティ中`
-                : `${parties.length} Saved Parties`}
+              {t('partySimulator.savedPartiesCount', {
+                count: parties.length,
+              })}
             </span>
           </div>
         </div>
@@ -266,11 +263,7 @@ export const PartySimulator: React.FC = () => {
           <div className="w-full sm:w-80">
             <Autocomplete
               id="party-name-autocomplete"
-              label={
-                language === 'ja'
-                  ? 'パーティの検索・名前変更'
-                  : 'Search / Rename Party'
-              }
+              label={t('partySimulator.searchRenameParty')}
               value={partyName}
               suggestions={parties.map((p) => p.name)}
               onChange={(val) => {
@@ -295,19 +288,19 @@ export const PartySimulator: React.FC = () => {
               icon="i-lucide-clipboard"
               className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
-              {copied ? 'コピーしました！' : 'クリップボードにコピー'}
+              {copied
+                ? t('partySimulator.copiedToClipboard')
+                : t('partySimulator.copyToClipboard')}
             </Button>
             <Button
               onClick={() =>
-                createNewParty(
-                  language === 'ja' ? '新規のパーティ' : 'New Party'
-                )
+                createNewParty(t('partySimulator.defaultNewPartyName'))
               }
               variant="secondary"
               icon="i-lucide-plus"
               className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
-              {language === 'ja' ? '新規作成' : 'New Party'}
+              {t('partySimulator.newParty')}
             </Button>
             <Button
               onClick={() => deleteParty(currentPartyId)}
@@ -315,7 +308,7 @@ export const PartySimulator: React.FC = () => {
               icon="i-lucide-trash-2"
               className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
-              {language === 'ja' ? '削除' : 'Delete'}
+              {t('partySimulator.deleteParty')}
             </Button>
             <Button
               onClick={saveParty}
@@ -397,9 +390,9 @@ export const PartySimulator: React.FC = () => {
                         htmlFor={`pokemon-select-trigger-${index}`}
                         className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1"
                       >
-                        {language === 'ja'
-                          ? `ポケモン名 #${index + 1}`
-                          : `Pokémon Name #${index + 1}`}
+                        {t('partySimulator.pokemonNameSlot', {
+                          index: index + 1,
+                        })}
                       </label>
 
                       <button
@@ -410,7 +403,9 @@ export const PartySimulator: React.FC = () => {
                         aria-label={
                           currentPoke
                             ? `${currentPoke.name[language]}`
-                            : `ポケモン名 #${index + 1}を選択`
+                            : t('partySimulator.selectPokemonSlot', {
+                                index: index + 1,
+                              })
                         }
                       >
                         {currentPoke ? (
@@ -419,9 +414,7 @@ export const PartySimulator: React.FC = () => {
                           </span>
                         ) : (
                           <span className="text-sm text-slate-400 dark:text-slate-300 truncate">
-                            {language === 'ja'
-                              ? 'ポケモン名を選択'
-                              : 'Select Pokémon'}
+                            {t('partySimulator.selectPokemonPrompt')}
                           </span>
                         )}
 
@@ -452,7 +445,7 @@ export const PartySimulator: React.FC = () => {
                       {/* 能力補正 */}
                       <Select
                         id={`nature-select-${index}`}
-                        label={language === 'ja' ? '能力補正' : 'Nature'}
+                        label={t('partySimulator.natureLabel')}
                         value={member.nature || 'neutral'}
                         onChange={(e) =>
                           updateMember(index, { nature: e.target.value })
@@ -469,23 +462,19 @@ export const PartySimulator: React.FC = () => {
                       {/* 持ち物 */}
                       <Autocomplete
                         id={`item-select-${index}`}
-                        label={language === 'ja' ? '持ち物' : 'Held Item'}
+                        label={t('partySimulator.heldItem')}
                         value={member.item || ''}
                         disabled={
                           currentPoke.name.ja.startsWith('メガ') &&
                           currentPoke.name.ja !== 'メガレックウザ'
                         }
-                        suggestions={itemsData.map((item) =>
-                          language === 'ja' ? item.name.ja : item.name.en
+                        suggestions={itemsData.map(
+                          (item) => item.name[language] || item.name.ja
                         )}
                         onChange={(val) => {
                           updateMember(index, { item: val });
                         }}
-                        placeholder={
-                          language === 'ja'
-                            ? '持ち物を検索・入力...'
-                            : 'Search held item...'
-                        }
+                        placeholder={t('partySimulator.itemSearchPlaceholder')}
                         className="py-2 text-sm w-full box-border disabled:opacity-60 disabled:cursor-not-allowed"
                       />
                     </div>
@@ -498,12 +487,10 @@ export const PartySimulator: React.FC = () => {
                     <div className="flex justify-between items-center text-xs">
                       <div className="flex items-center gap-1.5">
                         <span className="font-bold text-slate-700 dark:text-slate-300">
-                          {language === 'ja'
-                            ? '努力値 (ステップ)'
-                            : 'EVs (Steps)'}
+                          {t('stats.evStep')}
                         </span>
                         <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                          {language === 'ja' ? '実数値 Lv.50' : 'Stats Lv.50'}
+                          {t('partySimulator.statsLv50')}
                         </span>
                       </div>
                       {(() => {
@@ -519,7 +506,7 @@ export const PartySimulator: React.FC = () => {
                                 : 'text-slate-500 dark:text-slate-400'
                             }`}
                           >
-                            {language === 'ja' ? '合計' : 'Total'}: {totalSteps}{' '}
+                            {t('stats.total')}: {totalSteps}{' '}
                             / 66
                           </span>
                         );
@@ -691,9 +678,7 @@ export const PartySimulator: React.FC = () => {
                       {t('offenseAnalysis')}
                     </h4>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                      {language === 'ja'
-                        ? '以下のタイプに対して抜群を取れる攻撃技がありません：'
-                        : 'No moves hit super-effectively against: '}
+                      {t('partySimulator.noCoverageWarning')}
                     </p>
                     <div className="flex flex-wrap gap-1.5 pt-1">
                       {coverageWarnings.map((typeKey) => (

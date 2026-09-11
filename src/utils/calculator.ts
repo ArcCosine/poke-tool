@@ -1,4 +1,7 @@
-import type { MoveMaster, PokemonMaster } from './db';
+import type { LocalizedName, MoveMaster, PokemonMaster } from './db';
+
+// Stat points per EV (1 EV = 1 point in Pokemon Champions / this tool)
+export const POINTS_PER_EV = 1;
 
 // Calculate individual stats (HP or others)
 export function calculateStat(
@@ -33,10 +36,10 @@ export function calculateDamageIndex(
 // Calculate maximum damage index from learnable moves, factoring in abilities
 export interface MaxDamageMoveInfo {
   value: number;
-  moveName: { ja: string; en: string };
+  moveName: LocalizedName;
   category: string;
   moveType: string;
-  abilityName: { ja: string; en: string };
+  abilityName: LocalizedName;
 }
 
 export function calculateMaxDamage(
@@ -298,9 +301,9 @@ export function calculateMaxDamage(
 
 export interface MaxDurabilityInfo {
   physical: number;
-  physicalAbility: { ja: string; en: string };
+  physicalAbility: LocalizedName;
   special: number;
-  specialAbility: { ja: string; en: string };
+  specialAbility: LocalizedName;
 }
 
 // Calculate maximum physical and special durability indices, factoring in defensive abilities

@@ -1,3 +1,4 @@
+import type { Language } from '../context/AppContext';
 import { calculateStat } from './calculator';
 import type { MoveMaster, PokemonMaster } from './db';
 import { TYPES } from './pokemon';
@@ -229,7 +230,7 @@ export function analyzePartyOffense(
 
 export interface NatureDefinition {
   id: string;
-  name: { ja: string; en: string };
+  name: Record<Language, string>;
   plus?: 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed';
   minus?: 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed';
 }
@@ -237,131 +238,131 @@ export interface NatureDefinition {
 export const NATURES: NatureDefinition[] = [
   {
     id: 'adamant',
-    name: { ja: 'いじっぱり', en: 'Adamant' },
+    name: { ja: 'いじっぱり', en: 'Adamant', ko: '고집', 'zh-Hant': '固執' },
     plus: 'attack',
     minus: 'sp_attack',
   },
   {
     id: 'jolly',
-    name: { ja: 'ようき', en: 'Jolly' },
+    name: { ja: 'ようき', en: 'Jolly', ko: '명랑', 'zh-Hant': '爽朗' },
     plus: 'speed',
     minus: 'sp_attack',
   },
   {
     id: 'timid',
-    name: { ja: 'おくびょう', en: 'Timid' },
+    name: { ja: 'おくびょう', en: 'Timid', ko: '겁쟁이', 'zh-Hant': '膽小' },
     plus: 'speed',
     minus: 'attack',
   },
   {
     id: 'modest',
-    name: { ja: 'ひかえめ', en: 'Modest' },
+    name: { ja: 'ひかえめ', en: 'Modest', ko: '조심', 'zh-Hant': '內斂' },
     plus: 'sp_attack',
     minus: 'attack',
   },
   {
     id: 'bold',
-    name: { ja: 'ずぶとい', en: 'Bold' },
+    name: { ja: 'ずぶとい', en: 'Bold', ko: '대담', 'zh-Hant': '大膽' },
     plus: 'defense',
     minus: 'attack',
   },
   {
     id: 'impish',
-    name: { ja: 'わんぱく', en: 'Impish' },
+    name: { ja: 'わんぱく', en: 'Impish', ko: '장난꾸러기', 'zh-Hant': '淘氣' },
     plus: 'defense',
     minus: 'sp_attack',
   },
   {
     id: 'calm',
-    name: { ja: 'おだやか', en: 'Calm' },
+    name: { ja: 'おだやか', en: 'Calm', ko: '차분', 'zh-Hant': '溫和' },
     plus: 'sp_defense',
     minus: 'attack',
   },
   {
     id: 'careful',
-    name: { ja: 'しんちょう', en: 'Careful' },
+    name: { ja: 'しんちょう', en: 'Careful', ko: '신중', 'zh-Hant': '慎重' },
     plus: 'sp_defense',
     minus: 'sp_attack',
   },
   {
     id: 'quiet',
-    name: { ja: 'れいせい', en: 'Quiet' },
+    name: { ja: 'れいせい', en: 'Quiet', ko: '냉정', 'zh-Hant': '冷靜' },
     plus: 'sp_attack',
     minus: 'speed',
   },
   {
     id: 'brave',
-    name: { ja: 'ゆうかん', en: 'Brave' },
+    name: { ja: 'ゆうかん', en: 'Brave', ko: '용감', 'zh-Hant': '勇敢' },
     plus: 'attack',
     minus: 'speed',
   },
   {
     id: 'relaxed',
-    name: { ja: 'のんき', en: 'Relaxed' },
+    name: { ja: 'のんき', en: 'Relaxed', ko: '무사태평', 'zh-Hant': '悠閒' },
     plus: 'defense',
     minus: 'speed',
   },
   {
     id: 'sassy',
-    name: { ja: 'なまいき', en: 'Sassy' },
+    name: { ja: 'なまいき', en: 'Sassy', ko: '건방', 'zh-Hant': '自大' },
     plus: 'sp_defense',
     minus: 'speed',
   },
   // 素早さ・耐久下降・両刀・変則性格
   {
     id: 'rash',
-    name: { ja: 'うっかりや', en: 'Rash' },
+    name: { ja: 'うっかりや', en: 'Rash', ko: '덜렁', 'zh-Hant': '馬虎' },
     plus: 'sp_attack',
     minus: 'sp_defense',
   },
   {
     id: 'mild',
-    name: { ja: 'おっとり', en: 'Mild' },
+    name: { ja: 'おっとり', en: 'Mild', ko: '의젓', 'zh-Hant': '慢吞吞' },
     plus: 'sp_attack',
     minus: 'defense',
   },
   {
     id: 'hasty',
-    name: { ja: 'せっかち', en: 'Hasty' },
+    name: { ja: 'せっかち', en: 'Hasty', ko: '성급', 'zh-Hant': '急躁' },
     plus: 'speed',
     minus: 'defense',
   },
   {
     id: 'naive',
-    name: { ja: 'むじゃき', en: 'Naive' },
+    name: { ja: 'むじゃき', en: 'Naive', ko: '천진난만', 'zh-Hant': '天真' },
     plus: 'speed',
     minus: 'sp_defense',
   },
   {
     id: 'naughty',
-    name: { ja: 'やんちゃ', en: 'Naughty' },
+    name: { ja: 'やんちゃ', en: 'Naughty', ko: '고집통', 'zh-Hant': '頑皮' },
     plus: 'attack',
     minus: 'sp_defense',
   },
   {
     id: 'lonely',
-    name: { ja: 'さみしがり', en: 'Lonely' },
+    name: { ja: 'さみしがり', en: 'Lonely', ko: '외로움', 'zh-Hant': '怕寂寞' },
     plus: 'attack',
     minus: 'defense',
   },
   {
     id: 'lax',
-    name: { ja: 'のうてんき', en: 'Lax' },
+    name: { ja: 'のうてんき', en: 'Lax', ko: '촐랑', 'zh-Hant': '樂天' },
     plus: 'defense',
     minus: 'sp_defense',
   },
   {
     id: 'gentle',
-    name: { ja: 'おとなしい', en: 'Gentle' },
+    name: { ja: 'おとなしい', en: 'Gentle', ko: '얌전', 'zh-Hant': '溫順' },
     plus: 'sp_defense',
     minus: 'defense',
   },
   // 無補正性格
-  { id: 'neutral', name: { ja: 'まじめ', en: 'Serious' } },
-  { id: 'hardy', name: { ja: 'がんばりや', en: 'Hardy' } },
-  { id: 'docile', name: { ja: 'すなお', en: 'Docile' } },
-  { id: 'bashful', name: { ja: 'てれや', en: 'Bashful' } },
-  { id: 'quirky', name: { ja: 'きまぐれ', en: 'Quirky' } },
+  { id: 'neutral', name: { ja: 'まじめ', en: 'Serious', ko: '성실', 'zh-Hant': '認真' } },
+  { id: 'hardy', name: { ja: 'がんばりや', en: 'Hardy', ko: '노력', 'zh-Hant': '勤奮' } },
+  { id: 'docile', name: { ja: 'すなお', en: 'Docile', ko: '온순', 'zh-Hant': '坦率' } },
+  { id: 'bashful', name: { ja: 'てれや', en: 'Bashful', ko: '수줍음', 'zh-Hant': '害羞' } },
+  { id: 'quirky', name: { ja: 'きまぐれ', en: 'Quirky', ko: '변덕', 'zh-Hant': '浮躁' } },
 ];
 
 export const getCalculatedStat = (
@@ -387,19 +388,19 @@ export const generatePokesolText = (
   member: PokemonInstance,
   pokemonList: PokemonMaster[],
   movesList: MoveMaster[],
-  language: 'ja' | 'en'
+  language: Language
 ): string => {
   const master = pokemonList.find((p) => p.id === member.masterId);
   if (!master) return '';
 
-  const name = master.name[language];
-  const ability = member.ability || master.abilities[0]?.ja || '';
+  const name = master.name[language] || master.name.ja;
+  const ability = member.ability || master.abilities[0]?.[language] || master.abilities[0]?.ja || '';
   const item = member.item ? ` @ ${member.item}` : '';
 
   const nat =
     NATURES.find((n) => n.id === member.nature) ||
     NATURES.find((n) => n.id === 'neutral')!;
-  const natureName = nat.name[language];
+  const natureName = nat.name[language] || nat.name.ja;
 
   const formatStat = (
     statKey: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
@@ -424,7 +425,10 @@ export const generatePokesolText = (
   ].join('-');
 
   const moveNames = member.moves
-    .map((id) => movesList.find((m) => m.id === id)?.name[language])
+    .map((id) => {
+      const m = movesList.find((move) => move.id === id);
+      return m ? m.name[language] || m.name.ja : '';
+    })
     .filter(Boolean);
 
   const movesString = moveNames.length > 0 ? moveNames.join(' / ') : '';
@@ -440,7 +444,7 @@ export const generatePartyPokesolText = (
   party: PokemonInstance[],
   pokemonList: PokemonMaster[],
   movesList: MoveMaster[],
-  language: 'ja' | 'en'
+  language: Language
 ): string => {
   return party
     .filter((m) => m.masterId > 0)

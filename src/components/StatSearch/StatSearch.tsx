@@ -6,14 +6,25 @@ import {
   calculateMaxDamage,
   calculateMaxDurability,
 } from '../../utils/calculator';
-import { db, type MoveMaster, type PokemonMaster } from '../../utils/db';
-import { typeTranslations } from '../../utils/pokemon';
+import {
+  db,
+  type LocalizedName,
+  type MoveMaster,
+  type PokemonMaster,
+} from '../../utils/db';
+import {
+  typeTranslations,
+} from '../../utils/pokemon';
 import { Button } from '../common/Button';
 import { Checkbox } from '../common/Checkbox';
 import { Select } from '../common/Select';
 import { TypeBadge } from '../common/TypeBadge';
 
-const MoveCategoryIcon = ({ category }: { category: string }) => {
+interface MoveCategoryIconProps {
+  category: string;
+}
+
+const MoveCategoryIcon: React.FC<MoveCategoryIconProps> = ({ category }) => {
   if (category === 'physical') {
     return (
       <span
@@ -55,10 +66,10 @@ interface RankingItem {
   rank: number;
   pokemon: PokemonMaster;
   value: number;
-  moveName?: { ja: string; en: string };
+  moveName?: LocalizedName;
   category?: string;
   moveType?: string;
-  abilityName?: { ja: string; en: string };
+  abilityName?: LocalizedName;
 }
 
 export const StatSearch: React.FC = () => {
@@ -363,7 +374,7 @@ export const StatSearch: React.FC = () => {
                         <div className="flex md:hidden mt-0.5 sm:mt-1">
                           <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
                             {item.abilityName
-                              ? item.abilityName[language]
+                              ? item.abilityName[language] || item.abilityName.ja
                               : '-'}
                           </span>
                         </div>
@@ -373,7 +384,9 @@ export const StatSearch: React.FC = () => {
 
                   {/* Pokémon Ability */}
                   <td className="py-3 px-2 sm:py-4 sm:px-6 text-slate-600 dark:text-slate-400 font-medium hidden md:table-cell">
-                    {item.abilityName ? item.abilityName[language] : '-'}
+                    {item.abilityName
+                      ? item.abilityName[language] || item.abilityName.ja
+                      : '-'}
                   </td>
 
                   {/* Best Move (Only for Max Damage) */}
@@ -384,9 +397,13 @@ export const StatSearch: React.FC = () => {
                           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-1.5">
                             {/* Move Name */}
                             <span className="font-medium text-slate-700 dark:text-slate-300 text-xs sm:text-sm">
-                              {item.moveName[language]
+                              {(
+                                item.moveName[language] ||
+                                item.moveName.ja ||
+                                ''
+                              )
                                 .split('\n')
-                                .map((line, i) => (
+                                .map((line: string, i: number) => (
                                   <span key={i}>
                                     {i > 0 && <br />}
                                     {line}
@@ -445,9 +462,7 @@ export const StatSearch: React.FC = () => {
 
       {/* Disclaimer under the Rankings List */}
       <div className="text-center text-[10px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed max-w-2xl mx-auto px-4 select-none">
-        {language === 'ja'
-          ? '本ツールはファンによる非公式の対戦データ分析支援ツールです。使用されているポケモンの画像（ドット絵）の著作権は、任天堂株式会社、株式会社ゲームフリーク、株式会社クリーチャーズ、および株式会社ポケモンに帰属します。画像データは PokeAPI より動的に取得しています。'
-          : 'This tool is an unofficial fan-made battle data analysis helper. All Pokémon images (sprites) used are copyright of Nintendo, Game Freak, Creatures, and The Pokémon Company. Image assets are retrieved dynamically from PokeAPI.'}
+        {t('statSearch.disclaimer')}
       </div>
     </div>
   );

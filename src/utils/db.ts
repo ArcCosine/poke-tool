@@ -2,9 +2,17 @@ const DB_NAME = 'PokeToolDB';
 const DB_VERSION = 1;
 const STORE_NAME = 'master_data';
 
+export interface LocalizedName {
+  ja: string;
+  en: string;
+  ko?: string;
+  'zh-Hant'?: string;
+  [key: string]: string | undefined;
+}
+
 export interface PokemonMaster {
   id: number;
-  name: { ja: string; en: string };
+  name: LocalizedName;
   types: string[];
   base_stats: {
     hp: number;
@@ -14,14 +22,14 @@ export interface PokemonMaster {
     sp_defense: number;
     speed: number;
   };
-  abilities: { ja: string; en: string }[];
+  abilities: LocalizedName[];
   regulations: string[];
   learnable_moves: number[];
 }
 
 export interface MoveMaster {
   id: number;
-  name: { ja: string; en: string };
+  name: LocalizedName;
   type: string;
   category: string;
   power: number;
@@ -31,7 +39,7 @@ export interface MoveMaster {
 
 export interface ItemMaster {
   id: number;
-  name: { ja: string; en: string };
+  name: LocalizedName;
 }
 
 export function initDB(): Promise<IDBDatabase> {
