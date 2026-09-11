@@ -146,10 +146,16 @@ async function main() {
                            varietyName.includes('-hisui') ||
                            varietyName.includes('-paldea');
 
-        // Skip non-default forms that are not mega evolutions or regional forms (e.g., Gmax, custom forms)
-        if (!isDefault && !isMega && !isRegional) {
+        const isRotomForm = varietyName.startsWith('rotom-');
+        const isSpecialForm = varietyName === 'toxtricity-low-key' ||
+                              varietyName === 'indeedee-female' ||
+                              varietyName.startsWith('squawkabilly-');
+
+        // Skip non-default forms that are not mega evolutions, regional forms, rotom forms, or specific alternate forms
+        if (!isDefault && !isMega && !isRegional && !isRotomForm && !isSpecialForm) {
           continue;
         }
+
 
         const pokemonUrl = variety.pokemon.url;
         // Extract pokemon ID from url
@@ -264,7 +270,38 @@ async function main() {
             jaName = `パルデア${baseJaName}${suffixJa}`;
             enName = `Paldean ${baseEnName}${suffixEn}`;
           }
+        } else if (isRotomForm) {
+          const rotomMap: Record<string, { ja: string; en: string }> = {
+            'rotom-heat': { ja: 'ヒートロトム', en: 'Rotom Heat' },
+            'rotom-wash': { ja: 'ウォッシュロトム', en: 'Rotom Wash' },
+            'rotom-frost': { ja: 'フロストロトム', en: 'Rotom Frost' },
+            'rotom-fan': { ja: 'スピンロトム', en: 'Rotom Fan' },
+            'rotom-mow': { ja: 'カットロトム', en: 'Rotom Mow' },
+          };
+          if (rotomMap[varietyName]) {
+            jaName = rotomMap[varietyName].ja;
+            enName = rotomMap[varietyName].en;
+          }
+        } else if (isSpecialForm) {
+          const specialMap: Record<string, { ja: string; en: string }> = {
+            'toxtricity-low-key': { ja: 'ストリンダー(ロー)', en: 'Toxtricity (Low Key)' },
+            'indeedee-female': { ja: 'イエッサン(メス)', en: 'Indeedee (Female)' },
+            'squawkabilly-blue-plumage': { ja: 'イキリンコ(ブルー)', en: 'Squawkabilly (Blue)' },
+            'squawkabilly-yellow-plumage': { ja: 'イキリンコ(イエロー)', en: 'Squawkabilly (Yellow)' },
+            'squawkabilly-white-plumage': { ja: 'イキリンコ(ホワイト)', en: 'Squawkabilly (White)' },
+          };
+          if (specialMap[varietyName]) {
+            jaName = specialMap[varietyName].ja;
+            enName = specialMap[varietyName].en;
+          }
+        } else if (varietyName === 'toxtricity-amped') {
+          jaName = 'ストリンダー(ハイ)';
+          enName = 'Toxtricity (Amped)';
+        } else if (varietyName === 'indeedee-male') {
+          jaName = 'イエッサン(オス)';
+          enName = 'Indeedee (Male)';
         }
+
 
         // Determine regulations
         // Both default and mega forms inherit the regulations of the base national dex ID.

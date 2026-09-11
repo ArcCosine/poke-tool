@@ -109,4 +109,9 @@ export const megaStoneMap: Record<string, { ja: string; en: string }> = {
   メガミミロップ: { ja: 'ミミロップナイト', en: 'Lopunnite' },
   メガハガネール: { ja: 'ハガネールナイト', en: 'Steelixite' },
   メガユキノオー: { ja: 'ユキノオナイト', en: 'Abomasnowite' },
+  メガアブソルZ: { ja: 'アブソルナイトZ', en: 'Absolite Z' },
+  メガガブリアスZ: { ja: 'ガブリアスナイトZ', en: 'Garchompite Z' },
+  メガルカリオZ: { ja: 'ルカリオナイトZ', en: 'Lucarionite Z' },
+  メガグソクムシャ: { ja: 'グソクムシャナイト', en: 'Golisopodite' },
+  メガセグレイブ: { ja: 'セグレイブナイト', en: 'Baxcaliburite' },
 };

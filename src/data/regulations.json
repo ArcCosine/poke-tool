@@ -12,5 +12,12 @@
       "ja": "レギュレーションM-B",
       "en": "Regulation M-B"
     }
+  },
+  {
+    "id": "M-C",
+    "name": {
+      "ja": "レギュレーションM-C",
+      "en": "Regulation M-C"
+    }
   }
 ]

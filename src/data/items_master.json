@@ -1,502 +1,5 @@
 [
   {
-    "id": 1,
-    "name": {
-      "ja": "マスターボール",
-      "en": "Master Ball"
-    }
-  },
-  {
-    "id": 2,
-    "name": {
-      "ja": "ハイパーボール",
-      "en": "Ultra Ball"
-    }
-  },
-  {
-    "id": 3,
-    "name": {
-      "ja": "スーパーボール",
-      "en": "Great Ball"
-    }
-  },
-  {
-    "id": 4,
-    "name": {
-      "ja": "モンスターボール",
-      "en": "Poké Ball"
-    }
-  },
-  {
-    "id": 5,
-    "name": {
-      "ja": "サファリボール",
-      "en": "Safari Ball"
-    }
-  },
-  {
-    "id": 6,
-    "name": {
-      "ja": "ネットボール",
-      "en": "Net Ball"
-    }
-  },
-  {
-    "id": 7,
-    "name": {
-      "ja": "ダイブボール",
-      "en": "Dive Ball"
-    }
-  },
-  {
-    "id": 8,
-    "name": {
-      "ja": "ネストボール",
-      "en": "Nest Ball"
-    }
-  },
-  {
-    "id": 9,
-    "name": {
-      "ja": "リピートボール",
-      "en": "Repeat Ball"
-    }
-  },
-  {
-    "id": 10,
-    "name": {
-      "ja": "タイマーボール",
-      "en": "Timer Ball"
-    }
-  },
-  {
-    "id": 11,
-    "name": {
-      "ja": "ゴージャスボール",
-      "en": "Luxury Ball"
-    }
-  },
-  {
-    "id": 12,
-    "name": {
-      "ja": "プレミアボール",
-      "en": "Premier Ball"
-    }
-  },
-  {
-    "id": 13,
-    "name": {
-      "ja": "ダークボール",
-      "en": "Dusk Ball"
-    }
-  },
-  {
-    "id": 14,
-    "name": {
-      "ja": "ヒールボール",
-      "en": "Heal Ball"
-    }
-  },
-  {
-    "id": 15,
-    "name": {
-      "ja": "クイックボール",
-      "en": "Quick Ball"
-    }
-  },
-  {
-    "id": 16,
-    "name": {
-      "ja": "プレシャスボール",
-      "en": "Cherish Ball"
-    }
-  },
-  {
-    "id": 17,
-    "name": {
-      "ja": "キズぐすり",
-      "en": "Potion"
-    }
-  },
-  {
-    "id": 18,
-    "name": {
-      "ja": "どくけし",
-      "en": "Antidote"
-    }
-  },
-  {
-    "id": 19,
-    "name": {
-      "ja": "やけどなおし",
-      "en": "Burn Heal"
-    }
-  },
-  {
-    "id": 20,
-    "name": {
-      "ja": "こおりなおし",
-      "en": "Ice Heal"
-    }
-  },
-  {
-    "id": 21,
-    "name": {
-      "ja": "ねむけざまし",
-      "en": "Awakening"
-    }
-  },
-  {
-    "id": 22,
-    "name": {
-      "ja": "まひなおし",
-      "en": "Paralyze Heal"
-    }
-  },
-  {
-    "id": 23,
-    "name": {
-      "ja": "かいふくのくすり",
-      "en": "Full Restore"
-    }
-  },
-  {
-    "id": 24,
-    "name": {
-      "ja": "まんたんのくすり",
-      "en": "Max Potion"
-    }
-  },
-  {
-    "id": 25,
-    "name": {
-      "ja": "すごいキズぐすり",
-      "en": "Hyper Potion"
-    }
-  },
-  {
-    "id": 26,
-    "name": {
-      "ja": "いいキズぐすり",
-      "en": "Super Potion"
-    }
-  },
-  {
-    "id": 27,
-    "name": {
-      "ja": "なんでもなおし",
-      "en": "Full Heal"
-    }
-  },
-  {
-    "id": 28,
-    "name": {
-      "ja": "げんきのかけら",
-      "en": "Revive"
-    }
-  },
-  {
-    "id": 29,
-    "name": {
-      "ja": "げんきのかたまり",
-      "en": "Max Revive"
-    }
-  },
-  {
-    "id": 30,
-    "name": {
-      "ja": "おいしいみず",
-      "en": "Fresh Water"
-    }
-  },
-  {
-    "id": 31,
-    "name": {
-      "ja": "サイコソーダ",
-      "en": "Soda Pop"
-    }
-  },
-  {
-    "id": 32,
-    "name": {
-      "ja": "ミックスオレ",
-      "en": "Lemonade"
-    }
-  },
-  {
-    "id": 33,
-    "name": {
-      "ja": "モーモーミルク",
-      "en": "Moomoo Milk"
-    }
-  },
-  {
-    "id": 34,
-    "name": {
-      "ja": "ちからのこな",
-      "en": "Energy Powder"
-    }
-  },
-  {
-    "id": 35,
-    "name": {
-      "ja": "ちからのねっこ",
-      "en": "Energy Root"
-    }
-  },
-  {
-    "id": 36,
-    "name": {
-      "ja": "ばんのうごな",
-      "en": "Heal Powder"
-    }
-  },
-  {
-    "id": 37,
-    "name": {
-      "ja": "ふっかつそう",
-      "en": "Revival Herb"
-    }
-  },
-  {
-    "id": 38,
-    "name": {
-      "ja": "ピーピーエイド",
-      "en": "Ether"
-    }
-  },
-  {
-    "id": 39,
-    "name": {
-      "ja": "ピーピーリカバー",
-      "en": "Max Ether"
-    }
-  },
-  {
-    "id": 40,
-    "name": {
-      "ja": "ピーピーエイダー",
-      "en": "Elixir"
-    }
-  },
-  {
-    "id": 41,
-    "name": {
-      "ja": "ピーピーマックス",
-      "en": "Max Elixir"
-    }
-  },
-  {
-    "id": 42,
-    "name": {
-      "ja": "フエンせんべい",
-      "en": "Lava Cookie"
-    }
-  },
-  {
-    "id": 43,
-    "name": {
-      "ja": "きのみジュース",
-      "en": "Berry Juice"
-    }
-  },
-  {
-    "id": 44,
-    "name": {
-      "ja": "せいなるはい",
-      "en": "Sacred Ash"
-    }
-  },
-  {
-    "id": 45,
-    "name": {
-      "ja": "マックスアップ",
-      "en": "HP Up"
-    }
-  },
-  {
-    "id": 46,
-    "name": {
-      "ja": "タウリン",
-      "en": "Protein"
-    }
-  },
-  {
-    "id": 47,
-    "name": {
-      "ja": "ブロムヘキシン",
-      "en": "Iron"
-    }
-  },
-  {
-    "id": 48,
-    "name": {
-      "ja": "インドメタシン",
-      "en": "Carbos"
-    }
-  },
-  {
-    "id": 49,
-    "name": {
-      "ja": "リゾチウム",
-      "en": "Calcium"
-    }
-  },
-  {
-    "id": 50,
-    "name": {
-      "ja": "ふしぎなアメ",
-      "en": "Rare Candy"
-    }
-  },
-  {
-    "id": 51,
-    "name": {
-      "ja": "ポイントアップ",
-      "en": "PP Up"
-    }
-  },
-  {
-    "id": 52,
-    "name": {
-      "ja": "キトサン",
-      "en": "Zinc"
-    }
-  },
-  {
-    "id": 53,
-    "name": {
-      "ja": "ポイントマックス",
-      "en": "PP Max"
-    }
-  },
-  {
-    "id": 54,
-    "name": {
-      "ja": "もりのヨウカン",
-      "en": "Old Gateau"
-    }
-  },
-  {
-    "id": 55,
-    "name": {
-      "ja": "エフェクトガード",
-      "en": "Guard Spec."
-    }
-  },
-  {
-    "id": 56,
-    "name": {
-      "ja": "クリティカット",
-      "en": "Dire Hit"
-    }
-  },
-  {
-    "id": 57,
-    "name": {
-      "ja": "プラスパワー",
-      "en": "X Attack"
-    }
-  },
-  {
-    "id": 58,
-    "name": {
-      "ja": "ディフェンダー",
-      "en": "X Defense"
-    }
-  },
-  {
-    "id": 59,
-    "name": {
-      "ja": "スピーダー",
-      "en": "X Speed"
-    }
-  },
-  {
-    "id": 60,
-    "name": {
-      "ja": "ヨクアタール",
-      "en": "X Accuracy"
-    }
-  },
-  {
-    "id": 61,
-    "name": {
-      "ja": "スペシャルアップ",
-      "en": "X Sp. Atk"
-    }
-  },
-  {
-    "id": 62,
-    "name": {
-      "ja": "スペシャルガード",
-      "en": "X Sp. Def"
-    }
-  },
-  {
-    "id": 63,
-    "name": {
-      "ja": "ピッピにんぎょう",
-      "en": "Poké Doll"
-    }
-  },
-  {
-    "id": 64,
-    "name": {
-      "ja": "エネコのシッポ",
-      "en": "Fluffy Tail"
-    }
-  },
-  {
-    "id": 65,
-    "name": {
-      "ja": "あおいビードロ",
-      "en": "Blue Flute"
-    }
-  },
-  {
-    "id": 66,
-    "name": {
-      "ja": "きいろビードロ",
-      "en": "Yellow Flute"
-    }
-  },
-  {
-    "id": 67,
-    "name": {
-      "ja": "あかいビードロ",
-      "en": "Red Flute"
-    }
-  },
-  {
-    "id": 68,
-    "name": {
-      "ja": "くろいビードロ",
-      "en": "Black Flute"
-    }
-  },
-  {
-    "id": 69,
-    "name": {
-      "ja": "しろいビードロ",
-      "en": "White Flute"
-    }
-  },
-  {
-    "id": 112,
-    "name": {
-      "ja": "こんごうだま",
-      "en": "Adamant Orb"
-    }
-  },
-  {
-    "id": 113,
-    "name": {
-      "ja": "しらたま",
-      "en": "Lustrous Orb"
-    }
-  },
-  {
     "id": 190,
     "name": {
       "ja": "ひかりのこな",
@@ -511,20 +14,6 @@
     }
   },
   {
-    "id": 192,
-    "name": {
-      "ja": "きょうせいギプス",
-      "en": "Macho Brace"
-    }
-  },
-  {
-    "id": 193,
-    "name": {
-      "ja": "がくしゅうそうち",
-      "en": "Exp. Share"
-    }
-  },
-  {
     "id": 194,
     "name": {
       "ja": "せんせいのツメ",
@@ -532,24 +21,10 @@
     }
   },
   {
-    "id": 195,
-    "name": {
-      "ja": "やすらぎのすず",
-      "en": "Soothe Bell"
-    }
-  },
-  {
     "id": 196,
     "name": {
       "ja": "メンタルハーブ",
       "en": "Mental Herb"
-    }
-  },
-  {
-    "id": 197,
-    "name": {
-      "ja": "こだわりハチマキ",
-      "en": "Choice Band"
     }
   },
   {
@@ -567,66 +42,10 @@
     }
   },
   {
-    "id": 200,
-    "name": {
-      "ja": "おまもりこばん",
-      "en": "Amulet Coin"
-    }
-  },
-  {
-    "id": 201,
-    "name": {
-      "ja": "きよめのおふだ",
-      "en": "Cleanse Tag"
-    }
-  },
-  {
-    "id": 202,
-    "name": {
-      "ja": "こころのしずく",
-      "en": "Soul Dew"
-    }
-  },
-  {
-    "id": 203,
-    "name": {
-      "ja": "しんかいのキバ",
-      "en": "Deep Sea Tooth"
-    }
-  },
-  {
-    "id": 204,
-    "name": {
-      "ja": "しんかいのウロコ",
-      "en": "Deep Sea Scale"
-    }
-  },
-  {
-    "id": 205,
-    "name": {
-      "ja": "けむりだま",
-      "en": "Smoke Ball"
-    }
-  },
-  {
-    "id": 206,
-    "name": {
-      "ja": "かわらずのいし",
-      "en": "Everstone"
-    }
-  },
-  {
     "id": 207,
     "name": {
       "ja": "きあいのハチマキ",
       "en": "Focus Band"
-    }
-  },
-  {
-    "id": 208,
-    "name": {
-      "ja": "しあわせタマゴ",
-      "en": "Lucky Egg"
     }
   },
   {
@@ -648,13 +67,6 @@
     "name": {
       "ja": "たべのこし",
       "en": "Leftovers"
-    }
-  },
-  {
-    "id": 213,
-    "name": {
-      "ja": "でんきだま",
-      "en": "Light Ball"
     }
   },
   {
@@ -770,41 +182,6 @@
     }
   },
   {
-    "id": 231,
-    "name": {
-      "ja": "うしおのおこう",
-      "en": "Sea Incense"
-    }
-  },
-  {
-    "id": 232,
-    "name": {
-      "ja": "のんきのおこう",
-      "en": "Lax Incense"
-    }
-  },
-  {
-    "id": 233,
-    "name": {
-      "ja": "ラッキーパンチ",
-      "en": "Lucky Punch"
-    }
-  },
-  {
-    "id": 234,
-    "name": {
-      "ja": "メタルパウダー",
-      "en": "Metal Powder"
-    }
-  },
-  {
-    "id": 235,
-    "name": {
-      "ja": "ふといホネ",
-      "en": "Thick Club"
-    }
-  },
-  {
     "id": 236,
     "name": {
       "ja": "ながねぎ",
@@ -854,34 +231,6 @@
     }
   },
   {
-    "id": 248,
-    "name": {
-      "ja": "パワフルハーブ",
-      "en": "Power Herb"
-    }
-  },
-  {
-    "id": 249,
-    "name": {
-      "ja": "どくどくだま",
-      "en": "Toxic Orb"
-    }
-  },
-  {
-    "id": 250,
-    "name": {
-      "ja": "かえんだま",
-      "en": "Flame Orb"
-    }
-  },
-  {
-    "id": 251,
-    "name": {
-      "ja": "スピードパウダー",
-      "en": "Quick Powder"
-    }
-  },
-  {
     "id": 252,
     "name": {
       "ja": "きあいのタスキ",
@@ -907,27 +256,6 @@
     "name": {
       "ja": "くろいてっきゅう",
       "en": "Iron Ball"
-    }
-  },
-  {
-    "id": 256,
-    "name": {
-      "ja": "こうこうのしっぽ",
-      "en": "Lagging Tail"
-    }
-  },
-  {
-    "id": 257,
-    "name": {
-      "ja": "あかいいと",
-      "en": "Destiny Knot"
-    }
-  },
-  {
-    "id": 258,
-    "name": {
-      "ja": "くろいヘドロ",
-      "en": "Black Sludge"
     }
   },
   {
@@ -959,66 +287,10 @@
     }
   },
   {
-    "id": 263,
-    "name": {
-      "ja": "ねばりのかぎづめ",
-      "en": "Grip Claw"
-    }
-  },
-  {
     "id": 264,
     "name": {
       "ja": "こだわりスカーフ",
       "en": "Choice Scarf"
-    }
-  },
-  {
-    "id": 265,
-    "name": {
-      "ja": "くっつきバリ",
-      "en": "Sticky Barb"
-    }
-  },
-  {
-    "id": 266,
-    "name": {
-      "ja": "パワーリスト",
-      "en": "Power Bracer"
-    }
-  },
-  {
-    "id": 267,
-    "name": {
-      "ja": "パワーベルト",
-      "en": "Power Belt"
-    }
-  },
-  {
-    "id": 268,
-    "name": {
-      "ja": "パワーレンズ",
-      "en": "Power Lens"
-    }
-  },
-  {
-    "id": 269,
-    "name": {
-      "ja": "パワーバンド",
-      "en": "Power Band"
-    }
-  },
-  {
-    "id": 270,
-    "name": {
-      "ja": "パワーアンクル",
-      "en": "Power Anklet"
-    }
-  },
-  {
-    "id": 271,
-    "name": {
-      "ja": "パワーウエイト",
-      "en": "Power Weight"
     }
   },
   {
@@ -1036,209 +308,6 @@
     }
   },
   {
-    "id": 274,
-    "name": {
-      "ja": "こだわりメガネ",
-      "en": "Choice Specs"
-    }
-  },
-  {
-    "id": 275,
-    "name": {
-      "ja": "ひのたまプレート",
-      "en": "Flame Plate"
-    }
-  },
-  {
-    "id": 276,
-    "name": {
-      "ja": "しずくプレート",
-      "en": "Splash Plate"
-    }
-  },
-  {
-    "id": 277,
-    "name": {
-      "ja": "いかずちプレート",
-      "en": "Zap Plate"
-    }
-  },
-  {
-    "id": 278,
-    "name": {
-      "ja": "みどりのプレート",
-      "en": "Meadow Plate"
-    }
-  },
-  {
-    "id": 279,
-    "name": {
-      "ja": "つららのプレート",
-      "en": "Icicle Plate"
-    }
-  },
-  {
-    "id": 280,
-    "name": {
-      "ja": "こぶしのプレート",
-      "en": "Fist Plate"
-    }
-  },
-  {
-    "id": 281,
-    "name": {
-      "ja": "もうどくプレート",
-      "en": "Toxic Plate"
-    }
-  },
-  {
-    "id": 282,
-    "name": {
-      "ja": "だいちのプレート",
-      "en": "Earth Plate"
-    }
-  },
-  {
-    "id": 283,
-    "name": {
-      "ja": "あおぞらプレート",
-      "en": "Sky Plate"
-    }
-  },
-  {
-    "id": 284,
-    "name": {
-      "ja": "ふしぎのプレート",
-      "en": "Mind Plate"
-    }
-  },
-  {
-    "id": 285,
-    "name": {
-      "ja": "たまむしプレート",
-      "en": "Insect Plate"
-    }
-  },
-  {
-    "id": 286,
-    "name": {
-      "ja": "がんせきプレート",
-      "en": "Stone Plate"
-    }
-  },
-  {
-    "id": 287,
-    "name": {
-      "ja": "もののけプレート",
-      "en": "Spooky Plate"
-    }
-  },
-  {
-    "id": 288,
-    "name": {
-      "ja": "りゅうのプレート",
-      "en": "Draco Plate"
-    }
-  },
-  {
-    "id": 289,
-    "name": {
-      "ja": "こわもてプレート",
-      "en": "Dread Plate"
-    }
-  },
-  {
-    "id": 290,
-    "name": {
-      "ja": "こうてつプレート",
-      "en": "Iron Plate"
-    }
-  },
-  {
-    "id": 291,
-    "name": {
-      "ja": "あやしいおこう",
-      "en": "Odd Incense"
-    }
-  },
-  {
-    "id": 292,
-    "name": {
-      "ja": "がんせきおこう",
-      "en": "Rock Incense"
-    }
-  },
-  {
-    "id": 293,
-    "name": {
-      "ja": "まんぷくおこう",
-      "en": "Full Incense"
-    }
-  },
-  {
-    "id": 294,
-    "name": {
-      "ja": "さざなみのおこう",
-      "en": "Wave Incense"
-    }
-  },
-  {
-    "id": 295,
-    "name": {
-      "ja": "おはなのおこう",
-      "en": "Rose Incense"
-    }
-  },
-  {
-    "id": 296,
-    "name": {
-      "ja": "こううんのおこう",
-      "en": "Luck Incense"
-    }
-  },
-  {
-    "id": 297,
-    "name": {
-      "ja": "きよめのおこう",
-      "en": "Pure Incense"
-    }
-  },
-  {
-    "id": 303,
-    "name": {
-      "ja": "するどいツメ",
-      "en": "Razor Claw"
-    }
-  },
-  {
-    "id": 304,
-    "name": {
-      "ja": "するどいキバ",
-      "en": "Razor Fang"
-    }
-  },
-  {
-    "id": 2160,
-    "name": {
-      "ja": " つながりのヒモ",
-      "en": "Linking Cord"
-    }
-  },
-  {
-    "id": 581,
-    "name": {
-      "ja": "しんかのきせき",
-      "en": "Eviolite"
-    }
-  },
-  {
-    "id": 582,
-    "name": {
-      "ja": "かるいし",
-      "en": "Float Stone"
-    }
-  },
-  {
     "id": 583,
     "name": {
       "ja": "ゴツゴツメット",
@@ -1253,20 +322,6 @@
     }
   },
   {
-    "id": 585,
-    "name": {
-      "ja": "レッドカード",
-      "en": "Red Card"
-    }
-  },
-  {
-    "id": 586,
-    "name": {
-      "ja": "ねらいのまと",
-      "en": "Ring Target"
-    }
-  },
-  {
     "id": 587,
     "name": {
       "ja": "しめつけバンド",
@@ -1274,17 +329,10 @@
     }
   },
   {
-    "id": 588,
+    "id": 585,
     "name": {
-      "ja": "きゅうこん",
-      "en": "Absorb Bulb"
-    }
-  },
-  {
-    "id": 589,
-    "name": {
-      "ja": "じゅうでんち",
-      "en": "Cell Battery"
+      "ja": "レッドカード",
+      "en": "Red Card"
     }
   },
   {
@@ -1295,52 +343,10 @@
     }
   },
   {
-    "id": 616,
+    "id": 20001,
     "name": {
-      "ja": "デルダマ",
-      "en": "Pass Orb"
-    }
-  },
-  {
-    "id": 682,
-    "name": {
-      "ja": "じゃくてんほけん",
-      "en": "Weakness Policy"
-    }
-  },
-  {
-    "id": 683,
-    "name": {
-      "ja": "とつげきチョッキ",
-      "en": "Assault Vest"
-    }
-  },
-  {
-    "id": 688,
-    "name": {
-      "ja": "ひかりごけ",
-      "en": "Luminous Moss"
-    }
-  },
-  {
-    "id": 689,
-    "name": {
-      "ja": "ゆきだま",
-      "en": "Snowball"
-    }
-  },
-  {
-    "id": 690,
-    "name": {
-      "ja": "ぼうじんゴーグル",
-      "en": "Safety Goggles"
-    }
-  },
-  {
-    "id": 883,
-    "name": {
-      "ja": "ビビリだま",
-      "en": "Adrenaline Orb"
+      "ja": "ノーマルジュエル",
+      "en": "Normal Gem"
     }
   },
   {
@@ -1348,13 +354,6 @@
     "name": {
       "ja": "グランドコート",
       "en": "Terrain Extender"
-    }
-  },
-  {
-    "id": 897,
-    "name": {
-      "ja": "ぼうごパット",
-      "en": "Protective Pads"
     }
   },
   {
@@ -1386,94 +385,199 @@
     }
   },
   {
-    "id": 1176,
+    "id": 3011,
     "name": {
-      "ja": "のどスプレー",
-      "en": "Throat Spray"
+      "ja": "クラボのみ",
+      "en": "Cheri Berry"
     }
   },
   {
-    "id": 1177,
+    "id": 3003,
     "name": {
-      "ja": "だっしゅつパック",
-      "en": "Eject Pack"
+      "ja": "カゴのみ",
+      "en": "Chesto Berry"
     }
   },
   {
-    "id": 1178,
+    "id": 3010,
     "name": {
-      "ja": "あつぞこブーツ",
-      "en": "Heavy-Duty Boots"
+      "ja": "モモンのみ",
+      "en": "Pecha Berry"
     }
   },
   {
-    "id": 1179,
+    "id": 3009,
     "name": {
-      "ja": "からぶりほけん",
-      "en": "Blunder Policy"
+      "ja": "チーゴのみ",
+      "en": "Rawst Berry"
     }
   },
   {
-    "id": 1180,
+    "id": 3012,
     "name": {
-      "ja": "ルームサービス",
-      "en": "Room Service"
+      "ja": "ナナシのみ",
+      "en": "Aspear Berry"
     }
   },
   {
-    "id": 1181,
+    "id": 20002,
     "name": {
-      "ja": "ばんのうがさ",
-      "en": "Utility Umbrella"
+      "ja": "ヒメリのみ",
+      "en": "Leppa Berry"
     }
   },
   {
-    "id": 1696,
+    "id": 20003,
     "name": {
-      "ja": "ブーストエナジー",
-      "en": "Booster Energy"
+      "ja": "オレンのみ",
+      "en": "Oran Berry"
     }
   },
   {
-    "id": 1697,
+    "id": 3013,
     "name": {
-      "ja": "とくせいガード",
-      "en": "Ability Shield"
+      "ja": "キーのみ",
+      "en": "Persim Berry"
     }
   },
   {
-    "id": 1698,
+    "id": 3002,
     "name": {
-      "ja": "クリアチャーム",
-      "en": "Clear Amulet"
+      "ja": "ラムのみ",
+      "en": "Lum Berry"
     }
   },
   {
-    "id": 1699,
+    "id": 3001,
     "name": {
-      "ja": "ものまねハーブ",
-      "en": "Mirror Herb"
+      "ja": "オボンのみ",
+      "en": "Sitrus Berry"
     }
   },
   {
-    "id": 1700,
+    "id": 3014,
     "name": {
-      "ja": "パンチグローブ",
-      "en": "Punching Glove"
+      "ja": "オッカのみ",
+      "en": "Occa Berry"
     }
   },
   {
-    "id": 1701,
+    "id": 3015,
     "name": {
-      "ja": "おんみつマント",
-      "en": "Covert Cloak"
+      "ja": "イトケのみ",
+      "en": "Passho Berry"
     }
   },
   {
-    "id": 1702,
+    "id": 3016,
     "name": {
-      "ja": "いかさまダイス",
-      "en": "Loaded Dice"
+      "ja": "ソクノのみ",
+      "en": "Wacan Berry"
+    }
+  },
+  {
+    "id": 3017,
+    "name": {
+      "ja": "リンドのみ",
+      "en": "Rindo Berry"
+    }
+  },
+  {
+    "id": 3018,
+    "name": {
+      "ja": "ヤチェのみ",
+      "en": "Yache Berry"
+    }
+  },
+  {
+    "id": 3019,
+    "name": {
+      "ja": "ヨプのみ",
+      "en": "Chople Berry"
+    }
+  },
+  {
+    "id": 3020,
+    "name": {
+      "ja": "ビアーのみ",
+      "en": "Kebia Berry"
+    }
+  },
+  {
+    "id": 3021,
+    "name": {
+      "ja": "シュカのみ",
+      "en": "Shuca Berry"
+    }
+  },
+  {
+    "id": 3022,
+    "name": {
+      "ja": "バコウのみ",
+      "en": "Coba Berry"
+    }
+  },
+  {
+    "id": 3027,
+    "name": {
+      "ja": "ウタンのみ",
+      "en": "Colbur Berry"
+    }
+  },
+  {
+    "id": 3023,
+    "name": {
+      "ja": "タンガのみ",
+      "en": "Tanga Berry"
+    }
+  },
+  {
+    "id": 3024,
+    "name": {
+      "ja": "ヨロギのみ",
+      "en": "Charti Berry"
+    }
+  },
+  {
+    "id": 3025,
+    "name": {
+      "ja": "カシブのみ",
+      "en": "Kasib Berry"
+    }
+  },
+  {
+    "id": 3026,
+    "name": {
+      "ja": "ハバンのみ",
+      "en": "Haban Berry"
+    }
+  },
+  {
+    "id": 20004,
+    "name": {
+      "ja": "ナモのみ",
+      "en": "Payapa Berry"
+    }
+  },
+  {
+    "id": 3028,
+    "name": {
+      "ja": "リリバのみ",
+      "en": "Babiri Berry"
+    }
+  },
+  {
+    "id": 3029,
+    "name": {
+      "ja": "ロゼルのみ",
+      "en": "Roseli Berry"
+    }
+  },
+  {
+    "id": 3030,
+    "name": {
+      "ja": "ホズのみ",
+      "en": "Chilan Berry"
     }
   },
   {
@@ -1484,346 +588,31 @@
     }
   },
   {
-    "id": 2106,
+    "id": 213,
     "name": {
-      "ja": "いどのめん",
-      "en": "Wellspring Mask"
+      "ja": "でんきだま",
+      "en": "Light Ball"
     }
   },
   {
-    "id": 2107,
+    "id": 20005,
     "name": {
-      "ja": "かまどのめん",
-      "en": "Hearthflame Mask"
+      "ja": "オーダイルナイト",
+      "en": "Feraligatrite"
     }
   },
   {
-    "id": 2108,
+    "id": 20006,
     "name": {
-      "ja": "いしずえのめん",
-      "en": "Cornerstone Mask"
+      "ja": "メガニウムナイト",
+      "en": "Meganiumite"
     }
   },
   {
-    "id": 695,
+    "id": 20007,
     "name": {
-      "ja": "ゲンガナイト",
-      "en": "Gengarite"
-    }
-  },
-  {
-    "id": 696,
-    "name": {
-      "ja": "サーナイトナイト",
-      "en": "Gardevoirite"
-    }
-  },
-  {
-    "id": 697,
-    "name": {
-      "ja": "デンリュウナイト",
-      "en": "Ampharosite"
-    }
-  },
-  {
-    "id": 698,
-    "name": {
-      "ja": "フシギバナイト",
-      "en": "Venusaurite"
-    }
-  },
-  {
-    "id": 699,
-    "name": {
-      "ja": "リザードナイトＸ",
-      "en": "Charizardite X"
-    }
-  },
-  {
-    "id": 700,
-    "name": {
-      "ja": "カメックスナイト",
-      "en": "Blastoisinite"
-    }
-  },
-  {
-    "id": 701,
-    "name": {
-      "ja": "ミュウツナイトＸ",
-      "en": "Mewtwonite X"
-    }
-  },
-  {
-    "id": 702,
-    "name": {
-      "ja": "ミュウツナイトＹ",
-      "en": "Mewtwonite Y"
-    }
-  },
-  {
-    "id": 703,
-    "name": {
-      "ja": "バシャーモナイト",
-      "en": "Blazikenite"
-    }
-  },
-  {
-    "id": 704,
-    "name": {
-      "ja": "チャーレムナイト",
-      "en": "Medichamite"
-    }
-  },
-  {
-    "id": 705,
-    "name": {
-      "ja": "ヘルガナイト",
-      "en": "Houndoominite"
-    }
-  },
-  {
-    "id": 706,
-    "name": {
-      "ja": "ボスゴドラナイト",
-      "en": "Aggronite"
-    }
-  },
-  {
-    "id": 707,
-    "name": {
-      "ja": "ジュペッタナイト",
-      "en": "Banettite"
-    }
-  },
-  {
-    "id": 708,
-    "name": {
-      "ja": "バンギラスナイト",
-      "en": "Tyranitarite"
-    }
-  },
-  {
-    "id": 709,
-    "name": {
-      "ja": "ハッサムナイト",
-      "en": "Scizorite"
-    }
-  },
-  {
-    "id": 710,
-    "name": {
-      "ja": "カイロスナイト",
-      "en": "Pinsirite"
-    }
-  },
-  {
-    "id": 711,
-    "name": {
-      "ja": "プテラナイト",
-      "en": "Aerodactylite"
-    }
-  },
-  {
-    "id": 712,
-    "name": {
-      "ja": "ルカリオナイト",
-      "en": "Lucarionite"
-    }
-  },
-  {
-    "id": 713,
-    "name": {
-      "ja": "ユキノオナイト",
-      "en": "Abomasite"
-    }
-  },
-  {
-    "id": 714,
-    "name": {
-      "ja": "ガルーラナイト",
-      "en": "Kangaskhanite"
-    }
-  },
-  {
-    "id": 715,
-    "name": {
-      "ja": "ギャラドスナイト",
-      "en": "Gyaradosite"
-    }
-  },
-  {
-    "id": 716,
-    "name": {
-      "ja": "アブソルナイト",
-      "en": "Absolite"
-    }
-  },
-  {
-    "id": 717,
-    "name": {
-      "ja": "リザードナイトＹ",
-      "en": "Charizardite Y"
-    }
-  },
-  {
-    "id": 718,
-    "name": {
-      "ja": "フーディナイト",
-      "en": "Alakazite"
-    }
-  },
-  {
-    "id": 719,
-    "name": {
-      "ja": "ヘラクロスナイト",
-      "en": "Heracronite"
-    }
-  },
-  {
-    "id": 720,
-    "name": {
-      "ja": "クチートナイト",
-      "en": "Mawilite"
-    }
-  },
-  {
-    "id": 721,
-    "name": {
-      "ja": "ライボルトナイト",
-      "en": "Manectite"
-    }
-  },
-  {
-    "id": 722,
-    "name": {
-      "ja": "ガブリアスナイト",
-      "en": "Garchompite"
-    }
-  },
-  {
-    "id": 760,
-    "name": {
-      "ja": "ラティアスナイト",
-      "en": "Latiasite"
-    }
-  },
-  {
-    "id": 761,
-    "name": {
-      "ja": "ラティオスナイト",
-      "en": "Latiosite"
-    }
-  },
-  {
-    "id": 793,
-    "name": {
-      "ja": "ラグラージナイト",
-      "en": "Swampertite"
-    }
-  },
-  {
-    "id": 794,
-    "name": {
-      "ja": "ジュカインナイト",
-      "en": "Sceptilite"
-    }
-  },
-  {
-    "id": 795,
-    "name": {
-      "ja": "ヤミラミナイト",
-      "en": "Sablenite"
-    }
-  },
-  {
-    "id": 796,
-    "name": {
-      "ja": "チルタリスナイト",
-      "en": "Altarianite"
-    }
-  },
-  {
-    "id": 797,
-    "name": {
-      "ja": "エルレイドナイト",
-      "en": "Galladite"
-    }
-  },
-  {
-    "id": 798,
-    "name": {
-      "ja": "タブンネナイト",
-      "en": "Audinite"
-    }
-  },
-  {
-    "id": 799,
-    "name": {
-      "ja": "メタグロスナイト",
-      "en": "Metagrossite"
-    }
-  },
-  {
-    "id": 800,
-    "name": {
-      "ja": "サメハダナイト",
-      "en": "Sharpedonite"
-    }
-  },
-  {
-    "id": 801,
-    "name": {
-      "ja": "ヤドランナイト",
-      "en": "Slowbronite"
-    }
-  },
-  {
-    "id": 802,
-    "name": {
-      "ja": "ハガネールナイト",
-      "en": "Steelixite"
-    }
-  },
-  {
-    "id": 803,
-    "name": {
-      "ja": "ピジョットナイト",
-      "en": "Pidgeotite"
-    }
-  },
-  {
-    "id": 804,
-    "name": {
-      "ja": "オニゴーリナイト",
-      "en": "Glalitite"
-    }
-  },
-  {
-    "id": 805,
-    "name": {
-      "ja": "ディアンシナイト",
-      "en": "Diancite"
-    }
-  },
-  {
-    "id": 808,
-    "name": {
-      "ja": "バクーダナイト",
-      "en": "Cameruptite"
-    }
-  },
-  {
-    "id": 809,
-    "name": {
-      "ja": "ミミロップナイト",
-      "en": "Lopunnite"
-    }
-  },
-  {
-    "id": 810,
-    "name": {
-      "ja": "ボーマンダナイト",
-      "en": "Salamencite"
+      "ja": "エンブオナイト",
+      "en": "Emboarite"
     }
   },
   {
@@ -1834,487 +623,543 @@
     }
   },
   {
-    "id": 2233,
+    "id": 697,
     "name": {
-      "ja": "clefablite",
-      "en": "clefablite"
+      "ja": "デンリュウナイト",
+      "en": "Ampharosite"
     }
   },
   {
-    "id": 2234,
+    "id": 20008,
     "name": {
-      "ja": "victreebelite",
-      "en": "victreebelite"
+      "ja": "ガメノデスナイト",
+      "en": "Barbaracite"
     }
   },
   {
-    "id": 2235,
+    "id": 20009,
     "name": {
-      "ja": "starminite",
-      "en": "starminite"
+      "ja": "スターミナイト",
+      "en": "Starmite"
     }
   },
   {
-    "id": 2236,
+    "id": 20010,
     "name": {
-      "ja": "dragoninite",
-      "en": "dragoninite"
+      "ja": "ウツボットナイト",
+      "en": "Victreebelite"
     }
   },
   {
-    "id": 2237,
+    "id": 796,
     "name": {
-      "ja": "meganiumite",
-      "en": "meganiumite"
+      "ja": "チルタリスナイト",
+      "en": "Altarianite"
     }
   },
   {
-    "id": 2238,
+    "id": 707,
     "name": {
-      "ja": "feraligite",
-      "en": "feraligite"
+      "ja": "ジュペッタナイト",
+      "en": "Banettite"
     }
   },
   {
-    "id": 2239,
+    "id": 808,
     "name": {
-      "ja": "skarmorite",
-      "en": "skarmorite"
+      "ja": "バクーダナイト",
+      "en": "Cameruptite"
     }
   },
   {
-    "id": 2240,
+    "id": 720,
     "name": {
-      "ja": "froslassite",
-      "en": "froslassite"
+      "ja": "クチートナイト",
+      "en": "Mawilite"
     }
   },
   {
-    "id": 2241,
+    "id": 716,
     "name": {
-      "ja": "heatranite",
-      "en": "heatranite"
+      "ja": "アブソルナイト",
+      "en": "Absolite"
     }
   },
   {
-    "id": 2242,
+    "id": 801,
     "name": {
-      "ja": "darkranite",
-      "en": "darkranite"
+      "ja": "ヤドランナイト",
+      "en": "Slowbronite"
     }
   },
   {
-    "id": 2243,
+    "id": 20011,
     "name": {
-      "ja": "emboarite",
-      "en": "emboarite"
+      "ja": "カイリュナイト",
+      "en": "Dragonitite"
     }
   },
   {
-    "id": 2244,
+    "id": 20012,
     "name": {
-      "ja": "excadrite",
-      "en": "excadrite"
+      "ja": "ユキメノコナイト",
+      "en": "Froslassite"
     }
   },
   {
-    "id": 2245,
+    "id": 20013,
     "name": {
-      "ja": "scolipite",
-      "en": "scolipite"
+      "ja": "ルチャブルナイト",
+      "en": "Hawluchanite"
     }
   },
   {
-    "id": 2246,
+    "id": 708,
     "name": {
-      "ja": "scraftinite",
-      "en": "scraftinite"
+      "ja": "バンギラスナイト",
+      "en": "Tyranitarite"
     }
   },
   {
-    "id": 2247,
+    "id": 803,
     "name": {
-      "ja": "eelektrossite",
-      "en": "eelektrossite"
+      "ja": "ピジョットナイト",
+      "en": "Pidgeotite"
     }
   },
   {
-    "id": 2248,
+    "id": 721,
     "name": {
-      "ja": "chandelurite",
-      "en": "chandelurite"
+      "ja": "ライボルトナイト",
+      "en": "Manectite"
     }
   },
   {
-    "id": 2249,
+    "id": 705,
     "name": {
-      "ja": "chesnaughtite",
-      "en": "chesnaughtite"
+      "ja": "ヘルガナイト",
+      "en": "Houndoominite"
     }
   },
   {
-    "id": 2250,
+    "id": 798,
     "name": {
-      "ja": "delphoxite",
-      "en": "delphoxite"
+      "ja": "タブンネナイト",
+      "en": "Audinite"
     }
   },
   {
-    "id": 2251,
+    "id": 809,
     "name": {
-      "ja": "greninjite",
-      "en": "greninjite"
+      "ja": "ミミロップナイト",
+      "en": "Lopunnite"
     }
   },
   {
-    "id": 2252,
+    "id": 795,
     "name": {
-      "ja": "pyroarite",
-      "en": "pyroarite"
+      "ja": "ヤミラミナイト",
+      "en": "Sablenite"
     }
   },
   {
-    "id": 2253,
+    "id": 800,
     "name": {
-      "ja": "floettite",
-      "en": "floettite"
+      "ja": "サメハダナイト",
+      "en": "Sharpedonite"
     }
   },
   {
-    "id": 2254,
+    "id": 715,
     "name": {
-      "ja": "malamarite",
-      "en": "malamarite"
+      "ja": "ギャラドスナイト",
+      "en": "Gyaradosite"
     }
   },
   {
-    "id": 2255,
+    "id": 712,
     "name": {
-      "ja": "barbaracite",
-      "en": "barbaracite"
+      "ja": "ルカリオナイト",
+      "en": "Lucarionite"
     }
   },
   {
-    "id": 2256,
+    "id": 719,
     "name": {
-      "ja": "dragalgite",
-      "en": "dragalgite"
+      "ja": "ヘラクロスナイト",
+      "en": "Heracronite"
     }
   },
   {
-    "id": 2257,
+    "id": 711,
     "name": {
-      "ja": "hawluchanite",
-      "en": "hawluchanite"
+      "ja": "プテラナイト",
+      "en": "Aerodactylite"
     }
   },
   {
-    "id": 2258,
+    "id": 718,
     "name": {
-      "ja": "zygardite",
-      "en": "zygardite"
+      "ja": "フーディナイト",
+      "en": "Alakazite"
     }
   },
   {
-    "id": 2259,
+    "id": 20014,
     "name": {
-      "ja": "drampanite",
-      "en": "drampanite"
+      "ja": "ジジーロナイト",
+      "en": "Drampanite"
     }
   },
   {
-    "id": 2260,
+    "id": 20015,
     "name": {
-      "ja": "zeraorite",
-      "en": "zeraorite"
+      "ja": "シビルドナイト",
+      "en": "Eelektrossite"
     }
   },
   {
-    "id": 2261,
+    "id": 804,
     "name": {
-      "ja": "falinksite",
-      "en": "falinksite"
+      "ja": "オニゴーリナイト",
+      "en": "Glalitite"
     }
   },
   {
-    "id": 2262,
+    "id": 710,
     "name": {
-      "ja": "raichunite-x",
-      "en": "raichunite-x"
+      "ja": "カイロスナイト",
+      "en": "Pinsirite"
     }
   },
   {
-    "id": 2263,
+    "id": 20016,
     "name": {
-      "ja": "raichunite-y",
-      "en": "raichunite-y"
+      "ja": "タイレーツナイト",
+      "en": "Falinksite"
     }
   },
   {
-    "id": 2264,
+    "id": 20017,
     "name": {
-      "ja": "chimechite",
-      "en": "chimechite"
+      "ja": "ペンドラナイト",
+      "en": "Scolipedite"
     }
   },
   {
-    "id": 2265,
+    "id": 696,
     "name": {
-      "ja": "absolite-z",
-      "en": "absolite-z"
+      "ja": "サーナイトナイト",
+      "en": "Gardevoirite"
     }
   },
   {
-    "id": 2266,
+    "id": 797,
     "name": {
-      "ja": "staraptite",
-      "en": "staraptite"
+      "ja": "エルレイドナイト",
+      "en": "Galladite"
     }
   },
   {
-    "id": 2267,
+    "id": 20018,
     "name": {
-      "ja": "garchompite-z",
-      "en": "garchompite-z"
+      "ja": "エアームドナイト",
+      "en": "Skarmorite"
     }
   },
   {
-    "id": 2268,
+    "id": 20019,
     "name": {
-      "ja": "lucarionite-z",
-      "en": "lucarionite-z"
+      "ja": "ピクシナイト",
+      "en": "Clefablite"
     }
   },
   {
-    "id": 2269,
+    "id": 20020,
     "name": {
-      "ja": "golurkite",
-      "en": "golurkite"
+      "ja": "ドラミドナイト",
+      "en": "Dragalgite"
     }
   },
   {
-    "id": 2270,
+    "id": 20021,
     "name": {
-      "ja": "meowsticite",
-      "en": "meowsticite"
+      "ja": "ズルズキナイト",
+      "en": "Scraftite"
     }
   },
   {
-    "id": 2271,
+    "id": 20022,
     "name": {
-      "ja": "crabominite",
-      "en": "crabominite"
+      "ja": "カエンジシナイト",
+      "en": "Pyroarite"
     }
   },
   {
-    "id": 2272,
+    "id": 20023,
     "name": {
-      "ja": "golisopite",
-      "en": "golisopite"
+      "ja": "カラマネナイト",
+      "en": "Malamarite"
     }
   },
   {
-    "id": 2273,
+    "id": 20024,
     "name": {
-      "ja": "magearnite",
-      "en": "magearnite"
+      "ja": "ドリュウズナイト",
+      "en": "Excadrillite"
     }
   },
   {
-    "id": 2274,
+    "id": 20025,
     "name": {
-      "ja": "scovillainite",
-      "en": "scovillainite"
+      "ja": "シャンデラナイト",
+      "en": "Chandelurite"
     }
   },
   {
-    "id": 2275,
+    "id": 706,
     "name": {
-      "ja": "baxcalibrite",
-      "en": "baxcalibrite"
+      "ja": "ボスゴドラナイト",
+      "en": "Aggronite"
     }
   },
   {
-    "id": 2276,
+    "id": 810,
     "name": {
-      "ja": "tatsugirinite",
-      "en": "tatsugirinite"
+      "ja": "ボーマンダナイト",
+      "en": "Salamencite"
     }
   },
   {
-    "id": 2277,
+    "id": 799,
     "name": {
-      "ja": "glimmoranite",
-      "en": "glimmoranite"
+      "ja": "メタグロスナイト",
+      "en": "Metagrossite"
     }
   },
   {
-    "id": 3001,
-    "name": { "ja": "オボンのみ", "en": "Sitrus Berry" }
+    "id": 695,
+    "name": {
+      "ja": "ゲンガナイト",
+      "en": "Gengarite"
+    }
   },
   {
-    "id": 3002,
-    "name": { "ja": "ラムのみ", "en": "Lum Berry" }
+    "id": 704,
+    "name": {
+      "ja": "チャーレムナイト",
+      "en": "Medichamite"
+    }
   },
   {
-    "id": 3003,
-    "name": { "ja": "カゴのみ", "en": "Chesto Berry" }
+    "id": 713,
+    "name": {
+      "ja": "ユキノオナイト",
+      "en": "Abomasite"
+    }
   },
   {
-    "id": 3004,
-    "name": { "ja": "フィラのみ", "en": "Figy Berry" }
+    "id": 709,
+    "name": {
+      "ja": "ハッサムナイト",
+      "en": "Scizorite"
+    }
   },
   {
-    "id": 3005,
-    "name": { "ja": "イアのみ", "en": "Iapapa Berry" }
+    "id": 722,
+    "name": {
+      "ja": "ガブリアスナイト",
+      "en": "Garchompite"
+    }
   },
   {
-    "id": 3006,
-    "name": { "ja": "ウブのみ", "en": "Mago Berry" }
+    "id": 802,
+    "name": {
+      "ja": "ハガネールナイト",
+      "en": "Steelixite"
+    }
   },
   {
-    "id": 3007,
-    "name": { "ja": "バンジのみ", "en": "Aguav Berry" }
+    "id": 714,
+    "name": {
+      "ja": "ガルーラナイト",
+      "en": "Kangaskhanite"
+    }
   },
   {
-    "id": 3008,
-    "name": { "ja": "ウィのみ", "en": "Wiki Berry" }
+    "id": 20026,
+    "name": {
+      "ja": "リザードナイトX",
+      "en": "Charizardite X"
+    }
   },
   {
-    "id": 3009,
-    "name": { "ja": "チーゴのみ", "en": "Rawst Berry" }
+    "id": 20027,
+    "name": {
+      "ja": "リザードナイトY",
+      "en": "Charizardite Y"
+    }
   },
   {
-    "id": 3010,
-    "name": { "ja": "モモンのみ", "en": "Pecha Berry" }
+    "id": 700,
+    "name": {
+      "ja": "カメックスナイト",
+      "en": "Blastoisinite"
+    }
   },
   {
-    "id": 3011,
-    "name": { "ja": "クラボのみ", "en": "Cheri Berry" }
+    "id": 698,
+    "name": {
+      "ja": "フシギバナイト",
+      "en": "Venusaurite"
+    }
   },
   {
-    "id": 3012,
-    "name": { "ja": "ナナシのみ", "en": "Aspear Berry" }
+    "id": 20028,
+    "name": {
+      "ja": "ゲッコウガナイト",
+      "en": "Greninjite"
+    }
   },
   {
-    "id": 3013,
-    "name": { "ja": "キーのみ", "en": "Persim Berry" }
+    "id": 20029,
+    "name": {
+      "ja": "マフォクシナイト",
+      "en": "Delphoxite"
+    }
   },
   {
-    "id": 3014,
-    "name": { "ja": "オッカのみ", "en": "Occa Berry" }
+    "id": 20030,
+    "name": {
+      "ja": "ブリガロナイト",
+      "en": "Chesnaughtite"
+    }
   },
   {
-    "id": 3015,
-    "name": { "ja": "イトケのみ", "en": "Passho Berry" }
+    "id": 20031,
+    "name": {
+      "ja": "フラエッテナイト",
+      "en": "Floettite"
+    }
   },
   {
-    "id": 3016,
-    "name": { "ja": "ソクノのみ", "en": "Wacan Berry" }
+    "id": 20032,
+    "name": {
+      "ja": "セグレイブナイト",
+      "en": "Baxcaliburite"
+    }
   },
   {
-    "id": 3017,
-    "name": { "ja": "リンドのみ", "en": "Rindo Berry" }
+    "id": 20033,
+    "name": {
+      "ja": "ルカリオナイトZ",
+      "en": "Lucarionite Z"
+    }
   },
   {
-    "id": 3018,
-    "name": { "ja": "ヤチェのみ", "en": "Yache Berry" }
+    "id": 20034,
+    "name": {
+      "ja": "ライチュウナイトX",
+      "en": "Raichunite X"
+    }
   },
   {
-    "id": 3019,
-    "name": { "ja": "ヨプのみ", "en": "Chople Berry" }
+    "id": 20035,
+    "name": {
+      "ja": "ライチュウナイトY",
+      "en": "Raichunite Y"
+    }
   },
   {
-    "id": 3020,
-    "name": { "ja": "ビアーのみ", "en": "Kebia Berry" }
+    "id": 794,
+    "name": {
+      "ja": "ジュカインナイト",
+      "en": "Sceptilite"
+    }
   },
   {
-    "id": 3021,
-    "name": { "ja": "シュカのみ", "en": "Shuca Berry" }
+    "id": 793,
+    "name": {
+      "ja": "ラグラージナイト",
+      "en": "Swampertite"
+    }
   },
   {
-    "id": 3022,
-    "name": { "ja": "バコウのみ", "en": "Coba Berry" }
+    "id": 703,
+    "name": {
+      "ja": "バシャーモナイト",
+      "en": "Blazikenite"
+    }
   },
   {
-    "id": 3023,
-    "name": { "ja": "タンガのみ", "en": "Tanga Berry" }
+    "id": 20036,
+    "name": {
+      "ja": "アブソルナイトZ",
+      "en": "Absolite Z"
+    }
   },
   {
-    "id": 3024,
-    "name": { "ja": "ヨロギのみ", "en": "Charti Berry" }
+    "id": 20037,
+    "name": {
+      "ja": "ムクホークナイト",
+      "en": "Staraptorite"
+    }
   },
   {
-    "id": 3025,
-    "name": { "ja": "カシブのみ", "en": "Kasib Berry" }
+    "id": 20038,
+    "name": {
+      "ja": "チリーンナイト",
+      "en": "Chimechonite"
+    }
   },
   {
-    "id": 3026,
-    "name": { "ja": "ハバンのみ", "en": "Haban Berry" }
+    "id": 20039,
+    "name": {
+      "ja": "ケケンカニナイト",
+      "en": "Crabominableite"
+    }
   },
   {
-    "id": 3027,
-    "name": { "ja": "ウタンのみ", "en": "Colbur Berry" }
+    "id": 20040,
+    "name": {
+      "ja": "スコヴィラナイト",
+      "en": "Scovillainite"
+    }
   },
   {
-    "id": 3028,
-    "name": { "ja": "リリバのみ", "en": "Babiri Berry" }
+    "id": 20041,
+    "name": {
+      "ja": "ゴルーグナイト",
+      "en": "Golurkite"
+    }
   },
   {
-    "id": 3029,
-    "name": { "ja": "ロゼルのみ", "en": "Roseli Berry" }
+    "id": 20042,
+    "name": {
+      "ja": "ニャオニクスナイト",
+      "en": "Meowsticite"
+    }
   },
   {
-    "id": 3030,
-    "name": { "ja": "ホズのみ", "en": "Chilan Berry" }
+    "id": 20043,
+    "name": {
+      "ja": "グソクムシャナイト",
+      "en": "Golisopodite"
+    }
   },
   {
-    "id": 3031,
-    "name": { "ja": "イバンのみ", "en": "Custap Berry" }
+    "id": 20044,
+    "name": {
+      "ja": "キラフロルナイト",
+      "en": "Glimmorite"
+    }
   },
   {
-    "id": 3032,
-    "name": { "ja": "アッキのみ", "en": "Kee Berry" }
-  },
-  {
-    "id": 3033,
-    "name": { "ja": "タラプのみ", "en": "Maranga Berry" }
-  },
-  {
-    "id": 3034,
-    "name": { "ja": "カムラのみ", "en": "Salac Berry" }
-  },
-  {
-    "id": 3035,
-    "name": { "ja": "チイラのみ", "en": "Liechi Berry" }
-  },
-  {
-    "id": 3036,
-    "name": { "ja": "リュガのみ", "en": "Ganlon Berry" }
-  },
-  {
-    "id": 3037,
-    "name": { "ja": "ヤタピのみ", "en": "Petaya Berry" }
-  },
-  {
-    "id": 3038,
-    "name": { "ja": "スターのみ", "en": "Starf Berry" }
-  },
-  {
-    "id": 3039,
-    "name": { "ja": "サンのみ", "en": "Lansat Berry" }
-  },
-  {
-    "id": 3040,
-    "name": { "ja": "ジャポのみ", "en": "Jaboca Berry" }
-  },
-  {
-    "id": 3041,
-    "name": { "ja": "レンブのみ", "en": "Rowap Berry" }
-  },
-  {
-    "id": 3042,
-    "name": { "ja": "ミクマのみ", "en": "Micle Berry" }
+    "id": 20045,
+    "name": {
+      "ja": "ガブリアスナイトZ",
+      "en": "Garchompite Z"
+    }
   },
   {
     "id": 99999,
