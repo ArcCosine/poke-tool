@@ -1,14 +1,16 @@
 {
-  "name": "tmp-vite",
+  "name": "poke-tool",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test": "vitest run",
     "lint": "biome check ./src",
     "update-data": "tsx scripts/fetch_pokeapi.ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "wrangler pages deploy dist --project-name poke-tool"
   },
   "dependencies": {
     "react": "^19.2.7",
