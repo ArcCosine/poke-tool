@@ -1,7 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import regulationsData from '../../data/regulations.json';
 import {
   calculateMaxDamage,
   calculateMaxDurability,
@@ -12,9 +11,7 @@ import {
   type MoveMaster,
   type PokemonMaster,
 } from '../../utils/db';
-import {
-  typeTranslations,
-} from '../../utils/pokemon';
+import { typeTranslations } from '../../utils/pokemon';
 import { Button } from '../common/Button';
 import { Checkbox } from '../common/Checkbox';
 import { Select } from '../common/Select';
@@ -85,7 +82,6 @@ export const StatSearch: React.FC = () => {
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedMoveType, setSelectedMoveType] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [selectedReg, setSelectedReg] = useState<string>('all');
   const [excludeMega, setExcludeMega] = useState(false);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
@@ -152,12 +148,7 @@ export const StatSearch: React.FC = () => {
 
   // 2. Filter, sort, and slice to top 300
   const rankingList: RankingItem[] = flatList
-    // (A) Filter by regulation
-    .filter(
-      (item) =>
-        selectedReg === 'all' || item.pokemon.regulations.includes(selectedReg)
-    )
-    // (B) Filter by pokemon type
+    // (A) Filter by pokemon type
     .filter(
       (item) =>
         selectedType === 'all' || item.pokemon.types.includes(selectedType)
@@ -188,7 +179,7 @@ export const StatSearch: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Filters Card */}
-      <div className="card-premium grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 p-5">
+      <div className="card-premium grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
         {/* Search Target */}
         <Select
           id="search-target"
@@ -251,29 +242,13 @@ export const StatSearch: React.FC = () => {
           <option value="special">{t('special')}</option>
         </Select>
 
-        {/* Regulation Filter */}
-        <Select
-          id="reg-filter"
-          label={t('regulation')}
-          value={selectedReg}
-          onChange={(e) => setSelectedReg(e.target.value)}
-          className="py-2 text-sm"
-        >
-          <option value="all">{t('allRegulations')}</option>
-          {regulationsData.map((reg) => (
-            <option key={reg.id} value={reg.id}>
-              {reg.name[language] || reg.name.ja}
-            </option>
-          ))}
-        </Select>
-
         {/* Exclude Mega Checkbox */}
         <Checkbox
           id="exclude-mega"
           label={t('excludeMega')}
           checked={excludeMega}
           onChange={(e) => setExcludeMega(e.target.checked)}
-          className="col-span-1 sm:col-span-2 lg:col-span-5 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1"
+          className="col-span-1 sm:col-span-2 lg:col-span-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1"
         />
       </div>
 
@@ -374,7 +349,8 @@ export const StatSearch: React.FC = () => {
                         <div className="flex md:hidden mt-0.5 sm:mt-1">
                           <span className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-md tracking-wide w-fit">
                             {item.abilityName
-                              ? item.abilityName[language] || item.abilityName.ja
+                              ? item.abilityName[language] ||
+                                item.abilityName.ja
                               : '-'}
                           </span>
                         </div>

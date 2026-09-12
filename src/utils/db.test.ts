@@ -45,6 +45,12 @@ describe('db caching utilities', () => {
 
     expect(getCachedSpy).toHaveBeenCalledTimes(4); // master_version, pokemon_master, moves_master, items_master
     expect(fetchMock).toHaveBeenCalledTimes(4); // version.json, pokemon_master.json, moves_master.json, items_master.json
+    expect(fetchMock.mock.calls.map((call) => call[0])).toEqual([
+      '/data/version.json',
+      '/data/pokemon_master.json',
+      '/data/moves_master.json',
+      '/data/items_master.json',
+    ]);
     expect(result.pokemon).toEqual(mockPokemon);
     expect(result.moves).toEqual(mockMoves);
     expect(result.items).toEqual(mockItems);
@@ -84,8 +90,54 @@ describe('db caching utilities', () => {
 
     expect(getCachedSpy).toHaveBeenCalledTimes(4);
     expect(fetchMock).toHaveBeenCalledTimes(1); // Only version.json should be fetched
+    expect(fetchMock.mock.calls[0][0]).toBe('/data/version.json');
     expect(result.pokemon).toEqual(mockPokemon);
     expect(result.moves).toEqual(mockMoves);
     expect(result.items).toEqual(mockItems);
+  });
+
+  it('should re-fetch data from network when cachedMoves is an empty array', async () => {
+    const mockPokemon = [{ id: 1, name: { ja: 'フシギバナ', en: 'Venusaur' } }];
+    const mockMoves = [
+      { id: 14, name: { ja: 'つるぎのまい', en: 'Swords Dance' } },
+    ];
+    const mockItems = [
+      { id: 1, name: { ja: 'オボンのみ', en: 'Sitrus Berry' } },
+    ];
+
+    const fetchMock = vi.fn().mockImplementation((url: string) => {
+      if (url.includes('version.json')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ version: 123 }),
+        });
+      }
+      return Promise.resolve({
+        ok: true,
+        json: () => {
+          if (url.includes('pokemon_master'))
+            return Promise.resolve(mockPokemon);
+          if (url.includes('moves_master')) return Promise.resolve(mockMoves);
+          return Promise.resolve(mockItems);
+        },
+      });
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    // Mock IndexedDB operations
+    vi.spyOn(db, 'setCachedData').mockResolvedValue(undefined);
+    vi.spyOn(db, 'getCachedData').mockImplementation((key: string) => {
+      if (key === 'master_version') return Promise.resolve(123);
+      if (key === 'pokemon_master') return Promise.resolve(mockPokemon);
+      if (key === 'moves_master') return Promise.resolve([]); // Broken/empty cached moves!
+      if (key === 'items_master') return Promise.resolve(mockItems);
+      return Promise.resolve(null);
+    });
+
+    const result = await db.loadMasterData();
+
+    // Should invalidate cache and re-fetch from network
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(result.moves).toEqual(mockMoves);
   });
 });

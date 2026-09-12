@@ -9,14 +9,16 @@ describe('Pokemon Common Data Utilities', () => {
     expect(TYPES).toContain('water');
   });
 
-  it('should translate types correctly in all 4 languages', () => {
+  it('should translate types correctly in all 5 languages', () => {
     expect(typeTranslations.fire.ja).toBe('ほのお');
     expect(typeTranslations.fire.en).toBe('Fire');
     expect(typeTranslations.fire.ko).toBe('불꽃');
     expect(typeTranslations.fire['zh-Hant']).toBe('火');
+    expect(typeTranslations.fire['zh-Hans']).toBe('火');
     expect(typeTranslations.fairy.ja).toBe('フェアリー');
     expect(typeTranslations.fairy.ko).toBe('페어리');
     expect(typeTranslations.fairy['zh-Hant']).toBe('妖精');
+    expect(typeTranslations.fairy['zh-Hans']).toBe('妖精');
   });
 
   it('should have color classes for types', () => {
@@ -135,7 +137,10 @@ describe('Master Data Integrity for Rotom forms, Regulation M-C, and Items', asy
     const golisopod = (pokemonMaster.default as PokemonMaster[]).find(
       (poke) => poke.name.ja === 'グソクムシャ'
     );
-    expect(golisopod, 'グソクムシャ should exist in pokemon master').toBeDefined();
+    expect(
+      golisopod,
+      'グソクムシャ should exist in pokemon master'
+    ).toBeDefined();
     expect(golisopod?.learnable_moves).toContain(369); // とんぼがえり (U-turn)
     expect(golisopod?.learnable_moves).toContain(453); // アクアジェット (Aqua Jet)
     expect(golisopod?.learnable_moves.length).toBe(67);

@@ -79,7 +79,9 @@ describe('Poke-Tool Integration', () => {
     });
 
     // Should now display English label on trigger
-    expect(screen.getByTestId('language-selector-trigger').textContent).toContain('English');
+    expect(
+      screen.getByTestId('language-selector-trigger').textContent
+    ).toContain('English');
   });
 
   it('should toggle dark/light theme classes', () => {

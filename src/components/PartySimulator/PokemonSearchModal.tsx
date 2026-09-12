@@ -65,7 +65,18 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
     }
 
     // 4. Traditional Chinese name match
-    if (poke.name['zh-Hant'] && poke.name['zh-Hant'].toLowerCase().includes(queryLower)) {
+    if (
+      poke.name['zh-Hant'] &&
+      poke.name['zh-Hant'].toLowerCase().includes(queryLower)
+    ) {
+      return true;
+    }
+
+    // 5. Simplified Chinese name match
+    if (
+      poke.name['zh-Hans'] &&
+      poke.name['zh-Hans'].toLowerCase().includes(queryLower)
+    ) {
       return true;
     }
 
@@ -155,7 +166,9 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                       </span>
                     </div>
                     <div className="text-xs text-slate-600 dark:text-slate-300 font-medium truncate">
-                      {poke.abilities.map((a) => a[language] || a.ja).join(' / ')}
+                      {poke.abilities
+                        .map((a) => a[language] || a.ja)
+                        .join(' / ')}
                     </div>
                   </div>
                 </div>

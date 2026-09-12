@@ -146,9 +146,7 @@ export const DurabilityOptimizer: React.FC<DurabilityOptimizerProps> = ({
                 onChange={() => setStyle('balance')}
                 className="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 cursor-pointer"
               />
-              <span>
-                {t('evCalculator.durability.balance')}
-              </span>
+              <span>{t('evCalculator.durability.balance')}</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700 dark:text-slate-200">
               <input
@@ -159,9 +157,7 @@ export const DurabilityOptimizer: React.FC<DurabilityOptimizerProps> = ({
                 onChange={() => setStyle('performance')}
                 className="w-4 h-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 dark:border-slate-700 cursor-pointer"
               />
-              <span>
-                {t('evCalculator.durability.overall')}
-              </span>
+              <span>{t('evCalculator.durability.overall')}</span>
             </label>
           </div>
         </div>

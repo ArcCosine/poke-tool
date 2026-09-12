@@ -29,7 +29,7 @@ vi.mock('../../utils/db', () => {
             },
             abilities: [{ ja: 'マルチスケイル', en: 'multiscale' }],
             regulations: ['M-A'],
-            learnable_moves: [],
+            learnable_moves: [14, 53],
           },
           {
             id: 25,
@@ -80,7 +80,26 @@ vi.mock('../../utils/db', () => {
             learnable_moves: [],
           },
         ],
-        moves: [],
+        moves: [
+          {
+            id: 14,
+            name: { ja: 'つるぎのまい', en: 'Swords Dance' },
+            type: 'normal',
+            category: 'status',
+            power: 0,
+            accuracy: 100,
+            pp: 20,
+          },
+          {
+            id: 53,
+            name: { ja: 'かえんほうしゃ', en: 'Flamethrower' },
+            type: 'fire',
+            category: 'special',
+            power: 90,
+            accuracy: 100,
+            pp: 15,
+          },
+        ],
         items: [
           { id: 1, name: { ja: 'こだわりスカーフ', en: 'Choice Scarf' } },
           { id: 2, name: { ja: 'こだわりハチマキ', en: 'Choice Band' } },
@@ -343,5 +362,79 @@ describe('PartySimulator Pokémon Search Modal', () => {
     ).toBeDefined();
     expect(withinControls.getByRole('button', { name: /削除/i })).toBeDefined();
     expect(withinControls.getByRole('button', { name: /保存/i })).toBeDefined();
+  });
+
+  it('should show learnable move suggestions dropdown when move input is focused', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    // Select Dragonite (カイリュー)
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(triggerBtn);
+
+    const dragoniteRow = screen.getByRole('button', { name: /カイリュー/i });
+    fireEvent.click(dragoniteRow);
+
+    // Find move 1 input
+    const move1Input = screen.getByLabelText(/技を選択 1/i);
+    expect(move1Input).toBeDefined();
+
+    // Focus move 1 input to open dropdown suggestions
+    fireEvent.focus(move1Input);
+
+    // Verify move suggestions appear (Swords Dance and Flamethrower)
+    expect(
+      await screen.findByRole('button', { name: /つるぎのまい/i })
+    ).toBeDefined();
+    expect(
+      screen.getByRole('button', { name: /かえんほうしゃ/i })
+    ).toBeDefined();
+  });
+
+  it('should set zIndex stacking order (10 - mIdx) for move selector wrappers', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    // Select Dragonite (カイリュー)
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(triggerBtn);
+
+    const dragoniteRow = screen.getByRole('button', { name: /カイリュー/i });
+    fireEvent.click(dragoniteRow);
+
+    const move1Input = screen.getByLabelText(/技を選択 1/i);
+    const move2Input = screen.getByLabelText(/技を選択 2/i);
+    const move3Input = screen.getByLabelText(/技を選択 3/i);
+    const move4Input = screen.getByLabelText(/技を選択 4/i);
+
+    // Each move input should be inside a wrapper with relative and zIndex = 10 - mIdx
+    const wrapper1 = move1Input.closest('[style*="z-index"]');
+    const wrapper2 = move2Input.closest('[style*="z-index"]');
+    const wrapper3 = move3Input.closest('[style*="z-index"]');
+    const wrapper4 = move4Input.closest('[style*="z-index"]');
+
+    expect(wrapper1).not.toBeNull();
+    expect(wrapper2).not.toBeNull();
+    expect(wrapper3).not.toBeNull();
+    expect(wrapper4).not.toBeNull();
+
+    expect((wrapper1 as HTMLElement).style.zIndex).toBe('10');
+    expect((wrapper2 as HTMLElement).style.zIndex).toBe('9');
+    expect((wrapper3 as HTMLElement).style.zIndex).toBe('8');
+    expect((wrapper4 as HTMLElement).style.zIndex).toBe('7');
   });
 });

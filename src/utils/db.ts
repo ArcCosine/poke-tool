@@ -7,6 +7,7 @@ export interface LocalizedName {
   en: string;
   ko?: string;
   'zh-Hant'?: string;
+  'zh-Hans'?: string;
   [key: string]: string | undefined;
 }
 
@@ -162,7 +163,9 @@ export async function loadMasterData(): Promise<{
   // 1. Fetch current data version
   let currentVersion = 0;
   try {
-    const resVersion = await fetch('/src/data/version.json');
+    const resVersion = await fetch('/data/version.json', {
+      cache: 'no-store',
+    });
     if (resVersion.ok) {
       const versionData = await resVersion.json();
       currentVersion = versionData.version || 0;
@@ -181,9 +184,12 @@ export async function loadMasterData(): Promise<{
   if (
     cachedVersion &&
     cachedVersion === currentVersion &&
-    cachedPokemon &&
-    cachedMoves &&
-    cachedItems
+    Array.isArray(cachedPokemon) &&
+    cachedPokemon.length > 0 &&
+    Array.isArray(cachedMoves) &&
+    cachedMoves.length > 0 &&
+    Array.isArray(cachedItems) &&
+    cachedItems.length > 0
   ) {
     return {
       pokemon: cachedPokemon,
@@ -193,9 +199,9 @@ export async function loadMasterData(): Promise<{
   }
 
   // 3. Fetch from static JSON files
-  const resPokemon = await fetch('/src/data/pokemon_master.json');
-  const resMoves = await fetch('/src/data/moves_master.json');
-  const resItems = await fetch('/src/data/items_master.json');
+  const resPokemon = await fetch('/data/pokemon_master.json');
+  const resMoves = await fetch('/data/moves_master.json');
+  const resItems = await fetch('/data/items_master.json');
 
   if (!resPokemon.ok || !resMoves.ok || !resItems.ok) {
     throw new Error('Failed to fetch master data from static assets');

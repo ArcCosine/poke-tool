@@ -7,7 +7,13 @@ import { PokemonSearchModal } from './PokemonSearchModal';
 const mockPokemonData: PokemonMaster[] = [
   {
     id: 149,
-    name: { ja: 'カイリュー', en: 'Dragonite', ko: '망나뇽', 'zh-Hant': '快龍' },
+    name: {
+      ja: 'カイリュー',
+      en: 'Dragonite',
+      ko: '망나뇽',
+      'zh-Hant': '快龍',
+      'zh-Hans': '快龙',
+    },
     types: ['dragon', 'flying'],
     base_stats: {
       hp: 91,
@@ -18,8 +24,20 @@ const mockPokemonData: PokemonMaster[] = [
       speed: 80,
     },
     abilities: [
-      { ja: 'マルチスケイル', en: 'Multiscale', ko: '멀티스케일', 'zh-Hant': '多重鱗片' },
-      { ja: 'せいしんりょく', en: 'Inner Focus', ko: '정신력', 'zh-Hant': '精神力' },
+      {
+        ja: 'マルチスケイル',
+        en: 'Multiscale',
+        ko: '멀티스케일',
+        'zh-Hant': '多重鱗片',
+        'zh-Hans': '多重鳞片',
+      },
+      {
+        ja: 'せいしんりょく',
+        en: 'Inner Focus',
+        ko: '정신력',
+        'zh-Hant': '精神力',
+        'zh-Hans': '精神力',
+      },
     ],
     regulations: ['M-A'],
     learnable_moves: [],
@@ -133,7 +151,7 @@ describe('PokemonSearchModal', () => {
     expect(spriteContainer?.className).toContain('border');
   });
 
-  it('searches pokemon by Korean and Traditional Chinese names', () => {
+  it('searches pokemon by Korean, Traditional Chinese, and Simplified Chinese names', () => {
     render(
       <AppProvider>
         <PokemonSearchModal
@@ -154,8 +172,10 @@ describe('PokemonSearchModal', () => {
     fireEvent.change(input, { target: { value: '快龍' } });
     expect(screen.getByText('カイリュー')).toBeDefined();
 
+    fireEvent.change(input, { target: { value: '快龙' } });
+    expect(screen.getByText('カイリュー')).toBeDefined();
+
     fireEvent.change(input, { target: { value: 'ピカチュウ' } });
     expect(screen.queryByText('カイリュー')).toBeNull();
   });
 });
-

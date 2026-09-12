@@ -162,10 +162,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       setPendingInstanceToAdd(instance);
       setIsPartySelectOpen(true);
     } else {
-      const createdId = createNewParty(
-        t('evCalculator.myParty'),
-        []
-      );
+      const createdId = createNewParty(t('evCalculator.myParty'), []);
       addPokemonToPartyDirectly(instance, createdId);
       if (onImportComplete) onImportComplete();
     }
@@ -348,7 +345,9 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                   id="item-select"
                   label={t('evCalculator.item')}
                   value={item}
-                  suggestions={itemsData.map((i) => i.name[language] || i.name.ja)}
+                  suggestions={itemsData.map(
+                    (i) => i.name[language] || i.name.ja
+                  )}
                   onChange={(val) => setItem(val)}
                   placeholder={t('evCalculator.itemPlaceholder')}
                 />

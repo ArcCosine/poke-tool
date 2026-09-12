@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { useApp, type Language } from '../../context/AppContext';
+import { type Language, useApp } from '../../context/AppContext';
 import {
   db,
   type ItemMaster,
@@ -45,12 +45,66 @@ const EV_STATS: {
   short: string;
   label: Record<Language, string>;
 }[] = [
-  { key: 'hp', short: 'H', label: { ja: 'HP', en: 'HP', ko: 'HP', 'zh-Hant': 'HP' } },
-  { key: 'attack', short: 'A', label: { ja: '攻撃', en: 'Attack', ko: '공격', 'zh-Hant': '攻擊' } },
-  { key: 'defense', short: 'B', label: { ja: '防御', en: 'Defense', ko: '방어', 'zh-Hant': '防禦' } },
-  { key: 'sp_attack', short: 'C', label: { ja: '特攻', en: 'Sp. Atk', ko: '특공', 'zh-Hant': '特攻' } },
-  { key: 'sp_defense', short: 'D', label: { ja: '特防', en: 'Sp. Def', ko: '특방', 'zh-Hant': '特防' } },
-  { key: 'speed', short: 'S', label: { ja: '素早さ', en: 'Speed', ko: '스피드', 'zh-Hant': '速度' } },
+  {
+    key: 'hp',
+    short: 'H',
+    label: { ja: 'HP', en: 'HP', ko: 'HP', 'zh-Hant': 'HP', 'zh-Hans': 'HP' },
+  },
+  {
+    key: 'attack',
+    short: 'A',
+    label: {
+      ja: '攻撃',
+      en: 'Attack',
+      ko: '공격',
+      'zh-Hant': '攻擊',
+      'zh-Hans': '攻击',
+    },
+  },
+  {
+    key: 'defense',
+    short: 'B',
+    label: {
+      ja: '防御',
+      en: 'Defense',
+      ko: '방어',
+      'zh-Hant': '防禦',
+      'zh-Hans': '防御',
+    },
+  },
+  {
+    key: 'sp_attack',
+    short: 'C',
+    label: {
+      ja: '特攻',
+      en: 'Sp. Atk',
+      ko: '특공',
+      'zh-Hant': '特攻',
+      'zh-Hans': '特攻',
+    },
+  },
+  {
+    key: 'sp_defense',
+    short: 'D',
+    label: {
+      ja: '特防',
+      en: 'Sp. Def',
+      ko: '특방',
+      'zh-Hant': '特防',
+      'zh-Hans': '特防',
+    },
+  },
+  {
+    key: 'speed',
+    short: 'S',
+    label: {
+      ja: '素早さ',
+      en: 'Speed',
+      ko: '스피드',
+      'zh-Hant': '速度',
+      'zh-Hans': '速度',
+    },
+  },
 ];
 
 export const PartySimulator: React.FC = () => {
@@ -506,8 +560,7 @@ export const PartySimulator: React.FC = () => {
                                 : 'text-slate-500 dark:text-slate-400'
                             }`}
                           >
-                            {t('stats.total')}: {totalSteps}{' '}
-                            / 66
+                            {t('stats.total')}: {totalSteps} / 66
                           </span>
                         );
                       })()}
@@ -591,37 +644,44 @@ export const PartySimulator: React.FC = () => {
                         : '';
 
                       return (
-                        <Autocomplete
+                        <div
                           key={mIdx}
-                          id={`move-select-${index}-${mIdx}`}
-                          label={`${t('selectMove')} ${mIdx + 1}`}
-                          value={currentMoveText}
-                          suggestions={learnableMoves.map((m) => {
-                            const nameOnly = m.name[language];
-                            const typeName =
-                              typeTranslations[m.type]?.[language] || m.type;
-                            return `${nameOnly} (${typeName})`;
-                          })}
-                          onChange={(val) => {
-                            if (val === '') {
-                              updateMove(index, mIdx, 0);
-                            } else {
-                              const found = learnableMoves.find((m) => {
-                                const nameOnly = m.name[language];
-                                const typeName =
-                                  typeTranslations[m.type]?.[language] ||
-                                  m.type;
-                                const nameWithType = `${nameOnly} (${typeName})`;
-                                return nameOnly === val || nameWithType === val;
-                              });
-                              if (found) {
-                                updateMove(index, mIdx, found.id);
+                          className="relative"
+                          style={{ zIndex: 10 - mIdx }}
+                        >
+                          <Autocomplete
+                            id={`move-select-${index}-${mIdx}`}
+                            label={`${t('selectMove')} ${mIdx + 1}`}
+                            value={currentMoveText}
+                            suggestions={learnableMoves.map((m) => {
+                              const nameOnly = m.name[language];
+                              const typeName =
+                                typeTranslations[m.type]?.[language] || m.type;
+                              return `${nameOnly} (${typeName})`;
+                            })}
+                            onChange={(val) => {
+                              if (val === '') {
+                                updateMove(index, mIdx, 0);
+                              } else {
+                                const found = learnableMoves.find((m) => {
+                                  const nameOnly = m.name[language];
+                                  const typeName =
+                                    typeTranslations[m.type]?.[language] ||
+                                    m.type;
+                                  const nameWithType = `${nameOnly} (${typeName})`;
+                                  return (
+                                    nameOnly === val || nameWithType === val
+                                  );
+                                });
+                                if (found) {
+                                  updateMove(index, mIdx, found.id);
+                                }
                               }
-                            }
-                          }}
-                          placeholder={t('selectMove')}
-                          className="py-1.5 text-xs w-full box-border"
-                        />
+                            }}
+                            placeholder={t('selectMove')}
+                            className="py-1.5 text-xs w-full box-border"
+                          />
+                        </div>
                       );
                     })}
                   </div>

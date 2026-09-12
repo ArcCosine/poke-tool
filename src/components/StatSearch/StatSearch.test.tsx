@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppProvider } from '../../context/AppContext';
 import { StatSearch } from './StatSearch';
@@ -76,12 +76,12 @@ vi.mock('../../data/regulations.json', () => {
   };
 });
 
-describe('StatSearch Regulation Filtering', () => {
+describe('StatSearch Ranking Display and Filters', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('should render all dynamic regulations in the select dropdown', async () => {
+  it('should NOT render regulation filter dropdown', async () => {
     render(
       <AppProvider>
         <StatSearch />
@@ -91,20 +91,12 @@ describe('StatSearch Regulation Filtering', () => {
     // Wait for loader to disappear
     expect(await screen.findByText('フシギダネ')).toBeDefined();
 
-    const regSelect = screen.getByLabelText(/レギュレーション|regulation/i);
-    expect(regSelect).toBeDefined();
-
-    // Verify mock options exist
-    const options = regSelect.querySelectorAll('option');
-    const optionValues = Array.from(options).map((o) => o.value);
-
-    expect(optionValues).toContain('all');
-    expect(optionValues).toContain('M-A');
-    expect(optionValues).toContain('M-B');
-    expect(optionValues).toContain('M-C');
+    // Regulation filter should be removed
+    const regSelect = screen.queryByLabelText(/レギュレーション|regulation/i);
+    expect(regSelect).toBeNull();
   });
 
-  it('should filter pokemon list based on selected regulation', async () => {
+  it('should display all pokemons including MC additions without regulation filtering', async () => {
     render(
       <AppProvider>
         <StatSearch />
@@ -113,34 +105,9 @@ describe('StatSearch Regulation Filtering', () => {
 
     expect(await screen.findByText('フシギダネ')).toBeDefined();
 
-    const regSelect = screen.getByLabelText(/レギュレーション|regulation/i);
-
-    // 1. Default (All): Should display all mock pokemons
-    expect(screen.queryByText('フシギダネ')).toBeDefined();
-    expect(screen.queryByText('コノヨザル')).toBeDefined();
-    expect(screen.queryByText('ミュウツー')).toBeDefined();
-
-    // 2. Filter to M-A: Should show Bulbasaur, but not Annihilape or Mewtwo
-    act(() => {
-      // biome-ignore lint/suspicious/noExplicitAny: simple trigger
-      (regSelect as any).value = 'M-A';
-      regSelect.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-
-    expect(screen.queryByText('フシギダネ')).toBeDefined();
-    expect(screen.queryByText('コノヨザル')).toBeNull();
-    expect(screen.queryByText('ミュウツー')).toBeNull();
-
-    // 3. Filter to M-B: Should show Bulbasaur and Annihilape, but not Mewtwo
-    // (In actual logic, we assume M-B includes M-A's pokemons, which is simulated by regulations arrays in DB)
-    act(() => {
-      // biome-ignore lint/suspicious/noExplicitAny: simple trigger
-      (regSelect as any).value = 'M-B';
-      regSelect.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-
-    expect(screen.queryByText('フシギダネ')).toBeDefined();
-    expect(screen.queryByText('コノヨザル')).toBeDefined();
-    expect(screen.queryByText('ミュウツー')).toBeNull();
+    // All pokemons regardless of regulations should be present in the ranking
+    expect(screen.getByText('フシギダネ')).toBeDefined();
+    expect(screen.getByText('コノヨザル')).toBeDefined();
+    expect(screen.getByText('ミュウツー')).toBeDefined();
   });
 });

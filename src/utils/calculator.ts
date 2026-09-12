@@ -141,7 +141,7 @@ export function calculateMaxDamage(
     const abilityNameEn = ability.en;
 
     for (const m of learnableMoves) {
-      if (m.category === 'status') continue; // status moves have no damage index
+      if (m.category === 'status' || m.id === 492) continue; // status moves and Foul Play (uses opponent's attack) have no valid self-damage index
 
       const isPhysical = m.category === 'physical';
       let offenseStat = isPhysical ? maxAttack : maxSpAttack;

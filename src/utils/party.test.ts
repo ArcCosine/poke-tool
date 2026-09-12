@@ -256,6 +256,7 @@ describe('party simulation utilities', () => {
       expect(rash?.name.en).toBe('Rash');
       expect((rash?.name as any).ko).toBe('덜렁');
       expect((rash?.name as any)['zh-Hant']).toBe('馬虎');
+      expect((rash?.name as any)['zh-Hans']).toBe('马虎');
       expect(rash?.plus).toBe('sp_attack');
       expect(rash?.minus).toBe('sp_defense');
 

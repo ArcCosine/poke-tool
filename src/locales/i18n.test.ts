@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import en from './en.json';
 import ja from './ja.json';
 import ko from './ko.json';
+import zhHans from './zh-Hans.json';
 import zhHant from './zh-Hant.json';
 
 // Utility to recursively get all dot-separated keys
@@ -19,18 +20,20 @@ function getDeepKeys(obj: Record<string, any>, prefix = ''): string[] {
 }
 
 describe('i18n Locales Master Data and Keys', () => {
-  it('should load ja.json, en.json, ko.json, and zh-Hant.json', () => {
+  it('should load ja.json, en.json, ko.json, zh-Hant.json, and zh-Hans.json', () => {
     expect(ja).toBeDefined();
     expect(en).toBeDefined();
     expect(ko).toBeDefined();
     expect(zhHant).toBeDefined();
+    expect(zhHans).toBeDefined();
   });
 
-  it('should have parity of keys between all 4 languages', () => {
+  it('should have parity of keys between all 5 languages', () => {
     const jaKeys = getDeepKeys(ja).sort();
     const enKeys = getDeepKeys(en).sort();
     const koKeys = getDeepKeys(ko).sort();
     const zhHantKeys = getDeepKeys(zhHant).sort();
+    const zhHansKeys = getDeepKeys(zhHans).sort();
 
     expect(
       jaKeys.filter((k) => !enKeys.includes(k)),
@@ -58,6 +61,15 @@ describe('i18n Locales Master Data and Keys', () => {
       zhHantKeys.filter((k) => !jaKeys.includes(k)),
       'Keys in zh-Hant missing in ja'
     ).toEqual([]);
+
+    expect(
+      jaKeys.filter((k) => !zhHansKeys.includes(k)),
+      'Keys in ja missing in zh-Hans'
+    ).toEqual([]);
+    expect(
+      zhHansKeys.filter((k) => !jaKeys.includes(k)),
+      'Keys in zh-Hans missing in ja'
+    ).toEqual([]);
   });
 
   it('should contain expected top-level and nested structure for all languages', () => {
@@ -65,14 +77,16 @@ describe('i18n Locales Master Data and Keys', () => {
     expect(en.common.cancel).toBe('Cancel');
     expect(ko.common.cancel).toBe('취소');
     expect(zhHant.common.cancel).toBe('取消');
+    expect(zhHans.common.cancel).toBe('取消');
 
     expect(ja.evCalculator.title).toBe('努力値計算ツール');
     expect(en.evCalculator.title).toBe('EV Calculator');
     expect(ko.evCalculator.title).toBe('노력치 계산기');
     expect(zhHant.evCalculator.title).toBe('努力值計算器');
+    expect(zhHans.evCalculator.title).toBe('努力值计算器');
   });
 
-  it('should localize legal texts (privacy policy, disclaimer, terms of service) in Korean and Traditional Chinese without Japanese remnants', () => {
+  it('should localize legal texts (privacy policy, disclaimer, terms of service) in Korean, Traditional Chinese, and Simplified Chinese without Japanese remnants', () => {
     const jpKanaRegex = /[\u3041-\u3096\u30A1-\u30FA]/;
 
     // Korean legal text checks
@@ -98,5 +112,18 @@ describe('i18n Locales Master Data and Keys', () => {
       '【第1條（條款之適用）】'
     );
     expect(zhHant.termsOfServiceText).not.toMatch(jpKanaRegex);
+
+    // Simplified Chinese legal text checks
+    expect(zhHans.legal.privacyPolicyText).not.toMatch(jpKanaRegex);
+    expect(zhHans.legal.privacyPolicyText).toContain('【前言】');
+    expect(zhHans.privacyPolicyText).not.toMatch(jpKanaRegex);
+    expect(zhHans.legal.disclaimerText).not.toMatch(jpKanaRegex);
+    expect(zhHans.legal.disclaimerText).toContain('【与官方相关机构之关系】');
+    expect(zhHans.disclaimerText).not.toMatch(jpKanaRegex);
+    expect(zhHans.legal.termsOfServiceText).not.toMatch(jpKanaRegex);
+    expect(zhHans.legal.termsOfServiceText).toContain(
+      '【第1条（条款之适用）】'
+    );
+    expect(zhHans.termsOfServiceText).not.toMatch(jpKanaRegex);
   });
 });

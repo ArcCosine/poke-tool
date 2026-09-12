@@ -126,4 +126,19 @@ describe('Legal Pages and Layout', () => {
     ).toBeDefined();
     expect(screen.getByRole('button', { name: '返回儀表板' })).toBeDefined();
   });
+
+  it('should render legal pages in Simplified Chinese when language is zh-Hans', () => {
+    localStorage.setItem('lang', 'zh-Hans');
+    render(
+      <LegalLayout>
+        <TermsOfService onBack={() => {}} />
+      </LegalLayout>
+    );
+
+    expect(screen.getByText('使用条款')).toBeDefined();
+    expect(
+      screen.getByText(/本使用条款（以下简称“本条款”）旨在规范本工具使用者/)
+    ).toBeDefined();
+    expect(screen.getByRole('button', { name: '返回仪表板' })).toBeDefined();
+  });
 });

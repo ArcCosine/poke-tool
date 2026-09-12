@@ -31,6 +31,7 @@ describe('LanguageSelector', () => {
     // Should see options
     expect(screen.getByText('한국어')).toBeDefined();
     expect(screen.getByText('繁體中文')).toBeDefined();
+    expect(screen.getByText('简体中文')).toBeDefined();
     expect(screen.getByText('English')).toBeDefined();
 
     // Click Korean
@@ -39,6 +40,8 @@ describe('LanguageSelector', () => {
     });
 
     expect(localStorage.getItem('lang')).toBe('ko');
-    expect(screen.getByTestId('language-selector-trigger').textContent).toContain('한국어');
+    expect(
+      screen.getByTestId('language-selector-trigger').textContent
+    ).toContain('한국어');
   });
 });

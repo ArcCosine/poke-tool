@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { PokemonInstance } from '../utils/party';
 import { createEmptyInstance } from '../utils/party';
 
-export type Language = 'ja' | 'en' | 'ko' | 'zh-Hant';
+export type Language = 'ja' | 'en' | 'ko' | 'zh-Hant' | 'zh-Hans';
 export type Theme = 'light' | 'dark';
 
 export const LANGUAGES: { code: Language; label: string }[] = [
@@ -11,6 +11,7 @@ export const LANGUAGES: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
   { code: 'ko', label: '한국어' },
   { code: 'zh-Hant', label: '繁體中文' },
+  { code: 'zh-Hans', label: '简体中文' },
 ];
 
 export interface SavedParty {
@@ -54,6 +55,7 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 import enTranslations from '../locales/en.json';
 import jaTranslations from '../locales/ja.json';
 import koTranslations from '../locales/ko.json';
+import zhHansTranslations from '../locales/zh-Hans.json';
 import zhHantTranslations from '../locales/zh-Hant.json';
 
 const translations: Record<Language, any> = {
@@ -61,6 +63,7 @@ const translations: Record<Language, any> = {
   en: enTranslations,
   ko: koTranslations,
   'zh-Hant': zhHantTranslations,
+  'zh-Hans': zhHansTranslations,
 };
 
 const resolveTranslation = (obj: any, path: string): string | undefined => {
@@ -89,7 +92,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   // Initialize language from localStorage or default to 'ja'
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('lang') as Language;
-    return (['ja', 'en', 'ko', 'zh-Hant'] as Language[]).includes(saved)
+    return (['ja', 'en', 'ko', 'zh-Hant', 'zh-Hans'] as Language[]).includes(
+      saved
+    )
       ? saved
       : 'ja';
   });
@@ -176,7 +181,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const toggleLanguage = () => {
     setLanguageState((prev) => {
-      const order: Language[] = ['ja', 'en', 'ko', 'zh-Hant'];
+      const order: Language[] = ['ja', 'en', 'ko', 'zh-Hant', 'zh-Hans'];
       const nextIndex = (order.indexOf(prev) + 1) % order.length;
       const next = order[nextIndex];
       localStorage.setItem('lang', next);

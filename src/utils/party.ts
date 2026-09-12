@@ -238,131 +238,296 @@ export interface NatureDefinition {
 export const NATURES: NatureDefinition[] = [
   {
     id: 'adamant',
-    name: { ja: 'いじっぱり', en: 'Adamant', ko: '고집', 'zh-Hant': '固執' },
+    name: {
+      ja: 'いじっぱり',
+      en: 'Adamant',
+      ko: '고집',
+      'zh-Hant': '固執',
+      'zh-Hans': '固执',
+    },
     plus: 'attack',
     minus: 'sp_attack',
   },
   {
     id: 'jolly',
-    name: { ja: 'ようき', en: 'Jolly', ko: '명랑', 'zh-Hant': '爽朗' },
+    name: {
+      ja: 'ようき',
+      en: 'Jolly',
+      ko: '명랑',
+      'zh-Hant': '爽朗',
+      'zh-Hans': '爽朗',
+    },
     plus: 'speed',
     minus: 'sp_attack',
   },
   {
     id: 'timid',
-    name: { ja: 'おくびょう', en: 'Timid', ko: '겁쟁이', 'zh-Hant': '膽小' },
+    name: {
+      ja: 'おくびょう',
+      en: 'Timid',
+      ko: '겁쟁이',
+      'zh-Hant': '膽小',
+      'zh-Hans': '胆小',
+    },
     plus: 'speed',
     minus: 'attack',
   },
   {
     id: 'modest',
-    name: { ja: 'ひかえめ', en: 'Modest', ko: '조심', 'zh-Hant': '內斂' },
+    name: {
+      ja: 'ひかえめ',
+      en: 'Modest',
+      ko: '조심',
+      'zh-Hant': '內斂',
+      'zh-Hans': '内敛',
+    },
     plus: 'sp_attack',
     minus: 'attack',
   },
   {
     id: 'bold',
-    name: { ja: 'ずぶとい', en: 'Bold', ko: '대담', 'zh-Hant': '大膽' },
+    name: {
+      ja: 'ずぶとい',
+      en: 'Bold',
+      ko: '대담',
+      'zh-Hant': '大膽',
+      'zh-Hans': '大胆',
+    },
     plus: 'defense',
     minus: 'attack',
   },
   {
     id: 'impish',
-    name: { ja: 'わんぱく', en: 'Impish', ko: '장난꾸러기', 'zh-Hant': '淘氣' },
+    name: {
+      ja: 'わんぱく',
+      en: 'Impish',
+      ko: '장난꾸러기',
+      'zh-Hant': '淘氣',
+      'zh-Hans': '淘气',
+    },
     plus: 'defense',
     minus: 'sp_attack',
   },
   {
     id: 'calm',
-    name: { ja: 'おだやか', en: 'Calm', ko: '차분', 'zh-Hant': '溫和' },
+    name: {
+      ja: 'おだやか',
+      en: 'Calm',
+      ko: '차분',
+      'zh-Hant': '溫和',
+      'zh-Hans': '温和',
+    },
     plus: 'sp_defense',
     minus: 'attack',
   },
   {
     id: 'careful',
-    name: { ja: 'しんちょう', en: 'Careful', ko: '신중', 'zh-Hant': '慎重' },
+    name: {
+      ja: 'しんちょう',
+      en: 'Careful',
+      ko: '신중',
+      'zh-Hant': '慎重',
+      'zh-Hans': '慎重',
+    },
     plus: 'sp_defense',
     minus: 'sp_attack',
   },
   {
     id: 'quiet',
-    name: { ja: 'れいせい', en: 'Quiet', ko: '냉정', 'zh-Hant': '冷靜' },
+    name: {
+      ja: 'れいせい',
+      en: 'Quiet',
+      ko: '냉정',
+      'zh-Hant': '冷靜',
+      'zh-Hans': '冷静',
+    },
     plus: 'sp_attack',
     minus: 'speed',
   },
   {
     id: 'brave',
-    name: { ja: 'ゆうかん', en: 'Brave', ko: '용감', 'zh-Hant': '勇敢' },
+    name: {
+      ja: 'ゆうかん',
+      en: 'Brave',
+      ko: '용감',
+      'zh-Hant': '勇敢',
+      'zh-Hans': '勇敢',
+    },
     plus: 'attack',
     minus: 'speed',
   },
   {
     id: 'relaxed',
-    name: { ja: 'のんき', en: 'Relaxed', ko: '무사태평', 'zh-Hant': '悠閒' },
+    name: {
+      ja: 'のんき',
+      en: 'Relaxed',
+      ko: '무사태평',
+      'zh-Hant': '悠閒',
+      'zh-Hans': '悠闲',
+    },
     plus: 'defense',
     minus: 'speed',
   },
   {
     id: 'sassy',
-    name: { ja: 'なまいき', en: 'Sassy', ko: '건방', 'zh-Hant': '自大' },
+    name: {
+      ja: 'なまいき',
+      en: 'Sassy',
+      ko: '건방',
+      'zh-Hant': '自大',
+      'zh-Hans': '自大',
+    },
     plus: 'sp_defense',
     minus: 'speed',
   },
   // 素早さ・耐久下降・両刀・変則性格
   {
     id: 'rash',
-    name: { ja: 'うっかりや', en: 'Rash', ko: '덜렁', 'zh-Hant': '馬虎' },
+    name: {
+      ja: 'うっかりや',
+      en: 'Rash',
+      ko: '덜렁',
+      'zh-Hant': '馬虎',
+      'zh-Hans': '马虎',
+    },
     plus: 'sp_attack',
     minus: 'sp_defense',
   },
   {
     id: 'mild',
-    name: { ja: 'おっとり', en: 'Mild', ko: '의젓', 'zh-Hant': '慢吞吞' },
+    name: {
+      ja: 'おっとり',
+      en: 'Mild',
+      ko: '의젓',
+      'zh-Hant': '慢吞吞',
+      'zh-Hans': '慢吞吞',
+    },
     plus: 'sp_attack',
     minus: 'defense',
   },
   {
     id: 'hasty',
-    name: { ja: 'せっかち', en: 'Hasty', ko: '성급', 'zh-Hant': '急躁' },
+    name: {
+      ja: 'せっかち',
+      en: 'Hasty',
+      ko: '성급',
+      'zh-Hant': '急躁',
+      'zh-Hans': '急躁',
+    },
     plus: 'speed',
     minus: 'defense',
   },
   {
     id: 'naive',
-    name: { ja: 'むじゃき', en: 'Naive', ko: '천진난만', 'zh-Hant': '天真' },
+    name: {
+      ja: 'むじゃき',
+      en: 'Naive',
+      ko: '천진난만',
+      'zh-Hant': '天真',
+      'zh-Hans': '天真',
+    },
     plus: 'speed',
     minus: 'sp_defense',
   },
   {
     id: 'naughty',
-    name: { ja: 'やんちゃ', en: 'Naughty', ko: '고집통', 'zh-Hant': '頑皮' },
+    name: {
+      ja: 'やんちゃ',
+      en: 'Naughty',
+      ko: '고집통',
+      'zh-Hant': '頑皮',
+      'zh-Hans': '顽皮',
+    },
     plus: 'attack',
     minus: 'sp_defense',
   },
   {
     id: 'lonely',
-    name: { ja: 'さみしがり', en: 'Lonely', ko: '외로움', 'zh-Hant': '怕寂寞' },
+    name: {
+      ja: 'さみしがり',
+      en: 'Lonely',
+      ko: '외로움',
+      'zh-Hant': '怕寂寞',
+      'zh-Hans': '怕寂寞',
+    },
     plus: 'attack',
     minus: 'defense',
   },
   {
     id: 'lax',
-    name: { ja: 'のうてんき', en: 'Lax', ko: '촐랑', 'zh-Hant': '樂天' },
+    name: {
+      ja: 'のうてんき',
+      en: 'Lax',
+      ko: '촐랑',
+      'zh-Hant': '樂天',
+      'zh-Hans': '乐天',
+    },
     plus: 'defense',
     minus: 'sp_defense',
   },
   {
     id: 'gentle',
-    name: { ja: 'おとなしい', en: 'Gentle', ko: '얌전', 'zh-Hant': '溫順' },
+    name: {
+      ja: 'おとなしい',
+      en: 'Gentle',
+      ko: '얌전',
+      'zh-Hant': '溫順',
+      'zh-Hans': '温顺',
+    },
     plus: 'sp_defense',
     minus: 'defense',
   },
   // 無補正性格
-  { id: 'neutral', name: { ja: 'まじめ', en: 'Serious', ko: '성실', 'zh-Hant': '認真' } },
-  { id: 'hardy', name: { ja: 'がんばりや', en: 'Hardy', ko: '노력', 'zh-Hant': '勤奮' } },
-  { id: 'docile', name: { ja: 'すなお', en: 'Docile', ko: '온순', 'zh-Hant': '坦率' } },
-  { id: 'bashful', name: { ja: 'てれや', en: 'Bashful', ko: '수줍음', 'zh-Hant': '害羞' } },
-  { id: 'quirky', name: { ja: 'きまぐれ', en: 'Quirky', ko: '변덕', 'zh-Hant': '浮躁' } },
+  {
+    id: 'neutral',
+    name: {
+      ja: 'まじめ',
+      en: 'Serious',
+      ko: '성실',
+      'zh-Hant': '認真',
+      'zh-Hans': '认真',
+    },
+  },
+  {
+    id: 'hardy',
+    name: {
+      ja: 'がんばりや',
+      en: 'Hardy',
+      ko: '노력',
+      'zh-Hant': '勤奮',
+      'zh-Hans': '勤奋',
+    },
+  },
+  {
+    id: 'docile',
+    name: {
+      ja: 'すなお',
+      en: 'Docile',
+      ko: '온순',
+      'zh-Hant': '坦率',
+      'zh-Hans': '坦率',
+    },
+  },
+  {
+    id: 'bashful',
+    name: {
+      ja: 'てれや',
+      en: 'Bashful',
+      ko: '수줍음',
+      'zh-Hant': '害羞',
+      'zh-Hans': '害羞',
+    },
+  },
+  {
+    id: 'quirky',
+    name: {
+      ja: 'きまぐれ',
+      en: 'Quirky',
+      ko: '변덕',
+      'zh-Hant': '浮躁',
+      'zh-Hans': '浮躁',
+    },
+  },
 ];
 
 export const getCalculatedStat = (
@@ -394,7 +559,11 @@ export const generatePokesolText = (
   if (!master) return '';
 
   const name = master.name[language] || master.name.ja;
-  const ability = member.ability || master.abilities[0]?.[language] || master.abilities[0]?.ja || '';
+  const ability =
+    member.ability ||
+    master.abilities[0]?.[language] ||
+    master.abilities[0]?.ja ||
+    '';
   const item = member.item ? ` @ ${member.item}` : '';
 
   const nat =

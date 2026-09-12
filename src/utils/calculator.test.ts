@@ -563,6 +563,56 @@ describe('calculator utilities', () => {
       expect(rf0).toBeDefined();
       expect(rf0?.value).toBe(12525);
     });
+
+    it('should exclude Foul Play (イカサマ, ID: 492) from damage calculation', () => {
+      const mockPokemon: PokemonMaster = {
+        id: 197,
+        name: { ja: 'ブラッキー', en: 'Umbreon' },
+        types: ['dark'],
+        base_stats: {
+          hp: 95,
+          attack: 65,
+          defense: 110,
+          sp_attack: 60,
+          sp_defense: 130,
+          speed: 65,
+        },
+        abilities: [{ ja: 'シンクロ', en: 'Synchronize' }],
+        regulations: ['M-A'],
+        learnable_moves: [44, 492], // 44: かみつく, 492: イカサマ
+      };
+
+      const mockMoves: MoveMaster[] = [
+        {
+          id: 44,
+          name: { ja: 'かみつく', en: 'Bite' },
+          type: 'dark',
+          category: 'physical',
+          power: 60,
+          accuracy: 100,
+          pp: 25,
+        },
+        {
+          id: 492,
+          name: { ja: 'イカサマ', en: 'Foul Play' },
+          type: 'dark',
+          category: 'physical',
+          power: 95,
+          accuracy: 100,
+          pp: 15,
+        },
+      ];
+
+      const res = calculateMaxDamage(mockPokemon, mockMoves);
+
+      // Foul Play must be excluded, only Bite should remain
+      expect(
+        res.some(
+          (m) => m.moveName.ja === 'イカサマ' || m.moveName.en === 'Foul Play'
+        )
+      ).toBe(false);
+      expect(res.some((m) => m.moveName.ja === 'かみつく')).toBe(true);
+    });
   });
 
   describe('calculateMaxDurability', () => {
@@ -699,6 +749,30 @@ describe('calculator utilities', () => {
       // Special: 207 * 250 = 51750
       expect(durability.special).toBe(51750);
       expect(durability.specialAbility.ja).toBe('すなおこし');
+    });
+  });
+
+  describe('Master Data Ranking Compatibility', () => {
+    it('should ensure all pokemons in master data have learnable moves and valid damage calculation', async () => {
+      // Import master data directly
+      const pokemonMaster = (
+        await import('../../public/data/pokemon_master.json')
+      ).default;
+      const movesMaster = (await import('../../public/data/moves_master.json'))
+        .default;
+
+      // Every pokemon (including Mega Absol Z, Mega Garchomp Z, Mega Lucario Z) should have learnable moves
+      const pokesWithoutMoves = (pokemonMaster as any[]).filter(
+        (p) => !p.learnable_moves || p.learnable_moves.length === 0
+      );
+      expect(pokesWithoutMoves).toEqual([]);
+
+      // Test Mega Absol Z specifically
+      const megaAbsolZ = (pokemonMaster as any[]).find((p) => p.id === 10307);
+      expect(megaAbsolZ).toBeDefined();
+      const dmgMoves = calculateMaxDamage(megaAbsolZ, movesMaster as any);
+      expect(dmgMoves.length).toBeGreaterThan(0);
+      expect(dmgMoves[0].value).toBeGreaterThan(0);
     });
   });
 });

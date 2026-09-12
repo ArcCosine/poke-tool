@@ -2,12 +2,14 @@
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
 
 # Cache static assets with content hashes indefinitely
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Ensure latest master data JSON
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Ensure latest HTML documents
 /*.html

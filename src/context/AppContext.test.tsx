@@ -192,7 +192,7 @@ describe('AppContext', () => {
     expect(appInstance.pendingPokemonToAdd).toBeNull();
   });
 
-  it('should cycle through 4 languages and persist in localStorage', () => {
+  it('should cycle through 5 languages and persist in localStorage', () => {
     render(
       <AppProvider>
         <TestComponent />
@@ -225,7 +225,15 @@ describe('AppContext', () => {
     expect(localStorage.getItem('lang')).toBe('zh-Hant');
     expect(screen.getByTestId('translated').textContent).toBe('儀表板');
 
-    // 4. zh-Hant -> ja
+    // 4. zh-Hant -> zh-Hans
+    act(() => {
+      btnLang.click();
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('zh-Hans');
+    expect(localStorage.getItem('lang')).toBe('zh-Hans');
+    expect(screen.getByTestId('translated').textContent).toBe('仪表板');
+
+    // 5. zh-Hans -> ja
     act(() => {
       btnLang.click();
     });
@@ -246,14 +254,27 @@ describe('AppContext', () => {
     });
     expect(screen.getByTestId('lang').textContent).toBe('ko');
     expect(localStorage.getItem('lang')).toBe('ko');
-    expect(screen.getByTestId('nested-translated').textContent).toBe('노력치 계산기');
+    expect(screen.getByTestId('nested-translated').textContent).toBe(
+      '노력치 계산기'
+    );
 
     act(() => {
       appInstance.setLanguage('zh-Hant');
     });
     expect(screen.getByTestId('lang').textContent).toBe('zh-Hant');
     expect(localStorage.getItem('lang')).toBe('zh-Hant');
-    expect(screen.getByTestId('nested-translated').textContent).toBe('努力值計算器');
+    expect(screen.getByTestId('nested-translated').textContent).toBe(
+      '努力值計算器'
+    );
+
+    act(() => {
+      appInstance.setLanguage('zh-Hans');
+    });
+    expect(screen.getByTestId('lang').textContent).toBe('zh-Hans');
+    expect(localStorage.getItem('lang')).toBe('zh-Hans');
+    expect(screen.getByTestId('nested-translated').textContent).toBe(
+      '努力值计算器'
+    );
   });
 
   it('should toggle theme and update html class and localStorage', () => {
