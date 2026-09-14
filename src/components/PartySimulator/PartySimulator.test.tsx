@@ -437,4 +437,62 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect((wrapper3 as HTMLElement).style.zIndex).toBe('8');
     expect((wrapper4 as HTMLElement).style.zIndex).toBe('7');
   });
+
+  it('should show Dialog when party is saved and close on confirm', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    // Click "パーティを保存" button
+    const saveBtn = screen.getByRole('button', { name: /パーティを保存/i });
+    fireEvent.click(saveBtn);
+
+    // Dialog should be displayed with dialog role
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toBeDefined();
+    expect(screen.getByText('パーティを保存しました！')).toBeDefined();
+
+    // Click OK button inside dialog
+    const okBtn = screen.getByRole('button', { name: 'OK' });
+    fireEvent.click(okBtn);
+
+    // Dialog should be closed
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('should open share dialog with alphanumeric URL when party share button is clicked', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    // Select Dragonite
+    const triggerBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(triggerBtn);
+
+    const dragoniteRow = screen.getByRole('button', { name: /カイリュー/i });
+    fireEvent.click(dragoniteRow);
+
+    // Click "シェア" button
+    const shareBtn = screen.getByRole('button', { name: /シェア/i });
+    fireEvent.click(shareBtn);
+
+    // Dialog should be open
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toBeDefined();
+    expect(screen.getByText('パーティをシェア')).toBeDefined();
+
+    // Check share URL input value is alphanumeric without %
+    const shareUrlInput = screen.getByDisplayValue(/https?:\/\/.*[?&]p=[0-9a-zA-Z]+/);
+    expect(shareUrlInput).toBeDefined();
+  });
 });

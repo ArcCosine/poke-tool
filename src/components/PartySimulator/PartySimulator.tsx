@@ -14,14 +14,20 @@ import {
   generatePartyPokesolText,
   getCalculatedStat,
   NATURES,
+  type PokemonInstance,
   stepToEv,
 } from '../../utils/party';
 import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
+import { Dialog } from '../common/Dialog';
 import { Select } from '../common/Select';
 import { TypeBadge } from '../common/TypeBadge';
 import { PokemonSearchModal } from './PokemonSearchModal';
+import {
+  decodePartyConfig,
+  encodePartyConfig,
+} from '../../utils/share';
 
 type StatKey =
   | 'hp'
@@ -190,9 +196,75 @@ export const PartySimulator: React.FC = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [isShareCopied, setIsShareCopied] = useState(false);
+
+  // Restore party from URL query (?p=...) or hash (#p=...)
+  useEffect(() => {
+    if (pokemonData.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const code =
+      params.get('p') ||
+      window.location.hash.replace('#p=', '').replace('#', '');
+    if (!code) return;
+    const decoded = decodePartyConfig(code);
+    if (!decoded || decoded.members.length === 0) return;
+
+    const importedMembers = decoded.members
+      .map((m) => {
+        const poke = pokemonData.find((p) => p.id === m.pokemonId);
+        if (!poke) return null;
+        const itemObj = itemsData.find((i) => i.id === m.itemId);
+        return {
+          id: Math.random().toString(36).substring(2, 9),
+          masterId: m.pokemonId,
+          nature: m.nature,
+          ability: poke.abilities[0]?.ja || '',
+          item: itemObj ? itemObj.name[language] || itemObj.name.ja : '',
+          moves: m.moves,
+          evs: m.evs,
+        };
+      })
+      .filter(Boolean) as PokemonInstance[];
+
+    if (importedMembers.length > 0) {
+      createNewParty(t('share.sharePartyTitle'), importedMembers);
+    }
+  }, [pokemonData, itemsData, language]);
+
+  const handleShareParty = () => {
+    if (partyMembers.length === 0) return;
+    const membersConfig = partyMembers.map((m) => {
+      const itemObj = itemsData.find(
+        (i) => i.name[language] === m.item || i.name.ja === m.item
+      );
+      return {
+        pokemonId: m.masterId,
+        nature: m.nature,
+        itemId: itemObj ? itemObj.id : 0,
+        evs: m.evs,
+        moves: m.moves,
+      };
+    });
+    const code = encodePartyConfig({ members: membersConfig });
+    const url = `${window.location.origin}${window.location.pathname}?p=${code}`;
+    setShareUrl(url);
+    setIsShareDialogOpen(true);
+    setIsShareCopied(false);
+  };
+
+  const handleCopyShareUrl = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setIsShareCopied(true);
+      setTimeout(() => setIsShareCopied(false), 2500);
+    });
+  };
+
   const saveParty = () => {
     saveCurrentParty();
-    alert(t('partySimulator.partySaved'));
+    setIsSaveDialogOpen(true);
   };
 
   const copyPokesolText = () => {
@@ -355,6 +427,15 @@ export const PartySimulator: React.FC = () => {
               className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
             >
               {t('partySimulator.newParty')}
+            </Button>
+            <Button
+              onClick={handleShareParty}
+              disabled={activeParty.length === 0}
+              variant="secondary"
+              icon="i-lucide-share-2"
+              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
+            >
+              {t('share.button')}
             </Button>
             <Button
               onClick={() => deleteParty(currentPartyId)}
@@ -819,6 +900,90 @@ export const PartySimulator: React.FC = () => {
           autoAdvance={autoAdvance}
           onToggleAutoAdvance={handleToggleAutoAdvance}
         />
+        <Dialog
+          isOpen={isSaveDialogOpen}
+          onClose={() => setIsSaveDialogOpen(false)}
+          title={
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+              <span className="i-lucide-check-circle text-xl" />
+              {t('partySimulator.saveParty')}
+            </div>
+          }
+          actions={
+            <Button
+              variant="primary"
+              onClick={() => setIsSaveDialogOpen(false)}
+            >
+              OK
+            </Button>
+          }
+        >
+          <div className="space-y-2">
+            <p className="font-semibold text-slate-800 dark:text-slate-100">
+              {t('partySimulator.partySaved')}
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {t('partySimulator.partyName')}:{' '}
+              <span className="font-bold text-slate-700 dark:text-slate-200">
+                {partyName}
+              </span>
+            </p>
+          </div>
+        </Dialog>
+        {/* Party Share Dialog */}
+        <Dialog
+          isOpen={isShareDialogOpen}
+          onClose={() => setIsShareDialogOpen(false)}
+          title={
+            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+              <span className="i-lucide-share-2 text-xl" />
+              {t('share.sharePartyTitle')}
+            </div>
+          }
+          actions={
+            <Button
+              variant="secondary"
+              onClick={() => setIsShareDialogOpen(false)}
+            >
+              {t('pokemonSearchModal.close')}
+            </Button>
+          }
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {t('share.sharePartyDesc')}
+            </p>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                readOnly
+                value={shareUrl}
+                className="w-full text-xs font-mono py-2 px-3 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 select-all"
+              />
+              <Button
+                onClick={handleCopyShareUrl}
+                variant="primary"
+                className="shrink-0 text-xs py-2"
+                icon={isShareCopied ? 'i-lucide-check' : 'i-lucide-copy'}
+              >
+                {isShareCopied ? t('share.copied') : t('share.copyUrl')}
+              </Button>
+            </div>
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-center">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  t('share.tweetTextParty')
+                )}&url=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary py-2 px-4 rounded-xl flex items-center gap-2 text-xs font-bold no-underline"
+              >
+                <span className="i-lucide-twitter text-sm" />
+                {t('share.shareToX')}
+              </a>
+            </div>
+          </div>
+        </Dialog>
       </div>
     </div>
   );

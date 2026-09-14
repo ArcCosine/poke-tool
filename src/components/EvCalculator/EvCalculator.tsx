@@ -12,9 +12,15 @@ import { getCalculatedStat, NATURES, stepToEv } from '../../utils/party';
 import { megaStoneMap, typeTranslations } from '../../utils/pokemon';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
+import { Dialog } from '../common/Dialog';
 import { Select } from '../common/Select';
 import { TypeBadge } from '../common/TypeBadge';
 import { PokemonSearchModal } from '../PartySimulator/PokemonSearchModal';
+import {
+  decodePokemonConfig,
+  encodePokemonConfig,
+  type SharedPokemonConfig,
+} from '../../utils/share';
 import { DurabilityOptimizer } from './DurabilityOptimizer';
 import { EvStatInput } from './EvStatInput';
 
@@ -65,6 +71,11 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   const [pendingInstanceToAdd, setPendingInstanceToAdd] =
     useState<PokemonInstance | null>(null);
 
+  // Share dialog state
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
+
   // Pokemon configurations
   const [nature, setNature] = useState('neutral');
   const [ability, setAbility] = useState('');
@@ -92,6 +103,53 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
+
+  // Restore configuration from URL query (?s=...) or hash (#s=...)
+  useEffect(() => {
+    if (pokemonData.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    const code =
+      params.get('s') || window.location.hash.replace('#s=', '').replace('#', '');
+    if (!code) return;
+    const decoded = decodePokemonConfig(code);
+    if (!decoded) return;
+    const poke = pokemonData.find((p) => p.id === decoded.pokemonId);
+    if (!poke) return;
+
+    setSelectedPoke(poke);
+    setAbility(poke.abilities[0]?.ja || '');
+    setNature(decoded.nature);
+    setEvs(decoded.evs);
+    setMoves(decoded.moves);
+    const it = itemsData.find((i) => i.id === decoded.itemId);
+    setItem(it ? it.name[language] || it.name.ja : '');
+  }, [pokemonData, itemsData, language]);
+
+  const handleShare = () => {
+    if (!selectedPoke) return;
+    const currentItemObj = itemsData.find(
+      (i) => i.name[language] === item || i.name.ja === item
+    );
+    const config: SharedPokemonConfig = {
+      pokemonId: selectedPoke.id,
+      nature,
+      itemId: currentItemObj ? currentItemObj.id : 0,
+      evs,
+      moves,
+    };
+    const code = encodePokemonConfig(config);
+    const url = `${window.location.origin}${window.location.pathname}?s=${code}`;
+    setShareUrl(url);
+    setIsShareDialogOpen(true);
+    setIsCopied(false);
+  };
+
+  const handleCopyShareUrl = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2500);
+    });
+  };
 
   const handleSelectPokemon = (masterId: number) => {
     const poke = pokemonData.find((p) => p.id === masterId);
@@ -244,14 +302,24 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
           </p>
         </div>
         {selectedPoke ? (
-          <Button
-            onClick={handleAdd}
-            variant="primary"
-            icon="i-lucide-plus"
-            className="shadow-md shadow-indigo-500/20"
-          >
-            {t('evCalculator.addToParty')}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={handleShare}
+              variant="secondary"
+              icon="i-lucide-share-2"
+              title={t('share.button')}
+            >
+              {t('share.button')}
+            </Button>
+            <Button
+              onClick={handleAdd}
+              variant="primary"
+              icon="i-lucide-plus"
+              className="shadow-md shadow-indigo-500/20"
+            >
+              {t('evCalculator.addToParty')}
+            </Button>
+          </div>
         ) : (
           <Button onClick={() => setIsSearchOpen(true)} icon="i-lucide-search">
             {t('evCalculator.selectPokemon')}
@@ -381,23 +449,23 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               </div>
 
               {/* Compact Stat Table Headers */}
-              <div className="grid grid-cols-12 gap-2 px-3 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 select-none">
-                <div className="col-span-3 sm:col-span-3">
+              <div className="hidden sm:grid sm:grid-cols-12 gap-2 px-3 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 select-none">
+                <div className="col-span-3">
                   {t('evCalculator.statTableStat')}
                 </div>
-                <div className="col-span-2 sm:col-span-2 text-center">
+                <div className="col-span-2 text-center">
                   {t('evCalculator.statTableBase')}
                 </div>
-                <div className="col-span-5 sm:col-span-5 text-center">
+                <div className="col-span-5 text-center">
                   {t('evCalculator.statTableEv')}
                 </div>
-                <div className="col-span-2 sm:col-span-2 text-right">
+                <div className="col-span-2 text-right">
                   {t('evCalculator.statTableFinal')}
                 </div>
               </div>
 
               {/* Stat Row Grid */}
-              <div className="space-y-1 sm:space-y-1.5">
+              <div className="space-y-2 sm:space-y-1.5">
                 {STAT_KEYS.map((stat) => {
                   const base = selectedPoke.base_stats[stat];
                   const ev = evs[stat];
@@ -419,10 +487,10 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                   return (
                     <div
                       key={stat}
-                      className="grid grid-cols-12 gap-2 items-center px-3 py-2 rounded-xl hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition duration-150 border-b border-slate-100/60 dark:border-slate-800/40 last:border-0"
+                      className="flex flex-wrap items-center justify-between sm:grid sm:grid-cols-12 sm:gap-2 px-3 py-2.5 sm:py-2 rounded-xl hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition duration-150 border-b border-slate-100/60 dark:border-slate-800/40 last:border-0"
                     >
                       {/* Stat Label & Nature Modifier */}
-                      <div className="col-span-3 sm:col-span-3 flex items-center gap-1.5 min-w-0">
+                      <div className="flex items-center gap-1.5 min-w-0 sm:col-span-3">
                         <span
                           className={`text-sm font-bold uppercase tracking-wide truncate ${natureColor || 'text-slate-800 dark:text-slate-100'}`}
                         >
@@ -438,29 +506,35 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                       </div>
 
                       {/* Base Stat */}
-                      <div className="col-span-2 sm:col-span-2 text-center">
+                      <div className="text-center sm:col-span-2">
                         <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                          <span className="sm:hidden text-[10px] mr-1">
+                            {t('evCalculator.statTableBase')}:
+                          </span>
                           {base}
                         </span>
                       </div>
 
+                      {/* Final Stat Output */}
+                      <div className="text-right sm:col-span-2 sm:order-last">
+                        <span
+                          className={`text-base sm:text-lg font-black ${natureColor || 'text-slate-800 dark:text-slate-100'}`}
+                        >
+                          <span className="sm:hidden text-xs font-semibold text-slate-400 dark:text-slate-500 mr-1">
+                            {t('evCalculator.statTableFinal')}:
+                          </span>
+                          {calcStat}
+                        </span>
+                      </div>
+
                       {/* EV Stepper Inputs */}
-                      <div className="col-span-5 sm:col-span-5 flex items-center justify-center">
+                      <div className="w-full sm:w-auto mt-2 sm:mt-0 flex items-center justify-center sm:col-span-5">
                         <EvStatInput
                           stat={stat}
                           value={ev}
                           maxAllowed={allowedMax}
                           onChange={(newVal) => handleEvChange(stat, newVal)}
                         />
-                      </div>
-
-                      {/* Final Stat Output */}
-                      <div className="col-span-2 sm:col-span-2 text-right">
-                        <span
-                          className={`text-base sm:text-lg font-black ${natureColor || 'text-slate-800 dark:text-slate-100'}`}
-                        >
-                          {calcStat}
-                        </span>
                       </div>
                     </div>
                   );
@@ -707,6 +781,65 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
           </div>
         </div>
       )}
+
+      {/* Share Dialog */}
+      <Dialog
+        isOpen={isShareDialogOpen}
+        onClose={() => setIsShareDialogOpen(false)}
+        title={
+          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+            <span className="i-lucide-share-2 text-xl" />
+            {t('share.shareTitle')}
+          </div>
+        }
+        actions={
+          <Button
+            variant="secondary"
+            onClick={() => setIsShareDialogOpen(false)}
+          >
+            {t('pokemonSearchModal.close')}
+          </Button>
+        }
+      >
+        <div className="space-y-4">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            {t('share.shareDesc')}
+          </p>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              readOnly
+              value={shareUrl}
+              className="w-full text-xs font-mono py-2 px-3 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 select-all"
+            />
+            <Button
+              onClick={handleCopyShareUrl}
+              variant="primary"
+              className="shrink-0 text-xs py-2"
+              icon={isCopied ? 'i-lucide-check' : 'i-lucide-copy'}
+            >
+              {isCopied ? t('share.copied') : t('share.copyUrl')}
+            </Button>
+          </div>
+          {selectedPoke && (
+            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-center">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  t('share.tweetTextPokemon', {
+                    name: selectedPoke.name[language] || selectedPoke.name.ja,
+                  })
+                )}&url=${encodeURIComponent(shareUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary py-2 px-4 rounded-xl flex items-center gap-2 text-xs font-bold no-underline"
+              >
+                <span className="i-lucide-twitter text-sm" />
+                {t('share.shareToX')}
+              </a>
+            </div>
+          )}
+        </div>
+      </Dialog>
     </div>
   );
 };

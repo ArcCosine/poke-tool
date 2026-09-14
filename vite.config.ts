@@ -14,6 +14,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        ranking: resolve(__dirname, 'ranking.html'),
+        evCalculator: resolve(__dirname, 'ev-calculator.html'),
+        party: resolve(__dirname, 'party.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         disclaimer: resolve(__dirname, 'disclaimer.html'),
         terms: resolve(__dirname, 'terms.html'),

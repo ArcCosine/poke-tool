@@ -266,4 +266,38 @@ describe('EvCalculator', () => {
     const move1Wrapper = move1Input.closest('[style*="z-index"]');
     expect(move1Wrapper).not.toBeNull();
   });
+
+  it('should open share dialog with alphanumeric URL when share button is clicked', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // Click Share button
+    const shareBtn = screen.getByRole('button', { name: /シェア/i });
+    await act(async () => {
+      fireEvent.click(shareBtn);
+    });
+
+    // Dialog should be open
+    expect(screen.getByRole('dialog')).toBeDefined();
+    expect(screen.getByText('設定をシェア')).toBeDefined();
+
+    // Check share URL input value is alphanumeric without %
+    const shareUrlInput = screen.getByDisplayValue(/https?:\/\/.*[?&]s=[0-9a-zA-Z]+/);
+    expect(shareUrlInput).toBeDefined();
+  });
 });
