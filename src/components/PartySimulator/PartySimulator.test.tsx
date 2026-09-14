@@ -318,7 +318,8 @@ describe('PartySimulator Pokémon Search Modal', () => {
     // 5. Initial value is 0 and initial calculated stats are displayed above inputs
     expect(hpInput.value).toBe('0');
     // Pikachu Lv.50: HP=110 (base 35, step 0), Speed=110 (base 90, step 0), Attack=75 (base 55, step 0)
-    expect(screen.getByText('実数値 Lv.50')).toBeDefined();
+    expect(screen.queryByText(/実数値\s*Lv\.?50/i)).toBeNull();
+    expect(screen.getAllByText('努力値').length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText('110').length).toBe(2);
     expect(screen.getByText('75')).toBeDefined();
 
@@ -334,7 +335,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(screen.getByText(/32\s*\/\s*66/)).toBeDefined();
   });
 
-  it('should align party search/rename and action buttons with items-end', async () => {
+  it('should render party search and party controls stacked vertically', async () => {
     render(
       <AppProvider>
         <PartySimulator />
@@ -345,15 +346,15 @@ describe('PartySimulator Pokémon Search Modal', () => {
       await screen.findByLabelText(/パーティの検索・名前変更/i);
     expect(autocomplete).toBeDefined();
 
-    // Controls container should align to the end
-    const card = autocomplete.closest('.card-premium');
-    const controlsRow = card?.querySelector('.flex-col.lg\\:flex-row');
-    expect(controlsRow).not.toBeNull();
-    expect(controlsRow?.className).toContain('items-end');
-    expect(controlsRow?.className).not.toContain('items-center');
+    // Verify PartySearch and PartyControls are rendered as sibling stacked cards
+    const searchCard = autocomplete.closest('.card-premium');
+    expect(searchCard).not.toBeNull();
 
-    // Buttons within controlsRow should be rendered
-    const withinControls = within(controlsRow as HTMLElement);
+    const controlsContainer = searchCard?.nextElementSibling;
+    expect(controlsContainer).not.toBeNull();
+
+    // Buttons within PartyControls should be rendered
+    const withinControls = within(controlsContainer as HTMLElement);
     expect(
       withinControls.getByRole('button', { name: /クリップボードにコピー/i })
     ).toBeDefined();

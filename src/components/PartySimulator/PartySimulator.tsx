@@ -26,6 +26,8 @@ import { NatureSelect } from '../common/NatureSelect';
 import { Select } from '../common/Select';
 import { ShareDialog } from '../common/ShareDialog';
 import { TypeBadge } from '../common/TypeBadge';
+import { PartyControls } from './PartyControls';
+import { PartySearch } from './PartySearch';
 import { PokemonSearchModal } from './PokemonSearchModal';
 
 type StatKey =
@@ -351,100 +353,26 @@ export const PartySimulator: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header controls card */}
-      <div className="card-premium relative z-20 flex flex-col gap-5 p-5">
-        {/* Top row: Current selected party status display */}
-        <div className="flex flex-wrap items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-4">
-          <div className="flex items-center gap-2.5">
-            <span className="i-lucide-users text-indigo-500 text-xl" />
-            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
-              {t('partySimulator.editingParty')}
-            </span>
-            <span className="text-xl font-extrabold text-slate-800 dark:text-slate-100 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 px-3 py-1 rounded-xl border border-indigo-100 dark:border-indigo-900/50 shadow-xs">
-              {partyName || t('defaultPartyName')}
-            </span>
-          </div>
-          <div className="flex gap-2 mt-2 sm:mt-0">
-            <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold">
-              {t('partySimulator.savedPartiesCount', {
-                count: parties.length,
-              })}
-            </span>
-          </div>
-        </div>
+      {/* Top Section: Party Search followed vertically by Party Controls */}
+      <div className="space-y-4">
+        <PartySearch
+          partyName={partyName}
+          parties={parties}
+          onSelectParty={selectParty}
+          onPartyNameChange={setPartyName}
+        />
 
-        {/* Bottom row: Controls */}
-        <div className="flex flex-col lg:flex-row gap-4 items-end justify-between">
-          {/* Party Name Edit Autocomplete */}
-          <div className="w-full sm:w-80">
-            <Autocomplete
-              id="party-name-autocomplete"
-              label={t('partySimulator.searchRenameParty')}
-              value={partyName}
-              suggestions={parties.map((p) => p.name)}
-              onChange={(val) => {
-                const matched = parties.find((p) => p.name === val);
-                if (matched) {
-                  selectParty(matched.id);
-                } else {
-                  setPartyName(val);
-                }
-              }}
-              placeholder={t('defaultPartyName')}
-              className="h-10 py-2 text-sm font-semibold"
-            />
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto flex-wrap items-center">
-            <Button
-              onClick={copyPokesolText}
-              disabled={activeParty.length === 0}
-              variant="secondary"
-              icon="i-lucide-clipboard"
-              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
-            >
-              {copied
-                ? t('partySimulator.copiedToClipboard')
-                : t('partySimulator.copyToClipboard')}
-            </Button>
-            <Button
-              onClick={() =>
-                createNewParty(t('partySimulator.defaultNewPartyName'))
-              }
-              variant="secondary"
-              icon="i-lucide-plus"
-              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
-            >
-              {t('partySimulator.newParty')}
-            </Button>
-            <Button
-              onClick={handleShareParty}
-              disabled={activeParty.length === 0}
-              variant="secondary"
-              icon="i-lucide-share-2"
-              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
-            >
-              {t('share.button')}
-            </Button>
-            <Button
-              onClick={() => deleteParty(currentPartyId)}
-              variant="danger"
-              icon="i-lucide-trash-2"
-              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
-            >
-              {t('partySimulator.deleteParty')}
-            </Button>
-            <Button
-              onClick={saveParty}
-              variant="primary"
-              icon="i-lucide-save"
-              className="h-10 w-full sm:w-auto text-xs px-3.5 py-2"
-            >
-              {t('saveParty')}
-            </Button>
-          </div>
-        </div>
+        <PartyControls
+          onCopyPokesol={copyPokesolText}
+          isCopied={copied}
+          onNewParty={() =>
+            createNewParty(t('partySimulator.defaultNewPartyName'))
+          }
+          onShareParty={handleShareParty}
+          onDeleteParty={() => deleteParty(currentPartyId)}
+          onSaveParty={saveParty}
+          hasActiveMembers={activeParty.length > 0}
+        />
       </div>
 
       {/* Main Grid: Left = Pokémon Slots, Right = Analysis */}
@@ -563,9 +491,7 @@ export const PartySimulator: React.FC = () => {
                         id={`nature-select-${index}`}
                         label={t('partySimulator.natureLabel')}
                         value={member.nature || 'neutral'}
-                        onChange={(val) =>
-                          updateMember(index, { nature: val })
-                        }
+                        onChange={(val) => updateMember(index, { nature: val })}
                         className="py-2 text-sm w-full box-border"
                       />
 
@@ -595,14 +521,9 @@ export const PartySimulator: React.FC = () => {
                 {currentPoke && (
                   <div className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
                     <div className="flex justify-between items-center text-xs">
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-bold text-slate-700 dark:text-slate-300">
-                          {t('stats.evStep')}
-                        </span>
-                        <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                          {t('partySimulator.statsLv50')}
-                        </span>
-                      </div>
+                      <span className="font-bold text-slate-700 dark:text-slate-300">
+                        {t('partySimulator.evs')}
+                      </span>
                       {(() => {
                         const totalSteps = STAT_KEYS.reduce(
                           (sum, k) => sum + evToStep(member.evs?.[k] ?? 0),
