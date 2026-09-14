@@ -20,7 +20,7 @@ const navItems: {
   {
     id: 'dashboard',
     href: '/index.html',
-    labelKey: 'dashboard',
+    labelKey: 'nav.dashboard',
     icon: 'i-lucide-layout-dashboard',
   },
   {
@@ -32,13 +32,13 @@ const navItems: {
   {
     id: 'evCalculator',
     href: '/ev-calculator.html',
-    labelKey: 'evCalculator.title',
+    labelKey: 'nav.evCalculator',
     icon: 'i-lucide-calculator',
   },
   {
     id: 'party',
     href: '/party.html',
-    labelKey: 'partySimulator.title',
+    labelKey: 'nav.partySimulator',
     icon: 'i-lucide-shield-alert',
   },
 ];
