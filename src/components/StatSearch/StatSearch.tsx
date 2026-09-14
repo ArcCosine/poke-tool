@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import {
   calculateMaxDamage,
   calculateMaxDurability,
+  isRechargeMove,
 } from '../../utils/calculator';
 import {
   db,
@@ -63,6 +64,7 @@ interface RankingItem {
   rank: number;
   pokemon: PokemonMaster;
   value: number;
+  moveId?: number;
   moveName?: LocalizedName;
   category?: string;
   moveType?: string;
@@ -83,6 +85,7 @@ export const StatSearch: React.FC = () => {
   const [selectedMoveType, setSelectedMoveType] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [excludeMega, setExcludeMega] = useState(false);
+  const [excludeRechargeMoves, setExcludeRechargeMoves] = useState(false);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   // Load master data on mount
@@ -116,6 +119,7 @@ export const StatSearch: React.FC = () => {
           flatList.push({
             pokemon: poke,
             value: move.value,
+            moveId: move.moveId,
             moveName: move.moveName,
             category: move.category,
             moveType: move.moveType,
@@ -155,6 +159,11 @@ export const StatSearch: React.FC = () => {
     )
     // (B-2) Filter Mega Pokémon
     .filter((item) => !excludeMega || !item.pokemon.name.en.startsWith('Mega '))
+    // (B-3) Filter Recharge Moves (for damage search)
+    .filter((item) => {
+      if (!excludeRechargeMoves || searchTarget !== 'damage') return true;
+      return !isRechargeMove({ moveId: item.moveId, moveName: item.moveName });
+    })
     // (C) Filter by move type (for damage search)
     .filter((item) => {
       if (searchTarget !== 'damage' || selectedMoveType === 'all') return true;
@@ -242,14 +251,22 @@ export const StatSearch: React.FC = () => {
           <option value="special">{t('special')}</option>
         </Select>
 
-        {/* Exclude Mega Checkbox */}
-        <Checkbox
-          id="exclude-mega"
-          label={t('excludeMega')}
-          checked={excludeMega}
-          onChange={(e) => setExcludeMega(e.target.checked)}
-          className="col-span-1 sm:col-span-2 lg:col-span-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1"
-        />
+        {/* Filter Checkboxes */}
+        <div className="col-span-1 sm:col-span-2 lg:col-span-4 pt-3 border-t border-slate-200/60 dark:border-slate-800/60 mt-1 flex flex-wrap items-center gap-6">
+          <Checkbox
+            id="exclude-mega"
+            label={t('excludeMega')}
+            checked={excludeMega}
+            onChange={(e) => setExcludeMega(e.target.checked)}
+          />
+          <Checkbox
+            id="exclude-recharge-moves"
+            label={t('excludeRechargeMoves')}
+            checked={excludeRechargeMoves}
+            disabled={searchTarget !== 'damage'}
+            onChange={(e) => setExcludeRechargeMoves(e.target.checked)}
+          />
+        </div>
       </div>
 
       {/* Rankings List */}
@@ -380,7 +397,7 @@ export const StatSearch: React.FC = () => {
                               )
                                 .split('\n')
                                 .map((line: string, i: number) => (
-                                  <span key={i}>
+                                  <span key={line}>
                                     {i > 0 && <br />}
                                     {line}
                                   </span>

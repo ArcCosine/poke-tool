@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppProvider } from '../../context/AppContext';
 import { StatSearch } from './StatSearch';
@@ -39,7 +39,7 @@ vi.mock('../../utils/db', () => {
             },
             abilities: [{ ja: 'プレッシャー', en: 'Pressure' }],
             regulations: ['M-C'], // M-C (今後のレギュレーション) でのみ解禁される想定のテストデータ
-            learnable_moves: [],
+            learnable_moves: [63, 57],
           },
           {
             id: 979,
@@ -58,7 +58,26 @@ vi.mock('../../utils/db', () => {
             learnable_moves: [],
           },
         ],
-        moves: [],
+        moves: [
+          {
+            id: 63,
+            name: { ja: 'はかいこうせん', en: 'Hyper Beam' },
+            type: 'normal',
+            category: 'special',
+            power: 150,
+            accuracy: 90,
+            pp: 5,
+          },
+          {
+            id: 57,
+            name: { ja: 'なみのり', en: 'Surf' },
+            type: 'water',
+            category: 'special',
+            power: 90,
+            accuracy: 100,
+            pp: 15,
+          },
+        ],
         items: [],
       }),
     },
@@ -108,6 +127,38 @@ describe('StatSearch Ranking Display and Filters', () => {
     // All pokemons regardless of regulations should be present in the ranking
     expect(screen.getByText('フシギダネ')).toBeDefined();
     expect(screen.getByText('コノヨザル')).toBeDefined();
-    expect(screen.getByText('ミュウツー')).toBeDefined();
+    expect(screen.getAllByText('ミュウツー').length).toBeGreaterThan(0);
+  });
+
+  it('should render "exclude recharge moves" checkbox and filter out recharge moves when checked', async () => {
+    render(
+      <AppProvider>
+        <StatSearch />
+      </AppProvider>
+    );
+
+    expect((await screen.findAllByText('ミュウツー')).length).toBeGreaterThan(
+      0
+    );
+
+    // Checkbox should be rendered next to exclude mega
+    const checkbox = screen.getByLabelText(/反動技を除く|exclude recharge/i);
+    expect(checkbox).toBeDefined();
+    expect((checkbox as HTMLInputElement).checked).toBe(false);
+
+    // Initially, Hyper Beam (はかいこうせん) is shown for Mewtwo
+    expect(screen.getByText('はかいこうせん')).toBeDefined();
+
+    // Toggle exclude recharge moves checkbox
+    fireEvent.click(checkbox);
+    expect((checkbox as HTMLInputElement).checked).toBe(true);
+
+    // Now Hyper Beam should be filtered out, and Surf (なみのり) should remain
+    expect(screen.queryByText('はかいこうせん')).toBeNull();
+    expect(screen.getByText('なみのり')).toBeDefined();
+
+    // Toggle off
+    fireEvent.click(checkbox);
+    expect(screen.getByText('はかいこうせん')).toBeDefined();
   });
 });

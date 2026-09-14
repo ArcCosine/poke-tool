@@ -4,6 +4,7 @@ import {
   calculateMaxDamage,
   calculateMaxDurability,
   calculateStat,
+  isRechargeMove,
 } from './calculator';
 import type { MoveMaster, PokemonMaster } from './db';
 
@@ -773,6 +774,65 @@ describe('calculator utilities', () => {
       const dmgMoves = calculateMaxDamage(megaAbsolZ, movesMaster as any);
       expect(dmgMoves.length).toBeGreaterThan(0);
       expect(dmgMoves[0].value).toBeGreaterThan(0);
+      expect(dmgMoves[0].moveId).toBeDefined();
+    });
+  });
+
+  describe('isRechargeMove', () => {
+    it('should correctly identify recharge moves by id or name', () => {
+      // Moves that cause recharge (Hyper Beam, Giga Impact, Hydro Cannon, Blast Burn, Frenzy Plant, Rock Wrecker, etc.)
+      expect(isRechargeMove({ moveId: 63 })).toBe(true);
+      expect(isRechargeMove({ id: 416 })).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'ハイドロカノン', en: 'Hydro Cannon' },
+        })
+      ).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'ブラストバーン', en: 'Blast Burn' },
+        })
+      ).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'ハードプラント', en: 'Frenzy Plant' },
+        })
+      ).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'がんせきほう', en: 'Rock Wrecker' },
+        })
+      ).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'はかいこうせん', en: 'Hyper Beam' },
+        })
+      ).toBe(true);
+      expect(
+        isRechargeMove({
+          moveName: { ja: 'ギガインパクト', en: 'Giga Impact' },
+        })
+      ).toBe(true);
+
+      // Other moves should not be considered recharge moves
+      expect(
+        isRechargeMove({
+          moveId: 85,
+          moveName: { ja: '10まんボルト', en: 'Thunderbolt' },
+        })
+      ).toBe(false);
+      expect(
+        isRechargeMove({
+          moveId: 89,
+          moveName: { ja: 'じしん', en: 'Earthquake' },
+        })
+      ).toBe(false);
+      expect(
+        isRechargeMove({
+          moveId: 38,
+          moveName: { ja: 'すてみタックル', en: 'Double-Edge' },
+        })
+      ).toBe(false);
     });
   });
 });

@@ -150,6 +150,7 @@
   "regulation": "Regulation",
   "allRegulations": "No Limit (All Pokémon)",
   "excludeMega": "Exclude Mega Pokémon",
+  "excludeRechargeMoves": "Exclude Recharge Moves",
   "loading": "Loading data...",
   "rank": "Rank",
   "pokemon": "Pokémon",

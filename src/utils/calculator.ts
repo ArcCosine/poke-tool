@@ -35,6 +35,7 @@ export function calculateDamageIndex(
 
 // Calculate maximum damage index from learnable moves, factoring in abilities
 export interface MaxDamageMoveInfo {
+  moveId?: number;
   value: number;
   moveName: LocalizedName;
   category: string;
@@ -281,6 +282,7 @@ export function calculateMaxDamage(
       const existing = bestMovesMap.get(moveKey);
       if (!existing || dmgIndex > existing.value) {
         bestMovesMap.set(moveKey, {
+          moveId: m.id,
           value: dmgIndex,
           moveName: m.name,
           category: m.category,
@@ -406,4 +408,56 @@ export function calculateMaxDurability(
     special: maxSpecial,
     specialAbility: bestSpecialAbility,
   };
+}
+
+// Move IDs for recharge moves (requires 1 turn recharge after use)
+export const RECHARGE_MOVE_IDS = new Set<number>([
+  63, // はかいこうせん (Hyper Beam)
+  307, // ブラストバーン (Blast Burn)
+  308, // ハイドロカノン (Hydro Cannon)
+  338, // ハードプラント (Frenzy Plant)
+  416, // ギガインパクト (Giga Impact)
+  439, // がんせきほう (Rock Wrecker)
+  459, // ときのほうこう (Roar of Time)
+  673, // プリズムレーザー (Prism Laser)
+  794, // メテオアサルト (Meteor Assault)
+  795, // エターナルビーム (Eternabeam)
+]);
+
+export const RECHARGE_MOVE_NAMES = new Set<string>([
+  'はかいこうせん',
+  'ギガインパクト',
+  'ハイドロカノン',
+  'ブラストバーン',
+  'ハードプラント',
+  'がんせきほう',
+  'ときのほうこう',
+  'プリズムレーザー',
+  'メテオアサルト',
+  'エターナルビーム',
+  'Hyper Beam',
+  'Giga Impact',
+  'Hydro Cannon',
+  'Blast Burn',
+  'Frenzy Plant',
+  'Rock Wrecker',
+  'Roar of Time',
+  'Prism Laser',
+  'Meteor Assault',
+  'Eternabeam',
+]);
+
+export function isRechargeMove(move: {
+  moveId?: number;
+  id?: number;
+  moveName?: LocalizedName;
+  name?: LocalizedName;
+}): boolean {
+  const id = move.moveId ?? move.id;
+  if (id && RECHARGE_MOVE_IDS.has(id)) return true;
+  const jaName = move.moveName?.ja ?? move.name?.ja;
+  if (jaName && RECHARGE_MOVE_NAMES.has(jaName)) return true;
+  const enName = move.moveName?.en ?? move.name?.en;
+  if (enName && RECHARGE_MOVE_NAMES.has(enName)) return true;
+  return false;
 }

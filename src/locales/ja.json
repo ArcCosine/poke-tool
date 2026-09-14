@@ -150,6 +150,7 @@
   "regulation": "レギュレーション",
   "allRegulations": "制限なし (全ポケモン)",
   "excludeMega": "メガポケモンを除く",
+  "excludeRechargeMoves": "反動技を除く",
   "loading": "データを読み込み中...",
   "rank": "順位",
   "pokemon": "ポケモン",

@@ -150,6 +150,7 @@
   "regulation": "規則",
   "allRegulations": "無限制 (所有寶可夢)",
   "excludeMega": "排除超級進化寶可夢",
+  "excludeRechargeMoves": "排除硬直招式 (反作用招式)",
   "loading": "正在載入資料...",
   "rank": "排名",
   "pokemon": "寶可夢",

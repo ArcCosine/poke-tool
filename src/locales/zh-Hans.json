@@ -150,6 +150,7 @@
   "regulation": "规则",
   "allRegulations": "无限制 (所有宝可梦)",
   "excludeMega": "排除超级进化宝可梦",
+  "excludeRechargeMoves": "排除硬直招式 (反作用招式)",
   "loading": "正在加载数据...",
   "rank": "排名",
   "pokemon": "宝可梦",
