@@ -17,6 +17,7 @@ import {
 } from '../../utils/share';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
+import { NatureSelect } from '../common/NatureSelect';
 import { Select } from '../common/Select';
 import { ShareDialog } from '../common/ShareDialog';
 import { TypeBadge } from '../common/TypeBadge';
@@ -356,25 +357,12 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full lg:flex-1 lg:max-w-2xl cursor-default"
             >
               {/* Nature Select */}
-              <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                  {t('evCalculator.nature')}
-                </label>
-                <Select
-                  value={nature}
-                  onChange={(e) => setNature(e.target.value)}
-                  className="py-1 text-xs font-semibold"
-                >
-                  {NATURES.map((n) => (
-                    <option key={n.id} value={n.id}>
-                      {n.name[language]}
-                      {n.plus
-                        ? ` (+${statNameLabel(n.plus)} -${statNameLabel(n.minus!)})`
-                        : ''}
-                    </option>
-                  ))}
-                </Select>
-              </div>
+              <NatureSelect
+                id="ev-nature-select"
+                label={t('evCalculator.nature')}
+                value={nature}
+                onChange={(val) => setNature(val)}
+              />
 
               {/* Ability Select */}
               <div className="space-y-1">
@@ -810,15 +798,3 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
     </div>
   );
 };
-
-// Helper translation mapping for nature label
-function statNameLabel(key: string): string {
-  const map: Record<string, string> = {
-    attack: 'A',
-    defense: 'B',
-    sp_attack: 'C',
-    sp_defense: 'D',
-    speed: 'S',
-  };
-  return map[key] || '';
-}

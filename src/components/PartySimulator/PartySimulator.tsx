@@ -22,6 +22,7 @@ import { decodePartyConfig, encodePartyConfig } from '../../utils/share';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
 import { Dialog } from '../common/Dialog';
+import { NatureSelect } from '../common/NatureSelect';
 import { Select } from '../common/Select';
 import { ShareDialog } from '../common/ShareDialog';
 import { TypeBadge } from '../common/TypeBadge';
@@ -558,21 +559,15 @@ export const PartySimulator: React.FC = () => {
                       </Select>
 
                       {/* 能力補正 */}
-                      <Select
+                      <NatureSelect
                         id={`nature-select-${index}`}
                         label={t('partySimulator.natureLabel')}
                         value={member.nature || 'neutral'}
-                        onChange={(e) =>
-                          updateMember(index, { nature: e.target.value })
+                        onChange={(val) =>
+                          updateMember(index, { nature: val })
                         }
                         className="py-2 text-sm w-full box-border"
-                      >
-                        {NATURES.map((n) => (
-                          <option key={n.id} value={n.id}>
-                            {n.name[language]}
-                          </option>
-                        ))}
-                      </Select>
+                      />
 
                       {/* 持ち物 */}
                       <Autocomplete
