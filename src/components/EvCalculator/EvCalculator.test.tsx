@@ -286,12 +286,20 @@ describe('EvCalculator', () => {
       fireEvent.click(pokeRow);
     });
 
-    // Verify Share button is positioned under durability section
+    // Verify Add to Party and Share buttons are positioned under durability section
     const durabilityHeading = screen.getByText('耐久指数');
+    const addButtons = screen.getAllByRole('button', { name: /パーティに追加/i });
+    expect(addButtons.length).toBeGreaterThan(0);
+    const bottomAddBtn = addButtons[addButtons.length - 1];
     const shareBtn = screen.getByRole('button', { name: /シェア/i });
     expect(durabilityHeading).toBeDefined();
     expect(shareBtn).toBeDefined();
-    // shareBtn should follow durabilityHeading in DOM order
+
+    // bottomAddBtn and shareBtn should follow durabilityHeading in DOM order
+    expect(
+      durabilityHeading.compareDocumentPosition(bottomAddBtn) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
     expect(
       durabilityHeading.compareDocumentPosition(shareBtn) &
         Node.DOCUMENT_POSITION_FOLLOWING

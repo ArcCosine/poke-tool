@@ -283,29 +283,33 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex justify-between items-center">
+      <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
-          <h2 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent flex items-center gap-2">
+          <h2 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent flex items-center gap-2">
             <span className="i-lucide-calculator text-indigo-500" />
             {t('evCalculator.title')}
           </h2>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             {t('evCalculator.subdescription')}
           </p>
         </div>
         {selectedPoke ? (
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
             <Button
               onClick={handleAdd}
               variant="primary"
               icon="i-lucide-plus"
-              className="shadow-md shadow-indigo-500/20"
+              className="shadow-md shadow-indigo-500/20 whitespace-nowrap"
             >
               {t('evCalculator.addToParty')}
             </Button>
           </div>
         ) : (
-          <Button onClick={() => setIsSearchOpen(true)} icon="i-lucide-search">
+          <Button
+            onClick={() => setIsSearchOpen(true)}
+            icon="i-lucide-search"
+            className="w-full sm:w-auto shrink-0 justify-center whitespace-nowrap"
+          >
             {t('evCalculator.selectPokemon')}
           </Button>
         )}
@@ -605,16 +609,27 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 }}
               />
 
-              {/* Share Configuration Button */}
-              <Button
-                onClick={handleShare}
-                variant="secondary"
-                icon="i-lucide-share-2"
-                className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-bold border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 rounded-xl shadow-xs"
-                title={t('share.button')}
-              >
-                {t('share.button')}
-              </Button>
+              {/* Action Buttons: Add to Party & Share Configuration */}
+              <div className="space-y-2 pt-1">
+                <Button
+                  onClick={handleAdd}
+                  variant="primary"
+                  icon="i-lucide-plus"
+                  className="w-full flex items-center justify-center gap-2 py-3 text-sm font-bold shadow-md shadow-indigo-500/20 rounded-xl"
+                >
+                  {t('evCalculator.addToParty')}
+                </Button>
+
+                <Button
+                  onClick={handleShare}
+                  variant="secondary"
+                  icon="i-lucide-share-2"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-bold border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 rounded-xl shadow-xs"
+                  title={t('share.button')}
+                >
+                  {t('share.button')}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
