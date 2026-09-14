@@ -80,7 +80,9 @@
     "itemSearchPlaceholder": "持ち物を検索・入力...",
     "defenseWarning": "{type}タイプの攻撃が一貫しています（弱点持ちが{count}匹）。",
     "noCoverageWarning": "以下のタイプに対して抜群を取れる攻撃技がありません：",
-    "partyNameRequired": "パーティ名を入力してください"
+    "partyNameRequired": "パーティ名を入力してください",
+    "partyNamePlaceholder": "パーティ名を入力...",
+    "selectSavedParty": "保存済みパーティから選択"
   },
   "evCalculator": {
     "title": "努力値計算ツール",

@@ -21,11 +21,11 @@ describe('PartySearch Component', () => {
       </AppProvider>
     );
 
-    expect(screen.getByText('ガチ対戦パ')).toBeDefined();
+    expect(screen.getAllByText('ガチ対戦パ').length).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(/全 2 個のパーティ中/)).toBeDefined();
   });
 
-  it('triggers onSelectParty when an existing party is selected from autocomplete', () => {
+  it('triggers onPartyNameChange immediately when user types in the party name input', () => {
     const onSelectParty = vi.fn();
     const onPartyNameChange = vi.fn();
 
@@ -40,16 +40,13 @@ describe('PartySearch Component', () => {
       </AppProvider>
     );
 
-    const input = screen.getByLabelText(/パーティの検索・名前変更/i);
-    fireEvent.focus(input);
+    const input = screen.getByLabelText(/^パーティ名$/i);
+    fireEvent.change(input, { target: { value: '晴れパ' } });
 
-    const optionBtn = screen.getByRole('button', { name: '雨パ' });
-    fireEvent.click(optionBtn);
-
-    expect(onSelectParty).toHaveBeenCalledWith('2');
+    expect(onPartyNameChange).toHaveBeenCalledWith('晴れパ');
   });
 
-  it('triggers onPartyNameChange when clearing or selecting custom party name', () => {
+  it('triggers onSelectParty when choosing a party from the saved parties select dropdown', () => {
     const onSelectParty = vi.fn();
     const onPartyNameChange = vi.fn();
 
@@ -64,9 +61,9 @@ describe('PartySearch Component', () => {
       </AppProvider>
     );
 
-    const input = screen.getByLabelText(/パーティの検索・名前変更/i);
-    fireEvent.change(input, { target: { value: '' } });
+    const select = screen.getByLabelText(/保存済みパーティから選択/i);
+    fireEvent.change(select, { target: { value: '2' } });
 
-    expect(onPartyNameChange).toHaveBeenCalledWith('');
+    expect(onSelectParty).toHaveBeenCalledWith('2');
   });
 });

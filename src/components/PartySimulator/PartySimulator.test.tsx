@@ -342,12 +342,11 @@ describe('PartySimulator Pokémon Search Modal', () => {
       </AppProvider>
     );
 
-    const autocomplete =
-      await screen.findByLabelText(/パーティの検索・名前変更/i);
-    expect(autocomplete).toBeDefined();
+    const nameInput = await screen.findByLabelText(/^パーティ名$/i);
+    expect(nameInput).toBeDefined();
 
     // Verify PartySearch and PartyControls are rendered as sibling stacked cards
-    const searchCard = autocomplete.closest('.card-premium');
+    const searchCard = nameInput.closest('.card-premium');
     expect(searchCard).not.toBeNull();
 
     const controlsContainer = searchCard?.nextElementSibling;
@@ -532,7 +531,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
 
     // Wait for master data and shared party to load
     const partyNameInput = (await screen.findByLabelText(
-      /パーティの検索・名前変更/i
+      /^パーティ名$/i
     )) as HTMLInputElement;
 
     // 1. Party name should be empty (Plan C)
@@ -540,16 +539,20 @@ describe('PartySimulator Pokémon Search Modal', () => {
       expect(partyNameInput.value).toBe('');
     });
 
-    // 2. Should NOT auto-save to localStorage
+    // 2. Should allow typing a new party name directly and update value
+    fireEvent.change(partyNameInput, { target: { value: '伝説のパーティ' } });
+    expect(partyNameInput.value).toBe('伝説のパーティ');
+
+    // 3. Should NOT auto-save to localStorage
     const savedPartiesRaw = localStorage.getItem('saved_parties');
     if (savedPartiesRaw) {
       const parsed = JSON.parse(savedPartiesRaw);
-      expect(parsed.some((p: { name: string }) => p.name === 'パーティをシェア')).toBe(
-        false
-      );
+      expect(
+        parsed.some((p: { name: string }) => p.name === 'パーティをシェア')
+      ).toBe(false);
     }
 
-    // 3. EV steps should accurately be H=32, A=32, S=2
+    // 4. EV steps should accurately be H=32, A=32, S=2
     await waitFor(() => {
       const inputs = screen.getAllByRole('spinbutton') as HTMLInputElement[];
       expect(inputs[0].value).toBe('32');
@@ -571,7 +574,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
 
     const partyNameInput = screen.getByLabelText(
-      /パーティの検索・名前変更/i
+      /^パーティ名$/i
     ) as HTMLInputElement;
     fireEvent.change(partyNameInput, { target: { value: '' } });
     expect(partyNameInput.value).toBe('');

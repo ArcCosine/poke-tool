@@ -80,7 +80,9 @@
     "itemSearchPlaceholder": "搜索・输入携带物品...",
     "defenseWarning": "{type} 属性攻击存在贯通威胁（共 {count} 只弱此属性）。",
     "noCoverageWarning": "队伍缺少能对以下属性造成效果绝佳伤害的攻击招式：",
-    "partyNameRequired": "请输入队伍名称"
+    "partyNameRequired": "请输入队伍名称",
+    "partyNamePlaceholder": "输入队伍名称...",
+    "selectSavedParty": "从已保存队伍中选择"
   },
   "evCalculator": {
     "title": "努力值计算器",

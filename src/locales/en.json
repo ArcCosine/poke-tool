@@ -80,7 +80,9 @@
     "itemSearchPlaceholder": "Search held item...",
     "defenseWarning": "{type} type is highly effective: {count} members are weak to it.",
     "noCoverageWarning": "No moves hit super-effectively against: ",
-    "partyNameRequired": "Please enter a party name"
+    "partyNameRequired": "Please enter a party name",
+    "partyNamePlaceholder": "Enter party name...",
+    "selectSavedParty": "Select saved party"
   },
   "evCalculator": {
     "title": "EV Calculator",

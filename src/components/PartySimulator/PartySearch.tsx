@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useApp } from '../../context/AppContext';
-import { Autocomplete } from '../common/Autocomplete';
+import { Input } from '../common/Input';
+import { Select } from '../common/Select';
 
 export interface PartySearchProps {
   partyName: string;
@@ -16,6 +17,8 @@ export const PartySearch: React.FC<PartySearchProps> = ({
   onPartyNameChange,
 }) => {
   const { t } = useApp();
+
+  const currentMatchedParty = parties.find((p) => p.name === partyName);
 
   return (
     <div className="card-premium relative z-20 flex flex-col gap-4 p-5">
@@ -39,24 +42,39 @@ export const PartySearch: React.FC<PartySearchProps> = ({
         </div>
       </div>
 
-      {/* Party Search and Rename Autocomplete */}
-      <div className="w-full">
-        <Autocomplete
-          id="party-name-autocomplete"
-          label={t('partySimulator.searchRenameParty')}
-          value={partyName}
-          suggestions={parties.map((p) => p.name)}
-          onChange={(val) => {
-            const matched = parties.find((p) => p.name === val);
-            if (matched) {
-              onSelectParty(matched.id);
-            } else {
-              onPartyNameChange(val);
-            }
-          }}
-          placeholder={t('defaultPartyName')}
-          className="h-10 py-2 text-sm font-semibold"
-        />
+      {/* Party Name Input & Saved Party Switcher */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+        <div className="md:col-span-7 lg:col-span-8">
+          <Input
+            id="party-name-input"
+            label={t('partySimulator.partyName')}
+            value={partyName}
+            onChange={(e) => onPartyNameChange(e.target.value)}
+            placeholder={t('partySimulator.partyNamePlaceholder')}
+            className="h-10 py-2 text-sm font-semibold w-full"
+          />
+        </div>
+        <div className="md:col-span-5 lg:col-span-4">
+          <Select
+            id="saved-party-select"
+            label={t('partySimulator.selectSavedParty')}
+            value={currentMatchedParty ? currentMatchedParty.id : ''}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val) onSelectParty(val);
+            }}
+            className="h-10 py-2 text-sm font-semibold w-full"
+          >
+            <option value="">
+              -- {t('partySimulator.selectSavedParty')} --
+            </option>
+            {parties.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </Select>
+        </div>
       </div>
     </div>
   );

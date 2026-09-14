@@ -287,7 +287,7 @@ export const PartySimulator: React.FC = () => {
   const handleCloseNameValidationDialog = () => {
     setIsNameValidationDialogOpen(false);
     setTimeout(() => {
-      document.getElementById('party-name-autocomplete')?.focus();
+      document.getElementById('party-name-input')?.focus();
     }, 50);
   };
 

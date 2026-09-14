@@ -80,7 +80,9 @@
     "itemSearchPlaceholder": "搜尋・輸入攜帶物品...",
     "defenseWarning": "{type} 屬性攻擊存在貫通威脅（共 {count} 隻弱此屬性）。",
     "noCoverageWarning": "隊伍缺少能對以下屬性造成效果絕佳傷害的攻擊招式：",
-    "partyNameRequired": "請輸入隊伍名稱"
+    "partyNameRequired": "請輸入隊伍名稱",
+    "partyNamePlaceholder": "輸入隊伍名稱...",
+    "selectSavedParty": "從已儲存隊伍中選擇"
   },
   "evCalculator": {
     "title": "努力值計算器",

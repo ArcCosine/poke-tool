@@ -80,7 +80,9 @@
     "itemSearchPlaceholder": "지닌물건 검색・입력...",
     "defenseWarning": "{type} 타입 공격의 일관성이 있습니다 (약점 보유 {count}마리).",
     "noCoverageWarning": "다음 타입에 약점을 찌를 수 있는 공격 기술이 없습니다:",
-    "partyNameRequired": "파티 이름을 입력해 주세요"
+    "partyNameRequired": "파티 이름을 입력해 주세요",
+    "partyNamePlaceholder": "파티 이름 입력...",
+    "selectSavedParty": "저장된 파티에서 선택"
   },
   "evCalculator": {
     "title": "노력치 계산기",
