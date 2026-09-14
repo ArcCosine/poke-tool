@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "generate-ogp": "tsx scripts/generate_ogp.ts",
+    "build": "tsx scripts/generate_ogp.ts && tsc -b && vite build",
     "test": "vitest run",
     "lint": "biome check ./src",
     "update-data": "tsx scripts/fetch_pokeapi.ts",
