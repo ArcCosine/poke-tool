@@ -1,5 +1,9 @@
 # poke-tool - ポケモンチャンピオンズ 対戦分析・編成支援ツール
 
+[日本語](README.md) | [English](docs/README_en.md) | [한국어](docs/README_ko.md) | [繁體中文](docs/README_zh-Hant.md) | [简体中文](docs/README_zh-Hans.md)
+
+🌐 **Web アプリケーション**: [https://poke-tool.pages.dev/](https://poke-tool.pages.dev/)
+
 ポケモンチャンピオンズ向けの対戦データ分析・努力値計算・パーティ編成シミュレーションWebアプリケーションです。  
 クライアントサイド完結型（ローカルファースト）で設計されており、高速かつ安全・プライバシーに配慮した環境で対戦考察をサポートします。
 
