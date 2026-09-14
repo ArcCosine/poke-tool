@@ -23,5 +23,14 @@ describe('Layout Component', () => {
     expect(
       rankingLinks.some((l) => l.getAttribute('href') === '/ranking.html')
     ).toBe(true);
+
+    // Verify bottom navigation bar is rendered
+    const bottomNav = screen.getByRole('navigation', { name: 'Bottom Navigation' });
+    expect(bottomNav).toBeTruthy();
+
+    // Verify legal footer links are present
+    expect(screen.getByText('利用規約')).toBeTruthy();
+    expect(screen.getByText('プライバシーポリシー')).toBeTruthy();
+    expect(screen.getByText('免責事項')).toBeTruthy();
   });
 });

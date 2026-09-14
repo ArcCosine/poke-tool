@@ -135,25 +135,30 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
         </a>
       </footer>
 
-      {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex justify-around items-center">
-        {navItems.map((item) => {
-          const isActive = activePage === item.id;
-          return (
-            <a
-              key={item.id}
-              href={item.href}
-              className={`flex-1 flex flex-col items-center justify-center py-2 transition-colors duration-150 no-underline ${
-                isActive
-                  ? 'text-indigo-600 dark:text-indigo-400 font-bold'
-                  : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
-              }`}
-            >
-              <span className={`${item.icon} text-xl mb-1`} />
-              <span className="text-[10px] tracking-tight">{t(item.labelKey)}</span>
-            </a>
-          );
-        })}
+      {/* Bottom Navigation Bar (Visible on all screen sizes) */}
+      <nav
+        aria-label="Bottom Navigation"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800"
+      >
+        <div className="max-w-md md:max-w-lg mx-auto flex justify-around items-center">
+          {navItems.map((item) => {
+            const isActive = activePage === item.id;
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`flex-1 flex flex-col items-center justify-center py-2 transition-colors duration-150 no-underline ${
+                  isActive
+                    ? 'text-indigo-600 dark:text-indigo-400 font-bold'
+                    : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                }`}
+              >
+                <span className={`${item.icon} text-xl mb-1`} />
+                <span className="text-[10px] tracking-tight">{t(item.labelKey)}</span>
+              </a>
+            );
+          })}
+        </div>
       </nav>
     </div>
   );
