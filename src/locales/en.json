@@ -263,5 +263,30 @@
     "shareViaDevice": "Share via device (other apps)",
     "tweetTextPokemon": "Pokémon Champions EV Spread: {name}",
     "tweetTextParty": "Pokémon Champions Team"
+  },
+  "pwa": {
+    "installBannerTitle": "Add to Home Screen & Use as an App",
+    "installBannerDesc": "Quick offline access. Enjoy distraction-free full-screen battle simulations.",
+    "installButton": "Add to Home Screen",
+    "installed": "Installed",
+    "iosGuideTitle": "How to Add to Home Screen (iOS Safari)",
+    "iosGuideStep1": "1. Tap the Share button at the bottom (or top) of the screen.",
+    "iosGuideStep2": "2. Scroll and select 'Add to Home Screen'.",
+    "close": "Close",
+    "offlineSectionTitle": "Offline Data Management",
+    "offlineSectionDesc": "Download all Pokémon sprites (341 Pokémon, ~44MB) and master data to use the tool completely offline.",
+    "downloadAll": "Save All Data for Offline Use",
+    "downloading": "Downloading: {loaded} / {total} ({percent}%)",
+    "fullyCached": "All Data Cached (Ready for Offline Use)",
+    "partiallyCached": "Partially Cached ({cached} / {total})",
+    "notCached": "Not Cached (Images load online only)",
+    "clearCache": "Clear Cache",
+    "clearing": "Clearing...",
+    "cacheSize": "Cache Size: ~{size}MB",
+    "online": "Online",
+    "offline": "Operating Offline",
+    "updateAvailable": "A new version is available",
+    "updateButton": "Update Now"
   }
 }
+

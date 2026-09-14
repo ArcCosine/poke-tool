@@ -1,7 +1,10 @@
+import { normalizeEvs } from './pokemon';
+
 export interface SharedPokemonConfig {
   pokemonId: number;
   nature: string;
   itemId: number;
+  abilityIndex?: number;
   evs: {
     hp: number;
     attack: number;
@@ -49,7 +52,8 @@ const NATURE_LIST: string[] = [
   'quirky',
 ];
 
-const BYTES_PER_POKEMON = 19;
+const BYTES_PER_POKEMON = 20;
+const LEGACY_BYTES_PER_POKEMON = 19;
 
 /**
  * Encodes Uint8Array into an alphanumeric Base62 string
@@ -120,7 +124,7 @@ export function base62Decode(str: string, expectedLength?: number): Uint8Array {
 }
 
 /**
- * Serializes a single Pokemon config into 19 bytes
+ * Serializes a single Pokemon config into 20 bytes
  */
 function serializePokemon(
   config: SharedPokemonConfig,
@@ -133,42 +137,47 @@ function serializePokemon(
     BYTES_PER_POKEMON
   );
 
-  // pokemonId (Uint16, 2 bytes)
+  // pokemonId (Uint16, 2 bytes, 0..1)
   view.setUint16(0, config.pokemonId, false);
 
-  // nature (Uint8, 1 byte)
+  // nature (Uint8, 1 byte, 2)
   const natIdx = NATURE_LIST.indexOf(config.nature);
   view.setUint8(2, natIdx >= 0 ? natIdx : 0);
 
-  // itemId (Uint16, 2 bytes)
+  // itemId (Uint16, 2 bytes, 3..4)
   view.setUint16(3, config.itemId || 0, false);
 
-  // evs (6 bytes)
-  view.setUint8(5, Math.min(32, Math.max(0, config.evs.hp || 0)));
-  view.setUint8(6, Math.min(32, Math.max(0, config.evs.attack || 0)));
-  view.setUint8(7, Math.min(32, Math.max(0, config.evs.defense || 0)));
-  view.setUint8(8, Math.min(32, Math.max(0, config.evs.sp_attack || 0)));
-  view.setUint8(9, Math.min(32, Math.max(0, config.evs.sp_defense || 0)));
-  view.setUint8(10, Math.min(32, Math.max(0, config.evs.speed || 0)));
+  // evs steps (6 bytes, 5..10)
+  const normalizedEvs = normalizeEvs(config.evs);
+  view.setUint8(5, normalizedEvs.hp);
+  view.setUint8(6, normalizedEvs.attack);
+  view.setUint8(7, normalizedEvs.defense);
+  view.setUint8(8, normalizedEvs.sp_attack);
+  view.setUint8(9, normalizedEvs.sp_defense);
+  view.setUint8(10, normalizedEvs.speed);
 
-  // moves (4 x Uint16 = 8 bytes)
+  // moves (4 x Uint16 = 8 bytes, 11..18)
   for (let m = 0; m < 4; m++) {
     const moveId = config.moves && config.moves[m] ? config.moves[m] : 0;
     view.setUint16(11 + m * 2, moveId, false);
   }
+
+  // abilityIndex (Uint8, 1 byte, 19)
+  view.setUint8(19, config.abilityIndex ?? 0);
 }
 
 /**
- * Deserializes 19 bytes into a single Pokemon config
+ * Deserializes 20 (or legacy 19) bytes into a single Pokemon config
  */
 function deserializePokemon(
   buffer: Uint8Array,
-  offset: number
+  offset: number,
+  bytesPerPokemon = BYTES_PER_POKEMON
 ): SharedPokemonConfig {
   const view = new DataView(
     buffer.buffer,
     buffer.byteOffset + offset,
-    BYTES_PER_POKEMON
+    bytesPerPokemon
   );
 
   const pokemonId = view.getUint16(0, false);
@@ -176,14 +185,14 @@ function deserializePokemon(
   const nature = NATURE_LIST[natIdx] || 'neutral';
   const itemId = view.getUint16(3, false);
 
-  const evs = {
+  const evs = normalizeEvs({
     hp: view.getUint8(5),
     attack: view.getUint8(6),
     defense: view.getUint8(7),
     sp_attack: view.getUint8(8),
     sp_defense: view.getUint8(9),
     speed: view.getUint8(10),
-  };
+  });
 
   const moves = [
     view.getUint16(11, false),
@@ -192,10 +201,16 @@ function deserializePokemon(
     view.getUint16(17, false),
   ];
 
+  let abilityIndex = 0;
+  if (bytesPerPokemon >= 20) {
+    abilityIndex = view.getUint8(19);
+  }
+
   return {
     pokemonId,
     nature,
     itemId,
+    abilityIndex,
     evs,
     moves,
   };
@@ -211,16 +226,35 @@ export function encodePokemonConfig(config: SharedPokemonConfig): string {
 }
 
 /**
- * Decodes an alphanumeric Base62 string back to a Pokemon config
+ * Decodes an alphanumeric Base62 string back to a Pokemon config (supporting both 20-byte and legacy 19-byte)
  */
 export function decodePokemonConfig(str: string): SharedPokemonConfig | null {
   try {
     if (!str || !/^[0-9a-zA-Z]+$/.test(str)) return null;
-    const bytes = base62Decode(str, BYTES_PER_POKEMON);
-    if (bytes.length !== BYTES_PER_POKEMON) return null;
-    const config = deserializePokemon(bytes, 0);
-    if (config.pokemonId === 0) return null;
-    return config;
+
+    // Try 20-byte format first
+    try {
+      const bytes = base62Decode(str, BYTES_PER_POKEMON);
+      if (bytes.length === BYTES_PER_POKEMON) {
+        const config = deserializePokemon(bytes, 0, BYTES_PER_POKEMON);
+        if (config.pokemonId > 0) return config;
+      }
+    } catch {
+      // ignore and try legacy
+    }
+
+    // Try legacy 19-byte format
+    try {
+      const bytes = base62Decode(str, LEGACY_BYTES_PER_POKEMON);
+      if (bytes.length === LEGACY_BYTES_PER_POKEMON) {
+        const config = deserializePokemon(bytes, 0, LEGACY_BYTES_PER_POKEMON);
+        if (config.pokemonId > 0) return config;
+      }
+    } catch {
+      // ignore
+    }
+
+    return null;
   } catch {
     return null;
   }
@@ -239,36 +273,41 @@ export function encodePartyConfig(party: SharedPartyConfig): string {
 }
 
 /**
- * Decodes an alphanumeric Base62 string back to a Party config
+ * Decodes an alphanumeric Base62 string back to a Party config (supporting 20-byte and legacy 19-byte)
  */
 export function decodePartyConfig(str: string): SharedPartyConfig | null {
   try {
     if (!str || !/^[0-9a-zA-Z]+$/.test(str)) return null;
 
-    // Estimate byte length based on string length
-    // Each 19 bytes is ~26 Base62 chars
     const approxBytes = Math.round((str.length * Math.log2(62)) / 8);
-    const count = Math.min(
-      6,
-      Math.max(1, Math.round(approxBytes / BYTES_PER_POKEMON))
-    );
-    const expectedLen = count * BYTES_PER_POKEMON;
 
-    const bytes = base62Decode(str, expectedLen);
-    if (bytes.length % BYTES_PER_POKEMON !== 0) return null;
-
-    const memberCount = bytes.length / BYTES_PER_POKEMON;
-    const members: SharedPokemonConfig[] = [];
-    for (let i = 0; i < memberCount; i++) {
-      const p = deserializePokemon(bytes, i * BYTES_PER_POKEMON);
-      if (p.pokemonId > 0) {
-        members.push(p);
+    for (const bpp of [BYTES_PER_POKEMON, LEGACY_BYTES_PER_POKEMON]) {
+      const count = Math.min(
+        6,
+        Math.max(1, Math.round(approxBytes / bpp))
+      );
+      const expectedLen = count * bpp;
+      try {
+        const bytes = base62Decode(str, expectedLen);
+        if (bytes.length % bpp === 0 && bytes.length > 0) {
+          const memberCount = bytes.length / bpp;
+          const members: SharedPokemonConfig[] = [];
+          for (let i = 0; i < memberCount; i++) {
+            const p = deserializePokemon(bytes, i * bpp, bpp);
+            if (p.pokemonId > 0) {
+              members.push(p);
+            }
+          }
+          if (members.length > 0) return { members };
+        }
+      } catch {
+        continue;
       }
     }
 
-    if (members.length === 0) return null;
-    return { members };
+    return null;
   } catch {
     return null;
   }
 }
+

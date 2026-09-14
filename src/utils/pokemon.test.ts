@@ -42,9 +42,11 @@ describe('Pokemon Common Data Utilities', () => {
 });
 
 describe('Master Data Integrity for Rotom forms, Regulation M-C, and Items', async () => {
-  const regulations = await import('../data/regulations.json');
-  const pokemonMaster = await import('../data/pokemon_master.json');
-  const itemsMaster = await import('../data/items_master.json');
+  const regulations = await import('../../public/data/regulations.json');
+  const pokemonMaster = await import(
+    '../../public/data/pokemon_master.json'
+  );
+  const itemsMaster = await import('../../public/data/items_master.json');
 
   it('should include Regulation M-C in regulations.json', () => {
     const mcReg = regulations.default.find(
@@ -182,3 +184,64 @@ describe('Master Data Integrity for Rotom forms, Regulation M-C, and Items', asy
     expect(noneItem, 'なし should exist in items_master').toBeDefined();
   });
 });
+
+describe('EV Normalization and Limits (Max 32 per stat, Max 66 total)', async () => {
+  const { MAX_TOTAL_EVS, MAX_SINGLE_EV, normalizeEvs } = await import('./pokemon');
+
+  it('should have correct EV limits', () => {
+    expect(MAX_TOTAL_EVS).toBe(66);
+    expect(MAX_SINGLE_EV).toBe(32);
+  });
+
+  it('should preserve valid EV distributions (sum <= 66, each <= 32)', () => {
+    const valid = { hp: 32, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 2 };
+    expect(normalizeEvs(valid)).toEqual(valid);
+  });
+
+  it('should handle undefined or empty evs by returning all zeros', () => {
+    expect(normalizeEvs(undefined)).toEqual({
+      hp: 0,
+      attack: 0,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 0,
+    });
+  });
+
+  it('should migrate legacy 252-scale EVs to step values', () => {
+    // 252 -> 32, 12 -> 2
+    const legacy = { hp: 252, attack: 252, defense: 0, sp_attack: 0, sp_defense: 0, speed: 12 };
+    const normalized = normalizeEvs(legacy);
+    expect(normalized).toEqual({
+      hp: 32,
+      attack: 32,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 2,
+    });
+    expect(
+      Object.values(normalized).reduce((a, b) => a + b, 0)
+    ).toBe(66);
+  });
+
+  it('should clamp total EVs to 66 if sum is 76 or any value > 66', () => {
+    // Already in 0-32 range but sum = 32 + 32 + 12 = 76
+    const overLimit = { hp: 32, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 12 };
+    const normalized = normalizeEvs(overLimit);
+    const sum = Object.values(normalized).reduce((a, b) => a + b, 0);
+    expect(sum).toBeLessThanOrEqual(66);
+    expect(normalized.hp).toBe(32);
+    expect(normalized.attack).toBe(32);
+    expect(normalized.speed).toBe(2);
+  });
+
+  it('should clamp negative values to 0 and clamp over-maximum values to 32', () => {
+    const extreme = { hp: -5, attack: 300, defense: 0, sp_attack: 0, sp_defense: 0, speed: 0 };
+    const normalized = normalizeEvs(extreme);
+    expect(normalized.hp).toBe(0);
+    expect(normalized.attack).toBe(32);
+  });
+});
+

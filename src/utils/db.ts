@@ -181,15 +181,18 @@ export async function loadMasterData(): Promise<{
   const cachedMoves = await db.getCachedData<MoveMaster[]>('moves_master');
   const cachedItems = await db.getCachedData<ItemMaster[]>('items_master');
 
-  if (
-    cachedVersion &&
-    cachedVersion === currentVersion &&
+  const hasCachedData =
     Array.isArray(cachedPokemon) &&
     cachedPokemon.length > 0 &&
     Array.isArray(cachedMoves) &&
     cachedMoves.length > 0 &&
     Array.isArray(cachedItems) &&
-    cachedItems.length > 0
+    cachedItems.length > 0;
+
+  // Return cache if version matches or if offline / version fetch failed
+  if (
+    hasCachedData &&
+    (cachedVersion === currentVersion || currentVersion === 0)
   ) {
     return {
       pokemon: cachedPokemon,
@@ -199,27 +202,39 @@ export async function loadMasterData(): Promise<{
   }
 
   // 3. Fetch from static JSON files
-  const resPokemon = await fetch('/data/pokemon_master.json');
-  const resMoves = await fetch('/data/moves_master.json');
-  const resItems = await fetch('/data/items_master.json');
+  try {
+    const resPokemon = await fetch('/data/pokemon_master.json');
+    const resMoves = await fetch('/data/moves_master.json');
+    const resItems = await fetch('/data/items_master.json');
 
-  if (!resPokemon.ok || !resMoves.ok || !resItems.ok) {
-    throw new Error('Failed to fetch master data from static assets');
+    if (!resPokemon.ok || !resMoves.ok || !resItems.ok) {
+      throw new Error('Failed to fetch master data from static assets');
+    }
+
+    const pokemon = await resPokemon.json();
+    const moves = await resMoves.json();
+    const items = await resItems.json();
+
+    // 4. Cache to IndexedDB asynchronously
+    if (pokemon.length > 0 && moves.length > 0 && items.length > 0) {
+      db.setCachedData('pokemon_master', pokemon).catch(console.error);
+      db.setCachedData('moves_master', moves).catch(console.error);
+      db.setCachedData('items_master', items).catch(console.error);
+      db.setCachedData('master_version', currentVersion).catch(console.error);
+    }
+
+    return { pokemon, moves, items: filterItems(items) };
+  } catch (err) {
+    if (hasCachedData) {
+      console.warn('Network fetch failed, fallback to cached data:', err);
+      return {
+        pokemon: cachedPokemon,
+        moves: cachedMoves,
+        items: filterItems(cachedItems),
+      };
+    }
+    throw err;
   }
-
-  const pokemon = await resPokemon.json();
-  const moves = await resMoves.json();
-  const items = await resItems.json();
-
-  // 4. Cache to IndexedDB asynchronously
-  if (pokemon.length > 0 && moves.length > 0 && items.length > 0) {
-    db.setCachedData('pokemon_master', pokemon).catch(console.error);
-    db.setCachedData('moves_master', moves).catch(console.error);
-    db.setCachedData('items_master', items).catch(console.error);
-    db.setCachedData('master_version', currentVersion).catch(console.error);
-  }
-
-  return { pokemon, moves, items: filterItems(items) };
 }
 
 export const db = {

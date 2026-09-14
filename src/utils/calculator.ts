@@ -3,17 +3,16 @@ import type { LocalizedName, MoveMaster, PokemonMaster } from './db';
 // Stat points per EV (1 EV = 1 point in Pokemon Champions / this tool)
 export const POINTS_PER_EV = 1;
 
-// Calculate individual stats (HP or others)
+// Calculate individual stats (HP or others) using step value (0-32)
 export function calculateStat(
   statName: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
   base: number,
   _iv: number,
-  ev: number,
+  step: number,
   _level: number,
   nature = 1.0
 ): number {
-  // Convert traditional EV (0-252) to Champions points (0-32)
-  const points = ev <= 0 ? 0 : Math.floor((ev - 4) / 8) + 1;
+  const points = Math.max(0, Math.min(32, step));
 
   if (statName === 'hp') {
     if (base === 1) return 1; // Shedinja
@@ -50,12 +49,12 @@ export function calculateMaxDamage(
   // Keep track of the best damage setup for each move
   const bestMovesMap = new Map<string, MaxDamageMoveInfo>();
 
-  // Level 50, IV 31, EV 252, Nature 1.1 for maximizing offense
+  // Level 50, IV 31, Step 32, Nature 1.1 for maximizing offense
   const maxAttack = calculateStat(
     'attack',
     pokemon.base_stats.attack,
     31,
-    252,
+    32,
     50,
     1.1
   );
@@ -63,7 +62,7 @@ export function calculateMaxDamage(
     'sp_attack',
     pokemon.base_stats.sp_attack,
     31,
-    252,
+    32,
     50,
     1.1
   );
@@ -78,11 +77,18 @@ export function calculateMaxDamage(
   for (const m of baseLearnableMoves) {
     if (m.id === 854) {
       // おはかまいり
+      const baseKo = m.name.ko || m.name.ja;
+      const baseZhHant = m.name['zh-Hant'] || m.name.ja;
+      const baseZhHans = m.name['zh-Hans'] || m.name.ja;
+
       learnableMoves.push({
         ...m,
         name: {
           ja: `${m.name.ja}\n(味方0落ち)`,
           en: `${m.name.en}\n(0 fainted)`,
+          ko: `${baseKo}\n(기절한 아군 0마리)`,
+          'zh-Hant': `${baseZhHant}\n(瀕死同伴0隻)`,
+          'zh-Hans': `${baseZhHans}\n(濒死同伴0只)`,
         },
         power: 50,
       });
@@ -91,6 +97,9 @@ export function calculateMaxDamage(
         name: {
           ja: `${m.name.ja}\n(味方1落ち)`,
           en: `${m.name.en}\n(1 fainted)`,
+          ko: `${baseKo}\n(기절한 아군 1마리)`,
+          'zh-Hant': `${baseZhHant}\n(瀕死同伴1隻)`,
+          'zh-Hans': `${baseZhHans}\n(濒死同伴1只)`,
         },
         power: 100,
       });
@@ -99,24 +108,49 @@ export function calculateMaxDamage(
         name: {
           ja: `${m.name.ja}\n(味方2落ち/最大火力)`,
           en: `${m.name.en}\n(2 fainted/Max Power)`,
+          ko: `${baseKo}\n(기절한 아군 2마리/최대 화력)`,
+          'zh-Hant': `${baseZhHant}\n(瀕死同伴2隻/最大威力)`,
+          'zh-Hans': `${baseZhHans}\n(濒死同伴2只/最大威力)`,
         },
         power: 150,
       });
     } else if (m.id === 889) {
       // ふんどのこぶし
+      const baseKo = m.name.ko || m.name.ja;
+      const baseZhHant = m.name['zh-Hant'] || m.name.ja;
+      const baseZhHans = m.name['zh-Hans'] || m.name.ja;
+
       learnableMoves.push({
         ...m,
-        name: { ja: `${m.name.ja}\n(被弾0回)`, en: `${m.name.en}\n(0 hits)` },
+        name: {
+          ja: `${m.name.ja}\n(被弾0回)`,
+          en: `${m.name.en}\n(0 hits)`,
+          ko: `${baseKo}\n(맞은 횟수 0회)`,
+          'zh-Hant': `${baseZhHant}\n(受擊0次)`,
+          'zh-Hans': `${baseZhHans}\n(受击0次)`,
+        },
         power: 50,
       });
       learnableMoves.push({
         ...m,
-        name: { ja: `${m.name.ja}\n(被弾1回)`, en: `${m.name.en}\n(1 hit)` },
+        name: {
+          ja: `${m.name.ja}\n(被弾1回)`,
+          en: `${m.name.en}\n(1 hit)`,
+          ko: `${baseKo}\n(맞은 횟수 1회)`,
+          'zh-Hant': `${baseZhHant}\n(受擊1次)`,
+          'zh-Hans': `${baseZhHans}\n(受击1次)`,
+        },
         power: 100,
       });
       learnableMoves.push({
         ...m,
-        name: { ja: `${m.name.ja}\n(被弾2回)`, en: `${m.name.en}\n(2 hits)` },
+        name: {
+          ja: `${m.name.ja}\n(被弾2回)`,
+          en: `${m.name.en}\n(2 hits)`,
+          ko: `${baseKo}\n(맞은 횟수 2회)`,
+          'zh-Hant': `${baseZhHant}\n(受擊2次)`,
+          'zh-Hans': `${baseZhHans}\n(受击2次)`,
+        },
         power: 150,
       });
       learnableMoves.push({
@@ -124,6 +158,9 @@ export function calculateMaxDamage(
         name: {
           ja: `${m.name.ja}\n(被弾3回/最大火力)`,
           en: `${m.name.en}\n(3 hits/Max Power)`,
+          ko: `${baseKo}\n(맞은 횟수 3회/최대 화력)`,
+          'zh-Hant': `${baseZhHant}\n(受擊3次/最大威力)`,
+          'zh-Hans': `${baseZhHans}\n(受击3次/最大威力)`,
         },
         power: 200,
       });
@@ -135,7 +172,15 @@ export function calculateMaxDamage(
   const abilities =
     pokemon.abilities && pokemon.abilities.length > 0
       ? pokemon.abilities
-      : [{ ja: 'なし', en: 'None' }];
+      : [
+          {
+            ja: 'なし',
+            en: 'None',
+            ko: '없음',
+            'zh-Hant': '無',
+            'zh-Hans': '无',
+          },
+        ];
 
   for (const ability of abilities) {
     const abilityNameJa = ability.ja;
@@ -312,25 +357,25 @@ export interface MaxDurabilityInfo {
 export function calculateMaxDurability(
   pokemon: PokemonMaster
 ): MaxDurabilityInfo {
-  // Max HP configuration (EV 252)
-  const maxHp = calculateStat('hp', pokemon.base_stats.hp, 31, 252, 50);
+  // Max HP configuration (Step 32)
+  const maxHp = calculateStat('hp', pokemon.base_stats.hp, 31, 32, 50);
 
-  // Max Defense configuration (EV 252, Nature 1.1)
+  // Max Defense configuration (Step 32, Nature 1.1)
   const baseDefense = calculateStat(
     'defense',
     pokemon.base_stats.defense,
     31,
-    252,
+    32,
     50,
     1.1
   );
 
-  // Max SpDefense configuration (EV 252, Nature 1.1)
+  // Max SpDefense configuration (Step 32, Nature 1.1)
   const baseSpDefense = calculateStat(
     'sp_defense',
     pokemon.base_stats.sp_defense,
     31,
-    252,
+    32,
     50,
     1.1
   );
@@ -338,7 +383,15 @@ export function calculateMaxDurability(
   const abilities =
     pokemon.abilities && pokemon.abilities.length > 0
       ? pokemon.abilities
-      : [{ ja: 'なし', en: 'None' }];
+      : [
+          {
+            ja: 'なし',
+            en: 'None',
+            ko: '없음',
+            'zh-Hant': '無',
+            'zh-Hans': '无',
+          },
+        ];
 
   let maxPhysical = 0;
   let bestPhysicalAbility = abilities[0];

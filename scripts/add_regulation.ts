@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const REGULATIONS_JSON_PATH = path.resolve(import.meta.dirname, '../src/data/regulations.json');
+const REGULATIONS_JSON_PATH = path.resolve(import.meta.dirname, '../public/data/regulations.json');
 const CONFIG_JSON_PATH = path.resolve(import.meta.dirname, './regulations_config.json');
 
 function main() {
@@ -18,7 +18,7 @@ function main() {
     ? pokemonIdsStr.split(',').map(idStr => parseInt(idStr.trim(), 10)).filter(num => !isNaN(num))
     : [];
 
-  // 1. Update src/data/regulations.json
+  // 1. Update public/data/regulations.json
   let regulations: any[] = [];
   if (fs.existsSync(REGULATIONS_JSON_PATH)) {
     regulations = JSON.parse(fs.readFileSync(REGULATIONS_JSON_PATH, 'utf-8'));

@@ -263,5 +263,30 @@
     "shareViaDevice": "透過裝置分享 (其他應用)",
     "tweetTextPokemon": "寶可夢冠軍 努力值調整: {name}",
     "tweetTextParty": "寶可夢冠軍 隊伍陣容"
+  },
+  "pwa": {
+    "installBannerTitle": "新增至主畫面並作為應用程式使用",
+    "installBannerDesc": "離線也能極速存取。以全螢幕享受不受干擾的對戰模擬。",
+    "installButton": "新增至主畫面",
+    "installed": "已安裝",
+    "iosGuideTitle": "如何新增至主畫面 (iOS Safari)",
+    "iosGuideStep1": "1. 點擊螢幕下方（或上方）的「分享按鈕」。",
+    "iosGuideStep2": "2. 在選單中選擇「加入主畫面」。",
+    "close": "關閉",
+    "offlineSectionTitle": "離線資料管理",
+    "offlineSectionDesc": "將全部寶可夢點陣圖（341隻，約44MB）與主資料一次下載至裝置，無網路連線也能完全運作。",
+    "downloadAll": "下載全部資料至裝置 (支援離線)",
+    "downloading": "下載中: {loaded} / {total} ({percent}%)",
+    "fullyCached": "全部資料已快取（可離線使用）",
+    "partiallyCached": "部分資料已快取 ({cached} / {total})",
+    "notCached": "未儲存（僅在連線時載入圖片）",
+    "clearCache": "清除快取",
+    "clearing": "清除中...",
+    "cacheSize": "快取容量: 約{size}MB",
+    "online": "連線中",
+    "offline": "離線運作中",
+    "updateAvailable": "已有新版本可供更新",
+    "updateButton": "立即更新"
   }
 }
+

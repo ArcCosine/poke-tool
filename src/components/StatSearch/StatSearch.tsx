@@ -131,10 +131,22 @@ export const StatSearch: React.FC = () => {
         flatList.push({
           pokemon: poke,
           value: 0,
-          moveName: { ja: 'なし', en: 'None' },
+          moveName: {
+            ja: 'なし',
+            en: 'None',
+            ko: '없음',
+            'zh-Hant': '無',
+            'zh-Hans': '无',
+          },
           category: 'status',
           moveType: 'normal',
-          abilityName: { ja: 'なし', en: 'None' },
+          abilityName: {
+            ja: 'なし',
+            en: 'None',
+            ko: '없음',
+            'zh-Hant': '無',
+            'zh-Hans': '无',
+          },
         });
       }
     } else {

@@ -533,7 +533,7 @@ export const NATURES: NatureDefinition[] = [
 export const getCalculatedStat = (
   statName: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
   base: number,
-  ev: number,
+  step: number,
   natureId: string
 ): number => {
   const level = 50;
@@ -546,7 +546,7 @@ export const getCalculatedStat = (
     if (nat.minus === statName) multiplier = 0.9;
   }
 
-  return calculateStat(statName, base, iv, ev, level, multiplier);
+  return calculateStat(statName, base, iv, step, level, multiplier);
 };
 
 export const generatePokesolText = (
@@ -574,10 +574,10 @@ export const generatePokesolText = (
   const formatStat = (
     statKey: 'hp' | 'attack' | 'defense' | 'sp_attack' | 'sp_defense' | 'speed',
     base: number,
-    ev: number
+    step: number
   ) => {
-    const val = getCalculatedStat(statKey, base, ev, member.nature);
-    return ev > 0 ? `${val}(${ev})` : `${val}`;
+    const val = getCalculatedStat(statKey, base, step, member.nature);
+    return step > 0 ? `${val}(+${step})` : `${val}`;
   };
 
   const statString = [

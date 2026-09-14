@@ -8,8 +8,16 @@ import {
   type PokemonMaster,
 } from '../../utils/db';
 import type { PokemonInstance } from '../../utils/party';
-import { getCalculatedStat, NATURES, stepToEv } from '../../utils/party';
-import { megaStoneMap, typeTranslations } from '../../utils/pokemon';
+import { getCalculatedStat, NATURES } from '../../utils/party';
+import {
+  MAX_SINGLE_EV,
+  MAX_TOTAL_EVS,
+  megaStoneMap,
+  normalizeEvs,
+  type StatKey,
+  STAT_KEYS,
+  typeTranslations,
+} from '../../utils/pokemon';
 import {
   decodePokemonConfig,
   encodePokemonConfig,
@@ -28,23 +36,6 @@ import { EvStatInput } from './EvStatInput';
 interface EvCalculatorProps {
   onImportComplete?: () => void;
 }
-
-type StatKey =
-  | 'hp'
-  | 'attack'
-  | 'defense'
-  | 'sp_attack'
-  | 'sp_defense'
-  | 'speed';
-
-const STAT_KEYS: StatKey[] = [
-  'hp',
-  'attack',
-  'defense',
-  'sp_attack',
-  'sp_defense',
-  'speed',
-];
 
 export const EvCalculator: React.FC<EvCalculatorProps> = ({
   onImportComplete,
@@ -118,9 +109,10 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
     if (!poke) return;
 
     setSelectedPoke(poke);
-    setAbility(poke.abilities[0]?.ja || '');
+    const abilityIdx = decoded.abilityIndex ?? 0;
+    setAbility(poke.abilities[abilityIdx]?.ja || poke.abilities[0]?.ja || '');
     setNature(decoded.nature);
-    setEvs(decoded.evs);
+    setEvs(normalizeEvs(decoded.evs));
     setMoves(decoded.moves);
     const it = itemsData.find((i) => i.id === decoded.itemId);
     setItem(it ? it.name[language] || it.name.ja : '');
@@ -129,12 +121,18 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   const handleShare = () => {
     if (!selectedPoke) return;
     const currentItemObj = itemsData.find(
-      (i) => i.name[language] === item || i.name.ja === item
+      (i) =>
+        i.name[language] === item ||
+        Object.values(i.name).some((n) => n === item)
+    );
+    const abilityIdx = selectedPoke.abilities.findIndex(
+      (a) => a.ja === ability || Object.values(a).some((n) => n === ability)
     );
     const config: SharedPokemonConfig = {
       pokemonId: selectedPoke.id,
       nature,
       itemId: currentItemObj ? currentItemObj.id : 0,
+      abilityIndex: abilityIdx >= 0 ? abilityIdx : 0,
       evs,
       moves,
     };
@@ -175,13 +173,16 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   };
 
   const handleEvChange = (stat: StatKey, stepVal: number) => {
-    const cleanStep = Math.max(0, Math.min(32, stepVal));
+    const cleanStep = Math.max(0, Math.min(MAX_SINGLE_EV, stepVal));
     setEvs((prev) => {
       const otherTotal = Object.entries(prev)
         .filter(([k]) => k !== stat)
         .reduce((sum, [_, v]) => sum + v, 0);
 
-      const allowedMax = Math.min(32, 66 - otherTotal);
+      const allowedMax = Math.max(
+        0,
+        Math.min(MAX_SINGLE_EV, MAX_TOTAL_EVS - otherTotal)
+      );
       return {
         ...prev,
         [stat]: Math.min(cleanStep, allowedMax),
@@ -200,12 +201,12 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       item,
       moves,
       evs: {
-        hp: stepToEv(evs.hp),
-        attack: stepToEv(evs.attack),
-        defense: stepToEv(evs.defense),
-        sp_attack: stepToEv(evs.sp_attack),
-        sp_defense: stepToEv(evs.sp_defense),
-        speed: stepToEv(evs.speed),
+        hp: evs.hp,
+        attack: evs.attack,
+        defense: evs.defense,
+        sp_attack: evs.sp_attack,
+        sp_defense: evs.sp_defense,
+        speed: evs.speed,
       },
     };
 
@@ -213,8 +214,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       setPendingInstanceToAdd(instance);
       setIsPartySelectOpen(true);
     } else {
-      const createdId = createNewParty(t('evCalculator.myParty'), []);
-      addPokemonToPartyDirectly(instance, createdId);
+      createNewParty(t('evCalculator.myParty'), [instance]);
       if (onImportComplete) onImportComplete();
     }
   };
@@ -366,11 +366,15 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
 
               {/* Ability Select */}
               <div className="space-y-1">
-                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
+                <label
+                  htmlFor="ev-ability-select"
+                  className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block"
+                >
                   {t('evCalculator.ability')}
                 </label>
 
                 <Select
+                  id="ev-ability-select"
                   value={ability}
                   onChange={(e) => setAbility(e.target.value)}
                   className="py-1 text-xs font-semibold"
@@ -412,14 +416,14 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                     EV Total:{' '}
                     <span
                       className={
-                        totalEv > 66
+                        totalEv > MAX_TOTAL_EVS
                           ? 'text-red-500'
                           : 'text-indigo-600 dark:text-indigo-400'
                       }
                     >
                       {totalEv}
                     </span>{' '}
-                    / 66
+                    / {MAX_TOTAL_EVS}
                   </span>
                 </div>
               </div>
@@ -448,7 +452,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                   const calcStat = getCalculatedStat(
                     stat,
                     base,
-                    stepToEv(ev),
+                    ev,
                     nature
                   );
                   const isHp = stat === 'hp';
@@ -458,7 +462,10 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                   const otherTotal = Object.entries(evs)
                     .filter(([k]) => k !== stat)
                     .reduce((sum, [_, v]) => sum + v, 0);
-                  const allowedMax = Math.min(32, 66 - otherTotal);
+                  const allowedMax = Math.max(
+                    0,
+                    Math.min(MAX_SINGLE_EV, MAX_TOTAL_EVS - otherTotal)
+                  );
 
                   return (
                     <div
@@ -588,12 +595,14 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 currentEvs={evs}
                 nature={nature}
                 onApplyHbdEvs={(hbd) => {
-                  setEvs((prev) => ({
-                    ...prev,
-                    hp: hbd.hp,
-                    defense: hbd.defense,
-                    sp_defense: hbd.sp_defense,
-                  }));
+                  setEvs((prev) =>
+                    normalizeEvs({
+                      ...prev,
+                      hp: hbd.hp,
+                      defense: hbd.defense,
+                      sp_defense: hbd.sp_defense,
+                    })
+                  );
                 }}
               />
 
@@ -754,11 +763,14 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  const createdId = createNewParty(
-                    t('evCalculator.myParty'),
-                    []
-                  );
-                  handleConfirmAddParty(createdId);
+                  if (pendingInstanceToAdd) {
+                    createNewParty(t('evCalculator.myParty'), [
+                      pendingInstanceToAdd,
+                    ]);
+                    setIsPartySelectOpen(false);
+                    setPendingInstanceToAdd(null);
+                    if (onImportComplete) onImportComplete();
+                  }
                 }}
                 className="w-full transition duration-200 cursor-pointer font-semibold flex items-center justify-center gap-2 btn-secondary py-2.5 text-sm"
               >

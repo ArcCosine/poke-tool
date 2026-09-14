@@ -1,6 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppProvider } from '../../context/AppContext';
+import { encodePokemonConfig } from '../../utils/share';
 import { EvCalculator } from './EvCalculator';
 
 // Mock DB loader
@@ -319,4 +320,112 @@ describe('EvCalculator', () => {
     );
     expect(shareUrlInput).toBeDefined();
   });
+
+  it('should create a new party and add the current pokemon when create new party is clicked', async () => {
+    await act(async () => {
+      render(
+        <AppProvider>
+          <EvCalculator />
+        </AppProvider>
+      );
+    });
+
+    // Select Blastoise
+    const searchBtn = screen.getAllByText(/ポケモンを選択/i)[0];
+    await act(async () => {
+      fireEvent.click(searchBtn);
+    });
+    const pokeRow = screen.getByText('カメックス');
+    await act(async () => {
+      fireEvent.click(pokeRow);
+    });
+
+    // Click "パーティに追加" button
+    const addButtons = screen.getAllByRole('button', { name: /パーティに追加/i });
+    await act(async () => {
+      fireEvent.click(addButtons[0]);
+    });
+
+    // Check if modal or party selection opens, then click "新規パーティを作成して追加"
+    const createNewPartyBtn = screen.getByRole('button', {
+      name: /新規パーティを作成して追加/i,
+    });
+    expect(createNewPartyBtn).toBeDefined();
+
+    await act(async () => {
+      fireEvent.click(createNewPartyBtn);
+    });
+
+    // Dialog should now be closed
+    expect(screen.queryByText(/追加先のパーティを選択/i)).toBeNull();
+
+    // Verify localStorage has saved party with Blastoise (masterId: 9)
+    const saved = JSON.parse(localStorage.getItem('saved_parties') || '[]');
+    const partyWithPoke = saved.find((p: any) =>
+      p.members.some((m: any) => m.masterId === 9)
+    );
+    expect(partyWithPoke).toBeDefined();
+    expect(partyWithPoke.members[0].masterId).toBe(9);
+  });
+
+  it('should restore pokemon configuration with ability from URL query parameter', async () => {
+    const code = encodePokemonConfig({
+      pokemonId: 9,
+      nature: 'Modest',
+      itemId: 0,
+      abilityIndex: 1, // Rain Dish (あめうけざら)
+      evs: { hp: 32, attack: 0, defense: 0, sp_attack: 32, sp_defense: 0, speed: 0 },
+      moves: [0, 0, 0, 0],
+    });
+
+    window.history.pushState({}, '', `?s=${code}`);
+
+    try {
+      await act(async () => {
+        render(
+          <AppProvider>
+            <EvCalculator />
+          </AppProvider>
+        );
+      });
+
+      // Ability should be restored to "あめうけざら"
+      const abilitySelect = screen.getByRole('combobox', { name: '特性' }) as HTMLSelectElement;
+      expect(abilitySelect.value).toBe('あめうけざら');
+    } finally {
+      window.history.pushState({}, '', '/');
+    }
+  });
+
+  it('should clamp restored EVs to max 66 when URL contains total > 66', async () => {
+    const code = encodePokemonConfig({
+      pokemonId: 9,
+      nature: 'Modest',
+      itemId: 0,
+      abilityIndex: 0,
+      // Total 76: HP 32, SpAtk 32, Speed 12
+      evs: { hp: 32, attack: 0, defense: 0, sp_attack: 32, sp_defense: 0, speed: 12 },
+      moves: [0, 0, 0, 0],
+    });
+
+    window.history.pushState({}, '', `?s=${code}`);
+
+    try {
+      await act(async () => {
+        render(
+          <AppProvider>
+            <EvCalculator />
+          </AppProvider>
+        );
+      });
+
+      // Total EV text should show 66 / 66 (clamped total)
+      const evTotalElement = screen.getByText(/EV Total:/);
+      expect(evTotalElement.textContent).toContain('66');
+      expect(evTotalElement.textContent).toContain('/ 66');
+    } finally {
+      window.history.pushState({}, '', '/');
+    }
+  });
 });
+

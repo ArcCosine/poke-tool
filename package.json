@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "generate-ogp": "tsx scripts/generate_ogp.ts",
-    "build": "tsx scripts/generate_ogp.ts && tsc -b && vite build",
+    "generate-pwa-icons": "tsx scripts/generate_pwa_icons.ts",
+    "build": "tsx scripts/generate_pwa_icons.ts && tsx scripts/generate_ogp.ts && tsc -b && vite build",
     "test": "vitest run",
     "lint": "biome check ./src",
     "update-data": "tsx scripts/fetch_pokeapi.ts",
@@ -33,6 +34,7 @@
     "typescript": "~6.0.2",
     "unocss": "^66.7.5",
     "vite": "^8.1.1",
+    "vite-plugin-pwa": "^1.3.0",
     "vitest": "^4.1.10"
   }
 }

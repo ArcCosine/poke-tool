@@ -39,6 +39,7 @@ describe('Pokemon Config Share (EV Calculator)', () => {
     pokemonId: 149, // カイリュー
     nature: 'adamant',
     itemId: 191, // しろいハーブ
+    abilityIndex: 1, // マルチスケイル
     evs: {
       hp: 16,
       attack: 32,
@@ -57,13 +58,14 @@ describe('Pokemon Config Share (EV Calculator)', () => {
     expect(encoded.includes('%')).toBe(false);
   });
 
-  it('decodes an alphanumeric string back to original pokemon config', () => {
+  it('decodes an alphanumeric string back to original pokemon config with abilityIndex', () => {
     const encoded = encodePokemonConfig(sampleConfig);
     const decoded = decodePokemonConfig(encoded);
     expect(decoded).not.toBeNull();
     expect(decoded?.pokemonId).toBe(149);
     expect(decoded?.nature).toBe('adamant');
     expect(decoded?.itemId).toBe(191);
+    expect(decoded?.abilityIndex).toBe(1);
     expect(decoded?.evs).toEqual({
       hp: 16,
       attack: 32,
@@ -73,6 +75,23 @@ describe('Pokemon Config Share (EV Calculator)', () => {
       speed: 16,
     });
     expect(decoded?.moves).toEqual([1, 2, 3, 4]);
+  });
+
+  it('supports backward compatibility with legacy 19-byte share strings (abilityIndex defaults to 0)', () => {
+    // 19-byte legacy encoded string
+    const legacy19Bytes = new Uint8Array(19);
+    const view = new DataView(legacy19Bytes.buffer);
+    view.setUint16(0, 149, false); // pokemonId 149
+    view.setUint8(2, 5); // nature
+    view.setUint16(3, 191, false); // itemId 191
+    view.setUint8(5, 16); // hp step
+    view.setUint8(6, 32); // attack step
+    const legacyEncoded = base62Encode(legacy19Bytes);
+
+    const decoded = decodePokemonConfig(legacyEncoded);
+    expect(decoded).not.toBeNull();
+    expect(decoded?.pokemonId).toBe(149);
+    expect(decoded?.abilityIndex).toBe(0); // Safely defaulted to 0
   });
 
   it('gracefully returns null for invalid or corrupted string', () => {
@@ -88,6 +107,7 @@ describe('Party Config Share (Party Simulator)', () => {
         pokemonId: 149,
         nature: 'adamant',
         itemId: 191,
+        abilityIndex: 1,
         evs: {
           hp: 16,
           attack: 32,
@@ -102,6 +122,7 @@ describe('Party Config Share (Party Simulator)', () => {
         pokemonId: 9, // カメックス
         nature: 'modest',
         itemId: 0,
+        abilityIndex: 2,
         evs: {
           hp: 32,
           attack: 0,
@@ -122,16 +143,18 @@ describe('Party Config Share (Party Simulator)', () => {
     expect(encoded.includes('%')).toBe(false);
   });
 
-  it('decodes an alphanumeric party string back to original party config', () => {
+  it('decodes an alphanumeric party string back to original party config with abilityIndex', () => {
     const encoded = encodePartyConfig(sampleParty);
     const decoded = decodePartyConfig(encoded);
     expect(decoded).not.toBeNull();
     expect(decoded?.members.length).toBe(2);
     expect(decoded?.members[0].pokemonId).toBe(149);
     expect(decoded?.members[0].nature).toBe('adamant');
+    expect(decoded?.members[0].abilityIndex).toBe(1);
     expect(decoded?.members[0].evs.attack).toBe(32);
     expect(decoded?.members[1].pokemonId).toBe(9);
     expect(decoded?.members[1].nature).toBe('modest');
+    expect(decoded?.members[1].abilityIndex).toBe(2);
   });
 
   it('gracefully handles empty party or corrupted party string', () => {
@@ -139,67 +162,58 @@ describe('Party Config Share (Party Simulator)', () => {
     expect(decodePartyConfig('abc$%')).toBeNull();
   });
 
-  it('accurately encodes EV steps and allows conversion to/from raw EVs', async () => {
-    const { evToStep, stepToEv } = await import('./party');
-
-    // Pokemon with raw EVs: H=252 (step 32), A=252 (step 32), S=12 (step 2)
-    const rawEvs = {
-      hp: 252,
-      attack: 252,
-      defense: 0,
-      sp_attack: 0,
-      sp_defense: 0,
-      speed: 12,
-    };
-
-    // 1. Convert raw EVs to steps before sharing
-    const sharedEvs = {
-      hp: evToStep(rawEvs.hp),
-      attack: evToStep(rawEvs.attack),
-      defense: evToStep(rawEvs.defense),
-      sp_attack: evToStep(rawEvs.sp_attack),
-      sp_defense: evToStep(rawEvs.sp_defense),
-      speed: evToStep(rawEvs.speed),
-    };
-
-    expect(sharedEvs).toEqual({
+  it('accurately encodes and decodes pure EV steps without traditional 0-255 conversions', () => {
+    const stepEvs = {
       hp: 32,
       attack: 32,
       defense: 0,
       sp_attack: 0,
       sp_defense: 0,
       speed: 2,
-    });
+    };
 
-    // 2. Encode to string
     const code = encodePartyConfig({
       members: [
         {
           pokemonId: 149,
           nature: 'adamant',
           itemId: 0,
-          evs: sharedEvs,
+          abilityIndex: 0,
+          evs: stepEvs,
           moves: [1, 2, 0, 0],
         },
       ],
     });
 
-    // 3. Decode from string
     const decoded = decodePartyConfig(code);
     expect(decoded).not.toBeNull();
-    const restoredStepEvs = decoded!.members[0].evs;
-    expect(restoredStepEvs).toEqual(sharedEvs);
+    expect(decoded!.members[0].evs).toEqual(stepEvs);
+  });
 
-    // 4. Convert steps back to raw EVs
-    const restoredRawEvs = {
-      hp: stepToEv(restoredStepEvs.hp),
-      attack: stepToEv(restoredStepEvs.attack),
-      defense: stepToEv(restoredStepEvs.defense),
-      sp_attack: stepToEv(restoredStepEvs.sp_attack),
-      sp_defense: stepToEv(restoredStepEvs.sp_defense),
-      speed: stepToEv(restoredStepEvs.speed),
+  it('clamps over-limit EVs (e.g. sum 76) to max 66 when encoding and decoding', () => {
+    const overLimitEvs = {
+      hp: 32,
+      attack: 32,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 12, // sum = 76
     };
 
-    expect(restoredRawEvs).toEqual(rawEvs);
+    const code = encodePokemonConfig({
+      pokemonId: 149,
+      nature: 'adamant',
+      itemId: 0,
+      abilityIndex: 0,
+      evs: overLimitEvs,
+      moves: [0, 0, 0, 0],
+    });
+
+    const decoded = decodePokemonConfig(code);
+    expect(decoded).not.toBeNull();
+    const sum = Object.values(decoded!.evs).reduce((a, b) => a + b, 0);
+    expect(sum).toBe(66);
+    expect(decoded!.evs.speed).toBe(2);
   });
 });
+

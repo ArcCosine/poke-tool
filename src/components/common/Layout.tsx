@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { AppIcon } from './AppIcon';
 import { Button } from './Button';
 import { LanguageSelector } from './LanguageSelector';
+import { UpdateToast } from './UpdateToast';
 
 export type PageId = 'dashboard' | 'ranking' | 'evCalculator' | 'party';
 
@@ -162,6 +163,10 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
           })}
         </div>
       </nav>
+
+      {/* PWA Update Notification Toast */}
+      <UpdateToast />
     </div>
   );
 };
+

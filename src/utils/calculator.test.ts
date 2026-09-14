@@ -10,26 +10,30 @@ import type { MoveMaster, PokemonMaster } from './db';
 
 describe('calculator utilities', () => {
   describe('calculateStat', () => {
-    it('should calculate HP correctly at level 50', () => {
-      // Blastoise (HP base: 79), IV: 31, EV: 252 -> Max HP
-      const hp = calculateStat('hp', 79, 31, 252, 50);
-      expect(hp).toBe(186); // 79 + 75 + 63 = 186
+    it('should calculate HP correctly at level 50 using step value', () => {
+      // Blastoise (HP base: 79), step: 32 -> Max HP (186)
+      const hpMax = calculateStat('hp', 79, 31, 32, 50);
+      expect(hpMax).toBe(186);
+
+      // step: 0 -> Min HP (154)
+      const hpMin = calculateStat('hp', 79, 31, 0, 50);
+      expect(hpMin).toBe(154);
     });
 
-    it('should calculate other stats with neutral nature correctly', () => {
-      // Blastoise (Sp.Atk base: 85), IV: 31, EV: 252, Nature: 1.0
-      const stat = calculateStat('sp_attack', 85, 31, 252, 50, 1.0);
-      expect(stat).toBe(137); // floor(85 + 20 + 63) * 1.0 = 168 / 137?
-      // Wait, let's verify formula:
-      // stat = floor( (base * 2 + iv + floor(ev/4)) * level / 100 ) + 5
-      // For level 50, iv 31, ev 252:
-      // floor( (85 * 2 + 31 + 63) * 0.5 ) + 5 = floor( (170 + 94) * 0.5 ) + 5 = floor(264 * 0.5) + 5 = 132 + 5 = 137. Yes!
+    it('should calculate other stats with neutral nature correctly using step value', () => {
+      // Blastoise (Sp.Atk base: 85), step: 32, Nature: 1.0
+      const statMax = calculateStat('sp_attack', 85, 31, 32, 50, 1.0);
+      expect(statMax).toBe(137);
+
+      // step: 0, Nature: 1.0
+      const statMin = calculateStat('sp_attack', 85, 31, 0, 50, 1.0);
+      expect(statMin).toBe(105);
     });
 
-    it('should calculate other stats with positive nature correctly', () => {
-      // Blastoise (Sp.Atk base: 85), IV: 31, EV: 252, Nature: 1.1 (max stat)
-      const stat = calculateStat('sp_attack', 85, 31, 252, 50, 1.1);
-      expect(stat).toBe(151); // floor(137.5 * 1.1) = 151
+    it('should calculate other stats with positive nature correctly using step value', () => {
+      // Blastoise (Sp.Atk base: 85), step: 32, Nature: 1.1 (max stat)
+      const stat = calculateStat('sp_attack', 85, 31, 32, 50, 1.1);
+      expect(stat).toBe(151);
     });
   });
 

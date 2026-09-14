@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { megaStoneMap } from '../src/utils/pokemon';
 
-const DATA_DIR = path.resolve(import.meta.dirname, '../src/data');
+const DATA_DIR = path.resolve(import.meta.dirname, '../public/data');
 const CACHE_DIR = path.resolve(import.meta.dirname, './cache');
 
 if (!fs.existsSync(CACHE_DIR)) {

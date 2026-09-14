@@ -140,4 +140,32 @@ describe('db caching utilities', () => {
     expect(fetchMock).toHaveBeenCalledTimes(4);
     expect(result.moves).toEqual(mockMoves);
   });
+
+  it('should return cached data gracefully when network is completely offline (fetch fails)', async () => {
+    const mockPokemon = [{ id: 1, name: { ja: 'フシギバナ', en: 'Venusaur' } }];
+    const mockMoves = [
+      { id: 14, name: { ja: 'つるぎのまい', en: 'Swords Dance' } },
+    ];
+    const mockItems = [
+      { id: 1, name: { ja: 'オボンのみ', en: 'Sitrus Berry' } },
+    ];
+
+    // Fetch fails completely (offline)
+    const fetchMock = vi.fn().mockRejectedValue(new Error('Network error'));
+    vi.stubGlobal('fetch', fetchMock);
+
+    vi.spyOn(db, 'getCachedData').mockImplementation((key: string) => {
+      if (key === 'master_version') return Promise.resolve(100);
+      if (key === 'pokemon_master') return Promise.resolve(mockPokemon);
+      if (key === 'moves_master') return Promise.resolve(mockMoves);
+      if (key === 'items_master') return Promise.resolve(mockItems);
+      return Promise.resolve(null);
+    });
+
+    const result = await db.loadMasterData();
+
+    expect(result.pokemon).toEqual(mockPokemon);
+    expect(result.moves).toEqual(mockMoves);
+    expect(result.items).toEqual(mockItems);
+  });
 });

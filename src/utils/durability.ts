@@ -1,4 +1,4 @@
-import { getCalculatedStat, stepToEv } from './party';
+import { getCalculatedStat } from './party';
 
 export interface DurabilityModifier {
   defense: number;
@@ -84,7 +84,7 @@ export function optimizeHbdEvs({
     const realH = getCalculatedStat(
       'hp',
       baseStats.hp,
-      stepToEv(hStep),
+      hStep,
       nature
     );
 
@@ -98,13 +98,13 @@ export function optimizeHbdEvs({
       const realB = getCalculatedStat(
         'defense',
         baseStats.defense,
-        stepToEv(bStep),
+        bStep,
         nature
       );
       const realD = getCalculatedStat(
         'sp_defense',
         baseStats.sp_defense,
-        stepToEv(dStep),
+        dStep,
         nature
       );
 

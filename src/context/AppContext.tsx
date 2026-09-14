@@ -8,6 +8,7 @@ import {
 } from 'react';
 import type { PokemonInstance } from '../utils/party';
 import { createEmptyInstance } from '../utils/party';
+import { normalizeEvs } from '../utils/pokemon';
 
 export type Language = 'ja' | 'en' | 'ko' | 'zh-Hant' | 'zh-Hans';
 export type Theme = 'light' | 'dark';
@@ -119,11 +120,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Load parties from localStorage with migration
   const [parties, setParties] = useState<SavedParty[]>(() => {
+    const sanitizeParty = (p: SavedParty): SavedParty => ({
+      ...p,
+      members: (p.members || []).map((m) => ({
+        ...m,
+        evs: normalizeEvs(m.evs),
+      })),
+    });
+
     const savedPartiesStr = localStorage.getItem('saved_parties');
     if (savedPartiesStr) {
       try {
         const parsed = JSON.parse(savedPartiesStr);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const sanitized = parsed.map(sanitizeParty);
+          return sanitized;
+        }
       } catch (e) {
         console.error('Failed to parse saved_parties:', e);
       }
@@ -134,7 +146,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     if (oldSavedStr) {
       try {
         const parsed = JSON.parse(oldSavedStr);
-        const members = parsed.members || [createEmptyInstance()];
+        const members = (parsed.members || [createEmptyInstance()]).map(
+          (m: PokemonInstance) => ({
+            ...m,
+            evs: normalizeEvs(m.evs),
+          })
+        );
         const name = parsed.name || 'マイチャンピオンズパーティ';
         const migrated: SavedParty = {
           id: Math.random().toString(36).substring(2, 9),
@@ -251,11 +268,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const updateMember = (index: number, fields: Partial<PokemonInstance>) => {
+    const sanitizedFields = { ...fields };
+    if (sanitizedFields.evs) {
+      sanitizedFields.evs = normalizeEvs(sanitizedFields.evs);
+    }
     setParties((prev) => {
       const next = prev.map((p) => {
         if (p.id !== currentPartyId) return p;
         const nextMembers = [...p.members];
-        nextMembers[index] = { ...nextMembers[index], ...fields };
+        nextMembers[index] = { ...nextMembers[index], ...sanitizedFields };
         return { ...p, members: nextMembers };
       });
       return next;
@@ -287,6 +308,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     poke: PokemonInstance,
     targetPartyId?: string
   ): boolean => {
+    const sanitizedPoke: PokemonInstance = {
+      ...poke,
+      evs: normalizeEvs(poke.evs),
+    };
     const activePartyId = targetPartyId || currentPartyId;
     const activePartyObj = parties.find((p) => p.id === activePartyId);
     if (!activePartyObj) return false;
@@ -303,7 +328,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         const next = prev.map((p) => {
           if (p.id !== activePartyId) return p;
           const nextMembers = [...p.members];
-          nextMembers[emptyIndex] = { ...nextMembers[emptyIndex], ...poke };
+          nextMembers[emptyIndex] = {
+            ...nextMembers[emptyIndex],
+            ...sanitizedPoke,
+          };
           return { ...p, members: nextMembers };
         });
         localStorage.setItem('saved_parties', JSON.stringify(next));
@@ -314,7 +342,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const activeMembersCount = members.filter((m) => m.masterId !== 0).length;
     if (activeMembersCount >= 6) {
-      setPendingPokemonToAdd(poke);
+      setPendingPokemonToAdd(sanitizedPoke);
       return false;
     }
 
@@ -323,7 +351,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         if (p.id !== activePartyId) return p;
         // Strip out empty slot placeholders first to append cleanly
         const filled = p.members.filter((m) => m.masterId !== 0);
-        return { ...p, members: [...filled, poke] };
+        return { ...p, members: [...filled, sanitizedPoke] };
       });
       localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
@@ -339,7 +367,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       nature: poke.nature,
       item: poke.item,
       moves: poke.moves,
-      evs: poke.evs,
+      evs: normalizeEvs(poke.evs),
     });
     setPendingPokemonToAdd(null);
   };
@@ -365,10 +393,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   ): string => {
     const newId = Math.random().toString(36).substring(2, 9);
     const uniqueName = getUniqueName(name, '', parties);
+    const sanitizedMembers = (initialMembers || [createEmptyInstance()]).map(
+      (m) => ({
+        ...m,
+        evs: normalizeEvs(m.evs),
+      })
+    );
     const newParty: SavedParty = {
       id: newId,
       name: uniqueName,
-      members: initialMembers || [createEmptyInstance()],
+      members: sanitizedMembers,
     };
     setParties((prev) => {
       const next = [...prev, newParty];
@@ -434,10 +468,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const loadSharedParty = useCallback((members: PokemonInstance[]) => {
     const newId = Math.random().toString(36).substring(2, 9);
+    const sanitizedMembers = members.map((m) => ({
+      ...m,
+      evs: normalizeEvs(m.evs),
+    }));
     const newParty: SavedParty = {
       id: newId,
       name: '',
-      members,
+      members: sanitizedMembers,
     };
     setParties((prev) => [...prev, newParty]);
     setCurrentPartyId(newId);

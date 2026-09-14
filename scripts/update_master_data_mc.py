@@ -5,7 +5,7 @@ import urllib.request
 import time
 import re
 
-DATA_DIR = "src/data"
+DATA_DIR = "public/data"
 CACHE_DIR = "scripts/cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 

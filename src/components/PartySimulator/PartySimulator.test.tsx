@@ -27,7 +27,10 @@ vi.mock('../../utils/db', () => {
               sp_defense: 100,
               speed: 80,
             },
-            abilities: [{ ja: 'マルチスケイル', en: 'multiscale' }],
+            abilities: [
+              { ja: 'せいしんりょく', en: 'inner-focus' },
+              { ja: 'マルチスケイル', en: 'multiscale' },
+            ],
             regulations: ['M-A'],
             learnable_moves: [14, 53],
           },
@@ -507,6 +510,7 @@ describe('PartySimulator Pokémon Search Modal', () => {
           pokemonId: 149,
           nature: 'adamant',
           itemId: 0,
+          abilityIndex: 1, // multiscale
           evs: {
             hp: 32,
             attack: 32,
@@ -552,12 +556,15 @@ describe('PartySimulator Pokémon Search Modal', () => {
       ).toBe(false);
     }
 
-    // 4. EV steps should accurately be H=32, A=32, S=2
+    // 4. EV steps should accurately be H=32, A=32, S=2, and ability should be restored
     await waitFor(() => {
       const inputs = screen.getAllByRole('spinbutton') as HTMLInputElement[];
       expect(inputs[0].value).toBe('32');
       expect(inputs[1].value).toBe('32');
       expect(inputs[5].value).toBe('2');
+
+      const abilitySelect = document.getElementById('ability-select-0') as HTMLSelectElement;
+      expect(abilitySelect.value).toBe('マルチスケイル');
     });
 
     // Clean up URL
@@ -600,5 +607,47 @@ describe('PartySimulator Pokémon Search Modal', () => {
     await waitFor(() => {
       expect(focusSpy).toHaveBeenCalled();
     });
+  });
+
+  it('should restrict manual EV inputs so total does not exceed 66 and single stat does not exceed 32', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    // Add Dragonite (masterId: 149)
+    await screen.findByText(/編集中のパーティ/);
+    const selectPokeBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(selectPokeBtn);
+
+    const dragonite = await screen.findByText('カイリュー');
+    fireEvent.click(dragonite);
+
+    await waitFor(() => {
+      expect(screen.getByText('カイリュー')).toBeDefined();
+    });
+
+    const inputs = screen.getAllByRole('spinbutton') as HTMLInputElement[];
+    // Set HP to 32
+    fireEvent.change(inputs[0], { target: { value: '32' } });
+    expect(inputs[0].value).toBe('32');
+
+    // Set Attack to 32
+    fireEvent.change(inputs[1], { target: { value: '32' } });
+    expect(inputs[1].value).toBe('32');
+
+    // Currently HP(32) + Atk(32) = 64. Remaining is 2.
+    // Defense max attribute should be 2
+    expect(inputs[2].max).toBe('2');
+
+    // Try setting Defense to 10. Should be clamped to 2.
+    fireEvent.change(inputs[2], { target: { value: '10' } });
+    expect(inputs[2].value).toBe('2');
+
+    // Total EV display should show 66 / 66
+    expect(screen.getByText(/66 \/ 66/)).toBeDefined();
   });
 });

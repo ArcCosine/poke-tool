@@ -504,3 +504,67 @@ export const megaStoneMap: Record<string, Record<Language, string>> = {
     'zh-Hans': '戟脊龙进化石',
   },
 };
+
+export const MAX_TOTAL_EVS = 66;
+export const MAX_SINGLE_EV = 32;
+
+export const STAT_KEYS = [
+  'hp',
+  'attack',
+  'defense',
+  'sp_attack',
+  'sp_defense',
+  'speed',
+] as const;
+
+export type StatKey = (typeof STAT_KEYS)[number];
+
+/**
+ * 努力値（ステップ値: 0〜32、合計最大66）の正規化とクランプ
+ * - 旧仕様の努力値（32超、252等）のステップ値変換
+ * - 各ステータス 0〜32 へのクランプ
+ * - 全ステータス合計最大66へのクランプ
+ */
+export function normalizeEvs(
+  evs?: Partial<Record<StatKey, number>>
+): Record<StatKey, number> {
+  const result: Record<StatKey, number> = {
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    sp_attack: 0,
+    sp_defense: 0,
+    speed: 0,
+  };
+
+  if (!evs) return result;
+
+  // 1. 各ステータスをサニタイズ（旧252スケールのマイグレーションを含む）
+  for (const key of STAT_KEYS) {
+    const rawVal = Number(evs[key]);
+    if (!Number.isFinite(rawVal) || rawVal <= 0) {
+      result[key] = 0;
+    } else if (rawVal > MAX_SINGLE_EV) {
+      // 旧仕様（252など）の値をステップ値へ変換 (4で1, 12で2, 252で32)
+      const migrated = Math.floor((rawVal - 4) / 8) + 1;
+      result[key] = Math.max(0, Math.min(MAX_SINGLE_EV, migrated));
+    } else {
+      result[key] = Math.max(0, Math.min(MAX_SINGLE_EV, Math.floor(rawVal)));
+    }
+  }
+
+  // 2. 合計が MAX_TOTAL_EVS (66) を超えている場合は超過分を末尾ステータスから削減
+  let currentTotal = Object.values(result).reduce((a, b) => a + b, 0);
+  if (currentTotal > MAX_TOTAL_EVS) {
+    let excess = currentTotal - MAX_TOTAL_EVS;
+    for (let i = STAT_KEYS.length - 1; i >= 0 && excess > 0; i--) {
+      const key = STAT_KEYS[i];
+      const reduction = Math.min(result[key], excess);
+      result[key] -= reduction;
+      excess -= reduction;
+    }
+  }
+
+  return result;
+}
+

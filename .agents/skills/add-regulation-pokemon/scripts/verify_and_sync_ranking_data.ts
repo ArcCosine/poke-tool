@@ -41,9 +41,7 @@ export function syncAndVerifyRankingData(): {
     rootDir,
     'public/data/pokemon_master.json'
   );
-  const srcPokemonPath = path.join(rootDir, 'src/data/pokemon_master.json');
   const publicVersionPath = path.join(rootDir, 'public/data/version.json');
-  const srcVersionPath = path.join(rootDir, 'src/data/version.json');
 
   const pokes: PokemonMaster[] = JSON.parse(
     fs.readFileSync(publicPokemonPath, 'utf8')
@@ -101,12 +99,10 @@ export function syncAndVerifyRankingData(): {
   if (updatedCount > 0) {
     const formatted = `${JSON.stringify(pokes, null, 2)}\n`;
     fs.writeFileSync(publicPokemonPath, formatted, 'utf8');
-    fs.writeFileSync(srcPokemonPath, formatted, 'utf8');
 
     const newVersion = Date.now();
     const versionContent = `${JSON.stringify({ version: newVersion }, null, 2)}\n`;
     fs.writeFileSync(publicVersionPath, versionContent, 'utf8');
-    fs.writeFileSync(srcVersionPath, versionContent, 'utf8');
     console.log(`[SYNC] Updated version.json to ${newVersion}`);
   }
 

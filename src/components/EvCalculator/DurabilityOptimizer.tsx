@@ -5,7 +5,7 @@ import {
   calculateDurabilityIndices,
   optimizeHbdEvs,
 } from '../../utils/durability';
-import { getCalculatedStat, stepToEv } from '../../utils/party';
+import { getCalculatedStat } from '../../utils/party';
 import { Button } from '../common/Button';
 
 interface DurabilityOptimizerProps {
@@ -43,19 +43,19 @@ export const DurabilityOptimizer: React.FC<DurabilityOptimizerProps> = ({
   const currentRealH = getCalculatedStat(
     'hp',
     baseStats.hp,
-    stepToEv(currentEvs.hp),
+    currentEvs.hp,
     nature
   );
   const currentRealB = getCalculatedStat(
     'defense',
     baseStats.defense,
-    stepToEv(currentEvs.defense),
+    currentEvs.defense,
     nature
   );
   const currentRealD = getCalculatedStat(
     'sp_defense',
     baseStats.sp_defense,
-    stepToEv(currentEvs.sp_defense),
+    currentEvs.sp_defense,
     nature
   );
 

@@ -25,7 +25,7 @@ npx tsx .agents/skills/add-regulation-pokemon/scripts/verify_and_sync_ranking_da
 ```
 
 This script will:
-1. Scan `public/data/pokemon_master.json` and `src/data/pokemon_master.json`.
+1. Scan `public/data/pokemon_master.json`.
 2. Populate `learnable_moves` for any Mega Evolutions or regional variants missing move data.
 3. Automatically increment `version.json` with a fresh timestamp so client IndexedDB caches are invalidated.
 

@@ -263,5 +263,30 @@
     "shareViaDevice": "기기 공유 기능으로 보내기 (기타 앱)",
     "tweetTextPokemon": "포켓몬 챔피언스 노력치 조정: {name}",
     "tweetTextParty": "포켓몬 챔피언스 파티 구성"
+  },
+  "pwa": {
+    "installBannerTitle": "홈 화면에 추가하여 앱으로 사용하기",
+    "installBannerDesc": "오프라인에서도 빠르게 접근하세요. 전체 화면으로 쾌적한 배틀 시뮬레이션을 즐길 수 있습니다.",
+    "installButton": "홈 화면에 추가",
+    "installed": "설치됨",
+    "iosGuideTitle": "홈 화면에 추가하는 방법 (iOS Safari)",
+    "iosGuideStep1": "1. 화면 하단(또는 상단)의 '공유 버튼'을 탭합니다.",
+    "iosGuideStep2": "2. 메뉴에서 '홈 화면에 추가'를 선택하세요.",
+    "close": "닫기",
+    "offlineSectionTitle": "오프라인 데이터 관리",
+    "offlineSectionDesc": "모든 포켓몬 도트 이미지(341마리, 약 44MB)와 마스터 데이터를 기기에 일괄 저장하여 오프라인에서도 완전 동작합니다.",
+    "downloadAll": "기기에 전체 데이터 저장 (오프라인 지원)",
+    "downloading": "저장 중: {loaded} / {total} ({percent}%)",
+    "fullyCached": "전체 데이터 저장 완료 (오프라인 이용 가능)",
+    "partiallyCached": "일부 데이터 저장됨 ({cached} / {total})",
+    "notCached": "저장 안 됨 (온라인 시에만 이미지 표시)",
+    "clearCache": "캐시 삭제",
+    "clearing": "삭제 중...",
+    "cacheSize": "캐시 용량: 약 {size}MB",
+    "online": "온라인",
+    "offline": "오프라인 동작 중",
+    "updateAvailable": "새로운 버전이 출시되었습니다",
+    "updateButton": "지금 업데이트"
   }
 }
+

@@ -293,4 +293,108 @@ describe('AppContext', () => {
     expect(document.documentElement.classList.contains('dark')).toBe(false);
     expect(localStorage.getItem('theme')).toBe('light');
   });
+
+  it('should sanitize party member EVs on load from localStorage (clamp total to 66)', () => {
+    // Simulate saved party with invalid 76 total EVs (32, 32, 12)
+    const invalidParty = [
+      {
+        id: 'test-party-1',
+        name: 'Invalid EVs Party',
+        members: [
+          {
+            id: 'mem-1',
+            masterId: 1,
+            ability: 'Overgrow',
+            nature: 'Hardy',
+            item: '',
+            moves: [0, 0, 0, 0],
+            evs: {
+              hp: 32,
+              attack: 32,
+              defense: 0,
+              sp_attack: 0,
+              sp_defense: 0,
+              speed: 12, // 32 + 32 + 12 = 76
+            },
+          },
+        ],
+      },
+    ];
+    localStorage.setItem('saved_parties', JSON.stringify(invalidParty));
+
+    render(
+      <AppProvider>
+        <TestComponent />
+      </AppProvider>
+    );
+
+    const party = appInstance.parties[0];
+    const member = party.members[0];
+    // Total should be clamped to 66: HP 32, Attack 32, Speed clamped from 12 down to 2
+    expect(member.evs.hp).toBe(32);
+    expect(member.evs.attack).toBe(32);
+    expect(member.evs.speed).toBe(2);
+    const totalEvs = Object.values(member.evs).reduce(
+      (a: number, b: any) => a + Number(b),
+      0
+    );
+    expect(totalEvs).toBe(66);
+  });
+
+  it('should sanitize member EVs on updateMember and addPokemonToPartyDirectly', () => {
+    render(
+      <AppProvider>
+        <TestComponent />
+      </AppProvider>
+    );
+
+    // Test addPokemonToPartyDirectly with invalid EVs (32, 32, 12)
+    act(() => {
+      appInstance.addPokemonToPartyDirectly({
+        id: 'new-poke',
+        masterId: 25,
+        ability: 'Static',
+        nature: 'Jolly',
+        item: '',
+        moves: [0, 0, 0, 0],
+        evs: {
+          hp: 0,
+          attack: 32,
+          defense: 0,
+          sp_attack: 0,
+          sp_defense: 12,
+          speed: 32, // 32 + 12 + 32 = 76
+        },
+      });
+    });
+
+    const addedMember = appInstance.partyMembers[0];
+    expect(addedMember.masterId).toBe(25);
+    const totalAdded = Object.values(addedMember.evs).reduce(
+      (a: number, b: any) => a + Number(b),
+      0
+    );
+    expect(totalAdded).toBe(66);
+
+    // Test updateMember with invalid EVs
+    act(() => {
+      appInstance.updateMember(0, {
+        evs: {
+          hp: 32,
+          attack: 32,
+          defense: 10,
+          sp_attack: 0,
+          sp_defense: 0,
+          speed: 0,
+        },
+      });
+    });
+
+    const updatedMember = appInstance.partyMembers[0];
+    const totalUpdated = Object.values(updatedMember.evs).reduce(
+      (a: number, b: any) => a + Number(b),
+      0
+    );
+    expect(totalUpdated).toBe(66);
+  });
 });

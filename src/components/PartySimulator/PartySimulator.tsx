@@ -10,14 +10,21 @@ import {
 import {
   analyzePartyDefense,
   analyzePartyOffense,
-  evToStep,
   generatePartyPokesolText,
   getCalculatedStat,
   NATURES,
   type PokemonInstance,
-  stepToEv,
 } from '../../utils/party';
-import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
+import {
+  MAX_SINGLE_EV,
+  MAX_TOTAL_EVS,
+  megaStoneMap,
+  normalizeEvs,
+  type StatKey,
+  STAT_KEYS,
+  TYPES,
+  typeTranslations,
+} from '../../utils/pokemon';
 import { decodePartyConfig, encodePartyConfig } from '../../utils/share';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
@@ -29,23 +36,6 @@ import { TypeBadge } from '../common/TypeBadge';
 import { PartyControls } from './PartyControls';
 import { PartySearch } from './PartySearch';
 import { PokemonSearchModal } from './PokemonSearchModal';
-
-type StatKey =
-  | 'hp'
-  | 'attack'
-  | 'defense'
-  | 'sp_attack'
-  | 'sp_defense'
-  | 'speed';
-
-const STAT_KEYS: StatKey[] = [
-  'hp',
-  'attack',
-  'defense',
-  'sp_attack',
-  'sp_defense',
-  'speed',
-];
 
 const EV_STATS: {
   key: StatKey;
@@ -223,22 +213,17 @@ export const PartySimulator: React.FC = () => {
       .map((m) => {
         const poke = pokemonData.find((p) => p.id === m.pokemonId);
         if (!poke) return null;
+        const abilityIdx = m.abilityIndex ?? 0;
         const itemObj = itemsData.find((i) => i.id === m.itemId);
         return {
           id: Math.random().toString(36).substring(2, 9),
           masterId: m.pokemonId,
           nature: m.nature,
-          ability: poke.abilities[0]?.ja || '',
+          ability:
+            poke.abilities[abilityIdx]?.ja || poke.abilities[0]?.ja || '',
           item: itemObj ? itemObj.name[language] || itemObj.name.ja : '',
           moves: m.moves,
-          evs: {
-            hp: stepToEv(m.evs.hp),
-            attack: stepToEv(m.evs.attack),
-            defense: stepToEv(m.evs.defense),
-            sp_attack: stepToEv(m.evs.sp_attack),
-            sp_defense: stepToEv(m.evs.sp_defense),
-            speed: stepToEv(m.evs.speed),
-          },
+          evs: normalizeEvs(m.evs),
         };
       })
       .filter(Boolean) as PokemonInstance[];
@@ -251,21 +236,25 @@ export const PartySimulator: React.FC = () => {
   const handleShareParty = () => {
     if (partyMembers.length === 0) return;
     const membersConfig = partyMembers.map((m) => {
+      const poke = pokemonData.find((p) => p.id === m.masterId);
       const itemObj = itemsData.find(
-        (i) => i.name[language] === m.item || i.name.ja === m.item
+        (i) =>
+          i.name[language] === m.item ||
+          Object.values(i.name).some((n) => n === m.item)
       );
+      const abilityIdx = poke
+        ? poke.abilities.findIndex(
+            (a) =>
+              a.ja === m.ability ||
+              Object.values(a).some((n) => n === m.ability)
+          )
+        : -1;
       return {
         pokemonId: m.masterId,
         nature: m.nature,
         itemId: itemObj ? itemObj.id : 0,
-        evs: {
-          hp: evToStep(m.evs?.hp ?? 0),
-          attack: evToStep(m.evs?.attack ?? 0),
-          defense: evToStep(m.evs?.defense ?? 0),
-          sp_attack: evToStep(m.evs?.sp_attack ?? 0),
-          sp_defense: evToStep(m.evs?.sp_defense ?? 0),
-          speed: evToStep(m.evs?.speed ?? 0),
-        },
+        abilityIndex: abilityIdx >= 0 ? abilityIdx : 0,
+        evs: normalizeEvs(m.evs),
         moves: m.moves,
       };
     });
@@ -354,7 +343,7 @@ export const PartySimulator: React.FC = () => {
     stat: StatKey,
     stepVal: number
   ) => {
-    const cleanStep = Math.max(0, Math.min(32, stepVal));
+    const cleanStep = Math.max(0, Math.min(MAX_SINGLE_EV, stepVal));
     const currentMember = party[memberIndex];
     if (!currentMember) return;
 
@@ -368,17 +357,20 @@ export const PartySimulator: React.FC = () => {
     };
 
     const otherStepsTotal = STAT_KEYS.filter((k) => k !== stat).reduce(
-      (sum, k) => sum + evToStep(currentEvs[k] ?? 0),
+      (sum, k) => sum + (currentEvs[k] ?? 0),
       0
     );
 
-    const allowedMax = Math.min(32, 66 - otherStepsTotal);
-    const finalStep = Math.min(cleanStep, Math.max(0, allowedMax));
+    const allowedMax = Math.max(
+      0,
+      Math.min(MAX_SINGLE_EV, MAX_TOTAL_EVS - otherStepsTotal)
+    );
+    const finalStep = Math.min(cleanStep, allowedMax);
 
-    const updatedEvs = {
+    const updatedEvs = normalizeEvs({
       ...currentEvs,
-      [stat]: stepToEv(finalStep),
-    };
+      [stat]: finalStep,
+    });
 
     updateMember(memberIndex, { evs: updatedEvs });
   };
@@ -558,7 +550,7 @@ export const PartySimulator: React.FC = () => {
                       </span>
                       {(() => {
                         const totalSteps = STAT_KEYS.reduce(
-                          (sum, k) => sum + evToStep(member.evs?.[k] ?? 0),
+                          (sum, k) => sum + (member.evs?.[k] ?? 0),
                           0
                         );
                         return (
@@ -577,7 +569,7 @@ export const PartySimulator: React.FC = () => {
 
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                       {EV_STATS.map((s) => {
-                        const currentStep = evToStep(member.evs?.[s.key] ?? 0);
+                        const currentStep = member.evs?.[s.key] ?? 0;
                         const isHp = s.key === 'hp';
                         const nat = NATURES.find((n) => n.id === member.nature);
                         let natureClass = 'text-slate-600 dark:text-slate-400';
@@ -593,7 +585,7 @@ export const PartySimulator: React.FC = () => {
                         const calcStat = getCalculatedStat(
                           s.key,
                           currentPoke.base_stats[s.key],
-                          stepToEv(currentStep),
+                          currentStep,
                           member.nature
                         );
 
@@ -620,7 +612,17 @@ export const PartySimulator: React.FC = () => {
                               id={`ev-input-${index}-${s.key}`}
                               type="number"
                               min="0"
-                              max="32"
+                              max={Math.max(
+                                0,
+                                Math.min(
+                                  MAX_SINGLE_EV,
+                                  MAX_TOTAL_EVS -
+                                    STAT_KEYS.filter((k) => k !== s.key).reduce(
+                                      (sum, k) => sum + (member.evs?.[k] ?? 0),
+                                      0
+                                    )
+                                )
+                              )}
                               step="1"
                               value={currentStep}
                               onChange={(e) => {

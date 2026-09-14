@@ -36,12 +36,12 @@ npx tsx scripts/add_regulation.ts M-C "レギュレーションM-C" "Regulation 
 
 ### 2. スクリプトの自動処理内容
 このスクリプトは内部で以下のファイルを自動更新します：
-1. **[`src/data/regulations.json`](file:///home/arccosine/poke-tool/src/data/regulations.json)**:
+1. **[`public/data/regulations.json`](file:///home/arccosine/poke-tool/public/data/regulations.json)**:
    - UIのセレクトボックスの選択肢となるメタデータを追加します。
 2. **[`scripts/regulations_config.json`](file:///home/arccosine/poke-tool/scripts/regulations_config.json)**:
    - 新規解禁ポケモンの構成ルール（`new_pokemon_ids`）を追記します。
 3. **PokeAPIクローラーの自動実行 (`npm run update-data`)**:
-   - `fetch_pokeapi.ts` を実行し、更新されたルールに基づいて [`src/data/pokemon_master.json`](file:///home/arccosine/poke-tool/src/data/pokemon_master.json) を再生成します。各ポケモンの `regulations` フィールドが累積ルールに従って自動的に更新されます。
+   - `fetch_pokeapi.ts` を実行し、更新されたルールに基づいて [`public/data/pokemon_master.json`](file:///home/arccosine/poke-tool/public/data/pokemon_master.json) を再生成します。各ポケモンの `regulations` フィールドが累積ルールに従って自動的に更新されます。
 
 ---
 
@@ -49,7 +49,7 @@ npx tsx scripts/add_regulation.ts M-C "レギュレーションM-C" "Regulation 
 
 もし自動化スクリプトが使えない場合は、手動で以下のファイルを編集します。
 
-### 1. `src/data/regulations.json` の編集
+### 1. `public/data/regulations.json` の編集
 末尾に新しいレギュレーションオブジェクトを追加します。
 
 ```json
