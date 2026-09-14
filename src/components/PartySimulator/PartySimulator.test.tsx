@@ -498,4 +498,104 @@ describe('PartySimulator Pokémon Search Modal', () => {
     );
     expect(shareUrlInput).toBeDefined();
   });
+
+  it('should restore shared party from URL with empty party name without auto-saving, and restore EV steps accurately', async () => {
+    // Encode a party with Dragonite (masterId: 149), H=32 (EV 252), A=32 (EV 252), S=2 (EV 12)
+    const { encodePartyConfig } = await import('../../utils/share');
+    const code = encodePartyConfig({
+      members: [
+        {
+          pokemonId: 149,
+          nature: 'adamant',
+          itemId: 0,
+          evs: {
+            hp: 32,
+            attack: 32,
+            defense: 0,
+            sp_attack: 0,
+            sp_defense: 0,
+            speed: 2,
+          },
+          moves: [0, 0, 0, 0],
+        },
+      ],
+    });
+
+    window.history.pushState({}, '', `?p=${code}`);
+    localStorage.removeItem('saved_parties');
+
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    // Wait for master data and shared party to load
+    const partyNameInput = (await screen.findByLabelText(
+      /パーティの検索・名前変更/i
+    )) as HTMLInputElement;
+
+    // 1. Party name should be empty (Plan C)
+    await waitFor(() => {
+      expect(partyNameInput.value).toBe('');
+    });
+
+    // 2. Should NOT auto-save to localStorage
+    const savedPartiesRaw = localStorage.getItem('saved_parties');
+    if (savedPartiesRaw) {
+      const parsed = JSON.parse(savedPartiesRaw);
+      expect(parsed.some((p: { name: string }) => p.name === 'パーティをシェア')).toBe(
+        false
+      );
+    }
+
+    // 3. EV steps should accurately be H=32, A=32, S=2
+    await waitFor(() => {
+      const inputs = screen.getAllByRole('spinbutton') as HTMLInputElement[];
+      expect(inputs[0].value).toBe('32');
+      expect(inputs[1].value).toBe('32');
+      expect(inputs[5].value).toBe('2');
+    });
+
+    // Clean up URL
+    window.history.pushState({}, '', '/');
+  });
+
+  it('should show validation dialog when saving with empty party name and focus input on OK', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText(/編集中のパーティ/)).toBeDefined();
+
+    const partyNameInput = screen.getByLabelText(
+      /パーティの検索・名前変更/i
+    ) as HTMLInputElement;
+    fireEvent.change(partyNameInput, { target: { value: '' } });
+    expect(partyNameInput.value).toBe('');
+
+    // Focus spy on partyNameInput
+    const focusSpy = vi.spyOn(partyNameInput, 'focus');
+
+    // Click "保存" button
+    const saveBtn = screen.getByRole('button', { name: /保存/i });
+    fireEvent.click(saveBtn);
+
+    // Dialog "パーティ名を入力してください" should be visible
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toBeDefined();
+    expect(screen.getByText('パーティ名を入力してください')).toBeDefined();
+
+    // Click OK in dialog
+    const okBtn = screen.getByRole('button', { name: 'OK' });
+    fireEvent.click(okBtn);
+
+    // Dialog should be closed and input focused
+    expect(screen.queryByRole('dialog')).toBeNull();
+    await waitFor(() => {
+      expect(focusSpy).toHaveBeenCalled();
+    });
+  });
 });

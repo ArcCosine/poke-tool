@@ -1,5 +1,11 @@
 import type React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import type { PokemonInstance } from '../utils/party';
 import { createEmptyInstance } from '../utils/party';
 
@@ -48,6 +54,7 @@ interface AppContextProps {
   pendingPokemonToAdd: PokemonInstance | null;
   setPendingPokemonToAdd: (poke: PokemonInstance | null) => void;
   addEmptySlotToParty: () => void;
+  loadSharedParty: (members: PokemonInstance[]) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -217,7 +224,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     excludePartyId: string,
     currentParties: SavedParty[]
   ): string => {
-    const baseName = proposedName.trim() || t('partySimulator.myParty');
+    if (proposedName === '') return '';
+    const baseName = proposedName.trim();
+    if (!baseName) return '';
     let uniqueName = baseName;
     let counter = 2;
     while (
@@ -237,7 +246,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       const next = prev.map((p) =>
         p.id === currentPartyId ? { ...p, name: uniqueName } : p
       );
-      localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
     });
   };
@@ -250,7 +258,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         nextMembers[index] = { ...nextMembers[index], ...fields };
         return { ...p, members: nextMembers };
       });
-      localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
     });
   };
@@ -272,7 +279,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         };
         return { ...p, members: nextMembers };
       });
-      localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
     });
   };
@@ -349,7 +355,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         }
         return { ...p, members: nextMembers };
       });
-      localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
     });
   };
@@ -423,10 +428,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         if (p.id !== currentPartyId) return p;
         return { ...p, members: [...p.members, createEmptyInstance()] };
       });
-      localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
     });
   };
+
+  const loadSharedParty = useCallback((members: PokemonInstance[]) => {
+    const newId = Math.random().toString(36).substring(2, 9);
+    const newParty: SavedParty = {
+      id: newId,
+      name: '',
+      members,
+    };
+    setParties((prev) => [...prev, newParty]);
+    setCurrentPartyId(newId);
+  }, []);
 
   return (
     <AppContext.Provider
@@ -454,6 +469,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         pendingPokemonToAdd,
         setPendingPokemonToAdd,
         addEmptySlotToParty,
+        loadSharedParty,
       }}
     >
       {children}

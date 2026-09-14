@@ -79,7 +79,8 @@
     "selectPokemonPrompt": "Select Pokémon",
     "itemSearchPlaceholder": "Search held item...",
     "defenseWarning": "{type} type is highly effective: {count} members are weak to it.",
-    "noCoverageWarning": "No moves hit super-effectively against: "
+    "noCoverageWarning": "No moves hit super-effectively against: ",
+    "partyNameRequired": "Please enter a party name"
   },
   "evCalculator": {
     "title": "EV Calculator",

@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type Language, useApp } from '../../context/AppContext';
 import {
   db,
@@ -131,6 +131,7 @@ export const PartySimulator: React.FC = () => {
     selectParty,
     saveCurrentParty,
     addEmptySlotToParty,
+    loadSharedParty,
   } = useApp();
 
   const party = partyMembers;
@@ -180,12 +181,12 @@ export const PartySimulator: React.FC = () => {
     }
   };
 
-  const handleToggleAutoAdvance = (val: boolean) => {
-    setAutoAdvance(val);
-    localStorage.setItem('auto_advance_enabled', String(val));
+  const handleToggleAutoAdvance = (enabled: boolean) => {
+    setAutoAdvance(enabled);
+    localStorage.setItem('auto_advance_enabled', String(enabled));
   };
 
-  // Load master data
+  // Master data loading
   useEffect(() => {
     db.loadMasterData()
       .then((data) => {
@@ -198,11 +199,15 @@ export const PartySimulator: React.FC = () => {
   }, []);
 
   const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false);
+  const [isNameValidationDialogOpen, setIsNameValidationDialogOpen] =
+    useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+  const importedRef = useRef(false);
 
   // Restore party from URL query (?p=...) or hash (#p=...)
   useEffect(() => {
+    if (importedRef.current) return;
     if (pokemonData.length === 0) return;
     const params = new URLSearchParams(window.location.search);
     const code =
@@ -211,6 +216,8 @@ export const PartySimulator: React.FC = () => {
     if (!code) return;
     const decoded = decodePartyConfig(code);
     if (!decoded || decoded.members.length === 0) return;
+
+    importedRef.current = true;
 
     const importedMembers = decoded.members
       .map((m) => {
@@ -224,15 +231,22 @@ export const PartySimulator: React.FC = () => {
           ability: poke.abilities[0]?.ja || '',
           item: itemObj ? itemObj.name[language] || itemObj.name.ja : '',
           moves: m.moves,
-          evs: m.evs,
+          evs: {
+            hp: stepToEv(m.evs.hp),
+            attack: stepToEv(m.evs.attack),
+            defense: stepToEv(m.evs.defense),
+            sp_attack: stepToEv(m.evs.sp_attack),
+            sp_defense: stepToEv(m.evs.sp_defense),
+            speed: stepToEv(m.evs.speed),
+          },
         };
       })
       .filter(Boolean) as PokemonInstance[];
 
     if (importedMembers.length > 0) {
-      createNewParty(t('share.sharePartyTitle'), importedMembers);
+      loadSharedParty(importedMembers);
     }
-  }, [pokemonData, itemsData, language]);
+  }, [pokemonData, itemsData, language, loadSharedParty]);
 
   const handleShareParty = () => {
     if (partyMembers.length === 0) return;
@@ -244,7 +258,14 @@ export const PartySimulator: React.FC = () => {
         pokemonId: m.masterId,
         nature: m.nature,
         itemId: itemObj ? itemObj.id : 0,
-        evs: m.evs,
+        evs: {
+          hp: evToStep(m.evs?.hp ?? 0),
+          attack: evToStep(m.evs?.attack ?? 0),
+          defense: evToStep(m.evs?.defense ?? 0),
+          sp_attack: evToStep(m.evs?.sp_attack ?? 0),
+          sp_defense: evToStep(m.evs?.sp_defense ?? 0),
+          speed: evToStep(m.evs?.speed ?? 0),
+        },
         moves: m.moves,
       };
     });
@@ -255,8 +276,19 @@ export const PartySimulator: React.FC = () => {
   };
 
   const saveParty = () => {
+    if (!partyName || partyName.trim() === '') {
+      setIsNameValidationDialogOpen(true);
+      return;
+    }
     saveCurrentParty();
     setIsSaveDialogOpen(true);
+  };
+
+  const handleCloseNameValidationDialog = () => {
+    setIsNameValidationDialogOpen(false);
+    setTimeout(() => {
+      document.getElementById('party-name-autocomplete')?.focus();
+    }, 50);
   };
 
   const copyPokesolText = () => {
@@ -825,6 +857,25 @@ export const PartySimulator: React.FC = () => {
               </span>
             </p>
           </div>
+        </Dialog>
+        <Dialog
+          isOpen={isNameValidationDialogOpen}
+          onClose={handleCloseNameValidationDialog}
+          title={
+            <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
+              <span className="i-lucide-alert-circle text-xl" />
+              {t('common.warning') || '注意'}
+            </div>
+          }
+          actions={
+            <Button variant="primary" onClick={handleCloseNameValidationDialog}>
+              OK
+            </Button>
+          }
+        >
+          <p className="font-semibold text-slate-800 dark:text-slate-100">
+            {t('partySimulator.partyNameRequired')}
+          </p>
         </Dialog>
         {/* Party Share Dialog */}
         <ShareDialog

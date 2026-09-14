@@ -138,4 +138,68 @@ describe('Party Config Share (Party Simulator)', () => {
     expect(decodePartyConfig('')).toBeNull();
     expect(decodePartyConfig('abc$%')).toBeNull();
   });
+
+  it('accurately encodes EV steps and allows conversion to/from raw EVs', async () => {
+    const { evToStep, stepToEv } = await import('./party');
+
+    // Pokemon with raw EVs: H=252 (step 32), A=252 (step 32), S=12 (step 2)
+    const rawEvs = {
+      hp: 252,
+      attack: 252,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 12,
+    };
+
+    // 1. Convert raw EVs to steps before sharing
+    const sharedEvs = {
+      hp: evToStep(rawEvs.hp),
+      attack: evToStep(rawEvs.attack),
+      defense: evToStep(rawEvs.defense),
+      sp_attack: evToStep(rawEvs.sp_attack),
+      sp_defense: evToStep(rawEvs.sp_defense),
+      speed: evToStep(rawEvs.speed),
+    };
+
+    expect(sharedEvs).toEqual({
+      hp: 32,
+      attack: 32,
+      defense: 0,
+      sp_attack: 0,
+      sp_defense: 0,
+      speed: 2,
+    });
+
+    // 2. Encode to string
+    const code = encodePartyConfig({
+      members: [
+        {
+          pokemonId: 149,
+          nature: 'adamant',
+          itemId: 0,
+          evs: sharedEvs,
+          moves: [1, 2, 0, 0],
+        },
+      ],
+    });
+
+    // 3. Decode from string
+    const decoded = decodePartyConfig(code);
+    expect(decoded).not.toBeNull();
+    const restoredStepEvs = decoded!.members[0].evs;
+    expect(restoredStepEvs).toEqual(sharedEvs);
+
+    // 4. Convert steps back to raw EVs
+    const restoredRawEvs = {
+      hp: stepToEv(restoredStepEvs.hp),
+      attack: stepToEv(restoredStepEvs.attack),
+      defense: stepToEv(restoredStepEvs.defense),
+      sp_attack: stepToEv(restoredStepEvs.sp_attack),
+      sp_defense: stepToEv(restoredStepEvs.sp_defense),
+      speed: stepToEv(restoredStepEvs.speed),
+    };
+
+    expect(restoredRawEvs).toEqual(rawEvs);
+  });
 });
