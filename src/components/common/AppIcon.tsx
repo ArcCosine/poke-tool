@@ -44,9 +44,15 @@ export const AppIcon: React.FC<AppIconProps> = ({
           <stop offset="0%" stopColor="#1e1b4b" />
           <stop offset="100%" stopColor="#0f172a" />
         </linearGradient>
-        <linearGradient id="app-sword-grad" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="app-wrench-grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#38bdf8" />
-          <stop offset="100%" stopColor="#818cf8" />
+          <stop offset="50%" stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#c084fc" />
+        </linearGradient>
+        <linearGradient id="app-sword-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#f43f5e" />
+          <stop offset="50%" stopColor="#fb923c" />
+          <stop offset="100%" stopColor="#facc15" />
         </linearGradient>
         <linearGradient
           id="app-ball-top"
@@ -72,6 +78,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
         </linearGradient>
       </defs>
 
+      {/* Outer Rounded Frame */}
       <rect
         x="24"
         y="24"
@@ -91,6 +98,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
         strokeWidth="4"
       />
 
+      {/* Tech Grid */}
       <polygon
         points="256,110 376,178 376,334 256,402 136,334 136,178"
         stroke="#4338ca"
@@ -100,27 +108,91 @@ export const AppIcon: React.FC<AppIconProps> = ({
         opacity="0.6"
       />
 
-      <g opacity="0.45">
-        <line
-          x1="140"
-          y1="140"
-          x2="372"
-          y2="372"
-          stroke="url(#app-sword-grad)"
-          strokeWidth="10"
-          strokeLinecap="round"
+      {/* 1. Spanner / Wrench (Top-Left to Bottom-Right) */}
+      <g transform="rotate(-45 256 256)">
+        <rect
+          x="243"
+          y="80"
+          width="26"
+          height="352"
+          rx="6"
+          fill="url(#app-wrench-grad)"
+          stroke="#090d16"
+          strokeWidth="4"
+        />
+        <rect
+          x="250"
+          y="140"
+          width="12"
+          height="232"
+          rx="4"
+          fill="#0f172a"
+          opacity="0.5"
+        />
+        <path
+          d="M 230,104 C 216,90 216,66 234,50 C 248,36 270,36 284,50 C 294,58 298,70 296,82 L 274,86 C 275,80 272,74 266,68 C 258,60 246,62 238,70 C 230,78 232,90 240,98 Z"
+          fill="url(#app-wrench-grad)"
+          stroke="#090d16"
+          strokeWidth="4"
+        />
+        <path d="M 246,42 L 276,72 L 262,86 L 232,56 Z" fill="#0f172a" />
+        <path
+          d="M 282,408 C 296,422 296,446 278,462 C 264,476 242,476 228,462 C 218,454 214,442 216,430 L 238,426 C 237,432 240,438 246,444 C 254,452 266,450 274,442 C 282,434 280,422 272,414 Z"
+          fill="url(#app-wrench-grad)"
+          stroke="#090d16"
+          strokeWidth="4"
+        />
+        <path d="M 266,470 L 236,440 L 250,426 L 280,456 Z" fill="#0f172a" />
+      </g>
+
+      {/* 2. Battle Sword (Top-Right to Bottom-Left) */}
+      <g transform="rotate(45 256 256)">
+        <polygon
+          points="256,50 267,85 267,370 256,385 245,370 245,85"
+          fill="url(#app-sword-grad)"
+          stroke="#090d16"
+          strokeWidth="4"
         />
         <line
-          x1="372"
-          y1="140"
-          x2="140"
-          y2="372"
-          stroke="url(#app-sword-grad)"
-          strokeWidth="10"
-          strokeLinecap="round"
+          x1="256"
+          y1="75"
+          x2="256"
+          y2="370"
+          stroke="#ffffff"
+          strokeWidth="2.5"
+          opacity="0.7"
+        />
+        <rect
+          x="222"
+          y="370"
+          width="68"
+          height="14"
+          rx="4"
+          fill="#fb923c"
+          stroke="#090d16"
+          strokeWidth="3"
+        />
+        <rect
+          x="250"
+          y="384"
+          width="12"
+          height="42"
+          rx="3"
+          fill="#475569"
+          stroke="#090d16"
+          strokeWidth="3"
+        />
+        <circle
+          cx="256"
+          cy="436"
+          r="11"
+          fill="#facc15"
+          stroke="#090d16"
+          strokeWidth="3"
         />
       </g>
 
+      {/* Monster Ball */}
       <circle
         cx="256"
         cy="256"
@@ -136,6 +208,7 @@ export const AppIcon: React.FC<AppIconProps> = ({
       />
       <rect x="140" y="248" width="232" height="16" fill="#090d16" />
 
+      {/* Ball Center Button */}
       <circle
         cx="256"
         cy="256"
