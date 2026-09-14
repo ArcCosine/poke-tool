@@ -1,32 +1,114 @@
-# React + TypeScript + Vite
+# poke-tool - ポケモンチャンピオンズ 対戦分析・編成支援ツール
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+ポケモンチャンピオンズ向けの対戦データ分析・努力値計算・パーティ編成シミュレーションWebアプリケーションです。  
+クライアントサイド完結型（ローカルファースト）で設計されており、高速かつ安全・プライバシーに配慮した環境で対戦考察をサポートします。
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 主な機能
 
-## React Compiler
+### 1. 努力値計算・ステータス調整 (EV Calculator)
+- **独自のステップ入力**: 0〜32ステップの直感的なUI（+1 / -1、0リセット、32最大化ボタン）によるスムーズな努力値調整。
+- **実数値Lv50のリアルタイム算出**: 性格補正や種族値に応じた実数値を瞬時に計算。
+- **耐久最適化エンジン**: 残り努力値を物理耐久・特殊耐久のバランス（$H = B + D$ 等の耐久指数最大化）に自動配分する最適化機能。
+- **URL共有**: 調整したステータス構成をBase64形式でURL化し、簡単にブックマーク・共有可能。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. 火力・耐久ランキング (Stat Ranking)
+- **最大火力指数ランキング**: 特性（ちからもち、ごりむちゅう等）、タイプ一致補正（てきおうりょく等）、技の基礎威力を網羅した実戦的な最大火力指数を算出。
+- **物理・特殊耐久指数ランキング**: 防御特性（ファーコート、こおりのりんぷん等）を考慮した実効耐久指数の算出。
+- **充実した絞り込みフィルター**:
+  - ポケモンのタイプ / わざタイプ / 物理・特殊分類によるフィルタリング
+  - **メガポケモンを除く**: メガシンカポケモンの除外トグル
+  - **反動技を除く**: はかいこうせん、ギガインパクト、ハイドロカノン等の1ターン行動不能技を除外した実戦火力ランキング
+- **昇順・降順ソート**: 各指数の高い順・低い順の並び替えに対応。
 
-## Expanding the Oxlint configuration
+### 3. パーティ編成シミュレーター (Party Simulator)
+- **6体パーティ構築**: ポケモン、持ち物、性格、特性、努力値、技（4枠）を自由に編成。
+- **防御相性の一貫性分析**: パーティ全体における弱点タイプ、耐性タイプ、無効タイプを可視化し、一貫している弱点を警告表示。
+- **攻撃範囲のカバー率分析**: パーティの技構成が全18タイプに対して弱点を突けるかを網羅率としてスコア化。
+- **パーティ保存・管理**: ブラウザのIndexedDB / localStorageを活用したローカル保存（名前編集、複数パーティ管理に対応）。
+- **パーティ共有機能**: 作成したパーティ構成をBase64URL形式で共有。共有されたURLから即座に復元し、そのまま編集・保存が可能。
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### 4. 充実した共有システム (Share Dialog)
+- **Web Share API 対応**: スマートフォンや対応ブラウザでは、OSネイティブの共有メニュー（AirDrop、メッセージ、各種アプリ）を直接呼び出し可能。
+- **各種SNSワンクリック共有**:
+  - X (旧 Twitter)
+  - Bluesky
+  - LINE
+  - WhatsApp
+  - Weibo (新浪微博)
+  - KakaoTalk (カカオトーク)
+- **ワンクリックURLコピー**: クリップボードへ瞬時にコピー。
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### 5. 国際化・多言語対応 (i18n)
+- **5言語対応**: 日本語 (`ja`)、英語 (`en`)、韓国語 (`ko`)、繁体字中国語 (`zh-Hant`)、簡体字中国語 (`zh-Hans`) に完全対応。
+- **多言語インクリメンタル検索**: ポケモン名・技名の検索において、ひらがな、カタカナ、ローマ字、英名、ハングル、漢字（繁体・簡体）のいずれからでも検索可能。
+
+### 6. UI & アクセシビリティ
+- **ダークモード / ライトモード**: ハイコントラストを確保し、薄暗いグレーテキストの視認性低下を排除。
+- **レスポンシブデザイン**: スマートフォン、タブレット、PCそれぞれの画面幅に最適化されたレイアウト。
+
+---
+
+## 🛠 技術スタック
+
+| カテゴリ | 使用技術 |
+| :--- | :--- |
+| **フロントエンド** | [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/) |
+| **ビルドツール** | [Vite](https://vitejs.dev/) (MPA / SPA マルチページ構成) |
+| **スタイリング** | [UnoCSS](https://unocss.dev/) (Tailwind CSS 互換ユーティリティ, Lucide アイコン) |
+| **ストレージ** | IndexedDB, localStorage (クライアント完結・外部通信なし) |
+| **テスト** | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/) (TDD 厳守) |
+| **コード品質** | [Biome](https://biomejs.dev/) (高速 Linter & Formatter) |
+| **ホスティング** | [Cloudflare Pages](https://pages.cloudflare.com/) (エッジ配信) |
+| **画像生成** | [@resvg/resvg-js](https://github.com/yisibl/resvg-js) (OGP 画像の自動ビルド生成) |
+
+---
+
+## 🚀 開発・環境構築手順
+
+### 前提条件
+- Node.js (v18 以上推奨)
+- npm
+
+### 1. リポジトリのクローンと依存パッケージのインストール
+```bash
+git clone https://github.com/ArcCosine/poke-tool.git
+cd poke-tool
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 2. 開発用サーバーの起動
+```bash
+npm run dev
+```
+ローカルサーバーが起動し、ブラウザ（通常 `http://localhost:5173`）からアクセスできます。
+
+### 3. テストの実行
+プロジェクト全体の単体テスト・結合テストを実行します（Vitest）：
+```bash
+npm test
+```
+
+### 4. プロダクションビルド
+OGP画像の自動生成、TypeScript型チェック、およびViteによるバンドルを実行します：
+```bash
+npm run build
+```
+生成物は `dist/` ディレクトリに出力されます。
+
+### 5. デプロイ (Cloudflare Pages)
+```bash
+npm run deploy
+```
+
+---
+
+## 📜 免責事項・知的財産権について
+
+- **公式関係者との関係**:  
+  本ツールは、任天堂株式会社、株式会社クリーチャーズ、株式会社ゲームフリーク、株式会社ポケモン、およびその他の公式関係者とは一切関係がない、ファンによる非公式の対戦データ分析支援ツールです。
+- **著作権および商標**:  
+  本ツール内で使用されているポケモンの名称、データ、画像等の著作権・商標権は、任天堂株式会社および各権利所有者に帰属します。
+- **プライバシー**:  
+  本ツールはローカルファーストで設計されており、計算データやパーティ情報が外部サーバーへ送信・保存されることはありません。
