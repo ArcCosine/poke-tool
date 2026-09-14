@@ -251,6 +251,8 @@
     "copyUrl": "複製網址",
     "copied": "已複製網址！",
     "shareToX": "發布至 X",
+    "shareToBluesky": "發布到 Bluesky",
+    "shareToLine": "分享至 LINE",
     "tweetTextPokemon": "寶可夢冠軍 努力值調整: {name}",
     "tweetTextParty": "寶可夢冠軍 隊伍陣容"
   }

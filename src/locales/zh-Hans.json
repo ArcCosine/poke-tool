@@ -251,6 +251,8 @@
     "copyUrl": "复制网址",
     "copied": "已复制网址！",
     "shareToX": "发布至 X",
+    "shareToBluesky": "发布到 Bluesky",
+    "shareToLine": "分享到 LINE",
     "tweetTextPokemon": "宝可梦冠军 努力值调整: {name}",
     "tweetTextParty": "宝可梦冠军 队伍阵容"
   }

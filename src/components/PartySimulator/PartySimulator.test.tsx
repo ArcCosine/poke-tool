@@ -492,7 +492,9 @@ describe('PartySimulator Pokémon Search Modal', () => {
     expect(screen.getByText('パーティをシェア')).toBeDefined();
 
     // Check share URL input value is alphanumeric without %
-    const shareUrlInput = screen.getByDisplayValue(/https?:\/\/.*[?&]p=[0-9a-zA-Z]+/);
+    const shareUrlInput = screen.getByDisplayValue(
+      /https?:\/\/.*[?&]p=[0-9a-zA-Z]+/
+    );
     expect(shareUrlInput).toBeDefined();
   });
 });

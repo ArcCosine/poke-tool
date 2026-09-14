@@ -306,7 +306,9 @@ describe('EvCalculator', () => {
     expect(screen.getByText('設定をシェア')).toBeDefined();
 
     // Check share URL input value is alphanumeric without %
-    const shareUrlInput = screen.getByDisplayValue(/https?:\/\/.*[?&]s=[0-9a-zA-Z]+/);
+    const shareUrlInput = screen.getByDisplayValue(
+      /https?:\/\/.*[?&]s=[0-9a-zA-Z]+/
+    );
     expect(shareUrlInput).toBeDefined();
   });
 });

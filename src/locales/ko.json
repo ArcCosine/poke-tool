@@ -251,6 +251,8 @@
     "copyUrl": "URL 복사",
     "copied": "URL이 복사되었습니다!",
     "shareToX": "X에 게시",
+    "shareToBluesky": "Bluesky로 공유",
+    "shareToLine": "LINE으로 공유",
     "tweetTextPokemon": "포켓몬 챔피언스 노력치 조정: {name}",
     "tweetTextParty": "포켓몬 챔피언스 파티 구성"
   }

@@ -251,6 +251,8 @@
     "copyUrl": "Copy URL",
     "copied": "URL Copied!",
     "shareToX": "Post to X",
+    "shareToBluesky": "Post to Bluesky",
+    "shareToLine": "Share to LINE",
     "tweetTextPokemon": "Pokémon Champions EV Spread: {name}",
     "tweetTextParty": "Pokémon Champions Team"
   }

@@ -10,17 +10,17 @@ import {
 import type { PokemonInstance } from '../../utils/party';
 import { getCalculatedStat, NATURES, stepToEv } from '../../utils/party';
 import { megaStoneMap, typeTranslations } from '../../utils/pokemon';
-import { Autocomplete } from '../common/Autocomplete';
-import { Button } from '../common/Button';
-import { Dialog } from '../common/Dialog';
-import { Select } from '../common/Select';
-import { TypeBadge } from '../common/TypeBadge';
-import { PokemonSearchModal } from '../PartySimulator/PokemonSearchModal';
 import {
   decodePokemonConfig,
   encodePokemonConfig,
   type SharedPokemonConfig,
 } from '../../utils/share';
+import { Autocomplete } from '../common/Autocomplete';
+import { Button } from '../common/Button';
+import { Select } from '../common/Select';
+import { ShareDialog } from '../common/ShareDialog';
+import { TypeBadge } from '../common/TypeBadge';
+import { PokemonSearchModal } from '../PartySimulator/PokemonSearchModal';
 import { DurabilityOptimizer } from './DurabilityOptimizer';
 import { EvStatInput } from './EvStatInput';
 
@@ -74,7 +74,6 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
   // Share dialog state
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
 
   // Pokemon configurations
   const [nature, setNature] = useState('neutral');
@@ -109,7 +108,8 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
     if (pokemonData.length === 0) return;
     const params = new URLSearchParams(window.location.search);
     const code =
-      params.get('s') || window.location.hash.replace('#s=', '').replace('#', '');
+      params.get('s') ||
+      window.location.hash.replace('#s=', '').replace('#', '');
     if (!code) return;
     const decoded = decodePokemonConfig(code);
     if (!decoded) return;
@@ -141,14 +141,6 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
     const url = `${window.location.origin}${window.location.pathname}?s=${code}`;
     setShareUrl(url);
     setIsShareDialogOpen(true);
-    setIsCopied(false);
-  };
-
-  const handleCopyShareUrl = () => {
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2500);
-    });
   };
 
   const handleSelectPokemon = (masterId: number) => {
@@ -786,63 +778,20 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
       )}
 
       {/* Share Dialog */}
-      <Dialog
+      <ShareDialog
         isOpen={isShareDialogOpen}
         onClose={() => setIsShareDialogOpen(false)}
-        title={
-          <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-            <span className="i-lucide-share-2 text-xl" />
-            {t('share.shareTitle')}
-          </div>
+        title={t('share.shareTitle')}
+        description={t('share.shareDesc')}
+        shareUrl={shareUrl}
+        shareText={
+          selectedPoke
+            ? t('share.tweetTextPokemon', {
+                name: selectedPoke.name[language] || selectedPoke.name.ja,
+              })
+            : ''
         }
-        actions={
-          <Button
-            variant="secondary"
-            onClick={() => setIsShareDialogOpen(false)}
-          >
-            {t('pokemonSearchModal.close')}
-          </Button>
-        }
-      >
-        <div className="space-y-4">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
-            {t('share.shareDesc')}
-          </p>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              readOnly
-              value={shareUrl}
-              className="w-full text-xs font-mono py-2 px-3 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 select-all"
-            />
-            <Button
-              onClick={handleCopyShareUrl}
-              variant="primary"
-              className="shrink-0 text-xs py-2"
-              icon={isCopied ? 'i-lucide-check' : 'i-lucide-copy'}
-            >
-              {isCopied ? t('share.copied') : t('share.copyUrl')}
-            </Button>
-          </div>
-          {selectedPoke && (
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-center">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  t('share.tweetTextPokemon', {
-                    name: selectedPoke.name[language] || selectedPoke.name.ja,
-                  })
-                )}&url=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary py-2 px-4 rounded-xl flex items-center gap-2 text-xs font-bold no-underline"
-              >
-                <span className="i-lucide-twitter text-sm" />
-                {t('share.shareToX')}
-              </a>
-            </div>
-          )}
-        </div>
-      </Dialog>
+      />
     </div>
   );
 };

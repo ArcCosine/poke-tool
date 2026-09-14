@@ -94,7 +94,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
               onClick={toggleTheme}
               variant="secondary"
               className="p-2 text-sm"
-              aria-label={theme === 'dark' ? 'ライトモードに切替' : 'ダークモードに切替'}
+              aria-label={
+                theme === 'dark' ? 'ライトモードに切替' : 'ダークモードに切替'
+              }
             >
               {theme === 'dark' ? (
                 <span className="i-lucide-sun text-yellow-500" />
@@ -107,9 +109,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-12">
-        {children}
-      </main>
+      <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-12">{children}</main>
 
       {/* Footer Links */}
       <footer className="max-w-7xl mx-auto px-6 pt-12 pb-8 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-400 flex flex-wrap justify-center items-center gap-3">
@@ -154,7 +154,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
                 }`}
               >
                 <span className={`${item.icon} text-xl mb-1`} />
-                <span className="text-[10px] tracking-tight">{t(item.labelKey)}</span>
+                <span className="text-[10px] tracking-tight">
+                  {t(item.labelKey)}
+                </span>
               </a>
             );
           })}

@@ -122,8 +122,16 @@ export function base62Decode(str: string, expectedLength?: number): Uint8Array {
 /**
  * Serializes a single Pokemon config into 19 bytes
  */
-function serializePokemon(config: SharedPokemonConfig, buffer: Uint8Array, offset: number) {
-  const view = new DataView(buffer.buffer, buffer.byteOffset + offset, BYTES_PER_POKEMON);
+function serializePokemon(
+  config: SharedPokemonConfig,
+  buffer: Uint8Array,
+  offset: number
+) {
+  const view = new DataView(
+    buffer.buffer,
+    buffer.byteOffset + offset,
+    BYTES_PER_POKEMON
+  );
 
   // pokemonId (Uint16, 2 bytes)
   view.setUint16(0, config.pokemonId, false);
@@ -153,8 +161,15 @@ function serializePokemon(config: SharedPokemonConfig, buffer: Uint8Array, offse
 /**
  * Deserializes 19 bytes into a single Pokemon config
  */
-function deserializePokemon(buffer: Uint8Array, offset: number): SharedPokemonConfig {
-  const view = new DataView(buffer.buffer, buffer.byteOffset + offset, BYTES_PER_POKEMON);
+function deserializePokemon(
+  buffer: Uint8Array,
+  offset: number
+): SharedPokemonConfig {
+  const view = new DataView(
+    buffer.buffer,
+    buffer.byteOffset + offset,
+    BYTES_PER_POKEMON
+  );
 
   const pokemonId = view.getUint16(0, false);
   const natIdx = view.getUint8(2);
@@ -233,7 +248,10 @@ export function decodePartyConfig(str: string): SharedPartyConfig | null {
     // Estimate byte length based on string length
     // Each 19 bytes is ~26 Base62 chars
     const approxBytes = Math.round((str.length * Math.log2(62)) / 8);
-    const count = Math.min(6, Math.max(1, Math.round(approxBytes / BYTES_PER_POKEMON)));
+    const count = Math.min(
+      6,
+      Math.max(1, Math.round(approxBytes / BYTES_PER_POKEMON))
+    );
     const expectedLen = count * BYTES_PER_POKEMON;
 
     const bytes = base62Decode(str, expectedLen);

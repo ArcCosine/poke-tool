@@ -251,6 +251,8 @@
     "copyUrl": "URLをコピー",
     "copied": "URLをコピーしました！",
     "shareToX": "Xでポスト",
+    "shareToBluesky": "Blueskyで投稿",
+    "shareToLine": "LINEで送る",
     "tweetTextPokemon": "ポケモンチャンピオンズ 努力値調整: {name}",
     "tweetTextParty": "ポケモンチャンピオンズ パーティ構築"
   }

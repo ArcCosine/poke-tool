@@ -25,17 +25,23 @@ describe('Layout Component', () => {
     ).toBe(true);
 
     // Verify bottom navigation bar is rendered
-    const bottomNav = screen.getByRole('navigation', { name: 'Bottom Navigation' });
+    const bottomNav = screen.getByRole('navigation', {
+      name: 'Bottom Navigation',
+    });
     expect(bottomNav).toBeTruthy();
 
     // Verify footer navigation labels match requested texts
     const evCalcLinks = screen.getAllByRole('link', { name: /努力値計算/i });
     expect(evCalcLinks.length).toBeGreaterThan(0);
-    expect(evCalcLinks.some((l) => l.getAttribute('href') === '/ev-calculator.html')).toBe(true);
+    expect(
+      evCalcLinks.some((l) => l.getAttribute('href') === '/ev-calculator.html')
+    ).toBe(true);
 
     const partyLinks = screen.getAllByRole('link', { name: /パーティ編成/i });
     expect(partyLinks.length).toBeGreaterThan(0);
-    expect(partyLinks.some((l) => l.getAttribute('href') === '/party.html')).toBe(true);
+    expect(
+      partyLinks.some((l) => l.getAttribute('href') === '/party.html')
+    ).toBe(true);
 
     // Verify legal footer links are present
     expect(screen.getByText('利用規約')).toBeTruthy();

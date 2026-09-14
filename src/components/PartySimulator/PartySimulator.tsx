@@ -18,16 +18,14 @@ import {
   stepToEv,
 } from '../../utils/party';
 import { megaStoneMap, TYPES, typeTranslations } from '../../utils/pokemon';
+import { decodePartyConfig, encodePartyConfig } from '../../utils/share';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
 import { Dialog } from '../common/Dialog';
 import { Select } from '../common/Select';
+import { ShareDialog } from '../common/ShareDialog';
 import { TypeBadge } from '../common/TypeBadge';
 import { PokemonSearchModal } from './PokemonSearchModal';
-import {
-  decodePartyConfig,
-  encodePartyConfig,
-} from '../../utils/share';
 
 type StatKey =
   | 'hp'
@@ -199,7 +197,6 @@ export const PartySimulator: React.FC = () => {
   const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
-  const [isShareCopied, setIsShareCopied] = useState(false);
 
   // Restore party from URL query (?p=...) or hash (#p=...)
   useEffect(() => {
@@ -252,14 +249,6 @@ export const PartySimulator: React.FC = () => {
     const url = `${window.location.origin}${window.location.pathname}?p=${code}`;
     setShareUrl(url);
     setIsShareDialogOpen(true);
-    setIsShareCopied(false);
-  };
-
-  const handleCopyShareUrl = () => {
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      setIsShareCopied(true);
-      setTimeout(() => setIsShareCopied(false), 2500);
-    });
   };
 
   const saveParty = () => {
@@ -931,59 +920,14 @@ export const PartySimulator: React.FC = () => {
           </div>
         </Dialog>
         {/* Party Share Dialog */}
-        <Dialog
+        <ShareDialog
           isOpen={isShareDialogOpen}
           onClose={() => setIsShareDialogOpen(false)}
-          title={
-            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-              <span className="i-lucide-share-2 text-xl" />
-              {t('share.sharePartyTitle')}
-            </div>
-          }
-          actions={
-            <Button
-              variant="secondary"
-              onClick={() => setIsShareDialogOpen(false)}
-            >
-              {t('pokemonSearchModal.close')}
-            </Button>
-          }
-        >
-          <div className="space-y-4">
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              {t('share.sharePartyDesc')}
-            </p>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                readOnly
-                value={shareUrl}
-                className="w-full text-xs font-mono py-2 px-3 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 select-all"
-              />
-              <Button
-                onClick={handleCopyShareUrl}
-                variant="primary"
-                className="shrink-0 text-xs py-2"
-                icon={isShareCopied ? 'i-lucide-check' : 'i-lucide-copy'}
-              >
-                {isShareCopied ? t('share.copied') : t('share.copyUrl')}
-              </Button>
-            </div>
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-center">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  t('share.tweetTextParty')
-                )}&url=${encodeURIComponent(shareUrl)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary py-2 px-4 rounded-xl flex items-center gap-2 text-xs font-bold no-underline"
-              >
-                <span className="i-lucide-twitter text-sm" />
-                {t('share.shareToX')}
-              </a>
-            </div>
-          </div>
-        </Dialog>
+          title={t('share.sharePartyTitle')}
+          description={t('share.sharePartyDesc')}
+          shareUrl={shareUrl}
+          shareText={t('share.tweetTextParty')}
+        />
       </div>
     </div>
   );

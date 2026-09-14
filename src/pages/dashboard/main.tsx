@@ -14,24 +14,30 @@ const DashboardApp = () => {
       title: t('statSearch.title'),
       desc: t('statSearchDesc'),
       icon: 'i-lucide-trending-up',
-      gradient: 'from-blue-500/10 to-indigo-500/10 border-blue-200 dark:border-blue-900/50',
-      iconColor: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60',
+      gradient:
+        'from-blue-500/10 to-indigo-500/10 border-blue-200 dark:border-blue-900/50',
+      iconColor:
+        'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60',
     },
     {
       href: '/ev-calculator.html',
       title: t('evCalculator.title'),
       desc: t('evCalculatorDesc'),
       icon: 'i-lucide-calculator',
-      gradient: 'from-purple-500/10 to-pink-500/10 border-purple-200 dark:border-purple-900/50',
-      iconColor: 'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60',
+      gradient:
+        'from-purple-500/10 to-pink-500/10 border-purple-200 dark:border-purple-900/50',
+      iconColor:
+        'text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60',
     },
     {
       href: '/party.html',
       title: t('partySimulator.title'),
       desc: t('partySimulatorDesc'),
       icon: 'i-lucide-shield-alert',
-      gradient: 'from-amber-500/10 to-rose-500/10 border-amber-200 dark:border-amber-900/50',
-      iconColor: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60',
+      gradient:
+        'from-amber-500/10 to-rose-500/10 border-amber-200 dark:border-amber-900/50',
+      iconColor:
+        'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60',
     },
   ];
 
