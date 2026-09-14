@@ -304,14 +304,6 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
         {selectedPoke ? (
           <div className="flex items-center gap-2">
             <Button
-              onClick={handleShare}
-              variant="secondary"
-              icon="i-lucide-share-2"
-              title={t('share.button')}
-            >
-              {t('share.button')}
-            </Button>
-            <Button
               onClick={handleAdd}
               variant="primary"
               icon="i-lucide-plus"
@@ -620,6 +612,17 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                   }));
                 }}
               />
+
+              {/* Share Configuration Button */}
+              <Button
+                onClick={handleShare}
+                variant="secondary"
+                icon="i-lucide-share-2"
+                className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-bold border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 rounded-xl shadow-xs"
+                title={t('share.button')}
+              >
+                {t('share.button')}
+              </Button>
             </div>
           </div>
         </div>
