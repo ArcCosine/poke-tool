@@ -256,6 +256,10 @@
     "shareToX": "X에 게시",
     "shareToBluesky": "Bluesky로 공유",
     "shareToLine": "LINE으로 공유",
+    "shareToWhatsApp": "WhatsApp으로 공유",
+    "shareToWeibo": "Weibo로 공유",
+    "shareToKakao": "카카오톡으로 공유",
+    "shareViaDevice": "기기 공유 기능으로 보내기 (기타 앱)",
     "tweetTextPokemon": "포켓몬 챔피언스 노력치 조정: {name}",
     "tweetTextParty": "포켓몬 챔피언스 파티 구성"
   }

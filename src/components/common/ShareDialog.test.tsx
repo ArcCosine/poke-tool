@@ -23,7 +23,7 @@ describe('ShareDialog Component', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders copy button and share buttons for X, Bluesky, and LINE when isOpen is true', () => {
+  it('renders copy button and share buttons for X, Bluesky, LINE, WhatsApp, Weibo, and KakaoTalk when isOpen is true', () => {
     render(
       <AppProvider>
         <ShareDialog
@@ -80,6 +80,100 @@ describe('ShareDialog Component', () => {
     expect(lineLink.getAttribute('href')).toContain(
       encodeURIComponent('ポケモン調整テスト')
     );
+
+    // Check WhatsApp share link
+    const whatsAppLink = screen.getByRole('link', { name: /WhatsAppで送る/i });
+    expect(whatsAppLink).toBeDefined();
+    expect(whatsAppLink.getAttribute('href')).toContain(
+      'https://api.whatsapp.com/send'
+    );
+    expect(whatsAppLink.getAttribute('href')).toContain(
+      encodeURIComponent(
+        'ポケモン調整テスト https://example.com/share?s=abc123'
+      )
+    );
+
+    // Check Weibo share link
+    const weiboLink = screen.getByRole('link', { name: /Weiboで共有/i });
+    expect(weiboLink).toBeDefined();
+    expect(weiboLink.getAttribute('href')).toContain(
+      'https://service.weibo.com/share/share.php'
+    );
+    expect(weiboLink.getAttribute('href')).toContain(
+      encodeURIComponent('https://example.com/share?s=abc123')
+    );
+    expect(weiboLink.getAttribute('href')).toContain(
+      encodeURIComponent('ポケモン調整テスト')
+    );
+
+    // Check KakaoTalk share link
+    const kakaoLink = screen.getByRole('link', { name: /KakaoTalkで送る/i });
+    expect(kakaoLink).toBeDefined();
+    expect(kakaoLink.getAttribute('href')).toContain(
+      'https://story.kakao.com/s/share'
+    );
+    expect(kakaoLink.getAttribute('href')).toContain(
+      encodeURIComponent('https://example.com/share?s=abc123')
+    );
+    expect(kakaoLink.getAttribute('href')).toContain(
+      encodeURIComponent('ポケモン調整テスト')
+    );
+  });
+
+  it('renders Web Share API button when navigator.share is available and calls navigator.share on click', async () => {
+    const shareMock = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'share', {
+      value: shareMock,
+      configurable: true,
+      writable: true,
+    });
+
+    render(
+      <AppProvider>
+        <ShareDialog
+          isOpen={true}
+          onClose={vi.fn()}
+          shareUrl="https://example.com/share?s=abc123"
+          shareText="ポケモン調整テスト"
+        />
+      </AppProvider>
+    );
+
+    const webShareBtn = screen.getByRole('button', {
+      name: /端末の機能で共有/i,
+    });
+    expect(webShareBtn).toBeDefined();
+
+    fireEvent.click(webShareBtn);
+
+    expect(shareMock).toHaveBeenCalledWith({
+      title: '設定をシェア',
+      text: 'ポケモン調整テスト',
+      url: 'https://example.com/share?s=abc123',
+    });
+  });
+
+  it('does not render Web Share API button when navigator.share is undefined', () => {
+    Object.defineProperty(navigator, 'share', {
+      value: undefined,
+      configurable: true,
+      writable: true,
+    });
+
+    render(
+      <AppProvider>
+        <ShareDialog
+          isOpen={true}
+          onClose={vi.fn()}
+          shareUrl="https://example.com/share?s=abc123"
+          shareText="ポケモン調整テスト"
+        />
+      </AppProvider>
+    );
+
+    expect(
+      screen.queryByRole('button', { name: /端末の機能で共有/i })
+    ).toBeNull();
   });
 
   it('copies URL to clipboard and updates button state', async () => {

@@ -256,6 +256,10 @@
     "shareToX": "发布至 X",
     "shareToBluesky": "发布到 Bluesky",
     "shareToLine": "分享到 LINE",
+    "shareToWhatsApp": "分享到 WhatsApp",
+    "shareToWeibo": "分享到微博",
+    "shareToKakao": "分享到 KakaoTalk",
+    "shareViaDevice": "通过设备分享 (其他应用)",
     "tweetTextPokemon": "宝可梦冠军 努力值调整: {name}",
     "tweetTextParty": "宝可梦冠军 队伍阵容"
   }

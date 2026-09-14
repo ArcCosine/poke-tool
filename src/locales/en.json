@@ -256,6 +256,10 @@
     "shareToX": "Post to X",
     "shareToBluesky": "Post to Bluesky",
     "shareToLine": "Share to LINE",
+    "shareToWhatsApp": "Share to WhatsApp",
+    "shareToWeibo": "Share to Weibo",
+    "shareToKakao": "Share to KakaoTalk",
+    "shareViaDevice": "Share via device (other apps)",
     "tweetTextPokemon": "Pokémon Champions EV Spread: {name}",
     "tweetTextParty": "Pokémon Champions Team"
   }

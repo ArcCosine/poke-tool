@@ -256,6 +256,10 @@
     "shareToX": "Xでポスト",
     "shareToBluesky": "Blueskyで投稿",
     "shareToLine": "LINEで送る",
+    "shareToWhatsApp": "WhatsAppで送る",
+    "shareToWeibo": "Weiboで共有",
+    "shareToKakao": "KakaoTalkで送る",
+    "shareViaDevice": "端末の機能で共有 (他のアプリ)",
     "tweetTextPokemon": "ポケモンチャンピオンズ 努力値調整: {name}",
     "tweetTextParty": "ポケモンチャンピオンズ パーティ構築"
   }
