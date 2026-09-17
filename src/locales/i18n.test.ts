@@ -126,4 +126,36 @@ describe('i18n Locales Master Data and Keys', () => {
     );
     expect(zhHans.termsOfServiceText).not.toMatch(jpKanaRegex);
   });
+
+  it('should include updated legal clauses for authentication, cloud sync, and party ranking across all locales', () => {
+    // Japanese
+    expect(ja.legal.privacyPolicyText).toMatch(/アカウント|OAuth/);
+    expect(ja.legal.privacyPolicyText).toContain('Cookie');
+    expect(ja.legal.disclaimerText).toMatch(/ユーザー投稿|公開パーティ|ランキング/);
+    expect(ja.legal.termsOfServiceText).toMatch(/ランキング|スコア/);
+
+    // English
+    expect(en.legal.privacyPolicyText).toMatch(/OAuth|Account/i);
+    expect(en.legal.privacyPolicyText).toContain('Cookie');
+    expect(en.legal.disclaimerText).toMatch(/User-Generated|Ranking/i);
+    expect(en.legal.termsOfServiceText).toMatch(/Ranking|Score/i);
+
+    // Korean
+    expect(ko.legal.privacyPolicyText).toMatch(/계정|OAuth/);
+    expect(ko.legal.privacyPolicyText).toMatch(/Cookie|쿠키/);
+    expect(ko.legal.disclaimerText).toMatch(/사용자 콘텐츠|공개 파티|랭킹/);
+    expect(ko.legal.termsOfServiceText).toMatch(/랭킹|점수/);
+
+    // Traditional Chinese
+    expect(zhHant.legal.privacyPolicyText).toMatch(/帳號|OAuth/);
+    expect(zhHant.legal.privacyPolicyText).toContain('Cookie');
+    expect(zhHant.legal.disclaimerText).toMatch(/使用者生成內容|公開隊伍|排行榜/);
+    expect(zhHant.legal.termsOfServiceText).toMatch(/排行榜|分數/);
+
+    // Simplified Chinese
+    expect(zhHans.legal.privacyPolicyText).toMatch(/账号|OAuth/);
+    expect(zhHans.legal.privacyPolicyText).toContain('Cookie');
+    expect(zhHans.legal.disclaimerText).toMatch(/用户生成内容|公开队伍|排行榜/);
+    expect(zhHans.legal.termsOfServiceText).toMatch(/排行榜|分数/);
+  });
 });
