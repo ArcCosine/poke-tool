@@ -32,6 +32,12 @@ describe('CookieBanner Component', () => {
     expect(
       screen.getByRole('button', { name: /同意する/i })
     ).toBeTruthy();
+
+    // Should be positioned at bottom center
+    const banner = screen.getByRole('complementary');
+    expect(banner.className).toContain('bottom-20');
+    expect(banner.className).toContain('sm:left-1/2');
+    expect(banner.className).toContain('sm:-translate-x-1/2');
   });
 
   it('hides banner and sets localStorage when accept button is clicked', () => {

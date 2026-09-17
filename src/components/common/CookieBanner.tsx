@@ -37,7 +37,7 @@ export const CookieBanner: React.FC = () => {
   return (
     <aside
       aria-label={t('cookieConsent.title')}
-      className="fixed bottom-16 left-3 right-3 sm:bottom-6 sm:right-6 sm:left-auto sm:max-w-md z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl p-4 sm:p-5 transition-all duration-300"
+      className="fixed bottom-20 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-full sm:max-w-lg z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl p-4 sm:p-5 transition-all duration-300"
     >
       <div className="flex items-start gap-3">
         <span
