@@ -115,6 +115,7 @@ export default defineConfig({
         ranking: resolve(__dirname, 'ranking.html'),
         evCalculator: resolve(__dirname, 'ev-calculator.html'),
         party: resolve(__dirname, 'party.html'),
+        partyRanking: resolve(__dirname, 'party-ranking.html'),
         privacy: resolve(__dirname, 'privacy.html'),
         disclaimer: resolve(__dirname, 'disclaimer.html'),
         terms: resolve(__dirname, 'terms.html'),

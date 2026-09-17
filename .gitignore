@@ -41,3 +41,13 @@ pure-onnx-ocr/
 # ONNX models and WASM helpers
 public/models/
 public/ort-wasm-simd-threaded*
+
+# Google Search Console verification files
+google*.html
+
+# Cloudflare Pages / Wrangler
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.wrangler/
+

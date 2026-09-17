@@ -1,11 +1,17 @@
 import type React from 'react';
 import { useApp } from '../../context/AppContext';
 import { AppIcon } from './AppIcon';
+import { AuthButton } from './AuthButton';
 import { Button } from './Button';
 import { LanguageSelector } from './LanguageSelector';
 import { UpdateToast } from './UpdateToast';
 
-export type PageId = 'dashboard' | 'ranking' | 'evCalculator' | 'party';
+export type PageId =
+  | 'dashboard'
+  | 'ranking'
+  | 'evCalculator'
+  | 'party'
+  | 'partyRanking';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -42,6 +48,12 @@ const navItems: {
     labelKey: 'nav.partySimulator',
     icon: 'i-lucide-shield-alert',
   },
+  {
+    id: 'partyRanking',
+    href: '/party-ranking.html',
+    labelKey: 'nav.partyRanking',
+    icon: 'i-lucide-trophy',
+  },
 ];
 
 export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
@@ -50,42 +62,24 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans pb-24">
       {/* Header (Top Bar with Logo, Nav Links, and Controls) */}
-      <header className="border-b border-slate-200 dark:border-slate-800 p-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-6">
+      <header className="border-b border-slate-200 dark:border-slate-800 px-3 py-3 sm:px-4 sm:py-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-2">
+          <div className="flex items-center gap-6 shrink-0">
             <a
               href="/index.html"
-              className="text-xl font-bold flex items-center gap-2.5 cursor-pointer no-underline text-slate-900 dark:text-slate-100 hover:opacity-90 transition"
+              className="text-lg sm:text-xl font-bold flex items-center gap-2 sm:gap-2.5 cursor-pointer no-underline text-slate-900 dark:text-slate-100 hover:opacity-90 transition"
             >
-              <AppIcon className="w-7 h-7" />
+              <AppIcon className="w-6 h-6 sm:w-7 sm:h-7" />
               <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent font-black tracking-tight">
                 Poke-Tool
               </span>
             </a>
-
-            {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => {
-                const isActive = activePage === item.id;
-                return (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 no-underline ${
-                      isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/50'
-                    }`}
-                  >
-                    <span className={`${item.icon} text-base`} />
-                    {t(item.labelKey)}
-                  </a>
-                );
-              })}
-            </nav>
           </div>
 
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-1.5 sm:gap-3 items-center shrink-0">
+            {/* Auth Button */}
+            <AuthButton />
+
             {/* Language Selector */}
             <LanguageSelector />
 
@@ -169,4 +163,3 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
     </div>
   );
 };
-

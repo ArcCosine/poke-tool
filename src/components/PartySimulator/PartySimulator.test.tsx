@@ -116,6 +116,13 @@ vi.mock('../../utils/db', () => {
 describe('PartySimulator Pokémon Search Modal', () => {
   beforeEach(() => {
     localStorage.clear();
+    vi.restoreAllMocks();
+    vi.spyOn(globalThis, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ user: null, parties: [] }),
+      } as any)
+    );
   });
 
   it('should open modal on trigger click, allow romaji/kana search, select pokemon, and support auto-advance', async () => {

@@ -208,6 +208,7 @@
     "dashboard": "ダッシュボード",
     "statSearch": "火力・耐久",
     "partySimulator": "パーティ編成",
+    "partyRanking": "構築ランキング",
     "evCalculator": "努力値計算"
   },
   "stats": {
@@ -287,6 +288,48 @@
     "offline": "オフライン動作中",
     "updateAvailable": "新しいバージョンが利用可能です",
     "updateButton": "今すぐ更新"
+  },
+  "auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "loginWithGoogle": "Googleでログイン",
+    "loginWithX": "Xでログイン",
+    "loginPrompt": "ログインすると端末間でパーティを保存・同期できます",
+    "guestMode": "ゲストモード",
+    "syncTitle": "パーティデータの同期",
+    "syncDescription": "端末に保存されているパーティをアカウントに保存しますか？",
+    "syncAction": "同期して保存",
+    "discardAction": "スキップ"
+  },
+  "partyShare": {
+    "isPublic": "ランキングに公開する",
+    "isPublicHelp": "公開すると他のプレイヤーが閲覧・いいねできるようになります",
+    "rentalCode": "レンタルチームコード",
+    "rentalCodePlaceholder": "例: ABCD-1234-EFGH",
+    "articleUrl": "構築記事URL",
+    "articleUrlPlaceholder": "https://note.com/... または https://x.com/...",
+    "articleUrlInvalid": "URLは https:// で入力してください (最大255文字)",
+    "description": "構築の解説・立ち回り",
+    "descriptionPlaceholder": "コンセプトや選出パターンなど（任意）",
+    "like": "いいね",
+    "liked": "いいね済み",
+    "importParty": "このパーティを読み込む",
+    "importSuccess": "パーティを読み込みました！",
+    "openArticle": "構築記事を開く",
+    "copyRentalCode": "レンタルコードをコピー",
+    "rentalCodeCopied": "レンタルコードをコピーしました！"
+  },
+  "partyRanking": {
+    "title": "構築ランキング",
+    "description": "公開されたパーティの一覧と人気ランキングです。",
+    "sortByScore": "人気順",
+    "sortByNewest": "新着順",
+    "empty": "公開されたパーティがまだありません",
+    "regulationAll": "すべて",
+    "anonymousAuthor": "匿名トレーナー",
+    "createPartyPrompt": "パーティを作成して公開する",
+    "loadError": "パーティ一覧の取得に失敗しました",
+    "retry": "再試行"
   }
 }
 

@@ -9,6 +9,7 @@ import {
 import type { PokemonInstance } from '../utils/party';
 import { createEmptyInstance } from '../utils/party';
 import { normalizeEvs } from '../utils/pokemon';
+import { AuthProvider } from './AuthContext';
 
 export type Language = 'ja' | 'en' | 'ko' | 'zh-Hant' | 'zh-Hans';
 export type Theme = 'light' | 'dark';
@@ -25,6 +26,15 @@ export interface SavedParty {
   id: string;
   name: string;
   members: PokemonInstance[];
+  isPublic?: boolean;
+  rentalCode?: string;
+  articleUrl?: string;
+  description?: string;
+  likesCount?: number;
+  rankingScore?: number;
+  userId?: string;
+  authorName?: string;
+  updatedAt?: number;
 }
 
 interface AppContextProps {
@@ -40,6 +50,8 @@ interface AppContextProps {
   partyName: string;
   partyMembers: PokemonInstance[];
   setPartyName: (name: string) => void;
+  updatePartyMeta: (id: string, fields: Partial<SavedParty>) => void;
+  setPartiesDirectly: (parties: SavedParty[]) => void;
   updateMember: (index: number, fields: Partial<PokemonInstance>) => void;
   updateMove: (memberIndex: number, moveIndex: number, moveId: number) => void;
   addPokemonToPartyDirectly: (
@@ -448,6 +460,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const updatePartyMeta = (id: string, fields: Partial<SavedParty>) => {
+    setParties((prev) => {
+      const next = prev.map((p) =>
+        p.id === id ? { ...p, ...fields, updatedAt: Math.floor(Date.now() / 1000) } : p
+      );
+      localStorage.setItem('saved_parties', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const setPartiesDirectly = (newParties: SavedParty[]) => {
+    setParties(newParties);
+    localStorage.setItem('saved_parties', JSON.stringify(newParties));
+    if (newParties.length > 0 && !newParties.some((p) => p.id === currentPartyId)) {
+      setCurrentPartyId(newParties[0].id);
+      localStorage.setItem('current_party_id', newParties[0].id);
+    }
+  };
+
   const saveCurrentParty = () => {
     localStorage.setItem('saved_parties', JSON.stringify(parties));
   };
@@ -495,6 +526,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         partyName,
         partyMembers,
         setPartyName,
+        updatePartyMeta,
+        setPartiesDirectly,
         updateMember,
         updateMove,
         addPokemonToPartyDirectly,
@@ -510,7 +543,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         loadSharedParty,
       }}
     >
-      {children}
+      <AuthProvider>{children}</AuthProvider>
     </AppContext.Provider>
   );
 };

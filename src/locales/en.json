@@ -208,6 +208,7 @@
     "dashboard": "Dashboard",
     "statSearch": "Stat Search",
     "partySimulator": "Party Sim",
+    "partyRanking": "Party Ranking",
     "evCalculator": "EV Adjuster"
   },
   "stats": {
@@ -287,6 +288,48 @@
     "offline": "Operating Offline",
     "updateAvailable": "A new version is available",
     "updateButton": "Update Now"
+  },
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "loginWithGoogle": "Sign In with Google",
+    "loginWithX": "Sign In with X",
+    "loginPrompt": "Sign in to sync your team builds across devices",
+    "guestMode": "Guest Mode",
+    "syncTitle": "Party Data Synchronization",
+    "syncDescription": "Do you want to save teams stored on this device to your cloud account?",
+    "syncAction": "Sync and Save",
+    "discardAction": "Skip"
+  },
+  "partyShare": {
+    "isPublic": "Publish to Ranking",
+    "isPublicHelp": "When published, other players can view and like your team build",
+    "rentalCode": "Rental Team Code",
+    "rentalCodePlaceholder": "e.g. ABCD-1234-EFGH",
+    "articleUrl": "Team Strategy Article URL",
+    "articleUrlPlaceholder": "https://note.com/... or https://x.com/...",
+    "articleUrlInvalid": "URL must start with https:// (max 255 characters)",
+    "description": "Strategy & Play Guide",
+    "descriptionPlaceholder": "Lead options, game plan, or notes (optional)",
+    "like": "Like",
+    "liked": "Liked",
+    "importParty": "Import This Team",
+    "importSuccess": "Team imported successfully!",
+    "openArticle": "Open Article",
+    "copyRentalCode": "Copy Rental Code",
+    "rentalCodeCopied": "Rental code copied to clipboard!"
+  },
+  "partyRanking": {
+    "title": "Team Builds Ranking",
+    "description": "Browse and discover popular published teams from the community.",
+    "sortByScore": "Popular",
+    "sortByNewest": "Newest",
+    "empty": "No teams have been published yet",
+    "regulationAll": "All",
+    "anonymousAuthor": "Anonymous Trainer",
+    "createPartyPrompt": "Create and share your party",
+    "loadError": "Failed to load parties",
+    "retry": "Retry"
   }
 }
 

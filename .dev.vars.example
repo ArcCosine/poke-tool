@@ -1,0 +1,10 @@
+# セッション署名キー (openssl rand -hex 32 等で生成)
+AUTH_SECRET="your_32_byte_hex_secret"
+
+# Google OAuth 2.0
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+
+# X (Twitter) OAuth 2.0
+X_CLIENT_ID="your_x_client_id"
+X_CLIENT_SECRET="your_x_client_secret"

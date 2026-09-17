@@ -2,5 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "poke-tool",
   "pages_build_output_dir": "dist",
-  "compatibility_date": "2026-09-12"
+  "compatibility_date": "2026-05-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "poke-tool-db",
+      "database_id": "b1500f7e-9f7f-466d-912c-38ad863d1584"
+    }
+  ]
 }

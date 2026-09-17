@@ -208,6 +208,7 @@
     "dashboard": "대시보드",
     "statSearch": "화력・내구",
     "partySimulator": "파티 편성",
+    "partyRanking": "구축 랭킹",
     "evCalculator": "노력치 조정"
   },
   "stats": {
@@ -287,6 +288,48 @@
     "offline": "오프라인 동작 중",
     "updateAvailable": "새로운 버전이 출시되었습니다",
     "updateButton": "지금 업데이트"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "loginWithGoogle": "Google로 로그인",
+    "loginWithX": "X로 로그인",
+    "loginPrompt": "로그인하면 기기 간에 파티를 저장하고 동기화할 수 있습니다",
+    "guestMode": "게스트 모드",
+    "syncTitle": "파티 데이터 동기화",
+    "syncDescription": "기기에 저장된 파티를 계정에 저장하시겠습니까?",
+    "syncAction": "동기화 및 저장",
+    "discardAction": "건너뛰기"
+  },
+  "partyShare": {
+    "isPublic": "랭킹에 공개",
+    "isPublicHelp": "공개하면 다른 플레이어가 파티를 보고 좋아요를 누를 수 있습니다",
+    "rentalCode": "렌탈팀 코드",
+    "rentalCodePlaceholder": "예: ABCD-1234-EFGH",
+    "articleUrl": "파티 구축 기사 URL",
+    "articleUrlPlaceholder": "https://note.com/... 또는 https://x.com/...",
+    "articleUrlInvalid": "URL은 https:// 로 입력해 주세요 (최대 255자)",
+    "description": "운용법 및 해설",
+    "descriptionPlaceholder": "기본 선출 및 전략 메모 (선택사항)",
+    "like": "좋아요",
+    "liked": "좋아요 완료",
+    "importParty": "이 파티 불러오기",
+    "importSuccess": "파티를 불러왔습니다!",
+    "openArticle": "기사 열기",
+    "copyRentalCode": "렌탈 코드 복사",
+    "rentalCodeCopied": "렌탈 코드가 클립보드에 복사되었습니다!"
+  },
+  "partyRanking": {
+    "title": "파티 랭킹",
+    "description": "공개된 커뮤니티 파티 목록과 인기 랭킹입니다.",
+    "sortByScore": "인기순",
+    "sortByNewest": "최신순",
+    "empty": "아직 공개된 파티가 없습니다",
+    "regulationAll": "전체",
+    "anonymousAuthor": "익명 트레이너",
+    "createPartyPrompt": "파티를 만들고 공유하기",
+    "loadError": "파티 목록을 불러오지 못했습니다",
+    "retry": "다시 시도"
   }
 }
 

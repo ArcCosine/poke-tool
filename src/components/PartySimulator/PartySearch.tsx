@@ -1,5 +1,8 @@
 import type React from 'react';
+import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { Button } from '../common/Button';
+import { Checkbox } from '../common/Checkbox';
 import { Input } from '../common/Input';
 import { Select } from '../common/Select';
 
@@ -8,6 +11,16 @@ export interface PartySearchProps {
   parties: { id: string; name: string }[];
   onSelectParty: (id: string) => void;
   onPartyNameChange: (name: string) => void;
+  isPublic?: boolean;
+  rentalCode?: string;
+  articleUrl?: string;
+  description?: string;
+  onMetaChange?: (fields: {
+    isPublic?: boolean;
+    rentalCode?: string;
+    articleUrl?: string;
+    description?: string;
+  }) => void;
 }
 
 export const PartySearch: React.FC<PartySearchProps> = ({
@@ -15,8 +28,14 @@ export const PartySearch: React.FC<PartySearchProps> = ({
   parties,
   onSelectParty,
   onPartyNameChange,
+  isPublic = false,
+  rentalCode = '',
+  articleUrl = '',
+  description = '',
+  onMetaChange,
 }) => {
   const { t } = useApp();
+  const [isMetaOpen, setIsMetaOpen] = useState(false);
 
   const currentMatchedParty = parties.find((p) => p.name === partyName);
 
@@ -33,12 +52,25 @@ export const PartySearch: React.FC<PartySearchProps> = ({
             {partyName || t('defaultPartyName')}
           </span>
         </div>
-        <div className="flex gap-2 mt-2 sm:mt-0">
+        <div className="flex items-center gap-2 mt-2 sm:mt-0">
           <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold">
             {t('partySimulator.savedPartiesCount', {
               count: parties.length,
             })}
           </span>
+          <Button
+            data-testid="toggle-party-meta"
+            variant="secondary"
+            className="h-8 px-2.5 py-1 text-xs"
+            onClick={() => setIsMetaOpen(!isMetaOpen)}
+          >
+            <span
+              className={`mr-1 ${
+                isMetaOpen ? 'i-lucide-chevron-up' : 'i-lucide-settings-2'
+              }`}
+            />
+            {isMetaOpen ? t('close') : t('partyShare.isPublic')}
+          </Button>
         </div>
       </div>
 
@@ -76,6 +108,51 @@ export const PartySearch: React.FC<PartySearchProps> = ({
           </Select>
         </div>
       </div>
+
+      {/* Expanded Meta Settings (Public Sharing, Rental Code, Article URL, Description) */}
+      {isMetaOpen && (
+        <div className="mt-2 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-3 animate-in fade-in duration-200">
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="party-is-public"
+              checked={isPublic}
+              onChange={(e) => onMetaChange?.({ isPublic: e.target.checked })}
+              label={t('partyShare.isPublic')}
+            />
+            <span className="text-xs text-slate-400 dark:text-slate-500">
+              ({t('partyShare.isPublicHelp')})
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Input
+              id="party-rental-code"
+              label={t('partyShare.rentalCode')}
+              value={rentalCode}
+              onChange={(e) => onMetaChange?.({ rentalCode: e.target.value })}
+              placeholder={t('partyShare.rentalCodePlaceholder')}
+              className="h-9 text-xs"
+            />
+            <Input
+              id="party-article-url"
+              label={t('partyShare.articleUrl')}
+              value={articleUrl}
+              onChange={(e) => onMetaChange?.({ articleUrl: e.target.value })}
+              placeholder={t('partyShare.articleUrlPlaceholder')}
+              className="h-9 text-xs"
+            />
+          </div>
+
+          <Input
+            id="party-description"
+            label={t('partyShare.description')}
+            value={description}
+            onChange={(e) => onMetaChange?.({ description: e.target.value })}
+            placeholder={t('partyShare.descriptionPlaceholder')}
+            className="h-9 text-xs"
+          />
+        </div>
+      )}
     </div>
   );
 };

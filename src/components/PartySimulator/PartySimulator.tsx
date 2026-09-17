@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { type Language, useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   db,
   type ItemMaster,
@@ -26,12 +27,15 @@ import {
   typeTranslations,
 } from '../../utils/pokemon';
 import { decodePartyConfig, encodePartyConfig } from '../../utils/share';
+import { partyToD1Record } from '../../utils/sync';
+import { usePartySync } from '../../utils/usePartySync';
 import { Autocomplete } from '../common/Autocomplete';
 import { Button } from '../common/Button';
 import { Dialog } from '../common/Dialog';
 import { NatureSelect } from '../common/NatureSelect';
 import { Select } from '../common/Select';
 import { ShareDialog } from '../common/ShareDialog';
+import { SyncDialog } from '../common/SyncDialog';
 import { TypeBadge } from '../common/TypeBadge';
 import { PartyControls } from './PartyControls';
 import { PartySearch } from './PartySearch';
@@ -113,6 +117,8 @@ export const PartySimulator: React.FC = () => {
     partyName,
     partyMembers,
     setPartyName,
+    updatePartyMeta,
+    setPartiesDirectly,
     updateMember,
     updateMove,
     removePokemonFromParty,
@@ -124,12 +130,29 @@ export const PartySimulator: React.FC = () => {
     loadSharedParty,
   } = useApp();
 
+  const { user } = useAuth();
+
   const party = partyMembers;
 
   const [loading, setLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState<PokemonMaster[]>([]);
   const [movesData, setMovesData] = useState<MoveMaster[]>([]);
   const [itemsData, setItemsData] = useState<ItemMaster[]>([]);
+
+  const {
+    isSyncPromptOpen,
+    pendingCount,
+    confirmSync,
+    dismissSync,
+  } = usePartySync({
+    user,
+    localParties: parties,
+    setPartiesDirectly,
+    pokemonData,
+    itemsData,
+  });
+
+  const currentParty = parties.find((p) => p.id === currentPartyId);
 
   const [copied, setCopied] = useState(false);
   const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
@@ -270,6 +293,14 @@ export const PartySimulator: React.FC = () => {
       return;
     }
     saveCurrentParty();
+    if (user && currentParty) {
+      const record = partyToD1Record(currentParty, pokemonData, itemsData);
+      fetch(`/api/parties/${currentParty.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ party: record }),
+      }).catch((err) => console.warn('Failed to sync party to D1:', err));
+    }
     setIsSaveDialogOpen(true);
   };
 
@@ -384,6 +415,11 @@ export const PartySimulator: React.FC = () => {
           parties={parties}
           onSelectParty={selectParty}
           onPartyNameChange={setPartyName}
+          isPublic={currentParty?.isPublic}
+          rentalCode={currentParty?.rentalCode}
+          articleUrl={currentParty?.articleUrl}
+          description={currentParty?.description}
+          onMetaChange={(fields) => updatePartyMeta(currentPartyId, fields)}
         />
 
         <PartyControls
@@ -887,6 +923,13 @@ export const PartySimulator: React.FC = () => {
           description={t('share.sharePartyDesc')}
           shareUrl={shareUrl}
           shareText={t('share.tweetTextParty')}
+        />
+        {/* Sync Confirmation Dialog */}
+        <SyncDialog
+          isOpen={isSyncPromptOpen}
+          pendingCount={pendingCount}
+          onConfirm={confirmSync}
+          onDismiss={dismissSync}
         />
       </div>
     </div>

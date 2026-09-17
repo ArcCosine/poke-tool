@@ -66,4 +66,36 @@ describe('PartySearch Component', () => {
 
     expect(onSelectParty).toHaveBeenCalledWith('2');
   });
+
+  it('allows toggling public sharing and entering article URL', () => {
+    const onMetaChange = vi.fn();
+
+    render(
+      <AppProvider>
+        <PartySearch
+          partyName="ガチ対戦パ"
+          parties={mockParties}
+          onSelectParty={vi.fn()}
+          onPartyNameChange={vi.fn()}
+          isPublic={false}
+          articleUrl="https://note.com/test"
+          onMetaChange={onMetaChange}
+        />
+      </AppProvider>
+    );
+
+    // Open extra settings
+    const toggleBtn = screen.getByTestId('toggle-party-meta');
+    fireEvent.click(toggleBtn);
+
+    // Checkbox for public ranking
+    const publicCheckbox = screen.getByLabelText(/ランキングに公開する/);
+    fireEvent.click(publicCheckbox);
+    expect(onMetaChange).toHaveBeenCalledWith({ isPublic: true });
+
+    // Article URL input
+    const articleInput = screen.getByLabelText(/構築記事URL/);
+    fireEvent.change(articleInput, { target: { value: 'https://note.com/new' } });
+    expect(onMetaChange).toHaveBeenCalledWith({ articleUrl: 'https://note.com/new' });
+  });
 });

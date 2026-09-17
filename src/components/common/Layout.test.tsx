@@ -47,5 +47,9 @@ describe('Layout Component', () => {
     expect(screen.getByText('利用規約')).toBeTruthy();
     expect(screen.getByText('プライバシーポリシー')).toBeTruthy();
     expect(screen.getByText('免責事項')).toBeTruthy();
+
+    // Verify header does not contain desktop navigation links
+    const header = screen.getByRole('banner');
+    expect(header.querySelector('nav')).toBeNull();
   });
 });

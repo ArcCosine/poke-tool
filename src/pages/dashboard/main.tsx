@@ -161,6 +161,16 @@ const DashboardApp = () => {
       iconColor:
         'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60',
     },
+    {
+      href: '/party-ranking.html',
+      title: t('partyRanking.title'),
+      desc: t('partyRanking.description'),
+      icon: 'i-lucide-trophy',
+      gradient:
+        'from-yellow-500/10 to-amber-500/10 border-yellow-200 dark:border-yellow-900/50',
+      iconColor:
+        'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60',
+    },
   ];
 
   const progressPercent =
@@ -240,7 +250,7 @@ const DashboardApp = () => {
         </div>
 
         {/* Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {toolCards.map((tool) => (
             <a
               key={tool.href}
