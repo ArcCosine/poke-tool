@@ -332,6 +332,12 @@
     "createPartyPrompt": "파티를 만들고 공유하기",
     "loadError": "파티 목록을 불러오지 못했습니다",
     "retry": "다시 시도"
+  },
+  "cookieConsent": {
+    "title": "쿠키 사용 안내",
+    "description": "본 도구는 로그인 인증 및 보안 유지를 위해 최소한의 쿠키를 사용합니다. 자세한 내용은 개인정보 처리방침을 확인해 주십시오.",
+    "accept": "동의",
+    "privacyPolicy": "개인정보 처리방침"
   }
 }
 

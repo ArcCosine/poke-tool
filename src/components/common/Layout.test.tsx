@@ -45,8 +45,11 @@ describe('Layout Component', () => {
 
     // Verify legal footer links are present
     expect(screen.getByText('利用規約')).toBeTruthy();
-    expect(screen.getByText('プライバシーポリシー')).toBeTruthy();
+    expect(screen.getAllByText('プライバシーポリシー').length).toBeGreaterThan(0);
     expect(screen.getByText('免責事項')).toBeTruthy();
+
+    // Verify CookieBanner is rendered
+    expect(screen.getByText(/Cookieの使用について/i)).toBeTruthy();
 
     // Verify header does not contain desktop navigation links
     const header = screen.getByRole('banner');

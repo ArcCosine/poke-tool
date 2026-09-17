@@ -84,6 +84,13 @@ describe('i18n Locales Master Data and Keys', () => {
     expect(ko.evCalculator.title).toBe('노력치 계산기');
     expect(zhHant.evCalculator.title).toBe('努力值計算器');
     expect(zhHans.evCalculator.title).toBe('努力值计算器');
+
+    // cookieConsent checks
+    expect(ja.cookieConsent.title).toBe('Cookieの使用について');
+    expect(en.cookieConsent.title).toBe('Cookie Notice');
+    expect(ko.cookieConsent.title).toBe('쿠키 사용 안내');
+    expect(zhHant.cookieConsent.title).toBe('Cookie 使用說明');
+    expect(zhHans.cookieConsent.title).toBe('Cookie 使用说明');
   });
 
   it('should localize legal texts (privacy policy, disclaimer, terms of service) in Korean, Traditional Chinese, and Simplified Chinese without Japanese remnants', () => {

@@ -332,6 +332,12 @@
     "createPartyPrompt": "创建并公开队伍",
     "loadError": "未能加载队伍列表",
     "retry": "重试"
+  },
+  "cookieConsent": {
+    "title": "Cookie 使用说明",
+    "description": "本工具使用必要之最低限度 Cookie 以维持登录状态与确保安全性。详情请参阅隐私政策。",
+    "accept": "同意",
+    "privacyPolicy": "隐私政策"
   }
 }
 

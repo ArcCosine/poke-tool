@@ -332,6 +332,12 @@
     "createPartyPrompt": "Create and share your party",
     "loadError": "Failed to load parties",
     "retry": "Retry"
+  },
+  "cookieConsent": {
+    "title": "Cookie Notice",
+    "description": "This tool uses minimal necessary cookies for account authentication and security purposes. For details, please review our Privacy Policy.",
+    "accept": "Accept",
+    "privacyPolicy": "Privacy Policy"
   }
 }
 

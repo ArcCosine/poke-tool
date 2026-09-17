@@ -332,6 +332,12 @@
     "createPartyPrompt": "パーティを作成して公開する",
     "loadError": "パーティ一覧の取得に失敗しました",
     "retry": "再試行"
+  },
+  "cookieConsent": {
+    "title": "Cookieの使用について",
+    "description": "当ツールでは、ログイン状態の維持およびセキュリティ向上のために必要最小限のCookieを使用しています。詳細についてはプライバシーポリシーをご確認ください。",
+    "accept": "同意する",
+    "privacyPolicy": "プライバシーポリシー"
   }
 }
 

@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { AppIcon } from './AppIcon';
 import { AuthButton } from './AuthButton';
 import { Button } from './Button';
+import { CookieBanner } from './CookieBanner';
 import { LanguageSelector } from './LanguageSelector';
 import { UpdateToast } from './UpdateToast';
 
@@ -158,6 +159,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
           })}
         </div>
       </nav>
+
+      {/* Cookie Consent Banner (GDPR compliance) */}
+      <CookieBanner />
 
       {/* PWA Update Notification Toast */}
       <UpdateToast />
