@@ -130,6 +130,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
         >
           {t('termsOfService')}
         </a>
+        <span className="text-slate-300 dark:text-slate-700">|</span>
+        <button
+          type="button"
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent('poke:open-cookie-settings'));
+          }}
+          className="hover:text-slate-600 dark:hover:text-slate-200 transition font-sans cursor-pointer bg-transparent border-none p-0 text-inherit text-xs"
+        >
+          {t('cookieConsent.cookieSettings')}
+        </button>
       </footer>
 
       {/* Bottom Navigation Bar (Visible on all screen sizes) */}

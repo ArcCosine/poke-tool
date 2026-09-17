@@ -47,6 +47,7 @@ describe('Layout Component', () => {
     expect(screen.getByText('利用規約')).toBeTruthy();
     expect(screen.getAllByText('プライバシーポリシー').length).toBeGreaterThan(0);
     expect(screen.getByText('免責事項')).toBeTruthy();
+    expect(screen.getByText('Cookie設定')).toBeTruthy();
 
     // Verify CookieBanner is rendered
     expect(screen.getByText(/Cookieの使用について/i)).toBeTruthy();

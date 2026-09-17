@@ -12,13 +12,26 @@ export const CookieBanner: React.FC = () => {
   useEffect(() => {
     try {
       const consent = localStorage.getItem(STORAGE_KEY);
-      if (consent !== 'accepted') {
+      // Show only if neither accepted nor rejected
+      if (!consent) {
         setIsVisible(true);
       }
     } catch {
-      // Ignore storage access errors (e.g. strict privacy mode)
+      // Strict privacy or blocked storage
       setIsVisible(true);
     }
+
+    const handleOpenSettings = () => {
+      setIsVisible(true);
+    };
+
+    window.addEventListener('poke:open-cookie-settings', handleOpenSettings);
+    return () => {
+      window.removeEventListener(
+        'poke:open-cookie-settings',
+        handleOpenSettings
+      );
+    };
   }, []);
 
   const handleAccept = () => {
@@ -27,6 +40,17 @@ export const CookieBanner: React.FC = () => {
     } catch {
       // Ignore storage write errors
     }
+    window.dispatchEvent(new CustomEvent('poke:cookie-accepted'));
+    setIsVisible(false);
+  };
+
+  const handleReject = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'rejected');
+    } catch {
+      // Ignore storage write errors
+    }
+    window.dispatchEvent(new CustomEvent('poke:cookie-rejected'));
     setIsVisible(false);
   };
 
@@ -57,7 +81,14 @@ export const CookieBanner: React.FC = () => {
               {t('cookieConsent.privacyPolicy')}
             </a>
           </p>
-          <div className="mt-3 flex justify-end">
+          <div className="mt-3 flex items-center justify-end gap-2.5">
+            <Button
+              variant="secondary"
+              onClick={handleReject}
+              className="text-xs px-3.5 py-1.5 font-semibold text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              {t('cookieConsent.reject')}
+            </Button>
             <Button
               variant="primary"
               onClick={handleAccept}

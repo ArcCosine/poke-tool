@@ -50,6 +50,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const checkAuth = useCallback(async () => {
     try {
+      // If user rejected cookies, do NOT call /api/auth/me (prevent cookie transmission)
+      const consent = localStorage.getItem('poke_cookie_consent');
+      if (consent === 'rejected') {
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
       const res = await fetch('/api/auth/me', {
         headers: { 'X-Client-Id': clientId },
@@ -67,11 +75,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [clientId]);
 
+  const logout = useCallback(async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+    } catch (err) {
+      console.warn('Logout request failed:', err);
+    } finally {
+      setUser(null);
+    }
+  }, []);
+
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
+  useEffect(() => {
+    const handleCookieRejected = async () => {
+      await logout();
+    };
+    const handleCookieAccepted = () => {
+      checkAuth();
+    };
+
+    window.addEventListener('poke:cookie-rejected', handleCookieRejected);
+    window.addEventListener('poke:cookie-accepted', handleCookieAccepted);
+    return () => {
+      window.removeEventListener('poke:cookie-rejected', handleCookieRejected);
+      window.removeEventListener('poke:cookie-accepted', handleCookieAccepted);
+    };
+  }, [logout, checkAuth]);
+
   const loginWithGoogle = () => {
+    if (localStorage.getItem('poke_cookie_consent') === 'rejected') {
+      window.dispatchEvent(new CustomEvent('poke:open-cookie-settings'));
+      return;
+    }
     const currentPath =
       typeof window !== 'undefined'
         ? window.location.pathname + window.location.search
@@ -81,17 +119,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const loginWithX = () => {
-    window.location.href = '/api/auth/x';
-  };
-
-  const logout = async () => {
-    try {
-      await fetch('/api/auth/logout', { method: 'POST' });
-    } catch (err) {
-      console.warn('Logout request failed:', err);
-    } finally {
-      setUser(null);
+    if (localStorage.getItem('poke_cookie_consent') === 'rejected') {
+      window.dispatchEvent(new CustomEvent('poke:open-cookie-settings'));
+      return;
     }
+    window.location.href = '/api/auth/x';
   };
 
   return (

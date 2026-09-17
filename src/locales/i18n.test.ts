@@ -87,10 +87,29 @@ describe('i18n Locales Master Data and Keys', () => {
 
     // cookieConsent checks
     expect(ja.cookieConsent.title).toBe('Cookieの使用について');
+    expect(ja.cookieConsent.accept).toBe('受け入れる');
+    expect(ja.cookieConsent.reject).toBe('受け入れない');
+    expect(ja.cookieConsent.cookieSettings).toBe('Cookie設定');
+
     expect(en.cookieConsent.title).toBe('Cookie Notice');
+    expect(en.cookieConsent.accept).toBe('Accept');
+    expect(en.cookieConsent.reject).toBe('Decline');
+    expect(en.cookieConsent.cookieSettings).toBe('Cookie Settings');
+
     expect(ko.cookieConsent.title).toBe('쿠키 사용 안내');
+    expect(ko.cookieConsent.accept).toBe('동의');
+    expect(ko.cookieConsent.reject).toBe('거부');
+    expect(ko.cookieConsent.cookieSettings).toBe('쿠키 설정');
+
     expect(zhHant.cookieConsent.title).toBe('Cookie 使用說明');
+    expect(zhHant.cookieConsent.accept).toBe('接受');
+    expect(zhHant.cookieConsent.reject).toBe('拒絕');
+    expect(zhHant.cookieConsent.cookieSettings).toBe('Cookie 設定');
+
     expect(zhHans.cookieConsent.title).toBe('Cookie 使用说明');
+    expect(zhHans.cookieConsent.accept).toBe('接受');
+    expect(zhHans.cookieConsent.reject).toBe('拒绝');
+    expect(zhHans.cookieConsent.cookieSettings).toBe('Cookie 设置');
   });
 
   it('should localize legal texts (privacy policy, disclaimer, terms of service) in Korean, Traditional Chinese, and Simplified Chinese without Japanese remnants', () => {
@@ -138,31 +157,47 @@ describe('i18n Locales Master Data and Keys', () => {
     // Japanese
     expect(ja.legal.privacyPolicyText).toMatch(/アカウント|OAuth/);
     expect(ja.legal.privacyPolicyText).toContain('Cookie');
+    expect(ja.legal.privacyPolicyText).toMatch(/受け入れるか拒否するか|ゲストモード/);
     expect(ja.legal.disclaimerText).toMatch(/ユーザー投稿|公開パーティ|ランキング/);
+    expect(ja.legal.disclaimerText).toMatch(/Cookieの拒否/);
     expect(ja.legal.termsOfServiceText).toMatch(/ランキング|スコア/);
+    expect(ja.legal.termsOfServiceText).toMatch(/Cookie/);
 
     // English
     expect(en.legal.privacyPolicyText).toMatch(/OAuth|Account/i);
     expect(en.legal.privacyPolicyText).toContain('Cookie');
+    expect(en.legal.privacyPolicyText).toMatch(/accept or decline|guest mode/i);
     expect(en.legal.disclaimerText).toMatch(/User-Generated|Ranking/i);
+    expect(en.legal.disclaimerText).toMatch(/Cookie Decline/i);
     expect(en.legal.termsOfServiceText).toMatch(/Ranking|Score/i);
+    expect(en.legal.termsOfServiceText).toMatch(/Cookie/i);
 
     // Korean
     expect(ko.legal.privacyPolicyText).toMatch(/계정|OAuth/);
     expect(ko.legal.privacyPolicyText).toMatch(/Cookie|쿠키/);
+    expect(ko.legal.privacyPolicyText).toMatch(/동의하거나 거부|게스트 모드/);
     expect(ko.legal.disclaimerText).toMatch(/사용자 콘텐츠|공개 파티|랭킹/);
+    expect(ko.legal.disclaimerText).toMatch(/쿠키 거부/);
     expect(ko.legal.termsOfServiceText).toMatch(/랭킹|점수/);
+    expect(ko.legal.termsOfServiceText).toMatch(/쿠키/);
 
     // Traditional Chinese
     expect(zhHant.legal.privacyPolicyText).toMatch(/帳號|OAuth/);
     expect(zhHant.legal.privacyPolicyText).toContain('Cookie');
+    expect(zhHant.legal.privacyPolicyText).toMatch(/接受或拒絕|訪客模式/);
     expect(zhHant.legal.disclaimerText).toMatch(/使用者生成內容|公開隊伍|排行榜/);
+    expect(zhHant.legal.disclaimerText).toMatch(/拒絕 Cookie/);
     expect(zhHant.legal.termsOfServiceText).toMatch(/排行榜|分數/);
+    expect(zhHant.legal.termsOfServiceText).toMatch(/Cookie/);
 
     // Simplified Chinese
     expect(zhHans.legal.privacyPolicyText).toMatch(/账号|OAuth/);
     expect(zhHans.legal.privacyPolicyText).toContain('Cookie');
+    expect(zhHans.legal.privacyPolicyText).toMatch(/接受或拒绝|访客模式/);
     expect(zhHans.legal.disclaimerText).toMatch(/用户生成内容|公开队伍|排行榜/);
+    expect(zhHans.legal.disclaimerText).toMatch(/拒绝 Cookie/);
     expect(zhHans.legal.termsOfServiceText).toMatch(/排行榜|分数/);
+    expect(zhHans.legal.termsOfServiceText).toMatch(/Cookie/);
   });
 });
+

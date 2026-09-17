@@ -8,7 +8,7 @@ describe('CookieBanner Component', () => {
     localStorage.clear();
   });
 
-  it('renders cookie banner when consent is not yet accepted', () => {
+  it('renders cookie banner when consent is not yet decided', () => {
     render(
       <AppProvider>
         <CookieBanner />
@@ -28,9 +28,12 @@ describe('CookieBanner Component', () => {
     expect(policyLink).toBeTruthy();
     expect(policyLink.getAttribute('href')).toBe('/privacy.html');
 
-    // Should display accept button
+    // Should display accept and reject buttons
     expect(
-      screen.getByRole('button', { name: /同意する/i })
+      screen.getByRole('button', { name: /受け入れる/i })
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('button', { name: /受け入れない/i })
     ).toBeTruthy();
 
     // Should be positioned at bottom center
@@ -40,18 +43,35 @@ describe('CookieBanner Component', () => {
     expect(banner.className).toContain('sm:-translate-x-1/2');
   });
 
-  it('hides banner and sets localStorage when accept button is clicked', () => {
+  it('hides banner and sets localStorage to accepted when accept button is clicked', () => {
     render(
       <AppProvider>
         <CookieBanner />
       </AppProvider>
     );
 
-    const acceptButton = screen.getByRole('button', { name: /同意する/i });
+    const acceptButton = screen.getByRole('button', { name: /受け入れる/i });
     fireEvent.click(acceptButton);
 
-    // localStorage should have consent recorded
+    // localStorage should have consent recorded as accepted
     expect(localStorage.getItem('poke_cookie_consent')).toBe('accepted');
+
+    // Banner should disappear
+    expect(screen.queryByText(/Cookieの使用について/i)).toBeNull();
+  });
+
+  it('hides banner and sets localStorage to rejected when reject button is clicked', () => {
+    render(
+      <AppProvider>
+        <CookieBanner />
+      </AppProvider>
+    );
+
+    const rejectButton = screen.getByRole('button', { name: /受け入れない/i });
+    fireEvent.click(rejectButton);
+
+    // localStorage should have consent recorded as rejected
+    expect(localStorage.getItem('poke_cookie_consent')).toBe('rejected');
 
     // Banner should disappear
     expect(screen.queryByText(/Cookieの使用について/i)).toBeNull();
@@ -67,6 +87,42 @@ describe('CookieBanner Component', () => {
     );
 
     expect(screen.queryByText(/Cookieの使用について/i)).toBeNull();
-    expect(screen.queryByRole('button', { name: /同意する/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /受け入れる/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /受け入れない/i })).toBeNull();
+  });
+
+  it('does not render banner if consent was already rejected in localStorage', () => {
+    localStorage.setItem('poke_cookie_consent', 'rejected');
+
+    render(
+      <AppProvider>
+        <CookieBanner />
+      </AppProvider>
+    );
+
+    expect(screen.queryByText(/Cookieの使用について/i)).toBeNull();
+    expect(screen.queryByRole('button', { name: /受け入れる/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /受け入れない/i })).toBeNull();
+  });
+
+  it('re-opens banner when poke:open-cookie-settings event is dispatched', () => {
+    localStorage.setItem('poke_cookie_consent', 'rejected');
+
+    render(
+      <AppProvider>
+        <CookieBanner />
+      </AppProvider>
+    );
+
+    // Initially hidden
+    expect(screen.queryByText(/Cookieの使用について/i)).toBeNull();
+
+    // Dispatch event to open settings
+    fireEvent(window, new CustomEvent('poke:open-cookie-settings'));
+
+    // Should now be visible
+    expect(screen.getByText(/Cookieの使用について/i)).toBeTruthy();
+    expect(screen.getByRole('button', { name: /受け入れる/i })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /受け入れない/i })).toBeTruthy();
   });
 });
