@@ -100,7 +100,9 @@ export function partyToD1Record(
       (i) => i.name?.ja === m.item || i.name?.en === m.item
     );
     const abilityIdx = poke?.abilities
-      ? poke.abilities.findIndex((a) => a.ja === m.ability || a.en === m.ability)
+      ? poke.abilities.findIndex(
+          (a) => a.ja === m.ability || a.en === m.ability
+        )
       : -1;
 
     return {
@@ -123,6 +125,7 @@ export function partyToD1Record(
     rental_code: party.rentalCode || null,
     article_url: party.articleUrl || null,
     description: party.description || null,
+    author_name: party.authorName || null,
     is_public: party.isPublic ? 1 : 0,
     likes_count: party.likesCount || 0,
     ranking_score: party.rankingScore || 0,
@@ -170,6 +173,7 @@ export function d1RecordToParty(
     rentalCode: record.rental_code || undefined,
     articleUrl: record.article_url || undefined,
     description: record.description || undefined,
+    authorName: record.author_name || undefined,
     likesCount: record.likes_count ?? 0,
     rankingScore: record.ranking_score ?? 0,
     userId: record.user_id,

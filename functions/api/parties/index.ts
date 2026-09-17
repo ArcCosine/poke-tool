@@ -52,7 +52,9 @@ export const onRequestPost: PagesFunction = async (context) => {
   }
 
   if (party.article_url && !isValidArticleUrl(party.article_url)) {
-    return new Response('Invalid article URL (must be https://)', { status: 400 });
+    return new Response('Invalid article URL (must be https://)', {
+      status: 400,
+    });
   }
 
   const db = context.env.DB;
@@ -71,8 +73,8 @@ export const onRequestPost: PagesFunction = async (context) => {
   await db
     .prepare(
       `INSERT INTO parties (
-        id, user_id, title, regulation, party_data, rental_code, article_url, description, is_public, likes_count, ranking_score, views_count, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0.0, 0, ?, ?)`
+        id, user_id, title, regulation, party_data, rental_code, article_url, description, author_name, is_public, likes_count, ranking_score, views_count, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0.0, 0, ?, ?)`
     )
     .bind(
       party.id,
@@ -83,6 +85,7 @@ export const onRequestPost: PagesFunction = async (context) => {
       party.rental_code || null,
       party.article_url || null,
       party.description || null,
+      party.author_name || null,
       party.is_public ? 1 : 0,
       now,
       now

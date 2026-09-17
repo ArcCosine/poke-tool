@@ -38,14 +38,15 @@ export const onRequestPost: PagesFunction = async (context) => {
       db
         .prepare(
           `INSERT INTO parties (
-            id, user_id, title, regulation, party_data, rental_code, article_url, description, is_public, likes_count, ranking_score, views_count, created_at, updated_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0.0, 0, ?, ?)
+            id, user_id, title, regulation, party_data, rental_code, article_url, description, author_name, is_public, likes_count, ranking_score, views_count, created_at, updated_at
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0.0, 0, ?, ?)
           ON CONFLICT(id) DO UPDATE SET
             title = excluded.title,
             party_data = excluded.party_data,
             rental_code = excluded.rental_code,
             article_url = excluded.article_url,
             description = excluded.description,
+            author_name = excluded.author_name,
             is_public = excluded.is_public,
             updated_at = excluded.updated_at
           WHERE parties.user_id = excluded.user_id`
@@ -59,6 +60,7 @@ export const onRequestPost: PagesFunction = async (context) => {
           party.rental_code || null,
           validUrl,
           party.description || null,
+          party.author_name || null,
           party.is_public ? 1 : 0,
           now,
           party.updated_at || now

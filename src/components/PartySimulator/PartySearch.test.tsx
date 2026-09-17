@@ -9,7 +9,7 @@ describe('PartySearch Component', () => {
     { id: '2', name: '雨パ' },
   ];
 
-  it('renders editing party status and saved parties count', () => {
+  it('renders party name input and saved party select in unified layout', () => {
     render(
       <AppProvider>
         <PartySearch
@@ -21,8 +21,16 @@ describe('PartySearch Component', () => {
       </AppProvider>
     );
 
-    expect(screen.getAllByText('ガチ対戦パ').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByText(/全 2 個のパーティ中/)).toBeDefined();
+    // Party name input should contain the current party name
+    const input = screen.getByLabelText(/パーティ名/i) as HTMLInputElement;
+    expect(input.value).toBe('ガチ対戦パ');
+
+    // Saved parties select should be present
+    const select = screen.getByLabelText(
+      /保存済みパーティから選択/i
+    ) as HTMLSelectElement;
+    expect(select).toBeDefined();
+    expect(select.value).toBe('1');
   });
 
   it('triggers onPartyNameChange immediately when user types in the party name input', () => {
@@ -40,7 +48,7 @@ describe('PartySearch Component', () => {
       </AppProvider>
     );
 
-    const input = screen.getByLabelText(/^パーティ名$/i);
+    const input = screen.getByLabelText(/パーティ名/i);
     fireEvent.change(input, { target: { value: '晴れパ' } });
 
     expect(onPartyNameChange).toHaveBeenCalledWith('晴れパ');
@@ -65,37 +73,5 @@ describe('PartySearch Component', () => {
     fireEvent.change(select, { target: { value: '2' } });
 
     expect(onSelectParty).toHaveBeenCalledWith('2');
-  });
-
-  it('allows toggling public sharing and entering article URL', () => {
-    const onMetaChange = vi.fn();
-
-    render(
-      <AppProvider>
-        <PartySearch
-          partyName="ガチ対戦パ"
-          parties={mockParties}
-          onSelectParty={vi.fn()}
-          onPartyNameChange={vi.fn()}
-          isPublic={false}
-          articleUrl="https://note.com/test"
-          onMetaChange={onMetaChange}
-        />
-      </AppProvider>
-    );
-
-    // Open extra settings
-    const toggleBtn = screen.getByTestId('toggle-party-meta');
-    fireEvent.click(toggleBtn);
-
-    // Checkbox for public ranking
-    const publicCheckbox = screen.getByLabelText(/ランキングに公開する/);
-    fireEvent.click(publicCheckbox);
-    expect(onMetaChange).toHaveBeenCalledWith({ isPublic: true });
-
-    // Article URL input
-    const articleInput = screen.getByLabelText(/構築記事URL/);
-    fireEvent.change(articleInput, { target: { value: 'https://note.com/new' } });
-    expect(onMetaChange).toHaveBeenCalledWith({ articleUrl: 'https://note.com/new' });
   });
 });

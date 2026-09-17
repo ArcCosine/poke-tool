@@ -317,7 +317,9 @@
     "importSuccess": "Team imported successfully!",
     "openArticle": "Open Article",
     "copyRentalCode": "Copy Rental Code",
-    "rentalCodeCopied": "Rental code copied to clipboard!"
+    "rentalCodeCopied": "Rental code copied to clipboard!",
+    "authorName": "Trainer Name",
+    "authorNamePlaceholder": "Defaults to Anonymous Trainer"
   },
   "partyRanking": {
     "title": "Team Builds Ranking",

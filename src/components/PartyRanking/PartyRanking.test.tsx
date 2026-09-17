@@ -13,7 +13,14 @@ const samplePartyData = encodePartyConfig({
       nature: 'modest',
       itemId: 1,
       abilityIndex: 0,
-      evs: { hp: 0, attack: 0, defense: 0, sp_attack: 32, sp_defense: 0, speed: 32 },
+      evs: {
+        hp: 0,
+        attack: 0,
+        defense: 0,
+        sp_attack: 32,
+        sp_defense: 0,
+        speed: 32,
+      },
       moves: [1, 2, 3, 4],
     },
     {
@@ -21,7 +28,14 @@ const samplePartyData = encodePartyConfig({
       nature: 'timid',
       itemId: 2,
       abilityIndex: 0,
-      evs: { hp: 0, attack: 0, defense: 0, sp_attack: 32, sp_defense: 0, speed: 32 },
+      evs: {
+        hp: 0,
+        attack: 0,
+        defense: 0,
+        sp_attack: 32,
+        sp_defense: 0,
+        speed: 32,
+      },
       moves: [5, 6, 7, 8],
     },
   ],
@@ -84,7 +98,8 @@ describe('PartyRanking component', () => {
       if (urlStr.includes('/api/ranking')) {
         return Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ parties: mockParties, page: 1, limit: 20 }),
+          json: () =>
+            Promise.resolve({ parties: mockParties, page: 1, limit: 20 }),
         } as any);
       }
       if (urlStr.includes('/api/auth/me')) {
@@ -124,8 +139,13 @@ describe('PartyRanking component', () => {
       expect(screen.getByText('サトシ')).toBeDefined();
       expect(screen.getByText('基本選出と立ち回りの解説です。')).toBeDefined();
       expect(screen.getByText('対面重視スタン')).toBeDefined();
-      expect(screen.getByText('匿名トレーナー')).toBeDefined();
+      expect(screen.getByText('名無しのトレーナー')).toBeDefined();
     });
+
+    // Author icons/avatars should NOT be rendered
+    expect(screen.queryByAltText('https://example.com/avatar.png')).toBeNull();
+    const userIcons = document.querySelectorAll('.i-lucide-user');
+    expect(userIcons.length).toBe(0);
   });
 
   it('allows sorting between score and newest', async () => {
@@ -155,9 +175,13 @@ describe('PartyRanking component', () => {
     const copyBtn = screen.getByLabelText('レンタルコードをコピー');
     fireEvent.click(copyBtn);
 
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('ABCD-1234-EFGH');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
+      'ABCD-1234-EFGH'
+    );
     await waitFor(() => {
-      expect(screen.getByText('レンタルコードをコピーしました！')).toBeDefined();
+      expect(
+        screen.getByText('レンタルコードをコピーしました！')
+      ).toBeDefined();
     });
   });
 
@@ -167,7 +191,9 @@ describe('PartyRanking component', () => {
     await waitFor(() => {
       const articleLink = screen.getByText('構築記事を開く').closest('a');
       expect(articleLink).toBeDefined();
-      expect(articleLink?.getAttribute('href')).toBe('https://note.com/trainer/p/12345');
+      expect(articleLink?.getAttribute('href')).toBe(
+        'https://note.com/trainer/p/12345'
+      );
       expect(articleLink?.getAttribute('target')).toBe('_blank');
       expect(articleLink?.getAttribute('rel')).toContain('noopener');
       expect(articleLink?.getAttribute('rel')).toContain('noreferrer');
@@ -182,7 +208,9 @@ describe('PartyRanking component', () => {
       const importLinks = screen.getAllByText('このパーティを読み込む');
       expect(importLinks.length).toBe(2);
       const firstLink = importLinks[0].closest('a');
-      expect(firstLink?.getAttribute('href')).toBe(`/party.html?p=${samplePartyData}`);
+      expect(firstLink?.getAttribute('href')).toBe(
+        `/party.html?p=${samplePartyData}`
+      );
     });
   });
 
@@ -203,7 +231,8 @@ describe('PartyRanking component', () => {
       if (urlStr.includes('/api/ranking')) {
         return Promise.resolve({
           ok: true,
-          json: () => Promise.resolve({ parties: mockParties, page: 1, limit: 20 }),
+          json: () =>
+            Promise.resolve({ parties: mockParties, page: 1, limit: 20 }),
         } as any);
       }
       if (urlStr.includes('/data/')) {
@@ -250,7 +279,9 @@ describe('PartyRanking component', () => {
     renderComponent();
 
     await waitFor(() => {
-      expect(screen.getByText('公開されたパーティがまだありません')).toBeDefined();
+      expect(
+        screen.getByText('公開されたパーティがまだありません')
+      ).toBeDefined();
       expect(screen.getByText('パーティを作成して公開する')).toBeDefined();
     });
   });

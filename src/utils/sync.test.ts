@@ -7,7 +7,11 @@ import {
 } from './sync';
 
 describe('Party Synchronization Logic', () => {
-  const createParty = (id: string, name: string, updatedAt = 1000): SyncParty => ({
+  const createParty = (
+    id: string,
+    name: string,
+    updatedAt = 1000
+  ): SyncParty => ({
     id,
     name,
     members: [],
@@ -15,8 +19,14 @@ describe('Party Synchronization Logic', () => {
   });
 
   it('should merge cloud parties with local parties without duplicates', () => {
-    const local = [createParty('p1', 'Local P1', 1000), createParty('p2', 'Local P2', 1000)];
-    const cloud = [createParty('p2', 'Cloud P2 Updated', 2000), createParty('p3', 'Cloud P3', 1500)];
+    const local = [
+      createParty('p1', 'Local P1', 1000),
+      createParty('p2', 'Local P2', 1000),
+    ];
+    const cloud = [
+      createParty('p2', 'Cloud P2 Updated', 2000),
+      createParty('p3', 'Cloud P3', 1500),
+    ];
 
     const { merged, toUpload } = mergeParties(local, cloud);
 
@@ -56,7 +66,14 @@ describe('Party Synchronization Logic', () => {
           nature: 'jolly',
           item: 'でんきだま',
           moves: [85, 98, 0, 0],
-          evs: { hp: 0, attack: 32, defense: 0, sp_attack: 0, sp_defense: 0, speed: 32 },
+          evs: {
+            hp: 0,
+            attack: 32,
+            defense: 0,
+            sp_attack: 0,
+            sp_defense: 0,
+            speed: 32,
+          },
         },
       ],
       isPublic: true,
@@ -77,18 +94,27 @@ describe('Party Synchronization Logic', () => {
       { id: 101, name: { ja: 'でんきだま', en: 'Light Ball' } },
     ];
 
-    const d1Record = partyToD1Record(party, mockPokemonData as any, mockItemData as any);
+    const d1Record = partyToD1Record(
+      party,
+      mockPokemonData as any,
+      mockItemData as any
+    );
     expect(d1Record.id).toBe('party_123');
     expect(d1Record.title).toBe('テスト構築');
     expect(d1Record.is_public).toBe(1);
     expect(d1Record.rental_code).toBe('ABCD-1234');
-    expect(d1Record.article_url).toBe('https://note.com/sample');
+    expect(d1Record.author_name).toBe('サトシ');
     expect(typeof d1Record.party_data).toBe('string');
     expect(d1Record.party_data.length).toBeGreaterThan(0);
 
-    const restored = d1RecordToParty(d1Record, mockPokemonData as any, mockItemData as any);
+    const restored = d1RecordToParty(
+      d1Record,
+      mockPokemonData as any,
+      mockItemData as any
+    );
     expect(restored.id).toBe('party_123');
     expect(restored.name).toBe('テスト構築');
+    expect(restored.authorName).toBe('サトシ');
     expect(restored.isPublic).toBe(true);
     expect(restored.rentalCode).toBe('ABCD-1234');
     expect(restored.articleUrl).toBe('https://note.com/sample');
@@ -97,4 +123,3 @@ describe('Party Synchronization Logic', () => {
     expect(restored.members[0].nature).toBe('jolly');
   });
 });
-

@@ -317,7 +317,9 @@
     "importSuccess": "パーティを読み込みました！",
     "openArticle": "構築記事を開く",
     "copyRentalCode": "レンタルコードをコピー",
-    "rentalCodeCopied": "レンタルコードをコピーしました！"
+    "rentalCodeCopied": "レンタルコードをコピーしました！",
+    "authorName": "ユーザー名 (トレーナー名)",
+    "authorNamePlaceholder": "未入力時は「名無しのトレーナー」"
   },
   "partyRanking": {
     "title": "構築ランキング",
@@ -326,7 +328,7 @@
     "sortByNewest": "新着順",
     "empty": "公開されたパーティがまだありません",
     "regulationAll": "すべて",
-    "anonymousAuthor": "匿名トレーナー",
+    "anonymousAuthor": "名無しのトレーナー",
     "createPartyPrompt": "パーティを作成して公開する",
     "loadError": "パーティ一覧の取得に失敗しました",
     "retry": "再試行"

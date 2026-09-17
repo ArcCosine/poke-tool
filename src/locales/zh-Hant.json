@@ -317,7 +317,9 @@
     "importSuccess": "隊伍載入成功！",
     "openArticle": "開啟構築文章",
     "copyRentalCode": "複製密碼",
-    "rentalCodeCopied": "租用密碼已複製到剪貼簿！"
+    "rentalCodeCopied": "租用密碼已複製到剪貼簿！",
+    "authorName": "訓練家名稱",
+    "authorNamePlaceholder": "未輸入時為「無名訓練家」"
   },
   "partyRanking": {
     "title": "隊伍構築排行榜",
@@ -326,7 +328,7 @@
     "sortByNewest": "最新發布",
     "empty": "目前尚無公開的隊伍",
     "regulationAll": "全部",
-    "anonymousAuthor": "匿名訓練家",
+    "anonymousAuthor": "無名訓練家",
     "createPartyPrompt": "建立並公開隊伍",
     "loadError": "無法讀取隊伍列表",
     "retry": "重試"

@@ -78,6 +78,22 @@ describe('Dashboard MPA Page', () => {
     ).toBeDefined();
   });
 
+  it('renders PWA install banner below the offline storage management card', () => {
+    render(
+      <AppProvider>
+        <DashboardApp />
+      </AppProvider>
+    );
+
+    const offlineSection = screen.getByText(/オフラインデータ管理/i);
+    const installBanner =
+      screen.getByText(/ホーム画面に追加してアプリとして使う/i);
+
+    // installBanner must appear after offlineSection in the document order
+    const position = offlineSection.compareDocumentPosition(installBanner);
+    expect(Boolean(position & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true);
+  });
+
   it('handles "Add to Home Screen" click by showing iOS guide when beforeinstallprompt is not fired', async () => {
     render(
       <AppProvider>
@@ -129,7 +145,6 @@ describe('Dashboard MPA Page', () => {
     expect(promptMock).toHaveBeenCalled();
   });
 
-
   it('triggers downloadAllOfflineData and displays progress when save button is clicked', async () => {
     vi.mocked(offlineUtils.downloadAllOfflineData).mockImplementation(
       async (_ids, onProgress) => {
@@ -174,4 +189,3 @@ describe('Dashboard MPA Page', () => {
     });
   });
 });
-

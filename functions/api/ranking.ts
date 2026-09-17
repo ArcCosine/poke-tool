@@ -20,15 +20,13 @@ export const onRequestGet: PagesFunction = async (context) => {
       parties.rental_code,
       parties.article_url,
       parties.description,
+      parties.author_name,
       parties.likes_count,
       parties.ranking_score,
       parties.views_count,
       parties.created_at,
-      parties.updated_at,
-      users.name as author_name,
-      users.avatar_url as author_avatar
+      parties.updated_at
     FROM parties
-    LEFT JOIN users ON parties.user_id = users.id
     WHERE parties.is_public = 1
   `;
 
@@ -41,11 +39,15 @@ export const onRequestGet: PagesFunction = async (context) => {
   if (sort === 'newest') {
     query += ' ORDER BY parties.created_at DESC LIMIT ? OFFSET ?';
   } else {
-    query += ' ORDER BY parties.ranking_score DESC, parties.likes_count DESC, parties.created_at DESC LIMIT ? OFFSET ?';
+    query +=
+      ' ORDER BY parties.ranking_score DESC, parties.likes_count DESC, parties.created_at DESC LIMIT ? OFFSET ?';
   }
   params.push(limit, offset);
 
-  const { results } = await db.prepare(query).bind(...params).all();
+  const { results } = await db
+    .prepare(query)
+    .bind(...params)
+    .all();
 
   return new Response(JSON.stringify({ parties: results || [], page, limit }), {
     headers: {

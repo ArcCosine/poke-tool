@@ -21,8 +21,8 @@ import {
   MAX_TOTAL_EVS,
   megaStoneMap,
   normalizeEvs,
-  type StatKey,
   STAT_KEYS,
+  type StatKey,
   TYPES,
   typeTranslations,
 } from '../../utils/pokemon';
@@ -40,6 +40,7 @@ import { TypeBadge } from '../common/TypeBadge';
 import { PartyControls } from './PartyControls';
 import { PartySearch } from './PartySearch';
 import { PokemonSearchModal } from './PokemonSearchModal';
+import { PublishDialog } from './PublishDialog';
 
 const EV_STATS: {
   key: StatKey;
@@ -130,7 +131,7 @@ export const PartySimulator: React.FC = () => {
     loadSharedParty,
   } = useApp();
 
-  const { user } = useAuth();
+  const { user, loginWithGoogle, loginWithX } = useAuth();
 
   const party = partyMembers;
 
@@ -139,18 +140,14 @@ export const PartySimulator: React.FC = () => {
   const [movesData, setMovesData] = useState<MoveMaster[]>([]);
   const [itemsData, setItemsData] = useState<ItemMaster[]>([]);
 
-  const {
-    isSyncPromptOpen,
-    pendingCount,
-    confirmSync,
-    dismissSync,
-  } = usePartySync({
-    user,
-    localParties: parties,
-    setPartiesDirectly,
-    pokemonData,
-    itemsData,
-  });
+  const { isSyncPromptOpen, pendingCount, confirmSync, dismissSync } =
+    usePartySync({
+      user,
+      localParties: parties,
+      setPartiesDirectly,
+      pokemonData,
+      itemsData,
+    });
 
   const currentParty = parties.find((p) => p.id === currentPartyId);
 
@@ -215,6 +212,7 @@ export const PartySimulator: React.FC = () => {
   const [isNameValidationDialogOpen, setIsNameValidationDialogOpen] =
     useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const importedRef = useRef(false);
 
@@ -302,6 +300,28 @@ export const PartySimulator: React.FC = () => {
       }).catch((err) => console.warn('Failed to sync party to D1:', err));
     }
     setIsSaveDialogOpen(true);
+  };
+
+  const handleSavePublishMeta = (meta: {
+    isPublic: boolean;
+    rentalCode: string;
+    articleUrl: string;
+    description: string;
+    authorName?: string;
+  }) => {
+    updatePartyMeta(currentPartyId, meta);
+    if (user && currentParty) {
+      const updatedParty = {
+        ...currentParty,
+        ...meta,
+      };
+      const record = partyToD1Record(updatedParty, pokemonData, itemsData);
+      fetch(`/api/parties/${currentParty.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ party: record }),
+      }).catch((err) => console.warn('Failed to sync party to D1:', err));
+    }
   };
 
   const handleCloseNameValidationDialog = () => {
@@ -415,22 +435,19 @@ export const PartySimulator: React.FC = () => {
           parties={parties}
           onSelectParty={selectParty}
           onPartyNameChange={setPartyName}
-          isPublic={currentParty?.isPublic}
-          rentalCode={currentParty?.rentalCode}
-          articleUrl={currentParty?.articleUrl}
-          description={currentParty?.description}
-          onMetaChange={(fields) => updatePartyMeta(currentPartyId, fields)}
         />
 
         <PartyControls
-          onCopyPokesol={copyPokesolText}
-          isCopied={copied}
           onNewParty={() =>
             createNewParty(t('partySimulator.defaultNewPartyName'))
           }
+          onOpenPublishDialog={() => setIsPublishDialogOpen(true)}
+          isPublic={currentParty?.isPublic}
           onShareParty={handleShareParty}
-          onDeleteParty={() => deleteParty(currentPartyId)}
+          onCopyPokesol={copyPokesolText}
+          isCopied={copied}
           onSaveParty={saveParty}
+          onDeleteParty={() => deleteParty(currentPartyId)}
           hasActiveMembers={activeParty.length > 0}
         />
       </div>
@@ -454,76 +471,81 @@ export const PartySimulator: React.FC = () => {
                 className="card-premium relative border-l-4 border-l-indigo-500 dark:border-l-indigo-600 p-5 space-y-4"
                 style={{ zIndex: 10 - index }}
               >
-                {/* Remove button */}
-                <Button
-                  onClick={() => removePokemonFromParty(index)}
-                  variant="danger"
-                  icon="i-lucide-trash-2"
-                  className="absolute top-4 right-4 cursor-pointer"
-                >
-                  {t('remove')}
-                </Button>
-
                 {/* Pokemon Selector & Basic Info */}
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    {/* 専用のアイコン表記部分とタイプ表示の横並び */}
-                    <div className="flex items-center gap-3 shrink-0">
-                      {/* ポケモンアイコン */}
-                      <div className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
-                        {currentPoke ? (
-                          <img
-                            src={`/assets/pokemon-sprites/${currentPoke.id}.png`}
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).style.display =
-                                'none';
-                            }}
-                            alt={currentPoke.name[language]}
-                            className="w-12 h-12 object-contain"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="i-lucide-help-circle text-slate-400 text-xl" />
+                  {/* Slot Header: Pokemon Info & Remove Button */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                      {/* 専用のアイコン表記部分とタイプ表示の横並び */}
+                      <div className="flex items-center gap-3 shrink-0">
+                        {/* ポケモンアイコン */}
+                        <div className="w-12 h-12 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+                          {currentPoke ? (
+                            <img
+                              src={`/assets/pokemon-sprites/${currentPoke.id}.png`}
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display =
+                                  'none';
+                              }}
+                              alt={currentPoke.name[language]}
+                              className="w-12 h-12 object-contain"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="i-lucide-help-circle text-slate-400 text-xl" />
+                          )}
+                        </div>
+
+                        {/* ポケモンのタイプ表示（アイコンの横に配置） */}
+                        {currentPoke && (
+                          <div className="flex flex-col gap-1.5 shrink-0">
+                            {currentPoke.types.map((typeKey) => (
+                              <TypeBadge key={typeKey} typeKey={typeKey} />
+                            ))}
+                          </div>
                         )}
                       </div>
 
-                      {/* ポケモンのタイプ表示（アイコンの横に配置） */}
-                      {currentPoke && (
-                        <div className="flex flex-col gap-1.5 shrink-0">
-                          {currentPoke.types.map((typeKey) => (
-                            <TypeBadge key={typeKey} typeKey={typeKey} />
-                          ))}
-                        </div>
-                      )}
+                      {/* ポケモン選択トリガー（入力ボックス） */}
+                      <div className="flex-1 min-w-0">
+                        <button
+                          id={`pokemon-select-trigger-${index}`}
+                          type="button"
+                          onClick={() => setActiveSlotIndex(index)}
+                          className="w-full text-left input-premium py-2.5 px-3 flex items-center justify-between cursor-pointer hover:border-indigo-500 transition font-medium"
+                          aria-label={
+                            currentPoke
+                              ? `${currentPoke.name[language]}`
+                              : t('partySimulator.selectPokemonSlot', {
+                                  index: index + 1,
+                                })
+                          }
+                        >
+                          {currentPoke ? (
+                            <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
+                              {currentPoke.name[language]}
+                            </span>
+                          ) : (
+                            <span className="text-sm text-slate-400 dark:text-slate-300 truncate">
+                              {t('partySimulator.selectPokemonPrompt')}
+                            </span>
+                          )}
+
+                          <span className="i-lucide-chevron-down text-slate-400 text-base shrink-0" />
+                        </button>
+                      </div>
                     </div>
 
-                    {/* ポケモン選択トリガー（入力ボックス） */}
-                    <div className="flex-1 min-w-0">
-                      <button
-                        id={`pokemon-select-trigger-${index}`}
-                        type="button"
-                        onClick={() => setActiveSlotIndex(index)}
-                        className="w-full text-left input-premium py-2.5 px-3 flex items-center justify-between cursor-pointer hover:border-indigo-500 transition font-medium"
-                        aria-label={
-                          currentPoke
-                            ? `${currentPoke.name[language]}`
-                            : t('partySimulator.selectPokemonSlot', {
-                                index: index + 1,
-                              })
-                        }
+                    {/* 削除ボタンのラッパーdiv（右上の領域・余白を確保） */}
+                    <div className="shrink-0">
+                      <Button
+                        onClick={() => removePokemonFromParty(index)}
+                        variant="danger"
+                        icon="i-lucide-trash-2"
+                        className="cursor-pointer"
                       >
-                        {currentPoke ? (
-                          <span className="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">
-                            {currentPoke.name[language]}
-                          </span>
-                        ) : (
-                          <span className="text-sm text-slate-400 dark:text-slate-300 truncate">
-                            {t('partySimulator.selectPokemonPrompt')}
-                          </span>
-                        )}
-
-                        <span className="i-lucide-chevron-down text-slate-400 text-base shrink-0" />
-                      </button>
+                        {t('remove')}
+                      </Button>
                     </div>
                   </div>
 
@@ -930,6 +952,20 @@ export const PartySimulator: React.FC = () => {
           pendingCount={pendingCount}
           onConfirm={confirmSync}
           onDismiss={dismissSync}
+        />
+        {/* Publish to Ranking Dialog */}
+        <PublishDialog
+          isOpen={isPublishDialogOpen}
+          onClose={() => setIsPublishDialogOpen(false)}
+          isLoggedIn={Boolean(user)}
+          onLoginWithGoogle={loginWithGoogle}
+          onLoginWithX={loginWithX}
+          isPublic={Boolean(currentParty?.isPublic)}
+          rentalCode={currentParty?.rentalCode || ''}
+          articleUrl={currentParty?.articleUrl || ''}
+          description={currentParty?.description || ''}
+          authorName={currentParty?.authorName || ''}
+          onSave={handleSavePublishMeta}
         />
       </div>
     </div>

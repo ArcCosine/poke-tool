@@ -65,10 +65,7 @@ const DashboardApp = () => {
       const handleOnline = () => setIsOnline(true);
       const handleOffline = () => setIsOnline(false);
 
-      window.addEventListener(
-        'beforeinstallprompt',
-        handleBeforeInstallPrompt
-      );
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.addEventListener('appinstalled', handleAppInstalled);
       window.addEventListener('online', handleOnline);
       window.addEventListener('offline', handleOffline);
@@ -210,43 +207,6 @@ const DashboardApp = () => {
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
             {t('dashboardDesc')}
           </p>
-        </div>
-
-        {/* PWA Install Banner */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-0.5 shadow-lg">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-[15px]">
-            <div className="flex items-start sm:items-center gap-4 text-left">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-                <span className="i-lucide-smartphone text-2xl" />
-              </div>
-              <div>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">
-                  {t('pwa.installBannerTitle')}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-                  {t('pwa.installBannerDesc')}
-                </p>
-              </div>
-            </div>
-
-            <div className="w-full sm:w-auto shrink-0">
-              {isInstalled ? (
-                <div className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-sm font-bold border border-emerald-200 dark:border-emerald-800 w-full sm:w-auto">
-                  <span className="i-lucide-check-circle-2 text-base" />
-                  <span>{t('pwa.installed')}</span>
-                </div>
-              ) : (
-                <Button
-                  variant="primary"
-                  onClick={handleInstallClick}
-                  className="w-full sm:w-auto shadow-md"
-                >
-                  <span className="i-lucide-download text-base mr-1.5" />
-                  {t('pwa.installButton')}
-                </Button>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Feature Cards Grid */}
@@ -392,6 +352,43 @@ const DashboardApp = () => {
             </div>
           )}
         </div>
+
+        {/* PWA Install Banner */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-0.5 shadow-lg">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-[15px]">
+            <div className="flex items-start sm:items-center gap-4 text-left">
+              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                <span className="i-lucide-smartphone text-2xl" />
+              </div>
+              <div>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  {t('pwa.installBannerTitle')}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                  {t('pwa.installBannerDesc')}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full sm:w-auto shrink-0">
+              {isInstalled ? (
+                <div className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 text-sm font-bold border border-emerald-200 dark:border-emerald-800 w-full sm:w-auto">
+                  <span className="i-lucide-check-circle-2 text-base" />
+                  <span>{t('pwa.installed')}</span>
+                </div>
+              ) : (
+                <Button
+                  variant="primary"
+                  onClick={handleInstallClick}
+                  className="w-full sm:w-auto shadow-md"
+                >
+                  <span className="i-lucide-download text-base mr-1.5" />
+                  {t('pwa.installButton')}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* iOS Safari PWA Install Guide Modal */}
@@ -434,7 +431,8 @@ const DashboardApp = () => {
                 {t('pwa.iosGuideStep2')}
               </p>
               <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs font-mono">
-                <span className="i-lucide-plus-square text-sm" /> ホーム画面に追加
+                <span className="i-lucide-plus-square text-sm" />{' '}
+                ホーム画面に追加
               </div>
             </div>
           </div>
@@ -443,7 +441,6 @@ const DashboardApp = () => {
     </Layout>
   );
 };
-
 
 const rootElement = document.getElementById('root');
 if (rootElement) {

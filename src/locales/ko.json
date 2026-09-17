@@ -317,7 +317,9 @@
     "importSuccess": "파티를 불러왔습니다!",
     "openArticle": "기사 열기",
     "copyRentalCode": "렌탈 코드 복사",
-    "rentalCodeCopied": "렌탈 코드가 클립보드에 복사되었습니다!"
+    "rentalCodeCopied": "렌탈 코드가 클립보드에 복사되었습니다!",
+    "authorName": "트레이너 이름",
+    "authorNamePlaceholder": "미입력 시 '이름 없는 트레이너'"
   },
   "partyRanking": {
     "title": "파티 랭킹",
@@ -326,7 +328,7 @@
     "sortByNewest": "최신순",
     "empty": "아직 공개된 파티가 없습니다",
     "regulationAll": "전체",
-    "anonymousAuthor": "익명 트레이너",
+    "anonymousAuthor": "이름 없는 트레이너",
     "createPartyPrompt": "파티를 만들고 공유하기",
     "loadError": "파티 목록을 불러오지 못했습니다",
     "retry": "다시 시도"

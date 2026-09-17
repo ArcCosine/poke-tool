@@ -317,7 +317,9 @@
     "importSuccess": "队伍导入成功！",
     "openArticle": "打开构筑文章",
     "copyRentalCode": "复制密匙",
-    "rentalCodeCopied": "租用密匙已复制到剪贴板！"
+    "rentalCodeCopied": "租用密匙已复制到剪贴板！",
+    "authorName": "训练家名称",
+    "authorNamePlaceholder": "未输入时为「无名训练家」"
   },
   "partyRanking": {
     "title": "队伍构筑排行榜",
@@ -326,7 +328,7 @@
     "sortByNewest": "最新发布",
     "empty": "目前暂无公开的队伍",
     "regulationAll": "全部",
-    "anonymousAuthor": "匿名训练家",
+    "anonymousAuthor": "无名训练家",
     "createPartyPrompt": "创建并公开队伍",
     "loadError": "未能加载队伍列表",
     "retry": "重试"

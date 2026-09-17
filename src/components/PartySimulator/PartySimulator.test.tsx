@@ -570,7 +570,9 @@ describe('PartySimulator Pokémon Search Modal', () => {
       expect(inputs[1].value).toBe('32');
       expect(inputs[5].value).toBe('2');
 
-      const abilitySelect = document.getElementById('ability-select-0') as HTMLSelectElement;
+      const abilitySelect = document.getElementById(
+        'ability-select-0'
+      ) as HTMLSelectElement;
       expect(abilitySelect.value).toBe('マルチスケイル');
     });
 
@@ -656,5 +658,69 @@ describe('PartySimulator Pokémon Search Modal', () => {
 
     // Total EV display should show 66 / 66
     expect(screen.getByText(/66 \/ 66/)).toBeDefined();
+  });
+
+  it('should wrap delete button in a div and allocate its area alongside pokemon header', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    await screen.findByText(/編集中のパーティ/);
+
+    // Delete button exists in slot and is wrapped in a dedicated div with shrink-0
+    const deleteBtns = screen.getAllByRole('button', { name: /^削除$/i });
+    const slotDeleteBtn = deleteBtns[1];
+    expect(slotDeleteBtn).toBeDefined();
+
+    const buttonWrapper = slotDeleteBtn.parentElement;
+    expect(buttonWrapper?.tagName).toBe('DIV');
+    expect(buttonWrapper?.className.includes('shrink-0')).toBe(true);
+
+    // Both pokemon selector area and delete button wrapper are within a header row
+    const selectTrigger = document.getElementById('pokemon-select-trigger-0');
+    expect(selectTrigger).toBeDefined();
+
+    const headerContainer = buttonWrapper?.parentElement;
+    expect(headerContainer).toBeDefined();
+    expect(headerContainer?.contains(selectTrigger)).toBe(true);
+    expect(headerContainer?.className.includes('justify-between')).toBe(true);
+  });
+
+  it('should open PublishDialog when ranking publish button is clicked', async () => {
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    await screen.findByText(/編集中のパーティ/);
+
+    // Add Dragonite to party so hasActiveMembers becomes true
+    const selectPokeBtn = screen.getByRole('button', {
+      name: /ポケモン名 #1を選択/i,
+    });
+    fireEvent.click(selectPokeBtn);
+    const dragonite = await screen.findByText('カイリュー');
+    fireEvent.click(dragonite);
+    await waitFor(() => {
+      expect(screen.getByText('カイリュー')).toBeDefined();
+    });
+
+    // Click "ランキングに公開する" button in PartyControls
+    const publishBtn = screen.getByRole('button', {
+      name: /ランキングに公開する/i,
+    });
+    fireEvent.click(publishBtn);
+
+    // PublishDialog should be open
+    const dialog = await screen.findByRole('dialog');
+    expect(dialog).toBeDefined();
+    expect(
+      within(dialog).getByText(
+        /ログインすると端末間でパーティを保存・同期できます/i
+      )
+    ).toBeDefined();
   });
 });

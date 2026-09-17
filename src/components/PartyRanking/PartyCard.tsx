@@ -54,13 +54,17 @@ export const PartyCard: React.FC<PartyCardProps> = ({
   // Rank badge styling
   const getRankBadge = () => {
     if (!rank) return null;
-    let badgeClass = 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
+    let badgeClass =
+      'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400';
     if (rank === 1) {
-      badgeClass = 'bg-gradient-to-r from-amber-400 to-yellow-500 text-white shadow-sm';
+      badgeClass =
+        'bg-gradient-to-r from-amber-400 to-yellow-500 text-white shadow-sm';
     } else if (rank === 2) {
-      badgeClass = 'bg-gradient-to-r from-slate-300 to-slate-400 text-slate-900 shadow-sm';
+      badgeClass =
+        'bg-gradient-to-r from-slate-300 to-slate-400 text-slate-900 shadow-sm';
     } else if (rank === 3) {
-      badgeClass = 'bg-gradient-to-r from-amber-600 to-orange-700 text-white shadow-sm';
+      badgeClass =
+        'bg-gradient-to-r from-amber-600 to-orange-700 text-white shadow-sm';
     }
 
     return (
@@ -80,12 +84,12 @@ export const PartyCard: React.FC<PartyCardProps> = ({
         language === 'ja'
           ? 'ja-JP'
           : language === 'ko'
-          ? 'ko-KR'
-          : language === 'zh-Hant'
-          ? 'zh-TW'
-          : language === 'zh-Hans'
-          ? 'zh-CN'
-          : 'en-US',
+            ? 'ko-KR'
+            : language === 'zh-Hant'
+              ? 'zh-TW'
+              : language === 'zh-Hans'
+                ? 'zh-CN'
+                : 'en-US',
         { year: 'numeric', month: 'short', day: 'numeric' }
       );
     } catch {
@@ -106,16 +110,7 @@ export const PartyCard: React.FC<PartyCardProps> = ({
                 {party.title}
               </h3>
               <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {party.author_avatar ? (
-                  <img
-                    src={party.author_avatar}
-                    alt=""
-                    className="w-4 h-4 rounded-full object-cover"
-                  />
-                ) : (
-                  <span className="i-lucide-user text-xs" />
-                )}
-                <span className="truncate">
+                <span className="truncate font-medium text-slate-600 dark:text-slate-300">
                   {party.author_name || t('partyRanking.anonymousAuthor')}
                 </span>
                 {formattedDate && (
