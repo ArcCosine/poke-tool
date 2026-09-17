@@ -341,6 +341,9 @@
     "privacyPolicy": "Privacy Policy",
     "cookieSettings": "Cookie Settings",
     "requireCookieNotice": "Cookie acceptance is required to use login features."
+  },
+  "footer": {
+    "feedback": "Feedback & Issues (GitHub)"
   }
 }
 

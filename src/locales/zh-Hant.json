@@ -341,6 +341,9 @@
     "privacyPolicy": "隱私權政策",
     "cookieSettings": "Cookie 設定",
     "requireCookieNotice": "使用登入功能需要接受 Cookie。"
+  },
+  "footer": {
+    "feedback": "問題與建議回報 (GitHub)"
   }
 }
 

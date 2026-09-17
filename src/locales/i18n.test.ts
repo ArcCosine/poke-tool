@@ -110,6 +110,13 @@ describe('i18n Locales Master Data and Keys', () => {
     expect(zhHans.cookieConsent.accept).toBe('接受');
     expect(zhHans.cookieConsent.reject).toBe('拒绝');
     expect(zhHans.cookieConsent.cookieSettings).toBe('Cookie 设置');
+
+    // footer checks
+    expect((ja as any).footer?.feedback).toBe('ご意見・ご要望 (GitHub)');
+    expect((en as any).footer?.feedback).toBe('Feedback & Issues (GitHub)');
+    expect((ko as any).footer?.feedback).toBe('피드백 및 버그 제보 (GitHub)');
+    expect((zhHant as any).footer?.feedback).toBe('問題與建議回報 (GitHub)');
+    expect((zhHans as any).footer?.feedback).toBe('问题与建议反馈 (GitHub)');
   });
 
   it('should localize legal texts (privacy policy, disclaimer, terms of service) in Korean, Traditional Chinese, and Simplified Chinese without Japanese remnants', () => {

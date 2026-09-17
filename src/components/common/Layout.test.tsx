@@ -49,6 +49,18 @@ describe('Layout Component', () => {
     expect(screen.getByText('免責事項')).toBeTruthy();
     expect(screen.getByText('Cookie設定')).toBeTruthy();
 
+    // Verify GitHub Issues feedback link is present
+    const feedbackLink = screen.getByRole('link', {
+      name: /ご意見・ご要望/i,
+    });
+    expect(feedbackLink).toBeTruthy();
+    expect(feedbackLink.getAttribute('href')).toBe(
+      'https://github.com/ArcCosine/poke-tool/issues'
+    );
+    expect(feedbackLink.getAttribute('target')).toBe('_blank');
+    expect(feedbackLink.getAttribute('rel')).toContain('noopener');
+    expect(feedbackLink.getAttribute('rel')).toContain('noreferrer');
+
     // Verify CookieBanner is rendered
     expect(screen.getByText(/Cookieの使用について/i)).toBeTruthy();
 

@@ -140,6 +140,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
         >
           {t('cookieConsent.cookieSettings')}
         </button>
+        <span className="text-slate-300 dark:text-slate-700">|</span>
+        <a
+          href="https://github.com/ArcCosine/poke-tool/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-slate-600 dark:hover:text-slate-200 transition font-sans no-underline inline-flex items-center gap-1"
+        >
+          <span className="i-lucide-github text-xs" aria-hidden="true" />
+          {t('footer.feedback')}
+        </a>
       </footer>
 
       {/* Bottom Navigation Bar (Visible on all screen sizes) */}

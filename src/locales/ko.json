@@ -341,6 +341,9 @@
     "privacyPolicy": "개인정보 처리방침",
     "cookieSettings": "쿠키 설정",
     "requireCookieNotice": "로그인 기능을 이용하려면 쿠키 동의가 필요합니다."
+  },
+  "footer": {
+    "feedback": "피드백 및 버그 제보 (GitHub)"
   }
 }
 

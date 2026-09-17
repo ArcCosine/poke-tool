@@ -341,6 +341,9 @@
     "privacyPolicy": "プライバシーポリシー",
     "cookieSettings": "Cookie設定",
     "requireCookieNotice": "ログイン機能を利用するには、Cookieの受け入れが必要です。"
+  },
+  "footer": {
+    "feedback": "ご意見・ご要望 (GitHub)"
   }
 }
 
