@@ -104,4 +104,31 @@ describe('AuthContext', () => {
 
     expect(result.current.user).toBeNull();
   });
+
+  it('should redirect to /api/auth/google with current pathname as redirect_to on loginWithGoogle', () => {
+    const originalLocation = window.location;
+    // Mock window.location
+    delete (window as any).location;
+    (window as any).location = {
+      pathname: '/party-ranking.html',
+      search: '?reg=h',
+      href: '',
+    };
+
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AuthProvider>{children}</AuthProvider>
+    );
+
+    const { result } = renderHook(() => useAuth(), { wrapper });
+
+    act(() => {
+      result.current.loginWithGoogle();
+    });
+
+    expect(window.location.href).toBe(
+      '/api/auth/google?redirect_to=%2Fparty-ranking.html%3Freg%3Dh'
+    );
+
+    (window as any).location = originalLocation;
+  });
 });

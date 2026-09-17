@@ -72,7 +72,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [checkAuth]);
 
   const loginWithGoogle = () => {
-    window.location.href = '/api/auth/google';
+    const currentPath =
+      typeof window !== 'undefined'
+        ? window.location.pathname + window.location.search
+        : '/party-ranking.html';
+    const returnUrl = encodeURIComponent(currentPath);
+    window.location.href = `/api/auth/google?redirect_to=${returnUrl}`;
   };
 
   const loginWithX = () => {

@@ -1,4 +1,5 @@
 import { signToken } from '../../../src/utils/security';
+import { toBase64Url } from '../../_lib/auth';
 import type { PagesFunction } from '../../types';
 
 export const onRequestGet: PagesFunction = async (context) => {
@@ -11,8 +12,24 @@ export const onRequestGet: PagesFunction = async (context) => {
 
   const url = new URL(context.request.url);
   const redirectUri = `${url.origin}/api/auth/callback/google`;
-  const state = crypto.randomUUID();
-  const signedState = await signToken(state, secret);
+
+  // Validate redirectTo to prevent open redirects
+  const rawRedirect = url.searchParams.get('redirect_to');
+  let redirectTo = '/party-ranking.html';
+  if (
+    rawRedirect &&
+    rawRedirect.startsWith('/') &&
+    !rawRedirect.startsWith('//') &&
+    !rawRedirect.includes('\\')
+  ) {
+    redirectTo = rawRedirect;
+  }
+
+  const statePayload = JSON.stringify({
+    nonce: crypto.randomUUID(),
+    redirectTo,
+  });
+  const signedState = await signToken(toBase64Url(statePayload), secret);
 
   const googleAuthUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth');
   googleAuthUrl.searchParams.set('client_id', clientId);

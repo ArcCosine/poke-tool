@@ -1,5 +1,5 @@
 import { verifyToken } from '../../../../src/utils/security';
-import { createSessionCookie } from '../../../_lib/auth';
+import { createSessionCookie, fromBase64Url } from '../../../_lib/auth';
 import type { PagesFunction } from '../../../types';
 
 export const onRequestGet: PagesFunction = async (context) => {
@@ -104,12 +104,35 @@ export const onRequestGet: PagesFunction = async (context) => {
   };
   const sessionCookie = await createSessionCookie(sessionUser, secret);
 
-  // Clear state cookie & redirect to party page
+  // Parse redirectTo from verified state safely
+  let redirectTo = '/party-ranking.html';
+  try {
+    let json: string;
+    try {
+      json = fromBase64Url(verifiedState);
+    } catch {
+      json = verifiedState;
+    }
+    const parsedState = JSON.parse(json);
+    if (
+      parsedState &&
+      typeof parsedState.redirectTo === 'string' &&
+      parsedState.redirectTo.startsWith('/') &&
+      !parsedState.redirectTo.startsWith('//') &&
+      !parsedState.redirectTo.includes('\\')
+    ) {
+      redirectTo = parsedState.redirectTo;
+    }
+  } catch {
+    // Keep fallback default
+  }
+
+  // Clear state cookie & redirect to target page
   const clearStateCookie =
     'poke_oauth_state=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax; Secure';
 
   const responseHeaders = new Headers();
-  responseHeaders.set('Location', '/party.html');
+  responseHeaders.set('Location', redirectTo);
   responseHeaders.append('Set-Cookie', sessionCookie);
   responseHeaders.append('Set-Cookie', clearStateCookie);
 
