@@ -60,7 +60,11 @@ export function usePartySync({
         setHasPendingSync(true);
         setIsSyncPromptOpen(true);
       } else {
-        setPartiesDirectly(merged);
+        const normalized = merged.map((p) => ({
+          ...p,
+          userId: user.id,
+        }));
+        setPartiesDirectly(normalized);
       }
     } catch (err) {
       console.warn('Failed to check cloud parties:', err);
@@ -89,7 +93,20 @@ export function usePartySync({
       });
 
       if (res.ok) {
-        setPartiesDirectly(pendingMerged);
+        const data = await res.json();
+        const remappedIds: Record<string, string> = data.remappedIds || {};
+
+        // Update party IDs if remapped by backend, and set userId to current user
+        const finalParties = pendingMerged.map((p) => {
+          const newId = remappedIds[p.id] || p.id;
+          return {
+            ...p,
+            id: newId,
+            userId: user.id,
+          };
+        });
+
+        setPartiesDirectly(finalParties);
       }
     } catch (err) {
       console.error('Bulk sync failed:', err);

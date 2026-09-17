@@ -25,9 +25,44 @@ export const onRequestPost: PagesFunction = async (context) => {
   const db = context.env.DB;
   const now = Math.floor(Date.now() / 1000);
 
+  const validParties = parties
+    .slice(0, 50)
+    .filter((p: any) => p && p.id && p.title && p.party_data);
+
+  if (validParties.length === 0) {
+    return new Response(
+      JSON.stringify({ success: true, count: 0, remappedIds: {} }),
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // Check existing parties to detect collisions with other users
+  const placeholders = validParties.map(() => '?').join(',');
+  const ids = validParties.map((p: any) => p.id);
+  const { results: existingRows } = await db
+    .prepare(`SELECT id, user_id FROM parties WHERE id IN (${placeholders})`)
+    .bind(...ids)
+    .all<{ id: string; user_id: string }>();
+
+  const existingMap = new Map<string, string>();
+  if (Array.isArray(existingRows)) {
+    for (const row of existingRows) {
+      existingMap.set(row.id, row.user_id);
+    }
+  }
+
+  const remappedIds: Record<string, string> = {};
   const stmts = [];
-  for (const party of parties.slice(0, 50)) {
-    if (!party.id || !party.title || !party.party_data) continue;
+
+  for (const party of validParties) {
+    let partyId = party.id;
+    const existingUserId = existingMap.get(partyId);
+
+    // If ID is already owned by another user, remap to a new UUID to prevent collision and allow import
+    if (existingUserId && existingUserId !== user.id) {
+      partyId = `pty_${crypto.randomUUID()}`;
+      remappedIds[party.id] = partyId;
+    }
 
     const validUrl =
       party.article_url && isValidArticleUrl(party.article_url)
@@ -52,7 +87,7 @@ export const onRequestPost: PagesFunction = async (context) => {
           WHERE parties.user_id = excluded.user_id`
         )
         .bind(
-          party.id,
+          partyId,
           user.id,
           party.title,
           party.regulation || 'all',
@@ -72,7 +107,10 @@ export const onRequestPost: PagesFunction = async (context) => {
     await db.batch(stmts);
   }
 
-  return new Response(JSON.stringify({ success: true, count: stmts.length }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  return new Response(
+    JSON.stringify({ success: true, count: stmts.length, remappedIds }),
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
 };
