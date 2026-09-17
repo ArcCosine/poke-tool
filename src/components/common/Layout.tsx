@@ -11,7 +11,8 @@ export type PageId =
   | 'ranking'
   | 'evCalculator'
   | 'party'
-  | 'partyRanking';
+  | 'partyRanking'
+  | 'legal';
 
 interface LayoutProps {
   children: React.ReactNode;

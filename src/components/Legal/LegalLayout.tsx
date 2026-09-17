@@ -1,65 +1,18 @@
 import type React from 'react';
-import { AppProvider, useApp } from '../../context/AppContext';
-import { LanguageSelector } from '../common/LanguageSelector';
+import { AppProvider } from '../../context/AppContext';
+import { AuthProvider } from '../../context/AuthContext';
+import { Layout } from '../common/Layout';
 import 'virtual:uno.css';
 import '../../index.css';
-
-const LegalLayoutContent: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const { theme, toggleTheme } = useApp();
-
-  const handleBackToHome = () => {
-    window.location.href = '/';
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans pb-12">
-      {/* Header */}
-      <header className="border-b border-slate-200 dark:border-slate-800 p-4 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <button
-            type="button"
-            onClick={handleBackToHome}
-            className="text-xl font-bold flex items-center gap-2 cursor-pointer bg-transparent border-none text-slate-900 dark:text-slate-100 font-sans"
-          >
-            <span className="i-lucide-sword text-indigo-500" />
-            Poke-Tool
-          </button>
-
-          <div className="flex gap-3">
-            {/* Language Selector */}
-            <LanguageSelector />
-
-            {/* Theme Toggle */}
-            <button
-              type="button"
-              data-testid="theme-toggle"
-              onClick={toggleTheme}
-              className="p-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition text-sm flex items-center cursor-pointer"
-            >
-              {theme === 'dark' ? (
-                <span className="i-lucide-sun text-yellow-500" />
-              ) : (
-                <span className="i-lucide-moon text-indigo-500" />
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto p-6 md:p-12">{children}</main>
-    </div>
-  );
-};
 
 export const LegalLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
     <AppProvider>
-      <LegalLayoutContent>{children}</LegalLayoutContent>
+      <AuthProvider>
+        <Layout activePage="legal">{children}</Layout>
+      </AuthProvider>
     </AppProvider>
   );
 };

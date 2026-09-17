@@ -26,7 +26,9 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('プライバシーポリシー')).toBeDefined();
+    expect(
+      screen.getByRole('heading', { name: /プライバシーポリシー/i })
+    ).toBeDefined();
     expect(
       screen.getByText(
         /当ツール（以下「本ツール」）は、ユーザーのプライバシー情報の保護に最大限努めています。/
@@ -54,7 +56,7 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('免責事項')).toBeDefined();
+    expect(screen.getByRole('heading', { name: /免責事項/i })).toBeDefined();
     expect(
       screen.getByText(/本ツールは、任天堂株式会社、株式会社クリーチャーズ/)
     ).toBeDefined();
@@ -80,7 +82,7 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('利用規約')).toBeDefined();
+    expect(screen.getByRole('heading', { name: /利用規約/i })).toBeDefined();
     expect(screen.getByText(/本利用規約（以下「本規約」）は/)).toBeDefined();
 
     const backBtn = screen.getByRole('button', {
@@ -101,7 +103,9 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('개인정보 처리방침')).toBeDefined();
+    expect(
+      screen.getByRole('heading', { name: /개인정보 처리방침/i })
+    ).toBeDefined();
     expect(
       screen.getByText(
         /본 도구\(이하 "본 툴"\)는 사용자의 개인정보 보호를 위해 최선을 다하고 있습니다\./
@@ -120,7 +124,9 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('使用條款')).toBeDefined();
+    expect(
+      screen.getByRole('heading', { name: /使用條款/i })
+    ).toBeDefined();
     expect(
       screen.getByText(/本使用條款（以下簡稱「本條款」）旨在規範本工具使用者/)
     ).toBeDefined();
@@ -135,10 +141,34 @@ describe('Legal Pages and Layout', () => {
       </LegalLayout>
     );
 
-    expect(screen.getByText('使用条款')).toBeDefined();
+    expect(
+      screen.getByRole('heading', { name: /使用条款/i })
+    ).toBeDefined();
     expect(
       screen.getByText(/本使用条款（以下简称“本条款”）旨在规范本工具使用者/)
     ).toBeDefined();
     expect(screen.getByRole('button', { name: '返回仪表板' })).toBeDefined();
+  });
+
+  it('should render modern header with AppIcon, logo linking to /index.html, and AuthButton', () => {
+    render(
+      <LegalLayout>
+        <div>Legal Body</div>
+      </LegalLayout>
+    );
+
+    // Verify logo link goes to /index.html
+    const logoLink = screen.getByRole('link', { name: /Poke-Tool/i });
+    expect(logoLink.getAttribute('href')).toBe('/index.html');
+
+    // Verify AuthButton is present (login button or avatar)
+    const header = screen.getByRole('banner');
+    expect(header).toBeDefined();
+
+    // Verify theme toggle is present
+    expect(screen.getByTestId('theme-toggle')).toBeDefined();
+
+    // Verify sword icon is no longer used in header
+    expect(header.querySelector('.i-lucide-sword')).toBeNull();
   });
 });

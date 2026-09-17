@@ -4,7 +4,7 @@ import { LegalLayout } from '../components/Legal/LegalLayout';
 import { PrivacyPolicy } from '../components/Legal/PrivacyPolicy';
 
 const handleBack = () => {
-  window.location.href = '/';
+  window.location.href = '/index.html';
 };
 
 const rootElement = document.getElementById('root');

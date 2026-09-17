@@ -52,4 +52,24 @@ describe('Layout Component', () => {
     const header = screen.getByRole('banner');
     expect(header.querySelector('nav')).toBeNull();
   });
+
+  it('renders correctly with activePage="legal" without highlighting any tab', () => {
+    render(
+      <AppProvider>
+        <Layout activePage="legal">
+          <div>Legal Content</div>
+        </Layout>
+      </AppProvider>
+    );
+
+    expect(screen.getByText('Legal Content')).toBeTruthy();
+    expect(screen.getByText('Poke-Tool')).toBeTruthy();
+
+    // Verify none of the bottom nav links have the active style (text-indigo-600)
+    const bottomNav = screen.getByRole('navigation', {
+      name: 'Bottom Navigation',
+    });
+    const activeLinks = bottomNav.querySelectorAll('.text-indigo-600');
+    expect(activeLinks.length).toBe(0);
+  });
 });
