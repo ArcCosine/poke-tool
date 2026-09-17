@@ -161,4 +161,23 @@ describe('StatSearch Ranking Display and Filters', () => {
     fireEvent.click(checkbox);
     expect(screen.getByText('はかいこうせん')).toBeDefined();
   });
+
+  it('should render ranking table container without negative mobile margins and with rounded-2xl', async () => {
+    const { container } = render(
+      <AppProvider>
+        <StatSearch />
+      </AppProvider>
+    );
+
+    expect(await screen.findByText('フシギダネ')).toBeDefined();
+
+    const table = container.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const cardContainer = table?.closest('.card-premium');
+    expect(cardContainer).not.toBeNull();
+    expect(cardContainer?.className).not.toContain('-mx-6');
+    expect(cardContainer?.className).toContain('rounded-2xl');
+    expect(cardContainer?.className).not.toContain('rounded-none');
+  });
 });

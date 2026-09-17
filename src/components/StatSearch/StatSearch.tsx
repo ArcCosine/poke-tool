@@ -282,7 +282,7 @@ export const StatSearch: React.FC = () => {
       </div>
 
       {/* Rankings List */}
-      <div className="card-premium overflow-hidden p-0 border-x-0 sm:border border-slate-200 dark:border-slate-800 -mx-6 sm:mx-0 rounded-none sm:rounded-2xl">
+      <div className="card-premium overflow-hidden p-0 rounded-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
