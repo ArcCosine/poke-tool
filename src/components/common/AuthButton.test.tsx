@@ -38,7 +38,7 @@ describe('AuthButton component', () => {
     expect(screen.getByText('Xでログイン')).toBeDefined();
   });
 
-  it('should render user name and logout button when user is logged in', async () => {
+  it('should render user avatar icon only without user name and logout button when user is logged in', async () => {
     vi.spyOn(globalThis, 'fetch').mockImplementation((url: any) => {
       if (typeof url === 'string' && url.includes('/api/auth/me')) {
         return Promise.resolve({
@@ -63,13 +63,48 @@ describe('AuthButton component', () => {
     renderWithProviders(<AuthButton />);
 
     await waitFor(() => {
-      expect(screen.getByText('サトシ')).toBeDefined();
+      // ユーザー名のテキストは表示されないこと（スマホ幅超過防止）
+      expect(screen.queryByText('サトシ')).toBeNull();
+      // アイコン（画像アバター）が表示されること
+      const avatar = screen.getByRole('img', { name: 'サトシ' });
+      expect(avatar).toBeDefined();
+      expect(avatar.getAttribute('src')).toBe('https://example.com/avatar.png');
     });
 
-    // ログアウトボタン（テキスト付き）が表示されること
+    // ログアウトボタンが表示されること
     const logoutBtn = screen.getByRole('button', { name: /ログアウト/i });
     expect(logoutBtn).toBeDefined();
-    expect(logoutBtn.textContent).toContain('ログアウト');
+  });
+
+  it('should render fallback icon with accessible label when user has no avatarUrl', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation((url: any) => {
+      if (typeof url === 'string' && url.includes('/api/auth/me')) {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              user: {
+                id: 'usr-2',
+                name: 'カスミ',
+                avatarUrl: undefined,
+                authProvider: 'google',
+              },
+            }),
+        } as any);
+      }
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({}),
+      } as any);
+    });
+
+    renderWithProviders(<AuthButton />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('カスミ')).toBeNull();
+      const userIcon = screen.getByLabelText('カスミ');
+      expect(userIcon).toBeDefined();
+    });
   });
 
   it('should call logout and show login button when logout button is clicked', async () => {
@@ -105,7 +140,7 @@ describe('AuthButton component', () => {
     renderWithProviders(<AuthButton />);
 
     await waitFor(() => {
-      expect(screen.getByText('サトシ')).toBeDefined();
+      expect(screen.getByRole('button', { name: /ログアウト/i })).toBeDefined();
     });
 
     const logoutBtn = screen.getByRole('button', { name: /ログアウト/i });

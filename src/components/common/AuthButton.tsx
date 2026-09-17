@@ -12,30 +12,35 @@ export const AuthButton: React.FC = () => {
 
   if (user) {
     return (
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 sm:py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex items-center justify-center shrink-0">
           {user.avatarUrl ? (
             <img
               src={user.avatarUrl}
               alt={user.name}
-              className="w-5 h-5 rounded-full object-cover"
+              title={user.name}
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-xs"
             />
           ) : (
-            <span className="i-lucide-user text-xs text-indigo-500" />
+            <div
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-indigo-500 shadow-xs"
+              title={user.name}
+              aria-label={user.name}
+              role="img"
+            >
+              <span className="i-lucide-user text-sm" aria-hidden="true" />
+            </div>
           )}
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 max-w-[80px] sm:max-w-[120px] truncate">
-            {user.name}
-          </span>
         </div>
         <Button
           variant="secondary"
           icon="i-lucide-log-out"
-          className="h-8 sm:h-9 px-2.5 sm:px-3 py-1.5 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 dark:hover:border-red-800 transition"
+          className="h-7 sm:h-8 px-2 sm:px-2.5 py-1 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 dark:hover:border-red-800 transition shrink-0"
           onClick={logout}
           aria-label={t('auth.logout')}
           title={t('auth.logout')}
         >
-          <span>{t('auth.logout')}</span>
+          <span className="hidden sm:inline">{t('auth.logout')}</span>
         </Button>
       </div>
     );
