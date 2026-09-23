@@ -111,7 +111,7 @@ describe('AppContext', () => {
     );
 
     const initialId = appInstance.currentPartyId;
-    let newPartyId: string;
+    let newPartyId = '';
     act(() => {
       newPartyId = appInstance.createNewParty('パーティ2');
     });
@@ -125,6 +125,10 @@ describe('AppContext', () => {
 
     expect(appInstance.parties.length).toBe(1);
     expect(appInstance.currentPartyId).toBe(initialId);
+    const deletedIds = JSON.parse(
+      localStorage.getItem('deleted_party_ids') || '[]'
+    );
+    expect(deletedIds).toContain(newPartyId);
   });
 
   it('should handle adding pokemons and prompt for replace if full (6 members)', () => {

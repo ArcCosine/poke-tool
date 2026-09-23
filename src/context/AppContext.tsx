@@ -427,6 +427,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const deleteParty = (id: string) => {
+    // Record in deleted_party_ids to prevent resurrection during cloud sync
+    try {
+      const stored = localStorage.getItem('deleted_party_ids');
+      const deletedIds: string[] = stored ? JSON.parse(stored) : [];
+      if (!deletedIds.includes(id)) {
+        deletedIds.push(id);
+        localStorage.setItem('deleted_party_ids', JSON.stringify(deletedIds));
+      }
+    } catch (e) {
+      console.warn('Failed to record deleted party ID:', e);
+    }
+
     if (parties.length <= 1) {
       const newId = Math.random().toString(36).substring(2, 9);
       const freshParty: SavedParty = {
@@ -463,7 +475,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const updatePartyMeta = (id: string, fields: Partial<SavedParty>) => {
     setParties((prev) => {
       const next = prev.map((p) =>
-        p.id === id ? { ...p, ...fields, updatedAt: Math.floor(Date.now() / 1000) } : p
+        p.id === id
+          ? { ...p, ...fields, updatedAt: Math.floor(Date.now() / 1000) }
+          : p
       );
       localStorage.setItem('saved_parties', JSON.stringify(next));
       return next;
@@ -473,7 +487,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   const setPartiesDirectly = (newParties: SavedParty[]) => {
     setParties(newParties);
     localStorage.setItem('saved_parties', JSON.stringify(newParties));
-    if (newParties.length > 0 && !newParties.some((p) => p.id === currentPartyId)) {
+    if (
+      newParties.length > 0 &&
+      !newParties.some((p) => p.id === currentPartyId)
+    ) {
       setCurrentPartyId(newParties[0].id);
       localStorage.setItem('current_party_id', newParties[0].id);
     }

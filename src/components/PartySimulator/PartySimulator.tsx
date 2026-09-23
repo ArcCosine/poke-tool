@@ -211,10 +211,31 @@ export const PartySimulator: React.FC = () => {
   const [isSaveDialogOpen, setIsSaveDialogOpen] = useState(false);
   const [isNameValidationDialogOpen, setIsNameValidationDialogOpen] =
     useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
   const importedRef = useRef(false);
+
+  const handleDeletePartyClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDeleteParty = () => {
+    const partyToDelete = currentPartyId;
+    setIsDeleteDialogOpen(false);
+    if (!partyToDelete) return;
+
+    deleteParty(partyToDelete);
+
+    if (user) {
+      fetch(`/api/parties/${partyToDelete}`, {
+        method: 'DELETE',
+      }).catch((err) =>
+        console.warn('Failed to delete party from cloud:', err)
+      );
+    }
+  };
 
   // Restore party from URL query (?p=...) or hash (#p=...)
   useEffect(() => {
@@ -447,7 +468,7 @@ export const PartySimulator: React.FC = () => {
           onCopyPokesol={copyPokesolText}
           isCopied={copied}
           onSaveParty={saveParty}
-          onDeleteParty={() => deleteParty(currentPartyId)}
+          onDeleteParty={handleDeletePartyClick}
           hasActiveMembers={activeParty.length > 0}
         />
       </div>
@@ -975,6 +996,38 @@ export const PartySimulator: React.FC = () => {
           authorName={currentParty?.authorName || ''}
           onSave={handleSavePublishMeta}
         />
+        {/* Delete Confirmation Dialog */}
+        <Dialog
+          isOpen={isDeleteDialogOpen}
+          onClose={() => setIsDeleteDialogOpen(false)}
+          title={
+            <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+              <span className="i-lucide-trash-2 text-xl" />
+              {t('partySimulator.deleteParty')}
+            </div>
+          }
+          actions={
+            <div className="flex gap-2 justify-end w-full">
+              <Button
+                variant="secondary"
+                onClick={() => setIsDeleteDialogOpen(false)}
+              >
+                {t('common.cancel')}
+              </Button>
+              <Button
+                variant="danger"
+                icon="i-lucide-trash-2"
+                onClick={handleConfirmDeleteParty}
+              >
+                {t('partySimulator.deleteParty')}
+              </Button>
+            </div>
+          }
+        >
+          <p className="text-sm text-slate-700 dark:text-slate-300">
+            {t('partySimulator.deletePartyConfirm')}
+          </p>
+        </Dialog>
       </div>
     </div>
   );

@@ -723,4 +723,99 @@ describe('PartySimulator Pokémon Search Modal', () => {
       )
     ).toBeDefined();
   });
+
+  it('should open delete confirmation dialog and delete party on confirm', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ success: true }),
+      } as any)
+    );
+
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByText('読み込み中...')).toBeNull();
+    });
+
+    const deleteBtn = screen.getAllByRole('button', { name: /削除/i })[0];
+    fireEvent.click(deleteBtn);
+
+    // Dialog should open with confirmation text
+    expect(
+      await screen.findByText('このパーティを削除してもよろしいですか？')
+    ).toBeDefined();
+
+    // Click confirm delete button inside dialog
+    const dialog = screen.getByRole('dialog');
+    const confirmBtn = within(dialog).getByRole('button', { name: /削除/i });
+    fireEvent.click(confirmBtn);
+
+    // Dialog should be closed
+    await waitFor(() => {
+      expect(
+        screen.queryByText('このパーティを削除してもよろしいですか？')
+      ).toBeNull();
+    });
+  });
+
+  it('should call DELETE /api/parties/${id} when party is deleted and user is logged in', async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation((url: any, _init?: any) => {
+        if (typeof url === 'string' && url.includes('/api/auth/me')) {
+          return Promise.resolve({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                user: {
+                  id: 'usr_logged_in',
+                  name: 'Logged User',
+                  authProvider: 'google',
+                },
+              }),
+          } as any);
+        }
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ success: true, parties: [] }),
+        } as any);
+      });
+
+    render(
+      <AppProvider>
+        <PartySimulator />
+      </AppProvider>
+    );
+
+    await waitFor(() => {
+      expect(screen.queryByText('読み込み中...')).toBeNull();
+    });
+
+    const deleteBtn = screen.getAllByRole('button', { name: /削除/i })[0];
+    fireEvent.click(deleteBtn);
+
+    const dialog = await screen.findByRole('dialog');
+    const confirmBtn = within(dialog).getByRole('button', { name: /削除/i });
+    fireEvent.click(confirmBtn);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('このパーティを削除してもよろしいですか？')
+      ).toBeNull();
+    });
+
+    // Check that DELETE /api/parties/... was called
+    const deleteCalls = fetchSpy.mock.calls.filter(
+      ([url, init]) =>
+        typeof url === 'string' &&
+        url.startsWith('/api/parties/') &&
+        init?.method === 'DELETE'
+    );
+    expect(deleteCalls.length).toBeGreaterThanOrEqual(1);
+  });
 });

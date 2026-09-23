@@ -121,12 +121,21 @@ describe('usePartySync hook', () => {
 
     const mockSetParties = vi.fn();
     const localParties = [
-      { id: 'p1', name: 'Party From X Account', members: [], userId: 'usr_old_x' },
+      {
+        id: 'p1',
+        name: 'Party From X Account',
+        members: [],
+        userId: 'usr_old_x',
+      },
     ];
 
     const { result } = renderHook(() =>
       usePartySync({
-        user: { id: 'usr_google_new', name: 'Google User', authProvider: 'google' },
+        user: {
+          id: 'usr_google_new',
+          name: 'Google User',
+          authProvider: 'google',
+        },
         localParties,
         setPartiesDirectly: mockSetParties,
         pokemonData: [],
@@ -149,5 +158,57 @@ describe('usePartySync hook', () => {
     expect(updatedParties).toHaveLength(1);
     expect(updatedParties[0].id).toBe('p1_new_uuid');
     expect(updatedParties[0].userId).toBe('usr_google_new');
+  });
+
+  it('should filter out deleted parties recorded in deleted_party_ids and cleanup lingering cloud party', async () => {
+    localStorage.setItem('deleted_party_ids', JSON.stringify(['p_deleted']));
+
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation((url: any, _init?: any) => {
+        if (typeof url === 'string' && url === '/api/parties') {
+          return Promise.resolve({
+            ok: true,
+            json: () =>
+              Promise.resolve({
+                parties: [
+                  { id: 'p_deleted', title: 'Deleted Party', party_data: '' },
+                  { id: 'p_keep', title: 'Keep Party', party_data: '' },
+                ],
+              }),
+          } as any);
+        }
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ success: true }),
+        } as any);
+      });
+
+    const mockSetParties = vi.fn();
+    const localParties = [{ id: 'p_keep', name: 'Keep Party', members: [] }];
+
+    renderHook(() =>
+      usePartySync({
+        user: { id: 'usr_1', name: 'Test User', authProvider: 'google' },
+        localParties,
+        setPartiesDirectly: mockSetParties,
+        pokemonData: [],
+        itemsData: [],
+      })
+    );
+
+    await waitFor(() => {
+      expect(mockSetParties).toHaveBeenCalled();
+    });
+
+    const finalParties = mockSetParties.mock.calls[0][0];
+    // p_deleted must NOT be resurrected
+    expect(finalParties.some((p: any) => p.id === 'p_deleted')).toBe(false);
+    expect(finalParties.some((p: any) => p.id === 'p_keep')).toBe(true);
+
+    // DELETE request to /api/parties/p_deleted must have been sent
+    expect(fetchSpy).toHaveBeenCalledWith('/api/parties/p_deleted', {
+      method: 'DELETE',
+    });
   });
 });

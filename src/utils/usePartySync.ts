@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { AuthUser } from '../context/AuthContext';
 import type { SavedParty } from '../context/AppContext';
+import type { AuthUser } from '../context/AuthContext';
 import {
   type D1PartyRecord,
   d1RecordToParty,
@@ -48,11 +48,44 @@ export function usePartySync({
 
       const data = await res.json();
       const cloudRecords: D1PartyRecord[] = data.parties || [];
-      const cloudParties: SavedParty[] = cloudRecords.map((r) =>
+
+      // Read deleted party IDs from localStorage to prevent resurrection of deleted parties
+      let deletedIds: string[] = [];
+      try {
+        const stored = localStorage.getItem('deleted_party_ids');
+        deletedIds = stored ? JSON.parse(stored) : [];
+      } catch {
+        deletedIds = [];
+      }
+
+      // Filter out deleted parties
+      const activeCloudRecords = cloudRecords.filter(
+        (r) => !deletedIds.includes(r.id)
+      );
+      const cloudParties: SavedParty[] = activeCloudRecords.map((r) =>
         d1RecordToParty(r, pokemonData, itemsData)
       );
 
-      const { merged, toUpload } = mergeParties(localParties, cloudParties);
+      // Clean up lingering deleted parties in D1
+      const lingeringDeleted = cloudRecords.filter((r) =>
+        deletedIds.includes(r.id)
+      );
+      for (const r of lingeringDeleted) {
+        fetch(`/api/parties/${r.id}`, { method: 'DELETE' }).catch((err) =>
+          console.warn(
+            `Failed to clean up deleted party ${r.id} from cloud:`,
+            err
+          )
+        );
+      }
+
+      const activeLocalParties = localParties.filter(
+        (p) => !deletedIds.includes(p.id)
+      );
+      const { merged, toUpload } = mergeParties(
+        activeLocalParties,
+        cloudParties
+      );
 
       if (toUpload.length > 0) {
         setPendingToUpload(toUpload);
