@@ -68,6 +68,7 @@ interface AppContextProps {
   setPendingPokemonToAdd: (poke: PokemonInstance | null) => void;
   addEmptySlotToParty: () => void;
   loadSharedParty: (members: PokemonInstance[]) => void;
+  resetParties: () => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -105,6 +106,12 @@ const resolveTranslation = (obj: any, path: string): string | undefined => {
   }
   return undefined;
 };
+
+const createDefaultParty = (): SavedParty => ({
+  id: Math.random().toString(36).substring(2, 9),
+  name: 'マイチャンピオンズパーティ',
+  members: [createEmptyInstance()],
+});
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -180,11 +187,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     // Fallback default party
-    const defaultParty: SavedParty = {
-      id: Math.random().toString(36).substring(2, 9),
-      name: 'マイチャンピオンズパーティ',
-      members: [createEmptyInstance()],
-    };
+    const defaultParty = createDefaultParty();
     const list = [defaultParty];
     localStorage.setItem('saved_parties', JSON.stringify(list));
     return list;
@@ -529,6 +532,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPartyId(newId);
   }, []);
 
+  const resetParties = useCallback(() => {
+    try {
+      localStorage.removeItem('saved_parties');
+      localStorage.removeItem('current_party_id');
+      localStorage.removeItem('deleted_party_ids');
+      localStorage.removeItem('saved_party');
+    } catch (e) {
+      console.warn('Failed to clear party data from localStorage:', e);
+    }
+    const defaultParty = createDefaultParty();
+    setParties([defaultParty]);
+    setCurrentPartyId(defaultParty.id);
+    setPendingPokemonToAdd(null);
+  }, []);
+
+  useEffect(() => {
+    const handlePartiesReset = () => {
+      resetParties();
+    };
+    window.addEventListener('poke:parties-reset', handlePartiesReset);
+    return () => {
+      window.removeEventListener('poke:parties-reset', handlePartiesReset);
+    };
+  }, [resetParties]);
+
   return (
     <AppContext.Provider
       value={{
@@ -558,6 +586,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
         setPendingPokemonToAdd,
         addEmptySlotToParty,
         loadSharedParty,
+        resetParties,
       }}
     >
       <AuthProvider>{children}</AuthProvider>

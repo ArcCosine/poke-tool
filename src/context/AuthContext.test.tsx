@@ -66,13 +66,27 @@ describe('AuthContext', () => {
     });
   });
 
-  it('should handle logout by clearing user state', async () => {
+  it('should handle logout by clearing user state and resetting all party data in localStorage', async () => {
     const mockUser = {
       id: 'usr_test_123',
       name: 'サトシ',
       avatarUrl: 'https://example.com/avatar.png',
       authProvider: 'google',
     };
+
+    localStorage.setItem(
+      'saved_parties',
+      JSON.stringify([{ id: 'p1', name: 'Party 1' }])
+    );
+    localStorage.setItem('current_party_id', 'p1');
+    localStorage.setItem('deleted_party_ids', JSON.stringify(['p_deleted']));
+    localStorage.setItem(
+      'saved_party',
+      JSON.stringify({ name: 'legacy party' })
+    );
+
+    const resetListener = vi.fn();
+    window.addEventListener('poke:parties-reset', resetListener);
 
     vi.spyOn(globalThis, 'fetch')
       .mockImplementationOnce(() =>
@@ -103,6 +117,13 @@ describe('AuthContext', () => {
     });
 
     expect(result.current.user).toBeNull();
+    expect(localStorage.getItem('saved_parties')).toBeNull();
+    expect(localStorage.getItem('current_party_id')).toBeNull();
+    expect(localStorage.getItem('deleted_party_ids')).toBeNull();
+    expect(localStorage.getItem('saved_party')).toBeNull();
+    expect(resetListener).toHaveBeenCalledTimes(1);
+
+    window.removeEventListener('poke:parties-reset', resetListener);
   });
 
   it('should redirect to /api/auth/google with current pathname as redirect_to on loginWithGoogle', () => {
@@ -218,4 +239,3 @@ describe('AuthContext', () => {
     (window as any).location = originalLocation;
   });
 });
-

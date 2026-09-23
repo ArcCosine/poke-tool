@@ -172,6 +172,13 @@ describe('AuthButton component', () => {
         } as any);
       });
 
+    localStorage.setItem(
+      'saved_parties',
+      JSON.stringify([{ id: 'p1', name: 'Party 1' }])
+    );
+    localStorage.setItem('current_party_id', 'p1');
+    localStorage.setItem('deleted_party_ids', JSON.stringify(['p_deleted']));
+
     renderWithProviders(<AuthButton />);
 
     await waitFor(() => {
@@ -187,5 +194,9 @@ describe('AuthButton component', () => {
       });
       expect(screen.getByText('ログイン')).toBeDefined();
     });
+
+    expect(localStorage.getItem('saved_parties')).toBeNull();
+    expect(localStorage.getItem('current_party_id')).toBeNull();
+    expect(localStorage.getItem('deleted_party_ids')).toBeNull();
   });
 });

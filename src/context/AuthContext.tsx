@@ -1,4 +1,5 @@
-import React, {
+import type React from 'react';
+import {
   createContext,
   useCallback,
   useContext,
@@ -82,6 +83,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       console.warn('Logout request failed:', err);
     } finally {
       setUser(null);
+      try {
+        localStorage.removeItem('saved_parties');
+        localStorage.removeItem('current_party_id');
+        localStorage.removeItem('deleted_party_ids');
+        localStorage.removeItem('saved_party');
+      } catch (e) {
+        console.warn(
+          'Failed to clear party data from localStorage on logout:',
+          e
+        );
+      }
+      window.dispatchEvent(new CustomEvent('poke:parties-reset'));
     }
   }, []);
 

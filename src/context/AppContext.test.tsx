@@ -401,4 +401,77 @@ describe('AppContext', () => {
     );
     expect(totalUpdated).toBe(66);
   });
+
+  it('should reset parties to a clean single empty party when poke:parties-reset event is dispatched', () => {
+    render(
+      <AppProvider>
+        <TestComponent />
+      </AppProvider>
+    );
+
+    // Create an extra party and add a pokemon
+    act(() => {
+      appInstance.createNewParty('追加パーティ');
+    });
+    act(() => {
+      appInstance.addPokemonToPartyDirectly({
+        masterId: 1,
+        level: 50,
+        ability: 'Overgrow',
+        nature: 'Hardy',
+        item: '',
+        moves: [0, 0, 0, 0],
+        evs: {
+          hp: 0,
+          attack: 0,
+          defense: 0,
+          sp_attack: 0,
+          sp_defense: 0,
+          speed: 0,
+        },
+      });
+    });
+
+    expect(appInstance.parties.length).toBe(2);
+    expect(appInstance.partyMembers.some((m: any) => m.masterId === 1)).toBe(
+      true
+    );
+
+    // Dispatch poke:parties-reset event
+    act(() => {
+      window.dispatchEvent(new CustomEvent('poke:parties-reset'));
+    });
+
+    // Should be reset to a single clean default party
+    expect(appInstance.parties.length).toBe(1);
+    expect(appInstance.currentPartyId).toBe(appInstance.parties[0].id);
+    expect(appInstance.partyMembers.length).toBe(1);
+    expect(appInstance.partyMembers[0].masterId).toBe(0);
+    expect(localStorage.getItem('saved_parties')).toBeNull();
+  });
+
+  it('should reset parties and delete localStorage keys when resetParties() is invoked directly', () => {
+    localStorage.setItem(
+      'saved_parties',
+      JSON.stringify([{ id: 'p1', name: 'Party 1' }])
+    );
+    localStorage.setItem('current_party_id', 'p1');
+    localStorage.setItem('deleted_party_ids', JSON.stringify(['p_deleted']));
+
+    render(
+      <AppProvider>
+        <TestComponent />
+      </AppProvider>
+    );
+
+    act(() => {
+      appInstance.resetParties();
+    });
+
+    expect(appInstance.parties.length).toBe(1);
+    expect(appInstance.currentPartyId).toBe(appInstance.parties[0].id);
+    expect(localStorage.getItem('saved_parties')).toBeNull();
+    expect(localStorage.getItem('current_party_id')).toBeNull();
+    expect(localStorage.getItem('deleted_party_ids')).toBeNull();
+  });
 });
