@@ -346,8 +346,16 @@ export const StatSearch: React.FC = () => {
                         <img
                           src={`/assets/pokemon-sprites/${item.pokemon.id}.png`}
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display =
-                              'none';
+                            const target = e.target as HTMLImageElement;
+                            if (
+                              !target.src.endsWith(
+                                '/assets/pokemon-sprites/0.png'
+                              )
+                            ) {
+                              target.src = '/assets/pokemon-sprites/0.png';
+                            } else {
+                              target.style.display = 'none';
+                            }
                           }}
                           alt=""
                           className="w-full h-full object-contain select-none"

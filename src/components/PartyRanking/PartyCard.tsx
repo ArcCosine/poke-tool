@@ -149,8 +149,14 @@ export const PartyCard: React.FC<PartyCardProps> = ({
                     alt={pokeName}
                     className="w-10 h-10 object-contain"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        '/assets/pokemon-sprites/0.png';
+                      const target = e.target as HTMLImageElement;
+                      if (
+                        !target.src.endsWith('/assets/pokemon-sprites/0.png')
+                      ) {
+                        target.src = '/assets/pokemon-sprites/0.png';
+                      } else {
+                        target.style.display = 'none';
+                      }
                     }}
                     loading="lazy"
                   />

@@ -16,10 +16,14 @@ export default defineConfig({
         'apple-touch-icon.png',
         'pwa-192x192.png',
         'pwa-512x512.png',
+        'pwa-maskable-192x192.png',
+        'pwa-maskable-512x512.png',
         'ogp.png',
+        'icons.svg',
         'data/*.json',
-        'assets/type-icons/*.png',
+        'assets/type-icons/*.svg',
         'assets/categories/*.jpg',
+        'assets/pokemon-sprites/*.png',
       ],
       manifest: {
         name: 'poke-tool - ポケモンチャンピオンズ対戦分析',
@@ -79,20 +83,13 @@ export default defineConfig({
         ],
       },
       workbox: {
+        navigateFallback: null,
+        clientsClaim: true,
+        skipWaiting: true,
+        cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,svg,png,jpg,json}'],
-        globIgnores: ['**/assets/pokemon-sprites/**'],
         runtimeCaching: [
-          {
-            urlPattern: /\/assets\/pokemon-sprites\/.*\.png$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'pokemon-sprites-cache',
-              expiration: {
-                maxEntries: 500,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-              },
-            },
-          },
           {
             urlPattern: /\/data\/.*\.json$/,
             handler: 'StaleWhileRevalidate',

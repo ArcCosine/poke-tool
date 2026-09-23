@@ -329,7 +329,12 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 <img
                   src={`/assets/pokemon-sprites/${selectedPoke.id}.png`}
                   onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
+                    const target = e.target as HTMLImageElement;
+                    if (!target.src.endsWith('/assets/pokemon-sprites/0.png')) {
+                      target.src = '/assets/pokemon-sprites/0.png';
+                    } else {
+                      target.style.display = 'none';
+                    }
                   }}
                   alt={selectedPoke.name[language]}
                   className="w-14 h-14 object-contain"
@@ -449,12 +454,7 @@ export const EvCalculator: React.FC<EvCalculatorProps> = ({
                 {STAT_KEYS.map((stat) => {
                   const base = selectedPoke.base_stats[stat];
                   const ev = evs[stat];
-                  const calcStat = getCalculatedStat(
-                    stat,
-                    base,
-                    ev,
-                    nature
-                  );
+                  const calcStat = getCalculatedStat(stat, base, ev, nature);
                   const isHp = stat === 'hp';
                   const natureColor = isHp ? '' : getNatureColorClass(stat);
                   const natureSymbol = isHp ? '' : getNatureSymbol(stat);

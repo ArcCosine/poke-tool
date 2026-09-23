@@ -152,7 +152,14 @@ export const PokemonSearchModal: React.FC<PokemonSearchModalProps> = ({
                     <img
                       src={`/assets/pokemon-sprites/${poke.id}.png`}
                       onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none';
+                        const target = e.target as HTMLImageElement;
+                        if (
+                          !target.src.endsWith('/assets/pokemon-sprites/0.png')
+                        ) {
+                          target.src = '/assets/pokemon-sprites/0.png';
+                        } else {
+                          target.style.display = 'none';
+                        }
                       }}
                       alt={poke.name[language] || poke.name.ja}
                       className="w-10 h-10 object-contain shrink-0"

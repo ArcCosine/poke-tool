@@ -9,17 +9,19 @@ export const AuthButton: React.FC = () => {
   const { user, loginWithGoogle, loginWithX, logout } = useAuth();
   const { t } = useApp();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [avatarError, setAvatarError] = useState(false);
 
   if (user) {
     return (
       <div className="flex items-center gap-1.5 sm:gap-2">
         <div className="flex items-center justify-center shrink-0">
-          {user.avatarUrl ? (
+          {user.avatarUrl && !avatarError ? (
             <img
               src={user.avatarUrl}
               alt={user.name}
               title={user.name}
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-xs"
+              onError={() => setAvatarError(true)}
             />
           ) : (
             <div

@@ -26,6 +26,7 @@ describe('offline utilities', () => {
       open: vi.fn().mockResolvedValue(mockCache),
       delete: vi.fn().mockResolvedValue(true),
       has: vi.fn().mockResolvedValue(true),
+      keys: vi.fn().mockResolvedValue([SPRITES_CACHE_NAME]),
     };
 
     vi.stubGlobal('caches', mockCaches);
@@ -39,7 +40,11 @@ describe('offline utilities', () => {
   });
 
   it('should return fully cached status when all items are in cache', async () => {
-    mockCache.keys.mockResolvedValue(new Array(341).fill({ url: 'http://test.com/img.png' }));
+    mockCache.keys.mockResolvedValue(
+      Array.from({ length: 341 }, (_, i) => ({
+        url: `http://test.com/assets/pokemon-sprites/${i + 1}.png`,
+      }))
+    );
 
     const status = await getOfflineCacheStatus(341);
     expect(status.cachedCount).toBe(341);
@@ -64,6 +69,66 @@ describe('offline utilities', () => {
     expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(mockCache.put).toHaveBeenCalledTimes(3);
     expect(progressUpdates).toEqual([1, 2, 3]);
+  });
+
+  it('should load master data dynamically when pokemonIds is not provided', async () => {
+    const mockResponse = {
+      ok: true,
+      clone: () => ({ ...mockResponse }),
+    };
+    const fetchMock = vi.fn().mockResolvedValue(mockResponse);
+    vi.stubGlobal('fetch', fetchMock);
+
+    // Mock loadMasterData
+    const mockLoadMasterData = vi.fn().mockResolvedValue({
+      pokemon: [{ id: 3 }, { id: 6 }, { id: 10008 }],
+      moves: [],
+      items: [],
+    });
+
+    await downloadAllOfflineData(undefined, undefined, mockLoadMasterData, {
+      includeCommonAssets: false,
+    });
+
+    expect(mockLoadMasterData).toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/3.png');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/6.png');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/10008.png');
+    expect(mockCache.put).toHaveBeenCalledTimes(3);
+  });
+
+  it('should cache all pokemon sprites, 0.png, type icons, category icons, and pwa icons when downloading all offline data', async () => {
+    const mockResponse = {
+      ok: true,
+      clone: () => ({ ...mockResponse }),
+    };
+    const fetchMock = vi.fn().mockResolvedValue(mockResponse);
+    vi.stubGlobal('fetch', fetchMock);
+
+    const mockLoadMasterData = vi.fn().mockResolvedValue({
+      pokemon: [{ id: 3 }, { id: 10049 }],
+      moves: [],
+      items: [],
+    });
+
+    await downloadAllOfflineData(undefined, undefined, mockLoadMasterData);
+
+    // Verify pokemon sprites
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/3.png');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/10049.png');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/pokemon-sprites/0.png');
+
+    // Verify type icons
+    expect(fetchMock).toHaveBeenCalledWith('/assets/type-icons/fire.svg');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/type-icons/water.svg');
+
+    // Verify category icons
+    expect(fetchMock).toHaveBeenCalledWith('/assets/categories/physical.jpg');
+    expect(fetchMock).toHaveBeenCalledWith('/assets/categories/special.jpg');
+
+    // Verify PWA icons
+    expect(fetchMock).toHaveBeenCalledWith('/favicon.svg');
+    expect(fetchMock).toHaveBeenCalledWith('/pwa-192x192.png');
   });
 
   it('should clear offline sprites cache successfully', async () => {

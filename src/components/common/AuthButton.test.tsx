@@ -107,6 +107,41 @@ describe('AuthButton component', () => {
     });
   });
 
+  it('should fall back to icon when avatar image fails to load', async () => {
+    vi.spyOn(globalThis, 'fetch').mockImplementation((url: any) => {
+      if (typeof url === 'string' && url.includes('/api/auth/me')) {
+        return Promise.resolve({
+          ok: true,
+          json: () =>
+            Promise.resolve({
+              user: {
+                id: 'usr-1',
+                name: 'サトシ',
+                avatarUrl: 'https://example.com/avatar.png',
+                authProvider: 'google',
+              },
+            }),
+        } as any);
+      }
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({}),
+      } as any);
+    });
+
+    renderWithProviders(<AuthButton />);
+
+    const avatar = await screen.findByRole('img', { name: 'サトシ' });
+    expect(avatar.tagName).toBe('IMG');
+
+    fireEvent.error(avatar);
+
+    await waitFor(() => {
+      const fallback = screen.getByLabelText('サトシ');
+      expect(fallback.tagName).toBe('DIV');
+    });
+  });
+
   it('should call logout and show login button when logout button is clicked', async () => {
     let currentUser: any = {
       id: 'usr-1',

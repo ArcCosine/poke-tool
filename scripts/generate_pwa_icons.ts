@@ -18,6 +18,7 @@ async function generatePwaIcons() {
     { name: 'pwa-maskable-192x192.png', size: 192 },
     { name: 'pwa-maskable-512x512.png', size: 512 },
     { name: 'apple-touch-icon.png', size: 180 },
+    { name: 'assets/pokemon-sprites/0.png', size: 96 },
   ];
 
   console.log('Generating PWA icons from favicon.svg...');
@@ -29,7 +30,9 @@ async function generatePwaIcons() {
       .toFile(outputPath);
 
     const stats = fs.statSync(outputPath);
-    console.log(`Generated ${target.name} (${target.size}x${target.size}, ${(stats.size / 1024).toFixed(1)} KB)`);
+    console.log(
+      `Generated ${target.name} (${target.size}x${target.size}, ${(stats.size / 1024).toFixed(1)} KB)`
+    );
   }
 }
 

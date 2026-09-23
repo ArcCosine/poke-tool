@@ -484,8 +484,16 @@ export const PartySimulator: React.FC = () => {
                             <img
                               src={`/assets/pokemon-sprites/${currentPoke.id}.png`}
                               onError={(e) => {
-                                (e.target as HTMLImageElement).style.display =
-                                  'none';
+                                const target = e.target as HTMLImageElement;
+                                if (
+                                  !target.src.endsWith(
+                                    '/assets/pokemon-sprites/0.png'
+                                  )
+                                ) {
+                                  target.src = '/assets/pokemon-sprites/0.png';
+                                } else {
+                                  target.style.display = 'none';
+                                }
                               }}
                               alt={currentPoke.name[language]}
                               className="w-12 h-12 object-contain"
