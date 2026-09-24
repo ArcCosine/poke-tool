@@ -18,7 +18,7 @@ describe('Layout Component', () => {
 
     // Check that navigation links exist with correct hrefs
     const rankingLinks = screen.getAllByRole('link', {
-      name: /火力・耐久検索|statSearch/i,
+      name: /火力・耐久|statSearch/i,
     });
     expect(
       rankingLinks.some((l) => l.getAttribute('href') === '/ranking.html')
@@ -41,6 +41,12 @@ describe('Layout Component', () => {
     expect(partyLinks.length).toBeGreaterThan(0);
     expect(
       partyLinks.some((l) => l.getAttribute('href') === '/party.html')
+    ).toBe(true);
+
+    const usefulLinks = screen.getAllByRole('link', { name: /リンク集/i });
+    expect(usefulLinks.length).toBeGreaterThan(0);
+    expect(
+      usefulLinks.some((l) => l.getAttribute('href') === '/links.html')
     ).toBe(true);
 
     // Verify legal footer links are present

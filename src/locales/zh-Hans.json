@@ -176,6 +176,7 @@
   "dashboardDesc": "欢迎使用 Poke-Tool！本工具支持宝可梦冠军赛的对战数据分析与队伍配置模拟。",
   "statSearchDesc": "提供固定等级50时物理耐久、特殊耐久与最大火力指数的排名及详细搜索。",
   "partySimulatorDesc": "分析队伍的属性相性、弱点一致性、攻击打击面覆盖率以及对战规则适应性。",
+  "dashboardLinksDesc": "精选有助于宝可梦培育、对战考察与环境调查的官方与社区网站链接。",
   "partySaved": "队伍已保存！",
   "defaultPartyName": "我的冠军队伍",
   "hp": "HP",
@@ -209,7 +210,8 @@
     "statSearch": "火力・耐久",
     "partySimulator": "队伍编成",
     "partyRanking": "队伍排行",
-    "evCalculator": "努力值调整"
+    "evCalculator": "努力值调整",
+    "links": "链接集"
   },
   "stats": {
     "hp": "HP",
@@ -344,6 +346,23 @@
   },
   "footer": {
     "feedback": "问题与建议反馈 (GitHub)"
+  },
+  "links": {
+    "title": "宝可梦攻略链接集",
+    "subtitle": "汇总有助于宝可梦培育、对战策略、环境调查及机制确认的官方与社区代表性网站。",
+    "categories": {
+      "official": "官方资讯",
+      "damageCalculator": "伤害计算工具",
+      "strategy": "对战考察与培育论Wiki",
+      "metagame": "环境分析、大赛与队伍构建文章",
+      "database": "综合数据库与百科全书"
+    },
+    "languages": {
+      "ja": "日文",
+      "en": "英文",
+      "ko": "韩文",
+      "zhHant": "繁体字",
+      "zhBoth": "繁体字/简体字"
+    }
   }
 }
-

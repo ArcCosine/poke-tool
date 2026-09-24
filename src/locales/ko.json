@@ -176,6 +176,7 @@
   "dashboardDesc": "Poke-Tool에 오신 것을 환영합니다! 본 툴은 포켓몬 챔피언스 배틀 데이터 분석 및 파티 시뮬레이션을 지원합니다.",
   "statSearchDesc": "레벨 50 고정 시 물리 내구, 특수 내구, 최대 화력 지수 랭킹 및 상세 검색을 제공합니다.",
   "partySimulatorDesc": "파티의 상성 및 약점 일관성, 공격 범위 커버율, 레귤레이션 적합성을 분석합니다.",
+  "dashboardLinksDesc": "포켓몬 육성, 대전 고찰, 환경 조사에 유용한 공식 및 커뮤니티 사이트 모음입니다.",
   "partySaved": "파티를 저장했습니다!",
   "defaultPartyName": "마이 챔피언스 파티",
   "hp": "HP",
@@ -209,7 +210,8 @@
     "statSearch": "화력・내구",
     "partySimulator": "파티 편성",
     "partyRanking": "구축 랭킹",
-    "evCalculator": "노력치 조정"
+    "evCalculator": "노력치 조정",
+    "links": "링크 모음"
   },
   "stats": {
     "hp": "HP",
@@ -344,6 +346,23 @@
   },
   "footer": {
     "feedback": "피드백 및 버그 제보 (GitHub)"
+  },
+  "links": {
+    "title": "포켓몬 공략 링크 모음",
+    "subtitle": "포켓몬 육성, 대전 전략, 환경 조사 및 데이터 확인에 유용한 공식 및 커뮤니티 대표 웹사이트 모음입니다.",
+    "categories": {
+      "official": "공식 정보",
+      "damageCalculator": "데미지 계산기",
+      "strategy": "대전 고찰 및 육성론 Wiki",
+      "metagame": "환경 분석, 대회 및 파티 구축 글",
+      "database": "종합 데이터베이스 및 백과사전"
+    },
+    "languages": {
+      "ja": "일본어",
+      "en": "영어",
+      "ko": "한국어",
+      "zhHant": "번체자",
+      "zhBoth": "번체자/간체자"
+    }
   }
 }
-

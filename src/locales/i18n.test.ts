@@ -164,8 +164,12 @@ describe('i18n Locales Master Data and Keys', () => {
     // Japanese
     expect(ja.legal.privacyPolicyText).toMatch(/アカウント|OAuth/);
     expect(ja.legal.privacyPolicyText).toContain('Cookie');
-    expect(ja.legal.privacyPolicyText).toMatch(/受け入れるか拒否するか|ゲストモード/);
-    expect(ja.legal.disclaimerText).toMatch(/ユーザー投稿|公開パーティ|ランキング/);
+    expect(ja.legal.privacyPolicyText).toMatch(
+      /受け入れるか拒否するか|ゲストモード/
+    );
+    expect(ja.legal.disclaimerText).toMatch(
+      /ユーザー投稿|公開パーティ|ランキング/
+    );
     expect(ja.legal.disclaimerText).toMatch(/Cookieの拒否/);
     expect(ja.legal.termsOfServiceText).toMatch(/ランキング|スコア/);
     expect(ja.legal.termsOfServiceText).toMatch(/Cookie/);
@@ -192,7 +196,9 @@ describe('i18n Locales Master Data and Keys', () => {
     expect(zhHant.legal.privacyPolicyText).toMatch(/帳號|OAuth/);
     expect(zhHant.legal.privacyPolicyText).toContain('Cookie');
     expect(zhHant.legal.privacyPolicyText).toMatch(/接受或拒絕|訪客模式/);
-    expect(zhHant.legal.disclaimerText).toMatch(/使用者生成內容|公開隊伍|排行榜/);
+    expect(zhHant.legal.disclaimerText).toMatch(
+      /使用者生成內容|公開隊伍|排行榜/
+    );
     expect(zhHant.legal.disclaimerText).toMatch(/拒絕 Cookie/);
     expect(zhHant.legal.termsOfServiceText).toMatch(/排行榜|分數/);
     expect(zhHant.legal.termsOfServiceText).toMatch(/Cookie/);
@@ -207,4 +213,3 @@ describe('i18n Locales Master Data and Keys', () => {
     expect(zhHans.legal.termsOfServiceText).toMatch(/Cookie/);
   });
 });
-

@@ -176,6 +176,7 @@
   "dashboardDesc": "Poke-Toolへようこそ！このツールはポケモンチャンピオンズ向けのデータ分析とパーティシミュレーションをサポートします。",
   "statSearchDesc": "レベル50固定時の物理耐久、特殊耐久、最大火力指数のランキングと詳細検索を行います。",
   "partySimulatorDesc": "パーティの相性・弱点の一貫性、攻撃範囲のカバー率、レギュレーションの適合性を分析します。",
+  "dashboardLinksDesc": "育成・対戦考察・環境調査に役立つ公式・有志サイトのリンク集です。",
   "partySaved": "パーティを保存しました！",
   "defaultPartyName": "マイチャンピオンズパーティ",
   "hp": "HP",
@@ -209,7 +210,8 @@
     "statSearch": "火力・耐久",
     "partySimulator": "パーティ編成",
     "partyRanking": "構築ランキング",
-    "evCalculator": "努力値計算"
+    "evCalculator": "努力値計算",
+    "links": "リンク集"
   },
   "stats": {
     "hp": "HP",
@@ -344,6 +346,23 @@
   },
   "footer": {
     "feedback": "ご意見・ご要望 (GitHub)"
+  },
+  "links": {
+    "title": "ポケモン攻略リンク集",
+    "subtitle": "ポケモンの育成・対戦考察・環境調査・仕様確認に役立つ公式・有志の代表的Webサイト一覧です。",
+    "categories": {
+      "official": "公式情報",
+      "damageCalculator": "ダメージ計算ツール",
+      "strategy": "対戦考察・育成論Wiki",
+      "metagame": "環境分析・大会・構築記事",
+      "database": "総合データベース・百科事典"
+    },
+    "languages": {
+      "ja": "日本語",
+      "en": "英語",
+      "ko": "韓国語",
+      "zhHant": "繁体字",
+      "zhBoth": "繁体字/簡体字"
+    }
   }
 }
-

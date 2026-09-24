@@ -13,7 +13,8 @@ export type PageId =
   | 'evCalculator'
   | 'party'
   | 'partyRanking'
-  | 'legal';
+  | 'legal'
+  | 'links';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -35,7 +36,7 @@ const navItems: {
   {
     id: 'ranking',
     href: '/ranking.html',
-    labelKey: 'statSearch.title',
+    labelKey: 'nav.statSearch',
     icon: 'i-lucide-trending-up',
   },
   {
@@ -55,6 +56,12 @@ const navItems: {
     href: '/party-ranking.html',
     labelKey: 'nav.partyRanking',
     icon: 'i-lucide-trophy',
+  },
+  {
+    id: 'links',
+    href: '/links.html',
+    labelKey: 'nav.links',
+    icon: 'i-lucide-compass',
   },
 ];
 
@@ -131,6 +138,13 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
           {t('termsOfService')}
         </a>
         <span className="text-slate-300 dark:text-slate-700">|</span>
+        <a
+          href="/links.html"
+          className="hover:text-slate-600 dark:hover:text-slate-200 transition font-sans no-underline"
+        >
+          {t('nav.links')}
+        </a>
+        <span className="text-slate-300 dark:text-slate-700">|</span>
         <button
           type="button"
           onClick={() => {
@@ -157,7 +171,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
         aria-label="Bottom Navigation"
         className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800"
       >
-        <div className="max-w-md md:max-w-lg mx-auto flex justify-around items-center">
+        <div className="max-w-lg md:max-w-xl mx-auto flex justify-around items-center">
           {navItems.map((item) => {
             const isActive = activePage === item.id;
             return (
