@@ -49,6 +49,14 @@ describe('Layout Component', () => {
       usefulLinks.some((l) => l.getAttribute('href') === '/links.html')
     ).toBe(true);
 
+    // Verify bottom navigation labels use responsive font size for single-line mobile display
+    const navLabelSpans = bottomNav.querySelectorAll('span.tracking-tight');
+    expect(navLabelSpans.length).toBeGreaterThan(0);
+    for (const span of navLabelSpans) {
+      expect(span.className).toContain('text-[8.5px]');
+      expect(span.className).toContain('sm:text-[10px]');
+    }
+
     // Verify legal footer links are present
     expect(screen.getByText('利用規約')).toBeTruthy();
     expect(screen.getAllByText('プライバシーポリシー').length).toBeGreaterThan(0);

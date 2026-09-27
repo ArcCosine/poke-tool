@@ -185,7 +185,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, activePage }) => {
                 }`}
               >
                 <span className={`${item.icon} text-xl mb-1`} />
-                <span className="text-[10px] tracking-tight">
+                <span className="text-[8.5px] sm:text-[10px] tracking-tight">
                   {t(item.labelKey)}
                 </span>
               </a>
